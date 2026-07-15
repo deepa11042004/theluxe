@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Vera";
+  src: url("/my-app/public/Font/VeraHumana95.8c80f68b.woff2") format("woff2");
+}

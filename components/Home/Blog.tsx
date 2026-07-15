@@ -1,0 +1,105 @@
+"use client";
+
+import React from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { ExternalLink } from "lucide-react";
+import Link from "next/link";
+
+const BLOG_POSTS = [
+  {
+    id: 1,
+    tag: "The Luxe Yatra Press",
+    title: "A Dram of One's Own: Private Distillery Tours",
+    image:
+      "https://images.unsplash.com/photo-1760943013869-65a30a4fafd1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJpdmF0ZSUyMGRlc3RpbmF0aW9ufGVufDB8fDB8fHww",
+    link: "#",
+  },
+  {
+    id: 2,
+    tag: "The Luxe Yatra Press",
+    title:
+      "How The Luxe Yatra Offers Luxury Travelers Access to Private Estates",
+    image:
+      "https://images.unsplash.com/photo-1544085311-11a028465b03?auto=format&fit=crop&w=800&q=80",
+    link: "#",
+  },
+  {
+    id: 3,
+    tag: "The Luxe Yatra Press",
+    title: "Seven Great Hidden Island Escapes to Rent This Summer",
+    image:
+      "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=800&q=80",
+    link: "#",
+  },
+];
+
+export default function Blog() {
+  return (
+    <section className="bg-white py-24 px-6 sm:px-12 lg:px-16 w-full overflow-hidden select-none">
+      <div className="max-w-7xl mx-auto">
+        {/* 1. Header Block: Centered Text with View All link aligned to right */}
+        <div className="relative flex flex-col items-center mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl lg:text-6xl font-[Vera] text-black text-center"
+          >
+            Blogs
+          </motion.h2>
+
+          <div className="absolute right-0 bottom-1 md:bottom-2">
+            <Link
+              href="/blogs"
+              className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-black uppercase border-b border-black pb-1 hover:opacity-60 transition"
+            >
+              View All
+            </Link>
+          </div>
+        </div>
+
+        {/* 2. Blog Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+          {BLOG_POSTS.map((post, index) => (
+            <motion.div
+              key={post.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.15, duration: 0.8 }}
+              className="group cursor-pointer flex flex-col bg-white border border-neutral-200/50 shadow-sm hover:shadow-md transition-shadow duration-300"
+            >
+              {/* Image Container */}
+              <div className="relative aspect-16/11 w-full overflow-hidden">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  sizes="(max-w-768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+
+              {/* Content Area */}
+              <div className="p-6 md:p-8 flex flex-col grow">
+                {/* Meta Row: Tag and External Icon */}
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-[10px] md:text-xs font-sans tracking-widest text-neutral-500 uppercase">
+                    {post.tag}
+                  </span>
+                  <ExternalLink className="w-4 h-4 text-neutral-400 group-hover:text-neutral-900 transition-colors" />
+                </div>
+
+                {/* Title */}
+                <h3 className="text-xl md:text-2xl font-serif text-black leading-tight group-hover:text-neutral-600 transition-colors">
+                  {post.title}
+                </h3>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
