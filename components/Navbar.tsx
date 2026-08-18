@@ -70,16 +70,16 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-5 left-0 right-0 z-99 px-6 py-4 flex items-center justify-between max-w-7xl mx-auto w-full pointer-events-none">
+      <header className="fixed top-5 left-0 right-0 z-99 py-6 flex items-center justify-center max-w-7xl mx-auto w-full pointer-events-auto bg-white/75 backdrop-blur-lg rounded-full shadow-md border border-white/50">
         {/* 1. Brand Text - Outside the cylinder shape at current position (top left) */}
-        <div className="flex items-center z-50 pointer-events-auto">
+        <div className="absolute left-4 lg:left-6 flex items-center z-50 pointer-events-auto">
           <Link
             href="/"
-            className="flex items-center group transition-transform duration-200 hover:scale-105"
+            className="flex items-center group transition-transform duration-200 hover:scale-105 shrink"
           >
-            <div className="relative h-6 w-44 md:w-52">
+            <div className="relative h-5 w-32 lg:h-5 lg:w-36 xl:h-5 xl:w-44 2xl:h-6 2xl:w-52">
               <Image
-                src={isDarkPage ? "/Img/logo-text-white.png" : "/Img/logo-text.png"}
+                src="/Img/logo-text.png"
                 alt="The Luxe Yatra"
                 fill
                 className="object-contain object-left drop-shadow-sm"
@@ -93,7 +93,7 @@ export default function Navbar() {
         <motion.div
           layout
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="hidden lg:flex bg-white rounded-full px-4 xl:px-5 py-2 items-center shadow-lg border border-white/20 h-14 pointer-events-auto mx-auto shrink-0"
+          className="hidden lg:flex px-2 xl:px-3 2xl:px-5 py-2 items-center h-14 pointer-events-auto mx-auto shrink-0"
         >
           <AnimatePresence mode="wait">
             {!isSearchOpen ? (
@@ -104,26 +104,33 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 5 }}
                 transition={{ duration: 0.2 }}
-                className="flex items-center gap-2 xl:gap-3.5 text-xs xl:text-sm font-medium text-gray-700"
+                className="flex items-center gap-1 xl:gap-2 2xl:gap-3.5 text-[13px] xl:text-sm 2xl:text-base font-medium text-gray-700"
               >
                 {/* Left Side Links */}
                 <Link
                   href="/resorts"
-                  className="hover:text-black transition-colors px-2 py-1 whitespace-nowrap"
+                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
                 >
                   Resorts
                 </Link>
 
                 <Link
                   href="/itinerary"
-                  className="hover:text-black transition-colors px-2 py-1 whitespace-nowrap"
+                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
                 >
                   Itinerary
                 </Link>
 
+                <Link
+                  href="/brands"
+                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap font-medium"
+                >
+                  Brands
+                </Link>
+
                 {/* Experiences Dropdown */}
-                <div className="relative group cursor-pointer flex items-center gap-1 hover:text-black transition-colors px-2 py-1 whitespace-nowrap">
-                  <Link href="/experiences" className="flex items-center gap-1">
+                <div className="relative group cursor-pointer flex items-center gap-1 hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap">
+                  <Link href="/experiences" className="flex items-center gap-0.5 xl:gap-1">
                     <span>Experiences</span>
                     <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
                   </Link>
@@ -174,18 +181,12 @@ export default function Navbar() {
                 </Link>
 
                 {/* Right Side Links */}
-                <Link
-                  href="/brands"
-                  className="hover:text-black transition-colors px-2 py-1 whitespace-nowrap font-medium"
-                >
-                  Brands
-                </Link>
 
                 <Link
                   href="/clubelevate"
-                  className="hover:text-black transition-colors px-2 py-1 font-semibold flex items-center gap-1 whitespace-nowrap"
+                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 font-semibold flex items-center gap-1 whitespace-nowrap"
                 >
-                  <span className="bg-black text-white h-4.5 w-4.5 flex justify-center items-center rounded-full text-[10px] tracking-wider">
+                  <span className="bg-black text-white h-4 w-4 xl:h-4.5 xl:w-4.5 flex justify-center items-center rounded-full text-[9px] xl:text-[10px] tracking-wider">
                     C
                   </span>
                   Club Elevate
@@ -193,25 +194,26 @@ export default function Navbar() {
 
                 <Link
                   href="/blogs"
-                  className="hover:text-black transition-colors px-2 py-1 whitespace-nowrap"
+                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
                 >
                   Blog
                 </Link>
 
                 <Link
                   href="/login"
-                  className="hover:text-black transition-colors px-2 py-1 whitespace-nowrap"
+                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
                 >
-                  Member Login
+                  <span className="hidden 2xl:inline">Member Login</span>
+                  <span className="2xl:hidden">Login</span>
                 </Link>
 
-                {/* Search Toggle Trigger */}
                 <button
                   onClick={() => setIsSearchOpen(true)}
-                  className="p-1.5 hover:bg-gray-100 rounded-full transition-colors ml-0.5 cursor-pointer"
+                  className="flex items-center gap-1.5 px-2 py-1 hover:bg-gray-100 rounded-full transition-colors ml-0.5 cursor-pointer text-gray-700 hover:text-black whitespace-nowrap"
                   aria-label="Open Search"
                 >
-                  <Search className="w-4 h-4 text-gray-600" />
+                  <Search className="w-3.5 h-3.5" />
+                  <span className="font-medium">Search</span>
                 </button>
               </motion.nav>
             ) : (
@@ -245,14 +247,14 @@ export default function Navbar() {
         </motion.div>
 
         {/* 3. Action Button (Join Keystone / Agent Hub with Arrow) */}
-        <div className="hidden lg:flex items-center gap-4 z-50 pointer-events-auto">
+        <div className="hidden lg:flex items-center z-50 pointer-events-auto absolute right-4 lg:right-6">
           <Link
             href="/join"
-            className="bg-black hover:bg-white text-white hover:text-black rounded-full px-6 py-3 text-sm font-medium tracking-wide shadow-md transition-all flex items-center gap-2 group whitespace-nowrap"
+            className="bg-black hover:bg-white text-white hover:text-black rounded-full px-3 py-2 xl:px-4 xl:py-2.5 2xl:px-6 2xl:py-3 text-[12px] xl:text-sm 2xl:text-base font-medium tracking-wide shadow-md transition-all flex items-center gap-1 xl:gap-2 group whitespace-nowrap"
           >
             <span>Join Club Elevate</span>
             <div className="bg-white p-0.5 rounded-full group-hover:bg-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-              <ArrowUpRight className="w-3 h-3 text-black group-hover:text-white" />
+              <ArrowUpRight className="w-2.5 h-2.5 xl:w-3 xl:h-3 text-black group-hover:text-white" />
             </div>
           </Link>
         </div>
