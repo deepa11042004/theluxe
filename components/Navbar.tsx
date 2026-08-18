@@ -35,8 +35,18 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isExperiencesOpen, setIsExperiencesOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
+
+  // Scroll detection for header text contrast
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -55,58 +65,67 @@ export default function Navbar() {
     return null;
   }
 
+  const isDarkPage =
+    pathname === "/" || pathname === "/clubelevate" || pathname === "/join";
+
   return (
     <>
       <header className="fixed top-5 left-0 right-0 z-99 px-6 py-4 flex items-center justify-between max-w-7xl mx-auto w-full pointer-events-none">
-        {/* 1. Brand Logo - Styled from Image 1 / Image 2 blend */}
+        {/* 1. Brand Text - Outside the cylinder shape at current position (top left) */}
+        <div className="flex items-center z-50 pointer-events-auto">
+          <Link
+            href="/"
+            className="flex items-center group transition-transform duration-200 hover:scale-105"
+          >
+            <div className="relative h-6 w-44 md:w-52">
+              <Image
+                src={isDarkPage ? "/Img/logo-text-white.png" : "/Img/logo-text.png"}
+                alt="The Luxe Yatra"
+                fill
+                className="object-contain object-left drop-shadow-sm"
+                priority
+              />
+            </div>
+          </Link>
+        </div>
 
-        {/* 2. Floating Capsule Navbar Container */}
+        {/* 2. Floating Capsule Navbar Container with Logo in the Middle */}
         <motion.div
           layout
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="hidden lg:flex bg-white/90 backdrop-blur-md rounded-full px-3 py-2 items-center shadow-lg border border-white/20 w-full justify-between mx-4 h-14 pointer-events-auto"
+          className="hidden lg:flex bg-white rounded-full px-4 xl:px-5 py-2 items-center shadow-lg border border-white/20 h-14 pointer-events-auto mx-auto shrink-0"
         >
           <AnimatePresence mode="wait">
             {!isSearchOpen ? (
-              // NORMAL TABS STATE (Links from Image 1)
+              // NORMAL TABS STATE WITH LOGO IN THE MIDDLE
               <motion.nav
                 key="nav-links"
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 5 }}
                 transition={{ duration: 0.2 }}
-                className="flex items-center justify-between w-full text-sm font-medium text-gray-700 px-3"
+                className="flex items-center gap-2 xl:gap-3.5 text-xs xl:text-sm font-medium text-gray-700"
               >
-                <Link href="/">
-                  <div className="relative h-15 w-60 rounded-2xl mr-5">
-                    <Image
-                      src="/Img/fulllogo.png"
-                      alt="The Luxe Yatra Logo"
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                </Link>
-
+                {/* Left Side Links */}
                 <Link
                   href="/resorts"
-                  className="hover:text-black transition-colors px-3 py-1"
+                  className="hover:text-black transition-colors px-2 py-1 whitespace-nowrap"
                 >
                   Resorts
                 </Link>
 
                 <Link
                   href="/itinerary"
-                  className="hover:text-black transition-colors px-3 py-1"
+                  className="hover:text-black transition-colors px-2 py-1 whitespace-nowrap"
                 >
                   Itinerary
                 </Link>
 
                 {/* Experiences Dropdown */}
-                <div className="relative group cursor-pointer flex items-center gap-1 hover:text-black transition-colors px-3 py-1">
+                <div className="relative group cursor-pointer flex items-center gap-1 hover:text-black transition-colors px-2 py-1 whitespace-nowrap">
                   <Link href="/experiences" className="flex items-center gap-1">
                     <span>Experiences</span>
-                    <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                    <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
                   </Link>
                   {/* Dropdown Menu Container */}
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 ease-out z-50">
@@ -133,11 +152,40 @@ export default function Navbar() {
                   </div>
                 </div>
 
+                {/* Logo in the Middle of Navbar */}
+                <Link
+                  href="/"
+                  className="mx-3 xl:mx-4 flex items-center justify-center group relative z-50 shrink-0"
+                  aria-label="The Luxe Yatra Home"
+                >
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-neutral-100/50 flex items-center justify-center h-20 w-20 md:h-22 md:w-22 transition-transform duration-300 group-hover:scale-105">
+                    <div className="relative h-13 w-13 md:h-15 md:w-15">
+                      <Image
+                        src="/Img/logo-emblem.png"
+                        alt="The Luxe Yatra Logo"
+                        fill
+                        className="object-contain"
+                        priority
+                      />
+                    </div>
+                  </div>
+                  {/* Invisible spacer to maintain gap in flex layout */}
+                  <div className="w-14 md:w-16 h-1"></div>
+                </Link>
+
+                {/* Right Side Links */}
+                <Link
+                  href="/brands"
+                  className="hover:text-black transition-colors px-2 py-1 whitespace-nowrap font-medium"
+                >
+                  Brands
+                </Link>
+
                 <Link
                   href="/clubelevate"
-                  className="hover:text-black transition-colors px-3 py-1 font-semibold flex items-center gap-1"
+                  className="hover:text-black transition-colors px-2 py-1 font-semibold flex items-center gap-1 whitespace-nowrap"
                 >
-                  <span className="bg-black text-white h-[2vw] w-[2vw] flex justify-center items-center rounded-full text-sm tracking-wider">
+                  <span className="bg-black text-white h-4.5 w-4.5 flex justify-center items-center rounded-full text-[10px] tracking-wider">
                     C
                   </span>
                   Club Elevate
@@ -145,13 +193,14 @@ export default function Navbar() {
 
                 <Link
                   href="/blogs"
-                  className="hover:text-black transition-colors px-3 py-1"
+                  className="hover:text-black transition-colors px-2 py-1 whitespace-nowrap"
                 >
                   Blog
                 </Link>
+
                 <Link
                   href="/login"
-                  className="hover:text-black transition-colors px-3 py-1"
+                  className="hover:text-black transition-colors px-2 py-1 whitespace-nowrap"
                 >
                   Member Login
                 </Link>
@@ -159,20 +208,20 @@ export default function Navbar() {
                 {/* Search Toggle Trigger */}
                 <button
                   onClick={() => setIsSearchOpen(true)}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors ml-2"
+                  className="p-1.5 hover:bg-gray-100 rounded-full transition-colors ml-0.5 cursor-pointer"
                   aria-label="Open Search"
                 >
-                  <Search className="w-5 h-5 text-gray-600" />
+                  <Search className="w-4 h-4 text-gray-600" />
                 </button>
               </motion.nav>
             ) : (
-              // SEARCH EXPANDED STATE (Animation from Image 3)
+              // SEARCH EXPANDED STATE
               <motion.div
                 key="search-input"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex items-center w-full px-3"
+                className="flex items-center w-full px-3 min-w-[340px] md:min-w-[480px]"
               >
                 <div className="p-2 bg-gray-100 rounded-full mr-3">
                   <Search className="w-5 h-5 text-gray-500" />
@@ -185,7 +234,7 @@ export default function Navbar() {
                 />
                 <button
                   onClick={() => setIsSearchOpen(false)}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors ml-2"
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors ml-2 cursor-pointer"
                   aria-label="Close Search"
                 >
                   <X className="w-5 h-5 text-gray-500" />
@@ -340,6 +389,16 @@ export default function Navbar() {
                       </motion.div>
                     )}
                   </AnimatePresence>
+                </motion.div>
+
+                <motion.div variants={itemVariants}>
+                  <Link
+                    href="/brands"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="hover:text-black transition-colors"
+                  >
+                    Brands
+                  </Link>
                 </motion.div>
 
                 <motion.div variants={itemVariants}>
