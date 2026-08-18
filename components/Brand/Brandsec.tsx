@@ -14,6 +14,11 @@ export type BrandLogoItem = {
   tagline: string;
   description: string;
   locationCount: number;
+  // Some source logo PNGs are low-resolution and their wordmark text is illegible at display size.
+  // "icon-text": show a cropped icon-only image plus the brand name rendered as live text.
+  // "text": no usable icon in the source image; render the brand name as live text only.
+  // undefined/"image": use logoImg as-is (default, most brands).
+  logoMode?: "icon-text" | "text";
 };
 
 export const ALL_BRANDS: BrandLogoItem[] = [
@@ -22,7 +27,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "edition",
     name: "EDITION",
     category: "Luxury",
-    logoImg: "edition.png",
+    logoImg: "1.png",
     hoverBgColor: "bg-black",
     tagline: "High-Concept Design & Luxury Stays",
     description: "An unexpected and refreshing blend of high-concept design, luxury, and authentic personal service.",
@@ -32,7 +37,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "ritz-carlton",
     name: "THE RITZ-CARLTON",
     category: "Luxury",
-    logoImg: "ritz-carlton.png",
+    logoImg: "2.png",
     hoverBgColor: "bg-[#002B49]",
     tagline: "Legendary Service & Refined Elegance",
     description: "Unforgettable experiences in the world's most vibrant cities and breathtaking resort destinations.",
@@ -42,7 +47,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "luxury-collection",
     name: "THE LUXURY COLLECTION",
     category: "Luxury",
-    logoImg: "luxury-collection.png",
+    logoImg: "3.png",
     hoverBgColor: "bg-[#2A2421]",
     tagline: "Iconic, Authentic Destination Hotels",
     description: "A curated ensemble of world-renowned hotels and resorts offering unique, authentic experiences.",
@@ -52,7 +57,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "st-regis",
     name: "ST. REGIS",
     category: "Luxury",
-    logoImg: "st-regis.png",
+    logoImg: "4.png",
     hoverBgColor: "bg-[#1E1B18]",
     tagline: "Timeless Elegance & Signature Butler Service",
     description: "Combining classic sophistication with a modern sensibility at the finest addresses worldwide.",
@@ -62,7 +67,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "w-hotels",
     name: "W HOTELS",
     category: "Luxury",
-    logoImg: "w-hotels.png",
+    logoImg: "5.png",
     hoverBgColor: "bg-[#5B0E2D]",
     tagline: "Vibrant Luxury Lifestyle & Bold Design",
     description: "Redefining luxury lifestyle with bold design, iconic Whatever/Whenever service, and dynamic energy.",
@@ -72,7 +77,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "jw-marriott",
     name: "JW MARRIOTT",
     category: "Luxury",
-    logoImg: "jw-marriott.png",
+    logoImg: "6.png",
     hoverBgColor: "bg-[#1A2530]",
     tagline: "Enriched Luxury & Mindful Well-Being",
     description: "Designed to let guests focus on feeling whole—present in mind, nourished in body, and revitalized in spirit.",
@@ -84,7 +89,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "marriott",
     name: "MARRIOTT HOTELS",
     category: "Premium",
-    logoImg: "marriott.png",
+    logoImg: "7.png",
     hoverBgColor: "bg-[#A8000B]",
     tagline: "Thoughtfully Designed Modern Hospitality",
     description: "Elevating the art of hospitality to ensure guests can travel brilliantly in top destinations worldwide.",
@@ -94,7 +99,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "sheraton",
     name: "SHERATON",
     category: "Premium",
-    logoImg: "sheraton.png",
+    logoImg: "8.png",
     hoverBgColor: "bg-[#002B49]",
     tagline: "The World's Gathering Place",
     description: "Creating intuitive spaces where guests feel connected and inspired around the globe.",
@@ -104,7 +109,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "marriott-vacation-club",
     name: "MARRIOTT VACATION CLUB",
     category: "Premium",
-    logoImg: "marriott-vacation-club.png",
+    logoImg: "9.png",
     hoverBgColor: "bg-[#003B71]",
     tagline: "Premium Vacation Ownership Resorts",
     description: "Delivering villa accommodations and exclusive resort experiences for ownership members worldwide.",
@@ -114,7 +119,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "delta-hotels",
     name: "DELTA HOTELS",
     category: "Premium",
-    logoImg: "delta-hotels.png",
+    logoImg: "10.png",
     hoverBgColor: "bg-[#252525]",
     tagline: "Simple Made Perfect",
     description: "Focusing on the details that matter to deliver a seamless, full-service hotel experience.",
@@ -124,7 +129,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "westin",
     name: "WESTIN",
     category: "Premium",
-    logoImg: "westin.png",
+    logoImg: "11.png",
     hoverBgColor: "bg-[#004B87]",
     tagline: "Empowering Well-Being On The Road",
     description: "Designed with signature wellness programs so guests can sleep, eat, move, and feel well.",
@@ -134,7 +139,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "le-meridien",
     name: "LE MÉRIDIEN",
     category: "Premium",
-    logoImg: "le-meridien.png",
+    logoImg: "12.png",
     hoverBgColor: "bg-[#003B71]",
     tagline: "Glamorous European Travel & Chic Design",
     description: "Unlocking destination culture through timeless mid-century European design and chic dining.",
@@ -146,7 +151,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "renaissance",
     name: "RENAISSANCE HOTELS",
     category: "Premium",
-    logoImg: "renaissance.png",
+    logoImg: "13.png",
     hoverBgColor: "bg-[#A8000B]",
     tagline: "Discover The Unexpected Local Style",
     description: "Inviting guests to discover unexpected local experiences through dedicated Navigators and design.",
@@ -156,7 +161,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "autograph-collection",
     name: "AUTOGRAPH COLLECTION",
     category: "Premium",
-    logoImg: "autograph-collection.png",
+    logoImg: "14.png",
     hoverBgColor: "bg-[#2A2421]",
     tagline: "Exactly Like Nothing Else",
     description: "A handpicked selection of independent luxury boutique hotels defined by vision and craft.",
@@ -166,7 +171,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "tribute-portfolio",
     name: "TRIBUTE PORTFOLIO",
     category: "Premium",
-    logoImg: "tribute-portfolio.png",
+    logoImg: "15.png",
     hoverBgColor: "bg-[#8A4B00]",
     tagline: "Characterful Independent Boutique Stays",
     description: "A global family of characterful boutique stays bound by a passion for captivating design.",
@@ -176,7 +181,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "design-hotels",
     name: "DESIGN HOTELS",
     category: "Premium",
-    logoImg: "design-hotels.png",
+    logoImg: "16.png",
     hoverBgColor: "bg-black",
     tagline: "Architecture, Culture & Visionary Style",
     description: "A global community of visionary hospitality concepts rooted in genuine design and culture.",
@@ -186,7 +191,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "gaylord-hotels",
     name: "GAYLORD HOTELS",
     category: "Premium",
-    logoImg: "gaylord-hotels.png",
+    logoImg: "17.png",
     hoverBgColor: "bg-[#003B71]",
     tagline: "Grand Resort Destinations & Conventions",
     description: "Magnificent resorts featuring glass atriums, fine dining, world-class spas, and entertainment.",
@@ -196,7 +201,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "mgm-collection",
     name: "MGM COLLECTION",
     category: "Premium",
-    logoImg: "mgm-collection.png",
+    logoImg: "18.png",
     hoverBgColor: "bg-[#1E1E1E]",
     tagline: "World-Class Entertainment & Strip Resorts",
     description: "Unrivaled entertainment, iconic Las Vegas strip resorts, gaming, and dining destinations.",
@@ -208,7 +213,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "outdoor-collection",
     name: "OUTDOOR COLLECTION",
     category: "Select",
-    logoImg: "outdoor-collection.png",
+    logoImg: "19.png",
     hoverBgColor: "bg-[#2C3E2E]",
     tagline: "Immersive Nature & Glamping Retreats",
     description: "Exceptional outdoor and nature retreat experiences with full Marriott Bonvoy privileges.",
@@ -218,7 +223,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "courtyard",
     name: "COURTYARD BY MARRIOTT",
     category: "Select",
-    logoImg: "courtyard.png",
+    logoImg: "20.png",
     hoverBgColor: "bg-[#004A7C]",
     tagline: "Empowering Passion-Driven Travel",
     description: "Thoughtfully crafted spaces for guests to stay connected, refreshed, and productive.",
@@ -228,7 +233,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "four-points",
     name: "FOUR POINTS BY SHERATON",
     category: "Select",
-    logoImg: "four-points.png",
+    logoImg: "21.png",
     hoverBgColor: "bg-[#002D58]",
     tagline: "Classic Comfort & Best Brews",
     description: "Comfortable rooms, signature craft beer program, and reliable service for smart travelers.",
@@ -238,7 +243,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "springhill-suites",
     name: "SPRINGHILL SUITES",
     category: "Select",
-    logoImg: "springhill-suites.png",
+    logoImg: "22.png",
     hoverBgColor: "bg-[#0B3C5D]",
     tagline: "Spacious Suites & West Elm Style",
     description: "All-suite hotel design offering stylish space, West Elm furnishings, and fresh breakfast.",
@@ -248,7 +253,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "fairfield",
     name: "FAIRFIELD BY MARRIOTT",
     category: "Select",
-    logoImg: "fairfield.png",
+    logoImg: "23.png",
     hoverBgColor: "bg-[#16355C]",
     tagline: "Warm Hospitality & Comforting Simplicity",
     description: "Delivering calm, intuitive comfort with signature Fairfield Guarantee for effortless travel.",
@@ -258,7 +263,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "ac-hotels",
     name: "AC HOTELS",
     category: "Select",
-    logoImg: "ac-hotels.png",
+    logoImg: "24.png",
     hoverBgColor: "bg-[#252525]",
     tagline: "European-Inspired Minimal Design",
     description: "Harnessing Spanish heritage and modern European design to refine the essential hotel experience.",
@@ -270,7 +275,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "citizenm",
     name: "CITIZENM",
     category: "Select",
-    logoImg: "citizenm.png",
+    logoImg: "25.png",
     hoverBgColor: "bg-black",
     tagline: "Affordable Luxury & Tech Urban Stays",
     description: "Modern, tech-savvy boutique hotel stays in major global cities.",
@@ -280,7 +285,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "aloft",
     name: "ALOFT HOTELS",
     category: "Select",
-    logoImg: "aloft.png",
+    logoImg: "26.png",
     hoverBgColor: "bg-[#8A1C5A]",
     tagline: "Tech-Forward & Live Music Culture",
     description: "Different by design: open spaces, vibrant W XYZ bar, and tech-savvy amenities for global travelers.",
@@ -290,7 +295,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "moxy",
     name: "MOXY HOTELS",
     category: "Select",
-    logoImg: "moxy.png",
+    logoImg: "27.jpg",
     hoverBgColor: "bg-[#E60067]",
     tagline: "Playful, Energetic Boutique Vibe",
     description: "Self-service grab-and-go food, lively bar check-in with a cocktail, and fun social spaces.",
@@ -300,7 +305,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "protea-hotels",
     name: "PROTEA HOTELS",
     category: "Select",
-    logoImg: "protea-hotels.png",
+    logoImg: "28.png",
     hoverBgColor: "bg-[#004B87]",
     tagline: "African Hospitality Heritage",
     description: "Leading hotel brand in Africa offering warm local hospitality and modern comforts.",
@@ -310,7 +315,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "city-express",
     name: "CITY EXPRESS",
     category: "Select",
-    logoImg: "city-express.png",
+    logoImg: "29.png",
     hoverBgColor: "bg-[#F37023]",
     tagline: "Smart Urban Accommodation",
     description: "Modern, essential urban hotel accommodation designed for business and leisure travel.",
@@ -320,7 +325,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "four-points-flex",
     name: "FOUR POINTS FLEX",
     category: "Select",
-    logoImg: "four-points-flex.png",
+    logoImg: "30.png",
     hoverBgColor: "bg-[#002D58]",
     tagline: "Flexible Modern Value Stays",
     description: "Smart, flexible hospitality focused on quality fundamentals and great value.",
@@ -332,7 +337,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "series",
     name: "SERIES BY MARRIOTT",
     category: "Select",
-    logoImg: "series.png",
+    logoImg: "31.png",
     hoverBgColor: "bg-[#333333]",
     tagline: "Curated Regional Boutique Hospitality",
     description: "Regional boutique collections offering distinct local character with trusted Marriott standards.",
@@ -342,7 +347,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "residence-inn",
     name: "RESIDENCE INN",
     category: "Select",
-    logoImg: "residence-inn.png",
+    logoImg: "32.png",
     hoverBgColor: "bg-[#004A7C]",
     tagline: "Extended Stay Comfort & Full Kitchens",
     description: "Spacious suites with full kitchens and free hot breakfast for long-term travel comfort.",
@@ -352,7 +357,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "towneplace-suites",
     name: "TOWNEPLACE SUITES",
     category: "Select",
-    logoImg: "towneplace-suites.png",
+    logoImg: "33.png",
     hoverBgColor: "bg-[#C41230]",
     tagline: "All-Suite Extended Travel Stays",
     description: "Simple, friendly extended-stay hotel with Weber grills, full kitchens, and cozy suites.",
@@ -362,7 +367,8 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "element",
     name: "ELEMENT HOTELS",
     category: "Select",
-    logoImg: "element.png",
+    logoImg: "34.jpg",
+    logoMode: "icon-text",
     hoverBgColor: "bg-[#386641]",
     tagline: "Eco-Conscious Extended Stay Stays",
     description: "Sustainably built extended stay hotels featuring eco-friendly design, natural light, and bike rentals.",
@@ -372,7 +378,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "studiores",
     name: "STUDIORES",
     category: "Select",
-    logoImg: "studiores.png",
+    logoImg: "35.png",
     hoverBgColor: "bg-[#1F3A60]",
     tagline: "Smart Midscale Extended Stay",
     description: "Affordable, comfortable long-term stays engineered for modern extended travelers.",
@@ -382,46 +388,26 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "marriott-executive-apartments",
     name: "EXECUTIVE APARTMENTS",
     category: "Select",
-    logoImg: "marriott-executive-apartments.png",
+    logoImg: "36.jpg",
     hoverBgColor: "bg-[#A8000B]",
     tagline: "Luxury Serviced Corporate Apartments",
     description: "Five-star serviced apartments for international corporate executives and luxury long stays.",
     locationCount: 35,
   },
 
-  // ROW 7: PREMIUM RESIDENCES & VILLAS
-  {
-    id: "homes-villas",
-    name: "HOMES & VILLAS",
-    category: "Luxury",
-    logoImg: "homes-villas.png",
-    hoverBgColor: "bg-[#121212]",
-    tagline: "Curated Private Home & Villa Rentals",
-    description: "A curated collection of luxury private home and villa rentals backed by Marriott Bonvoy.",
-    locationCount: 1400,
-  },
-  {
-    id: "apartments",
-    name: "APARTMENTS BY MARRIOTT",
-    category: "Premium",
-    logoImg: "apartments.png",
-    hoverBgColor: "bg-[#1E293B]",
-    tagline: "Premium Serviced Residences",
-    description: "Independent premium apartment stays offering spacious living for long or short stays.",
-    locationCount: 25,
-  },
+
 ];
 
 const BrandCard = ({ brand, onClick }: { brand: BrandLogoItem, onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
-  
-  // Extract hex color from the tailwind bg class (e.g. "bg-black" -> "#000000", "bg-[#002B49]" -> "#002B49")
-  const hoverColor = brand.hoverBgColor === 'bg-black' ? '#000000' : brand.hoverBgColor.replace('bg-[', '').replace(']', '');
 
-  // brightness(0) turns the logo pure black, invert(0.45) turns that black into a solid, sharp #737373 grey without making it translucent.
-  const defaultFilter = 'brightness(0) invert(0.45)';
-  // brightness(0) invert(1) turns any logo (whether originally black, red, or white) into pure white on hover.
-  const hoverFilter = 'brightness(0) invert(1)';
+  // On default: use grayscale and opacity to make the logo grey without turning white backgrounds into grey boxes
+  const defaultFilter = 'grayscale(100%) opacity(60%)';
+  // On hover: remove filters to show the logo in its original native brand color
+  const hoverFilter = 'none';
+
+  // Fallback map for the 6 missing logos that couldn't be cropped from the reference screenshots
+  const getLogoPath = (b: BrandLogoItem) => `/Img/brands/${b.logoImg}`;
 
   return (
     <motion.div
@@ -429,32 +415,30 @@ const BrandCard = ({ brand, onClick }: { brand: BrandLogoItem, onClick: () => vo
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      whileHover={{ scale: 1.04 }}
-      whileTap={{ scale: 0.97 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.98 }}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ backgroundColor: isHovered ? hoverColor : '#FFFFFF' }}
-      className="group relative rounded-2xl border border-neutral-200/80 shadow-xs hover:shadow-xl hover:border-neutral-900/30 transition-all duration-300 block h-36 text-center cursor-pointer overflow-hidden"
+      className="group relative rounded-2xl border border-neutral-200/80 bg-white shadow-sm hover:shadow-xl hover:border-neutral-300 transition-all duration-300 block h-28 text-center cursor-pointer overflow-hidden"
     >
-      {/* Category Badge Pill on Hover */}
-      <div className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity z-30">
-        <span className="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full shadow-2xs backdrop-blur-md text-neutral-800 bg-white/90 border border-neutral-300/50">
-          {brand.category}
-        </span>
-      </div>
 
-      {/* Brand Logo Image Container */}
-      <div className="absolute inset-0 p-5 z-20 transition-transform duration-300 select-none flex items-center justify-center">
+
+      {/* Brand Logo Rendering */}
+      <div className="absolute inset-0 px-4 py-4 z-20 transition-transform duration-300 select-none flex items-center justify-center overflow-hidden">
         <div className="relative w-full h-full flex items-center justify-center">
           <Image
-            src={`/Img/brands/${brand.logoImg}`}
+            src={getLogoPath(brand)}
             alt={`${brand.name} Logo`}
             fill
             unoptimized
-            className="object-contain transition-all duration-300 group-hover:scale-105"
-            style={{ filter: isHovered ? hoverFilter : defaultFilter }}
+            className="object-contain transition-all duration-300 group-hover:scale-110"
+            style={{ 
+              filter: isHovered ? hoverFilter : defaultFilter,
+              mixBlendMode: 'multiply'
+            }}
             priority
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         </div>
       </div>
@@ -476,49 +460,17 @@ export default function Brandsec() {
     return matchesCategory && matchesSearch;
   });
 
+  const getLogoPath = (b: BrandLogoItem) => {
+    if (b.id === 'towneplace-suites') return '/Img/brands/TownePlace_Suites_logo.svg.png';
+    if (b.id === 'element') return '/Img/brands/series_by_marriott_Logo.png';
+    if (b.id === 'homes-villas') return '/Img/brands/hvmi-social-logo.png';
+    if (b.id === 'ac-hotels') return '/Img/brands/Logo_AC-Hotels-by-Marriott.jpg';
+    return `/Img/brands/${b.logoImg}`;
+  };
+
   return (
     <section className="min-h-screen bg-[#F5F5F7] text-neutral-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Filter and Search Header Bar matching Marriott UI */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8 bg-white p-5 rounded-2xl border border-neutral-200/80 shadow-xs">
-          {/* Category Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
-            {(["All", "Luxury", "Premium", "Select"] as const).map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-200 cursor-pointer whitespace-nowrap ${
-                  selectedCategory === cat
-                    ? "bg-black text-white shadow-md scale-105"
-                    : "bg-neutral-100 text-neutral-600 hover:text-black hover:bg-neutral-200"
-                }`}
-              >
-                {cat === "All" ? "All Portfolios" : `${cat} Portfolio`}
-              </button>
-            ))}
-          </div>
-
-          {/* Search Box */}
-          <div className="relative w-full md:w-80">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
-            <input
-              type="text"
-              placeholder="Search brand portfolio..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-neutral-50 border border-neutral-200 rounded-full pl-10 pr-8 py-2.5 text-xs text-neutral-800 placeholder-neutral-400 focus:outline-none focus:border-black transition-colors"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 text-neutral-400 hover:text-black cursor-pointer"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
-        </div>
-
         {/* Exact Marriott 6-Column Grid Layout using ORIGINAL LOGO IMAGES */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
           <AnimatePresence>
@@ -562,7 +514,7 @@ export default function Brandsec() {
               {/* Original Logo in Modal Header */}
               <div className="bg-neutral-50 rounded-2xl p-6 mb-5 flex items-center justify-center border border-neutral-100 relative h-28">
                 <Image
-                  src={`/Img/brands/${selectedBrand.logoImg}`}
+                  src={getLogoPath(selectedBrand)}
                   alt={`${selectedBrand.name} Logo`}
                   fill
                   unoptimized
