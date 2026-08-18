@@ -52,7 +52,7 @@ export default function Home() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center pt-20 sm:pt-28 pb-8 sm:pb-12"
+        className="relative z-10 grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center pt-32 sm:pt-40 pb-8 sm:pb-12"
       >
 
 
