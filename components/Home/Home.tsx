@@ -32,19 +32,19 @@ const itemVariants: Variants = {
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-full bg-neutral-950 text-white overflow-hidden flex flex-col">
+    <main className="relative min-h-screen w-full bg-white text-black overflow-hidden flex flex-col">
       {/* 1. Background Image */}
-      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+      <div className="absolute inset-0 z-0 select-none pointer-events-none bg-white">
         <Image
           src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=2000&q=80"
           alt="Luxury Vacation Background"
           fill
           priority
           quality={90}
-          className="object-cover object-center brightness-[0.35]"
+          className="object-cover object-center opacity-80"
         />
         {/* Vignette & Bottom shading overlay */}
-        <div className="absolute inset-0 bg-linear-to-b from-neutral-950/40 via-transparent to-neutral-950" />
+        <div className="absolute inset-0 bg-white/20" />
       </div>
 
       {/* 3. Hero Content Section */}
@@ -59,10 +59,10 @@ export default function Home() {
         {/* Hero Headlines */}
         <motion.h1
           variants={itemVariants}
-          className="text-5xl md:text-6xl lg:text-8xl font-[Vera] tracking-tight text-white max-w-4xl leading-tight md:leading-tightest"
+          className="text-5xl md:text-6xl lg:text-8xl font-[Vera] tracking-tight text-black max-w-4xl leading-tight md:leading-tightest"
         >
           Discover Your Next <br className="hidden sm:block" />
-          <span className="bg-linear-to-r from-cyan-400 via-white to-cyan-500 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-cyan-500 via-cyan-700 to-cyan-500 bg-clip-text text-transparent">
             Dream Vacation
           </span>
         </motion.h1>
@@ -70,7 +70,7 @@ export default function Home() {
         {/* Subtitle */}
         <motion.p
           variants={itemVariants}
-          className="text-sm md:text-lg lg:text-xl text-white/90 max-w-2xl font-medium mt-3 sm:mt-4 mb-6 sm:mb-10 leading-relaxed px-2"
+          className="text-sm md:text-lg lg:text-xl text-black/80 max-w-2xl font-medium mt-3 sm:mt-4 mb-6 sm:mb-10 leading-relaxed px-2"
         >
           Explore luxury boutique resorts and tailored holiday experiences.
         </motion.p>
@@ -83,16 +83,16 @@ export default function Home() {
           className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 px-2"
         >
           {[
-            { icon: Flame, label: "Trending", color: "text-white" },
-            { icon: Sparkles, label: "Luxury", color: "text-amber-400" },
-            { icon: Percent, label: "Deals", color: "text-emerald-400" },
+            { icon: Flame, label: "Trending", color: "text-black" },
+            { icon: Sparkles, label: "Luxury", color: "text-amber-600" },
+            { icon: Percent, label: "Deals", color: "text-emerald-600" },
           ].map(({ icon: Icon, label, color }) => (
             <button
               key={label}
-              className="flex items-center gap-1.5 sm:gap-2 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1.5 sm:px-4 sm:py-1.5 text-[10px] sm:text-xs text-white hover:bg-black/70 transition border border-white/10 active:scale-[0.98]"
+              className="flex items-center gap-1.5 sm:gap-2 bg-white/50 backdrop-blur-sm rounded-full px-3 py-1.5 sm:px-4 sm:py-1.5 text-[10px] sm:text-xs text-black hover:bg-white/80 transition border border-black/10 active:scale-[0.98]"
             >
               <Icon className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${color}`} />
-              <span className="truncate">{label}</span>
+              <span className="truncate font-medium">{label}</span>
             </button>
           ))}
         </motion.div>
