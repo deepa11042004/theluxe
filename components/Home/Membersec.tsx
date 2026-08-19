@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
 import { CheckCircle2, ShieldCheck, Star } from "lucide-react";
 
-//  Benefit Data Types
+// Benefit Data Types
 const BENEFITS = [
   "7N/8D holidays every year",
   "Large premium rooms",
@@ -16,45 +17,92 @@ const BENEFITS = [
   "Easy exit, no questions asked",
 ];
 
-// Membership Cards Data Types
+// Membership Cards Data Types (Taj Epicure Inspired Luxury Membership Passes)
 const MEMBERSHIPS = [
   {
-    title: "EBONY",
-    subtitle: "Your year-round access to unforgettable family gateways",
-    bgClass: "bg-black text-white border-neutral-800",
-    lineColor: "#fff",
+    id: "platinum",
+    title: "PLATINUM",
+    tagline: "domestic",
+    displayName: "Luxe Platinum",
+    price: "₹ 12,999",
+    taxText: "plus taxes",
+    cardBg: "bg-gradient-to-br from-[#374151] via-[#1F2937] to-[#111827] text-white",
+    watermarkColor: "#9CA3AF",
+    subtitle: "7N/8D domestic holidays every year across 46 weeks",
     benefits: [
-      "7N/8D holidays every year across 52 weeks",
+      "7N/8D domestic holidays every year across 46 weeks",
       "Complimentary breakfast for 2 per room per night, up to 10 years",
-      "Priority access to signature experiences",
-      "Access to international resorts",
+      "Priority access to signature domestic resorts",
+      "Dedicated member concierge support",
     ],
   },
   {
-    title: "IVORY",
-    subtitle: "Experience destinations during the peak of their popularity",
-    bgClass: "bg-[#EAE6DD] text-neutral-900 border-[#DCD7CD]",
-    lineColor: "#000",
+    id: "diamond",
+    title: "DIAMOND",
+    tagline: "worldwide",
+    displayName: "Luxe Diamond",
+    price: "₹ 19,999",
+    taxText: "plus taxes",
+    cardBg: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white",
+    watermarkColor: "#60A5FA",
+    subtitle: "7N/8D worldwide holidays every year across 52 weeks",
     benefits: [
-      "7N/8D holidays every year across 46 weeks",
+      "7N/8D worldwide holidays every year across 52 weeks",
       "Complimentary breakfast for 2 per room per night, up to 10 years",
-      "Priority access to signature experiences",
-      "Access to international resorts",
+      "Priority access to global signature experiences",
+      "Access to 140+ international & domestic resorts",
     ],
   },
   {
-    title: "JADE",
-    subtitle: "Enjoy your favourite destinations during quieter seasons",
-    bgClass: "bg-[#165B54] text-white border-[#1B6B63]",
-    lineColor: "#fff",
+    id: "imperial",
+    title: "IMPERIAL",
+    tagline: "lifetime",
+    displayName: "Luxe Imperial",
+    price: "₹ 49,999",
+    taxText: "one-time lifetime",
+    cardBg: "bg-gradient-to-br from-[#7F1D1D] via-[#6B1717] to-[#450A0A] text-white",
+    watermarkColor: "#F87171",
+    subtitle: "Lifetime unlimited global access & VIP privileges",
     benefits: [
-      "7N/8D holidays every year across 24 weeks",
+      "Lifetime unlimited global & domestic access",
       "Complimentary breakfast for 2 per room per night, up to 10 years",
-      "Priority access to signature experiences",
-      "Access to international resorts",
+      "Maximum savings, VIP upgrades & dedicated concierge",
+      "Access to all 140+ luxury hotel & resort networks",
     ],
   },
 ];
+
+function MandalaPattern() {
+  return (
+    <svg
+      viewBox="0 0 200 200"
+      className="w-72 h-72 stroke-[#E5C158]/70 fill-none stroke-[1.2] pointer-events-none"
+    >
+      <circle cx="100" cy="100" r="85" />
+      <circle cx="100" cy="100" r="65" />
+      <circle cx="100" cy="100" r="45" />
+      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
+        <g key={deg} transform={`rotate(${deg} 100 100)`}>
+          <ellipse cx="100" cy="55" rx="14" ry="32" />
+          <polygon points="100,15 108,35 100,55 92,35" />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function LuxeLogoEmblem() {
+  return (
+    <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-3 relative flex items-center justify-center rounded-full bg-white p-1 shadow-md border border-[#E5C158]/50">
+      <Image
+        src="/Img/logo-emblem.png"
+        alt="The Luxe Yatra Logo"
+        fill
+        className="object-contain p-0.5"
+      />
+    </div>
+  );
+}
 
 export default function Membersec() {
   return (
@@ -115,117 +163,94 @@ export default function Membersec() {
         </div>
       </div>
 
-      {/* SECTION 2: MEMBERSHIP PLANS (3D TILT CARDS) */}
+      {/* SECTION 2: MEMBERSHIP TYPES & CARDS (TAJ EPICURE STYLE) */}
       <div className="bg-white text-black py-20 px-6 w-full border-t border-neutral-200/60">
         <div className="max-w-7xl mx-auto text-center">
-          <h3 className="text-2xl md:text-5xl font-[Vera] tracking-tight text-black mb-5">
-            Your Key to Unlock Privileged Experiences
+          <h3 className="text-2xl md:text-5xl font-[Vera] tracking-tight text-black mb-4 uppercase">
+            Membership Types
           </h3>
-          <p className="text-neutral-600 text-xs md:text-sm font-medium tracking-wide mb-14 uppercase">
-            Select from <span className="text-black font-bold">Ebony</span>,{" "}
-            <span className="text-neutral-900 font-bold">Ivory</span>, and{" "}
-            <span className="text-[#165B54] font-bold">Jade</span> Keys and
-            enter a world of seamless vacations
+          <p className="text-neutral-500 text-xs md:text-sm font-medium tracking-widest mb-14 uppercase">
+            Select your preferred membership tier below to enter a world of seamless vacations
           </p>
 
-          {/* Cards Flex Grid Wrapper */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-14">
+          {/* Taj Epicure Membership Card Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-14">
             {MEMBERSHIPS.map((card, idx) => (
-              <TiltCard key={idx} card={card} />
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.15 }}
+                className="flex flex-col text-left group"
+              >
+                {/* 1. PHYSICAL MEMBERSHIP CARD */}
+                <div
+                  className={`relative w-full aspect-[1.55/1] rounded-[1.75rem] p-6 md:p-8 flex flex-col justify-between items-center text-center overflow-hidden shadow-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-300 select-none ${card.cardBg}`}
+                >
+                  {/* Watermark Mandala Pattern in Top Right */}
+                  <div className="absolute -top-10 -right-10 pointer-events-none opacity-35">
+                    <MandalaPattern />
+                  </div>
+
+                  <div />
+
+                  {/* Center Branding */}
+                  <div className="relative z-10 flex flex-col items-center">
+                    <LuxeLogoEmblem />
+                    <h4 className="text-2xl md:text-3xl font-[Vera] tracking-[0.25em] font-bold text-[#E5C158] uppercase drop-shadow-sm">
+                      {card.title}
+                    </h4>
+                  </div>
+
+                  {/* Bottom Right Script Tagline */}
+                  <div className="w-full flex justify-end relative z-10">
+                    <span className="font-[serif] italic text-lg md:text-xl text-[#E5C158]/90 tracking-widest lowercase">
+                      {card.tagline}
+                    </span>
+                  </div>
+                </div>
+
+                {/* 2. CARD DETAILS & ENROL BUTTON BELOW */}
+                <div className="mt-5 flex items-start justify-between gap-4 px-1">
+                  <div>
+                    <h4 className="text-lg font-bold text-neutral-900 tracking-tight font-[Vera]">
+                      {card.displayName}
+                    </h4>
+                    <div className="flex items-baseline gap-1.5 mt-1">
+                      <span className="text-xl font-extrabold font-[Vera] text-neutral-900">
+                        {card.price}
+                      </span>
+                      <span className="text-xs text-neutral-500 font-medium">
+                        {card.taxText}
+                      </span>
+                    </div>
+                  </div>
+
+                  <a
+                    href="/clubelevate"
+                    className="bg-[#B38E46] hover:bg-[#997734] active:scale-95 text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-sm transition duration-200 shadow-sm whitespace-nowrap shrink-0 cursor-pointer"
+                  >
+                    ENROL NOW
+                  </a>
+                </div>
+
+                {/* 3. INCLUDED BENEFITS LIST BELOW CARD */}
+                <div className="mt-4 pt-4 border-t border-neutral-100 px-1">
+                  <ul className="space-y-2">
+                    {card.benefits.map((b, bIdx) => (
+                      <li key={bIdx} className="flex items-center gap-2 text-xs text-neutral-600 font-light">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#B38E46] shrink-0" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
             ))}
           </div>
-
-          {/* Bottom Call To Action Button */}
-          <button className="border-2 border-neutral-900 hover:bg-neutral-900 hover:text-white text-neutral-900 font-semibold text-xs uppercase tracking-wider rounded-full px-10 py-3.5 transition duration-300 shadow-sm active:scale-95 cursor-pointer">
-            Know More
-          </button>
         </div>
       </div>
     </section>
-  );
-}
-
-// SUB-COMPONENT: REUSABLE 3D MOUSE TILT CARD
-function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const rotateX = useMotionValue(0);
-  const rotateY = useMotionValue(0);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const element = cardRef.current;
-    if (!element) return;
-
-    const rect = element.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-
-    const mouseX = e.clientX - rect.left - width / 2;
-    const mouseY = e.clientY - rect.top - height / 2;
-
-    const rX = -(mouseY / height) * 16;
-    const rY = (mouseX / width) * 16;
-
-    rotateX.set(rX);
-    rotateY.set(rY);
-  };
-
-  const handleMouseLeave = () => {
-    rotateX.set(0);
-    rotateY.set(0);
-  };
-
-  const transform = useMotionTemplate`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-  return (
-    <motion.div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ transform }}
-      className={`relative rounded-3xl p-8 border flex flex-col justify-between text-left transition-all duration-150 ease-out shadow-lg select-none overflow-hidden h-full min-h-115 ${card.bgClass}`}
-    >
-      {/* SVG Absolute Top-Right Background Grid Curve */}
-      <div
-        className="absolute top-0 right-0 w-60 h-40 pointer-events-none select-none opacity-40 z-0"
-        style={{ color: card.lineColor }}
-      >
-        <svg
-          viewBox="0 0 100 100"
-          className="w-full h-full stroke-current fill-none stroke-[0.75]"
-        >
-          <path d="M30,-20 Q80,20 130,40 M10,-20 Q70,30 130,60 M-10,-20 Q60,40 130,80 M-30,-20 Q50,50 130,100" />
-        </svg>
-      </div>
-
-      <div className="relative z-10">
-        <span className="text-xs uppercase font-semibold tracking-widest text-neutral-400 block mb-1">
-          Key
-        </span>
-        <h4 className="text-3xl font-extrabold tracking-wide mb-4 font-sans">
-          {card.title}
-        </h4>
-        <p className="text-sm opacity-80 leading-relaxed font-medium mb-6 border-b border-neutral-700/20 pb-6">
-          {card.subtitle}
-        </p>
-
-        <h5 className="text-xs font-bold tracking-wider uppercase mb-4 flex items-center gap-1.5">
-          <ShieldCheck className="w-4 h-4 opacity-70" /> Benefits:
-        </h5>
-
-        <ul className="space-y-3.5">
-          {card.benefits.map((benefit, i) => (
-            <li
-              key={i}
-              className="flex items-start gap-2.5 text-xs font-light leading-relaxed"
-            >
-              {/* Shifted item bullet indicator point to dynamic neutral/orange accents safely */}
-              <span className="w-1.5 h-1.5 rounded-full bg-white mt-1.5 shrink-0" />
-              <span className="text-sm font-medium">{benefit}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </motion.div>
   );
 }
