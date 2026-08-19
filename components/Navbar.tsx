@@ -207,14 +207,12 @@ export default function Navbar() {
                   <span className="2xl:hidden">Login</span>
                 </Link>
 
-                <button
-                  onClick={() => setIsSearchOpen(true)}
-                  className="flex items-center gap-1.5 px-2 py-1 hover:bg-gray-100 rounded-full transition-colors ml-0.5 cursor-pointer text-gray-700 hover:text-black whitespace-nowrap"
-                  aria-label="Open Search"
+                <Link
+                  href="/about"
+                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
                 >
-                  <Search className="w-3.5 h-3.5" />
-                  <span className="font-medium">Search</span>
-                </button>
+                  About
+                </Link>
               </motion.nav>
             ) : (
               // SEARCH EXPANDED STATE
