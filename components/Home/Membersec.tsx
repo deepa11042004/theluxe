@@ -26,8 +26,8 @@ const MEMBERSHIPS = [
     displayName: "Luxe Platinum",
     price: "₹ 12,999",
     taxText: "plus taxes",
-    cardBg: "bg-gradient-to-br from-[#374151] via-[#1F2937] to-[#111827] text-white",
-    watermarkColor: "#9CA3AF",
+    cardBg: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white",
+    watermarkColor: "#60A5FA",
     subtitle: "7N/8D domestic holidays every year across 46 weeks",
     benefits: [
       "7N/8D domestic holidays every year across 46 weeks",
@@ -43,8 +43,8 @@ const MEMBERSHIPS = [
     displayName: "Luxe Diamond",
     price: "₹ 19,999",
     taxText: "plus taxes",
-    cardBg: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white",
-    watermarkColor: "#60A5FA",
+    cardBg: "bg-gradient-to-br from-[#7F1D1D] via-[#6B1717] to-[#450A0A] text-white",
+    watermarkColor: "#F87171",
     subtitle: "7N/8D worldwide holidays every year across 52 weeks",
     benefits: [
       "7N/8D worldwide holidays every year across 52 weeks",
@@ -60,8 +60,8 @@ const MEMBERSHIPS = [
     displayName: "Luxe Imperial",
     price: "₹ 49,999",
     taxText: "one-time lifetime",
-    cardBg: "bg-gradient-to-br from-[#7F1D1D] via-[#6B1717] to-[#450A0A] text-white",
-    watermarkColor: "#F87171",
+    cardBg: "bg-gradient-to-br from-[#064E3B] via-[#043E2F] to-[#022C22] text-white",
+    watermarkColor: "#34D399",
     subtitle: "Lifetime unlimited global access & VIP privileges",
     benefits: [
       "Lifetime unlimited global & domestic access",
@@ -106,7 +106,16 @@ function LuxeLogoEmblem() {
 
 export default function Membersec() {
   return (
-    <section className="bg-[#F8F9FA] w-full overflow-hidden text-neutral-900 border-t border-neutral-200/60">
+    <section className="relative bg-[#f4feff] w-full overflow-hidden text-neutral-900 border-t border-neutral-200/60">
+      {/* Vertical Pinstripe Lining Background Layer with #94f7ff */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage: "linear-gradient(to right, #94f7ff 2px, transparent 2px)",
+          backgroundSize: "48px 100%",
+        }}
+      />
+
       {/* SECTION 1: Club Elevate INFO */}
       <div className="relative py-20 px-6 max-w-6xl mx-auto text-center z-10">
         {/* Subtle Decorative Abstract Lines Background */}
@@ -144,17 +153,17 @@ export default function Membersec() {
 
         {/* Open Grid Layout for Key Benefits */}
         <div className="max-w-4xl mx-auto">
-          <h4 className="text-base font-[Vera] tracking-[0.15em] text-cyan-700 uppercase text-center mb-8 flex items-center justify-center gap-2">
-            <Star className="w-4 h-4 fill-cyan-600 text-cyan-600" /> Key Privileged Benefits
+          <h4 className="text-base font-[Vera] tracking-[0.15em] text-[#B38E46] uppercase text-center mb-8 flex items-center justify-center gap-2">
+            <Star className="w-4 h-4 fill-[#B38E46] text-[#B38E46]" /> Key Privileged Benefits
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
             {BENEFITS.map((benefit, i) => (
               <div
                 key={i}
-                className="flex items-center gap-3.5 px-5 py-3.5 bg-white rounded-xl border border-neutral-200/80 shadow-xs hover:border-cyan-500/40 transition duration-300"
+                className="flex items-center gap-3.5 px-5 py-3.5 bg-white rounded-xl border border-neutral-200/80 shadow-xs hover:border-[#B38E46]/50 transition duration-300"
               >
-                <CheckCircle2 className="w-5 h-5 text-cyan-600 shrink-0" />
-                <span className="text-neutral-900 text-sm font-semibold tracking-wide">
+                <CheckCircle2 className="w-5 h-5 text-[#B38E46] shrink-0" />
+                <span className="text-neutral-900 text-sm font-[Vera] font-light tracking-wide">
                   {benefit}
                 </span>
               </div>
@@ -239,9 +248,9 @@ export default function Membersec() {
                 <div className="mt-4 pt-4 border-t border-neutral-100 px-1">
                   <ul className="space-y-2">
                     {card.benefits.map((b, bIdx) => (
-                      <li key={bIdx} className="flex items-center gap-2 text-xs text-neutral-600 font-light">
+                      <li key={bIdx} className="flex items-center gap-2 text-xs font-[Vera] font-light text-neutral-600 tracking-wide">
                         <CheckCircle2 className="w-3.5 h-3.5 text-[#B38E46] shrink-0" />
-                        <span>{b}</span>
+                        <span className="font-[Vera] font-light">{b}</span>
                       </li>
                     ))}
                   </ul>

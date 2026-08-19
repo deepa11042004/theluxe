@@ -173,9 +173,9 @@ export default function Properties() {
               <button
                 key={i}
                 onClick={() => setOffset(i)}
-                className={`transition-all duration-300 rounded-full ${
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
                   offset === i
-                    ? "w-6 h-2 bg-black"
+                    ? "w-6 h-2 bg-[#B38E46]"
                     : "w-2 h-2 bg-neutral-300 hover:bg-neutral-400"
                 }`}
                 aria-label={`Go to slide ${i + 1}`}
@@ -239,17 +239,17 @@ function DestCard({
       {/* Label */}
       <div className="absolute bottom-5 left-5 z-10">
         <p
-          className="text-[10px] tracking-[0.22em] uppercase mb-1"
-          style={{ color: "#c9a84c", fontWeight: 600 }}
+          className="text-[10px] tracking-[0.22em] font-[Vera] uppercase mb-1"
+          style={{ color: "#B38E46", fontWeight: 600 }}
         >
           Destination
         </p>
         <motion.p
-          className="text-white uppercase"
+          className="text-white uppercase font-[Vera]"
           animate={{ y: hovered ? -3 : 0 }}
           transition={{ duration: 0.3 }}
           style={{
-            fontFamily: "'Georgia', 'Times New Roman', serif",
+            fontFamily: '"Vera", sans-serif',
             fontSize: "clamp(1.1rem, 2vw, 1.6rem)",
             fontWeight: 700,
             letterSpacing: "0.04em",

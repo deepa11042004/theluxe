@@ -193,7 +193,7 @@ export default function AboutPage() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
           
           <motion.div variants={itemVariants} className="max-w-3xl">
-            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-cyan-600 mb-3 block">
+            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B38E46] mb-3 block">
               Who We Are
             </span>
             <h2 className="text-3xl md:text-5xl font-[Vera] text-neutral-900 tracking-tight leading-tight mb-6">

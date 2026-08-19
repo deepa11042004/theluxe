@@ -266,7 +266,7 @@ const Carousel = () => {
               onClick={prevSlide}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center"
+              className="w-10 h-10 bg-[#B38E46] text-white rounded-full flex items-center justify-center hover:bg-[#997734] shadow-md transition-colors cursor-pointer"
               aria-label="Previous slide"
             >
               <ChevronLeft size={20} />
@@ -275,7 +275,7 @@ const Carousel = () => {
               onClick={nextSlide}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center"
+              className="w-10 h-10 bg-[#B38E46] text-white rounded-full flex items-center justify-center hover:bg-[#997734] shadow-md transition-colors cursor-pointer"
               aria-label="Next slide"
             >
               <ChevronRight size={20} />

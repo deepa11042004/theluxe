@@ -186,7 +186,7 @@ export default function Navbar() {
                   href="/clubelevate"
                   className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 font-semibold flex items-center gap-1 whitespace-nowrap"
                 >
-                  <span className="bg-black text-white h-4 w-4 xl:h-4.5 xl:w-4.5 flex justify-center items-center rounded-full text-[9px] xl:text-[10px] tracking-wider">
+                  <span className="bg-[#B38E46] text-white h-4 w-4 xl:h-4.5 xl:w-4.5 flex justify-center items-center rounded-full text-[9px] xl:text-[10px] tracking-wider">
                     C
                   </span>
                   Club Elevate
@@ -248,11 +248,11 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center z-50 pointer-events-auto absolute right-4 lg:right-6">
           <Link
             href="/join"
-            className="bg-black hover:bg-white text-white hover:text-black rounded-full px-3 py-2 xl:px-4 xl:py-2.5 2xl:px-6 2xl:py-3 text-[12px] xl:text-sm 2xl:text-base font-medium tracking-wide shadow-md transition-all flex items-center gap-1 xl:gap-2 group whitespace-nowrap"
+            className="bg-[#B38E46] hover:bg-[#997734] text-white rounded-full px-3 py-2 xl:px-4 xl:py-2.5 2xl:px-6 2xl:py-3 text-[12px] xl:text-sm 2xl:text-base font-semibold tracking-wide shadow-md transition-all flex items-center gap-1 xl:gap-2 group whitespace-nowrap"
           >
             <span>Join Club Elevate</span>
-            <div className="bg-white p-0.5 rounded-full group-hover:bg-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-              <ArrowUpRight className="w-2.5 h-2.5 xl:w-3 xl:h-3 text-black group-hover:text-white" />
+            <div className="bg-white p-0.5 rounded-full group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+              <ArrowUpRight className="w-2.5 h-2.5 xl:w-3 xl:h-3 text-[#B38E46]" />
             </div>
           </Link>
         </div>

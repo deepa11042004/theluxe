@@ -41,9 +41,9 @@ export default function Bannersec() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           whileHover={{ rotate: 15, scale: 1.05 }}
-          className="w-14 h-14 rounded-full bg-neutral-900 flex items-center justify-center text-white mb-6 border border-neutral-800 shadow-sm cursor-pointer"
+          className="w-14 h-14 rounded-full bg-[#B38E46]/10 flex items-center justify-center text-[#B38E46] mb-6 border border-[#B38E46]/40 shadow-sm cursor-pointer"
         >
-          <Compass className="w-7 h-7 stroke-[1.25] text-neutral-300" />
+          <Compass className="w-7 h-7 stroke-[1.25] text-[#B38E46]" />
         </motion.div>
 
         {/* Micro Subheader */}
@@ -88,7 +88,7 @@ export default function Bannersec() {
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 bg-white text-black hover:bg-neutral-100 px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 rounded-full cursor-pointer"
+            className="inline-flex items-center gap-2 bg-[#B38E46] text-white hover:bg-[#997734] px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 rounded-full cursor-pointer shadow-lg"
           >
             Explore Vacations
           </motion.button>

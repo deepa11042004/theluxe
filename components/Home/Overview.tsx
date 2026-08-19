@@ -220,12 +220,12 @@ export default function Overview() {
               }`}
             >
               {/* Micro-Header Tag */}
-              <span className="text-[15px] md:text-lg font-[Vans] tracking-[0.3em] text-neutral-800 uppercase mb-5 block">
+              <span className="text-[15px] md:text-lg font-[Vera] tracking-[0.3em] text-neutral-800 uppercase mb-5 block">
                 {section.tag}
               </span>
 
               {/* Luxury Headline */}
-              <h2 className="text-3xl sm:text-4xl xl:text-5xl font-[Vans] tracking-tight text-black mb-6 leading-[1.2]">
+              <h2 className="text-3xl sm:text-4xl xl:text-5xl font-[Vera] tracking-tight text-black mb-6 leading-[1.2]">
                 {section.headline}
               </h2>
 

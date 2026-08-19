@@ -136,9 +136,9 @@ function ItineraryCard({ item, onPlay }: CardProps) {
           <button
             onClick={() => onPlay(item.youtubeId)}
             aria-label={`Play video for ${item.title}`}
-            className="w-12 h-12 rounded-full border border-white/50 bg-white/15 backdrop-blur-sm
+            className="w-12 h-12 rounded-full border border-white/50 bg-white/20 backdrop-blur-sm
                        flex items-center justify-center cursor-pointer
-                       group-hover:bg-black/80 group-hover:border-white/20
+                       group-hover:bg-[#B38E46] group-hover:border-white/40
                        transition-all duration-300 shadow-md"
           >
             <Play className="w-4 h-4 text-white fill-white ml-0.5" />
@@ -175,7 +175,7 @@ function ItineraryCard({ item, onPlay }: CardProps) {
             href={`/itinerary/${item.id}`}
             className="inline-flex items-center gap-1 text-xs font-semibold text-gray-700
                           border border-gray-200 px-4 py-1.5 rounded-full
-                          group-hover:bg-black group-hover:text-white group-hover:border-black
+                          group-hover:bg-[#B38E46] group-hover:text-white group-hover:border-[#B38E46]
                           transition-all duration-300 cursor-pointer select-none"
           >
             Explore
@@ -282,9 +282,9 @@ export default function Itinerary() {
                 }}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-2 bg-gray-900 hover:bg-black text-white
+                className="flex items-center gap-2 bg-[#B38E46] hover:bg-[#997734] text-white
                            font-semibold px-6 py-3.5 rounded-full text-sm
-                           shadow-md shadow-black/10 transition-colors duration-200 self-start md:self-auto"
+                           shadow-md shadow-[#B38E46]/20 transition-colors duration-200 self-start md:self-auto cursor-pointer"
               >
                 <Compass className="w-4 h-4" />
                 See More Itineraries

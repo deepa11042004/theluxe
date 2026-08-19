@@ -546,7 +546,7 @@ export default function Brandsec() {
               <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
                 <a
                   href="/resorts"
-                  className="bg-black hover:bg-neutral-800 text-white px-5 py-2.5 rounded-full font-semibold text-xs transition-all flex items-center gap-1.5"
+                  className="bg-[#B38E46] hover:bg-[#997734] text-white px-5 py-2.5 rounded-full font-semibold text-xs transition-all flex items-center gap-1.5 shadow-md"
                 >
                   <span>Explore Resorts</span>
                   <ExternalLink className="w-3.5 h-3.5" />

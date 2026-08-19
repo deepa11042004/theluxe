@@ -56,19 +56,29 @@ function FadeUp({
 
 export default function Getstarted() {
   return (
-    <section className="relative min-h-[80vh] w-full bg-black overflow-hidden flex items-center justify-center py-24">
+    <section 
+      className="relative min-h-[75vh] w-full text-neutral-900 border-t border-neutral-200/60 overflow-hidden flex items-center justify-center py-20 bg-[#4dd0e1]"
+    >
+      {/* Vertical Pinstripe Lining Background Layer */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage: "linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px)",
+          backgroundSize: "6px 100%",
+        }}
+      />
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-12 flex flex-col items-center text-center">
         {/* Headline */}
         <FadeUp delay={0.15}>
           <h2
-            className="text-white leading-[1.15] mb-6 font-[Vera] text-center"
+            className="text-neutral-900 leading-[1.15] mb-6 font-[Vera] text-center"
             style={{
               fontSize: "clamp(2.5rem, 5vw, 3.8rem)",
               letterSpacing: "-0.02em",
             }}
           >
             Get Started with{" "}
-            <span className="bg-linear-to-r from-cyan-400 via-white to-cyan-500 bg-clip-text text-transparent italic">
+            <span className="text-[#B38E46] italic">
               The Luxe Yatra
             </span>
             <br />
@@ -79,7 +89,7 @@ export default function Getstarted() {
         {/* Body */}
         <FadeUp delay={0.25}>
           <p
-            className="text-white/50 leading-relaxed mb-12 mx-auto text-center"
+            className="text-neutral-600 font-light leading-relaxed mb-12 mx-auto text-center"
             style={{
               fontSize: "1rem",
               maxWidth: 580,
@@ -96,17 +106,11 @@ export default function Getstarted() {
           {features.map(({ num, icon: Icon, title }, i) => (
             <FadeUp key={num} delay={0.35 + i * 0.1}>
               <div className="flex flex-col items-center gap-4 text-center cursor-default group">
-                <div
-                  className="w-14 h-14 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
-                  style={{
-                    background: "rgba(255,255,255,0.06)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                  }}
-                >
-                  <Icon size={20} className="text-white/95" strokeWidth={1.5} />
+                <div className="w-14 h-14 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110 bg-neutral-100 border border-neutral-200 group-hover:border-[#B38E46] group-hover:text-[#B38E46] shadow-xs">
+                  <Icon size={20} className="text-neutral-900 group-hover:text-[#B38E46] transition-colors" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p className="text-white/90 text-sm font-semibold tracking-wide leading-snug">
+                  <p className="text-neutral-900 text-sm font-semibold tracking-wide leading-snug">
                     {title}
                   </p>
                 </div>
@@ -123,11 +127,7 @@ export default function Getstarted() {
                 scale: 1.04,
               }}
               whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2.5 px-8 py-4 rounded-full text-black font-semibold text-sm shadow-xl hover:shadow-white/5 transition-all duration-300 cursor-pointer"
-              style={{
-                background: "#fff",
-                letterSpacing: "0.05em",
-              }}
+              className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#B38E46] text-white font-semibold text-xs uppercase tracking-wider shadow-lg hover:bg-[#997734] transition-all duration-300 cursor-pointer"
             >
               Explore
               <ArrowRight size={15} strokeWidth={2} />

@@ -149,7 +149,7 @@ export default function Clientsec() {
         <button
           onClick={prev}
           aria-label="Previous testimonial"
-          className="hidden lg:flex absolute left-10 z-50 w-12 h-12 rounded-full bg-black text-white shadow-lg items-center justify-center hover:scale-110 hover:bg-neutral-900 transition-all duration-200 cursor-pointer"
+          className="hidden lg:flex absolute left-10 z-50 w-12 h-12 rounded-full bg-[#B38E46] text-white shadow-lg items-center justify-center hover:scale-110 hover:bg-[#997734] transition-all duration-200 cursor-pointer"
         >
           <ChevronLeft size={18} className="text-white" strokeWidth={2} />
         </button>
@@ -158,7 +158,7 @@ export default function Clientsec() {
         <button
           onClick={next}
           aria-label="Next testimonial"
-          className="hidden lg:flex absolute right-10 z-50 w-12 h-12 rounded-full bg-black text-white shadow-lg items-center justify-center hover:scale-110 hover:bg-neutral-900 transition-all duration-200 cursor-pointer"
+          className="hidden lg:flex absolute right-10 z-50 w-12 h-12 rounded-full bg-[#B38E46] text-white shadow-lg items-center justify-center hover:scale-110 hover:bg-[#997734] transition-all duration-200 cursor-pointer"
         >
           <ChevronRight size={18} className="text-white" strokeWidth={2} />
         </button>
@@ -288,14 +288,14 @@ export default function Clientsec() {
         <button
           onClick={prev}
           aria-label="Previous testimonial"
-          className="w-11 h-11 rounded-full bg-black text-white shadow-lg flex items-center justify-center hover:bg-neutral-800 active:scale-95 transition-all duration-200"
+          className="w-11 h-11 rounded-full bg-[#B38E46] text-white shadow-lg flex items-center justify-center hover:bg-[#997734] active:scale-95 transition-all duration-200 cursor-pointer"
         >
           <ChevronLeft size={18} className="text-white" strokeWidth={2} />
         </button>
         <button
           onClick={next}
           aria-label="Next testimonial"
-          className="w-11 h-11 rounded-full bg-black text-white shadow-lg flex items-center justify-center hover:bg-neutral-800 active:scale-95 transition-all duration-200"
+          className="w-11 h-11 rounded-full bg-[#B38E46] text-white shadow-lg flex items-center justify-center hover:bg-[#997734] active:scale-95 transition-all duration-200 cursor-pointer"
         >
           <ChevronRight size={18} className="text-white" strokeWidth={2} />
         </button>
@@ -308,12 +308,12 @@ export default function Clientsec() {
             key={i}
             onClick={() => !isAnimating && setActive(i)}
             aria-label={`Go to testimonial ${i + 1}`}
-            className="focus:outline-none"
+            className="focus:outline-none cursor-pointer"
           >
             <motion.div
               animate={{
                 width: i === active ? 24 : 8,
-                backgroundColor: i === active ? "#000" : "#d1d5db",
+                backgroundColor: i === active ? "#B38E46" : "#d1d5db",
               }}
               transition={{ duration: 0.3 }}
               className="h-2 rounded-full"
