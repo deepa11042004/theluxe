@@ -106,13 +106,13 @@ function LuxeLogoEmblem() {
 
 export default function Membersec() {
   return (
-    <section className="relative bg-[#f4feff] w-full overflow-hidden text-neutral-900 border-t border-neutral-200/60">
+    <section className="relative bg-[#8ce6ff] w-full overflow-hidden text-neutral-900 border-t border-neutral-200/60">
       {/* Vertical Pinstripe Lining Background Layer with #94f7ff */}
       <div
-        className="absolute inset-0 pointer-events-none z-0"
+        className="absolute inset-0 pointer-events-none z-0 opacity-100"
         style={{
-          backgroundImage: "linear-gradient(to right, #94f7ff 2px, transparent 2px)",
-          backgroundSize: "48px 100%",
+          backgroundImage: "linear-gradient(to right, #94f7ff 1px, transparent 1px)",
+          backgroundSize: "8px 100%",
         }}
       />
 
@@ -173,7 +173,7 @@ export default function Membersec() {
       </div>
 
       {/* SECTION 2: MEMBERSHIP TYPES & CARDS (TAJ EPICURE STYLE) */}
-      <div className="bg-white text-black py-20 px-6 w-full border-t border-neutral-200/60">
+      <div className="relative z-10 bg-white text-black py-20 px-6 w-full border-t border-neutral-200/60">
         <div className="max-w-7xl mx-auto text-center">
           <h3 className="text-2xl md:text-5xl font-[Vera] tracking-tight text-black mb-4 uppercase">
             Membership Types
@@ -246,10 +246,10 @@ export default function Membersec() {
 
                 {/* 3. INCLUDED BENEFITS LIST BELOW CARD */}
                 <div className="mt-4 pt-4 border-t border-neutral-100 px-1">
-                  <ul className="space-y-2">
+                  <ul className="space-y-3">
                     {card.benefits.map((b, bIdx) => (
-                      <li key={bIdx} className="flex items-center gap-2 text-xs font-[Vera] font-light text-neutral-600 tracking-wide">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#B38E46] shrink-0" />
+                      <li key={bIdx} className="flex items-start gap-2.5 text-sm font-[Vera] font-light text-neutral-600 tracking-wide leading-snug">
+                        <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0 mt-[2px]" />
                         <span className="font-[Vera] font-light">{b}</span>
                       </li>
                     ))}

@@ -41,7 +41,7 @@ const FOOTER_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white pt-16 pb-8 px-6 sm:px-12 lg:px-16 w-full font-[Vera] select-none border-t border-neutral-900">
+    <footer className="bg-[rgb(3,0,46)] text-white pt-16 pb-8 px-6 sm:px-12 lg:px-16 w-full font-[Vera] select-none border-t border-[rgb(3,0,46)]">
       <div className="max-w-7xl mx-auto">
         {/* 1. TOP MAIN ROW: 4-COLUMN NAV FOOTER LINKS */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-14">

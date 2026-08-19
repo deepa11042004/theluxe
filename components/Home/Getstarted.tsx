@@ -57,14 +57,14 @@ function FadeUp({
 export default function Getstarted() {
   return (
     <section 
-      className="relative min-h-[75vh] w-full text-neutral-900 border-t border-neutral-200/60 overflow-hidden flex items-center justify-center py-20 bg-[#4dd0e1]"
+      className="relative min-h-[75vh] w-full text-neutral-900 border-t border-neutral-200/60 overflow-hidden flex items-center justify-center py-20 bg-[#8ce6ff]"
     >
-      {/* Vertical Pinstripe Lining Background Layer */}
+      {/* Vertical Pinstripe Lining Background Layer with #94f7ff */}
       <div
-        className="absolute inset-0 pointer-events-none z-0"
+        className="absolute inset-0 pointer-events-none z-0 opacity-100"
         style={{
-          backgroundImage: "linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px)",
-          backgroundSize: "6px 100%",
+          backgroundImage: "linear-gradient(to right, #94f7ff 1px, transparent 1px)",
+          backgroundSize: "8px 100%",
         }}
       />
       <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-12 flex flex-col items-center text-center">

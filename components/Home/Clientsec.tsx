@@ -11,36 +11,36 @@ const testimonials = [
   {
     id: 1,
     name: "Jenny Wilson",
-    location: "New York, America",
-    text: "I absolutely love this salon! From the warm welcome to the final look, everything was perfect. The staff really listened.",
+    location: "New York, USA",
+    text: "Club Elevate transformed the way we travel. Every detail of our resort stay was meticulously planned. A truly 5-star luxury experience.",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
   },
   {
     id: 2,
     name: "Esther Howard",
     location: "London, UK",
-    text: "The service was exceptional. I felt like a queen for the day. Highly recommend booking an appointment here.",
+    text: "The concierge service was exceptional. I felt completely pampered from arrival to departure. Highly recommend becoming a member.",
     avatar: "https://randomuser.me/api/portraits/women/68.jpg",
   },
   {
     id: 3,
     name: "Wade Warren",
     location: "Paris, France",
-    text: "Great atmosphere and professional staff. They knew exactly how to handle my hair type. I will be back.",
+    text: "Unparalleled access to the world's most exclusive resorts. The private guides knew exactly how to make our vacation extraordinary.",
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
   },
   {
     id: 4,
     name: "Cameron Williamson",
     location: "Berlin, Germany",
-    text: "A truly relaxing experience. The attention to detail is unmatched. Rare to find a place that cares this much.",
+    text: "A truly relaxing experience. The attention to detail in our villa was unmatched. It's rare to find a travel club that cares this much.",
     avatar: "https://randomuser.me/api/portraits/men/75.jpg",
   },
   {
     id: 5,
     name: "Sarah Jenkins",
     location: "Tokyo, Japan",
-    text: "Best haircut I've had in years. The stylist was patient and gave great advice for my hair texture.",
+    text: "Best vacation I've had in years. The seamless booking process and premium accommodations made our anniversary trip absolutely perfect.",
     avatar: "https://randomuser.me/api/portraits/women/65.jpg",
   },
 ];
@@ -221,7 +221,7 @@ export default function Clientsec() {
             return (
               <motion.div
                 key={item.id}
-                className="absolute flex flex-col justify-between bg-black rounded-2xl p-6 sm:p-8 cursor-pointer select-none border border-neutral-800"
+                className={`absolute flex flex-col justify-between bg-[rgb(25,25,112)] rounded-2xl p-6 sm:p-8 cursor-pointer select-none shadow-xl border-2 transition-colors duration-300 ${isActive ? 'border-sky-400' : 'border-[rgb(25,25,112)]'}`}
                 style={{
                   width: layout.cardWidth,
                   minHeight: layout.cardHeight,

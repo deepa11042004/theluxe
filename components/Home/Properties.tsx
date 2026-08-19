@@ -82,7 +82,7 @@ export default function Properties() {
       <div className="w-full max-w-7xl mx-auto px-6 flex flex-col items-center">
         {/* Header */}
         <div className="text-center flex flex-col items-center mb-10 md:mb-16">
-          <div className="inline-flex items-center gap-2 bg-neutral-900 border border-neutral-800/80 rounded-full px-4 py-1.5 text-xs text-white font-medium tracking-wider uppercase mb-6">
+          <div className="inline-flex items-center gap-2 bg-[#B38E46] border border-[#B38E46] rounded-full px-4 py-1.5 text-xs text-white font-medium tracking-wider uppercase mb-6">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             Explore 200+ Resorts
           </div>
@@ -103,7 +103,7 @@ export default function Properties() {
               onClick={prev}
               disabled={offset === 0}
               whileTap={offset > 0 ? { scale: 0.94 } : {}}
-              className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-neutral-800 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              className="w-12 h-12 rounded-full bg-[#B38E46] flex items-center justify-center hover:bg-[#997734] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <ArrowLeft size={18} strokeWidth={1.8} className="text-white" />
             </motion.button>
@@ -111,7 +111,7 @@ export default function Properties() {
               onClick={next}
               disabled={offset >= maxOffset}
               whileTap={offset < maxOffset ? { scale: 0.94 } : {}}
-              className="w-12 h-12 rounded-full bg-black flex items-center justify-center hover:bg-neutral-800 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              className="w-12 h-12 rounded-full bg-[#B38E46] flex items-center justify-center hover:bg-[#997734] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <ArrowRight size={18} strokeWidth={1.8} className="text-white" />
             </motion.button>

@@ -139,7 +139,7 @@ const Carousel = () => {
       <div className="max-w-7xl mx-auto">
         {/* 1. Header Block */}
         <div className="text-center flex flex-col items-center">
-          <motion.div className="inline-flex items-center gap-2 bg-black backdrop-blur-md rounded-full px-4 py-1.5 text-xs text-white font-medium tracking-wider uppercase mb-6">
+          <motion.div className="inline-flex items-center gap-2 bg-[#B38E46] border border-[#B38E46] backdrop-blur-md rounded-full px-4 py-1.5 text-xs text-white font-medium tracking-wider uppercase mb-6">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             Explore 200+ Destinations
           </motion.div>
