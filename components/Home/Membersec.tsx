@@ -58,34 +58,34 @@ const MEMBERSHIPS = [
 
 export default function Membersec() {
   return (
-    <section className="bg-black w-full overflow-hidden">
-      {/* SECTION 1: Club Elevate INFO (BLACK, WHITE, & CYAN ACENTS) */}
-      <div className="relative py-24 px-6 max-w-6xl mx-auto text-center z-10">
+    <section className="bg-[#F8F9FA] w-full overflow-hidden text-neutral-900 border-t border-neutral-200/60">
+      {/* SECTION 1: Club Elevate INFO */}
+      <div className="relative py-20 px-6 max-w-6xl mx-auto text-center z-10">
         {/* Subtle Decorative Abstract Lines Background */}
-        <div className="absolute top-0 left-0 w-44 h-44 opacity-20 pointer-events-none select-none">
+        <div className="absolute top-0 left-0 w-44 h-44 opacity-30 pointer-events-none select-none">
           <svg
             viewBox="0 0 100 100"
-            className="stroke-neutral-700 fill-none stroke-[0.5]"
+            className="stroke-neutral-300 fill-none stroke-[0.5]"
           >
             <path d="M0,0 Q30,70 100,100 M0,20 Q40,80 100,120 M0,40 Q50,90 100,140" />
           </svg>
         </div>
 
         {/* Central Brand Emblem */}
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-linear-to-tr from-neutral-900 to-neutral-800 border border-neutral-700/60 shadow-xl mb-6">
-          <span className="text-white font-[Vera] text-xl tracking-wider">
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white border border-neutral-200 shadow-md mb-6">
+          <span className="text-black font-[Vera] text-xl tracking-wider font-bold">
             CE
           </span>
         </div>
 
-        <h2 className="text-lg font-[Vera] tracking-[0.3em] text-white uppercase mb-3">
+        <h2 className="text-sm font-[Vera] tracking-[0.3em] text-neutral-500 uppercase mb-3">
           Club Elevate
         </h2>
-        <h3 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-white mb-6">
+        <h3 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-black mb-6">
           A World of Privileged Access
         </h3>
 
-        <p className="text-neutral-300 font-medium text-sm md:text-base max-w-3xl mx-auto leading-relaxed mb-16">
+        <p className="text-neutral-600 font-light text-sm md:text-base max-w-3xl mx-auto leading-relaxed mb-16">
           Club Elevate unlocks privileged access to 140+ premium Club Mahindra
           resorts, offering 7 nights/8 days holidays every year — filled with
           cherished family moments and thoughtfully crafted experiences across
@@ -94,19 +94,19 @@ export default function Membersec() {
           experiences.
         </p>
 
-        {/* Open Grid Layout for Key Benefits (Box & Border Removed) */}
+        {/* Open Grid Layout for Key Benefits */}
         <div className="max-w-4xl mx-auto">
-          <h4 className="text-lg font-[Vera] tracking-[0.15em] text-cyan-400 uppercase text-center mb-8 flex items-center justify-center gap-2">
-            <Star className="w-4 h-4 fill-cyan-400" /> Key Privileged Benefits
+          <h4 className="text-base font-[Vera] tracking-[0.15em] text-cyan-700 uppercase text-center mb-8 flex items-center justify-center gap-2">
+            <Star className="w-4 h-4 fill-cyan-600 text-cyan-600" /> Key Privileged Benefits
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
             {BENEFITS.map((benefit, i) => (
               <div
                 key={i}
-                className="flex items-center gap-3.5 px-4 py-3 bg-neutral-900/40 rounded-xl border border-neutral-800/30 hover:border-cyan-500/30 transition duration-300"
+                className="flex items-center gap-3.5 px-5 py-3.5 bg-white rounded-xl border border-neutral-200/80 shadow-xs hover:border-cyan-500/40 transition duration-300"
               >
-                <CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" />
-                <span className="text-white text-sm font-medium tracking-wide">
+                <CheckCircle2 className="w-5 h-5 text-cyan-600 shrink-0" />
+                <span className="text-neutral-900 text-sm font-semibold tracking-wide">
                   {benefit}
                 </span>
               </div>
@@ -116,12 +116,12 @@ export default function Membersec() {
       </div>
 
       {/* SECTION 2: MEMBERSHIP PLANS (3D TILT CARDS) */}
-      <div className="bg-white text-black rounded-t-[2.5rem] py-24 px-6 w-full">
+      <div className="bg-white text-black py-20 px-6 w-full border-t border-neutral-200/60">
         <div className="max-w-7xl mx-auto text-center">
-          <h3 className="text-2xl md:text-6xl font-[Vera] tracking-tight text-black mb-5">
+          <h3 className="text-2xl md:text-5xl font-[Vera] tracking-tight text-black mb-5">
             Your Key to Unlock Privileged Experiences
           </h3>
-          <p className="text-black text-xs md:text-lg font-medium tracking-wide mb-14 uppercase">
+          <p className="text-neutral-600 text-xs md:text-sm font-medium tracking-wide mb-14 uppercase">
             Select from <span className="text-black font-bold">Ebony</span>,{" "}
             <span className="text-neutral-900 font-bold">Ivory</span>, and{" "}
             <span className="text-[#165B54] font-bold">Jade</span> Keys and
@@ -136,7 +136,7 @@ export default function Membersec() {
           </div>
 
           {/* Bottom Call To Action Button */}
-          <button className="border-2 border-neutral-900 hover:bg-neutral-900 hover:text-white text-neutral-900 font-medium text-sm rounded-full px-10 py-3.5 transition duration-300 shadow-sm active:scale-95">
+          <button className="border-2 border-neutral-900 hover:bg-neutral-900 hover:text-white text-neutral-900 font-semibold text-xs uppercase tracking-wider rounded-full px-10 py-3.5 transition duration-300 shadow-sm active:scale-95 cursor-pointer">
             Know More
           </button>
         </div>
