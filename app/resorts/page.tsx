@@ -8,6 +8,7 @@ function Resorts() {
         title="Resorts"
         subtitle="Unveiling a collection of exceptional retreats that reflect the very soul of their destination."
         align="center"
+        bgImage="/Img/art-rachen-lBjqCsOGjx0-unsplash.jpg"
       />
       <Resortsec />
     </>

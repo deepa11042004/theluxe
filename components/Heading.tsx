@@ -24,7 +24,7 @@ const Heading: React.FC<HeadingProps> = ({
   }[align];
 
   const textColor = "text-black";
-  const subtitleColor = bgImage ? "text-neutral-800 font-medium" : "text-neutral-600";
+  const subtitleColor = bgImage ? "text-black font-bold" : "text-neutral-600";
 
   return (
     <div 
@@ -49,7 +49,10 @@ const Heading: React.FC<HeadingProps> = ({
           {title}
         </h2>
         {subtitle && (
-          <p className={`text-sm md:text-base max-w-2xl mx-auto leading-relaxed ${subtitleColor}`}>
+          <p 
+            className={`text-sm md:text-base max-w-2xl mx-auto leading-relaxed ${subtitleColor}`}
+            style={bgImage ? { WebkitTextStroke: "0.5px black" } : undefined}
+          >
             {subtitle}
           </p>
         )}

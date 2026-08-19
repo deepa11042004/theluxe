@@ -15,6 +15,7 @@ export default function NationalExperiencesPage() {
         title="National"
         subtitle="Unveil exceptional domestic sanctuaries and cultural escapes nestled close to home."
         align="center"
+        bgImage="/Img/abhishek-r-sT9zI42WgAc-unsplash.jpg"
       />
       <Experiencesec type="national" />
     </>

@@ -15,6 +15,7 @@ export default function InternationalExperiencesPage() {
         title="International"
         subtitle="Embark on an extraordinary journey to the world's most breathtaking global destinations."
         align="center"
+        bgImage="/Img/anthony-delanoix-QAwciFlS1g4-unsplash.jpg"
       />
       <Experiencesec type="international" />
     </>

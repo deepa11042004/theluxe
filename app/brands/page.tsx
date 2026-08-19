@@ -15,7 +15,7 @@ export default function BrandsPage() {
         title="Our Brand Portfolio"
         subtitle="Discover world-renowned luxury hotel brands, boutique retreats, and iconic resort destinations accessible with Club Elevate."
         align="center"
-        bgImage="/Img/wooden-bridge-koh-nangyuan-island-surat-thani-thailand_335224-1082.avif"
+        bgImage="/Img/futc-Re1Uc-eabi8-unsplash.jpg"
       />
       <Brandsec />
     </main>

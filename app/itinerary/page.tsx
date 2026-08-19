@@ -9,6 +9,7 @@ function Itinerary() {
         title="Exclusive Itinerary"
         subtitle="Explore the world's most enchanting destinations with our curated collection of travel itineraries."
         align="center"
+        bgImage="/Img/ricardo-gomez-angel-bIm4Bm4UZv0-unsplash.jpg"
       />
       <Itinerarysec />
     </>
