@@ -70,7 +70,8 @@ export default function Home() {
         {/* Subtitle */}
         <motion.p
           variants={itemVariants}
-          className="text-sm md:text-lg lg:text-xl text-black/80 max-w-2xl font-medium mt-3 sm:mt-4 mb-6 sm:mb-10 leading-relaxed px-2"
+          style={{ WebkitTextStroke: "0.5px black" }}
+          className="text-sm md:text-lg lg:text-xl text-black max-w-2xl mt-3 sm:mt-4 mb-6 sm:mb-10 leading-relaxed px-2"
         >
           Explore luxury boutique resorts and tailored holiday experiences.
         </motion.p>
