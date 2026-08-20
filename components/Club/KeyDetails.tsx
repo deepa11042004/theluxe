@@ -70,7 +70,7 @@ export default function KeyDetails() {
                 {/* Benefits List */}
                 <ul className="space-y-4">
                   {tenet.benefits.map((benefit, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-neutral-600 font-medium leading-relaxed">
+                    <li key={idx} className="flex items-start gap-3 text-neutral-800 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 mt-1.5 shrink-0" />
                       <span>{benefit}</span>
                     </li>

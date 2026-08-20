@@ -101,7 +101,7 @@ const RadiantCard = ({ title, icon, children, className = "" }: { title: string,
         {icon && <span className="flex-shrink-0 drop-shadow-sm">{icon}</span>}
         {title}
       </h4>
-      <div className="text-sm text-neutral-600 font-medium leading-relaxed">
+      <div className="text-neutral-800 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide">
         {children}
       </div>
     </div>
@@ -290,7 +290,7 @@ export default function Membersec() {
           A World of Privileged Access
         </h3>
 
-        <p className="text-neutral-600 font-medium text-sm md:text-base max-w-3xl mx-auto leading-relaxed mb-16">
+        <p className="text-neutral-800 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide max-w-3xl mx-auto mb-16">
           Luxe Club unlocks privileged access to 140+ premium resorts,
           offering 7 nights/8 days holidays every year — filled with cherished
           family moments and thoughtfully crafted experiences.
@@ -367,7 +367,7 @@ export default function Membersec() {
           <h3 className="text-2xl md:text-6xl font-[Vera] tracking-tight text-black mb-5">
             Your Key to Unlock Privileged Experiences
           </h3>
-          <p className="text-neutral-500 text-xs md:text-sm font-medium tracking-wide mb-14 uppercase">
+          <p className="text-neutral-800 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide mb-14 uppercase">
             Select from <span className="text-black font-bold">Platinum</span>,{" "}
             <span className="text-neutral-900 font-bold">Diamond</span>, and{" "}
             <span className="text-[#165B54] font-bold">Imperial</span> Cards and
@@ -476,12 +476,12 @@ export default function Membersec() {
                 <thead>
                   <tr className="bg-neutral-900 text-white text-sm uppercase tracking-wider font-[Vera]">
                     <th className="p-6 font-semibold w-1/4">Benefit</th>
-                    <th className="p-6 text-center font-semibold w-1/4">Platinum <span className="block text-xs text-neutral-400 mt-1 capitalize font-sans font-medium tracking-normal">Domestic</span></th>
-                    <th className="p-6 text-center font-semibold w-1/4">Diamond <span className="block text-xs text-neutral-400 mt-1 capitalize font-sans font-medium tracking-normal">Worldwide</span></th>
-                    <th className="p-6 text-center font-semibold w-1/4 bg-gradient-to-t from-[#B38E46]/20 to-transparent text-[#D4AF37]">Imperial <span className="block text-xs text-[#D4AF37]/70 mt-1 capitalize font-sans font-medium tracking-normal">Lifetime</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4">Platinum <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Domestic</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4">Diamond <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Worldwide</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4 bg-gradient-to-t from-[#B38E46]/20 to-transparent text-[#D4AF37]">Imperial <span className="block text-xs text-[#D4AF37]/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Lifetime</span></th>
                   </tr>
                 </thead>
-                <tbody className="text-sm text-neutral-800 font-sans">
+                <tbody className="text-sm text-neutral-800 font-[Vera]">
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Membership Fee</td>
                     <td className="p-6 text-center text-neutral-600 font-medium">₹12,999</td>
