@@ -90,10 +90,10 @@ export default function AboutPage() {
 
   const membershipPlans = [
     {
-      name: "ONE YEAR — DOMESTIC",
+      name: "domestic",
       price: "₹12,999",
       period: "per year",
-      badge: "Essential",
+      badge: "Platinum",
       popular: false,
       features: [
         "Domestic Hotel & Resort Access",
@@ -103,10 +103,10 @@ export default function AboutPage() {
       ]
     },
     {
-      name: "ONE YEAR — WORLDWIDE",
+      name: "worldwide",
       price: "₹19,999",
       period: "per year",
-      badge: "Most Popular",
+      badge: "Diamond",
       popular: true,
       features: [
         "Global & Domestic Hotel Access",
@@ -117,10 +117,10 @@ export default function AboutPage() {
       ]
     },
     {
-      name: "LIFETIME — WORLDWIDE",
+      name: "lifetime",
       price: "₹49,999",
       period: "one-time payment",
-      badge: "Ultimate Experience",
+      badge: "Imperial",
       popular: false,
       features: [
         "Unlimited Lifetime Global Access",
