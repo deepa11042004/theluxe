@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Heading from "@/components/Heading";
 import { motion } from "framer-motion";
 import {
@@ -192,7 +193,8 @@ export default function AboutPage() {
         >
           <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
           
-          <motion.div variants={itemVariants} className="max-w-3xl">
+          <div className="flex flex-col lg:flex-row gap-12 items-center justify-between relative z-10">
+            <motion.div variants={itemVariants} className="max-w-3xl flex-1">
             <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B38E46] mb-3 block">
               Who We Are
             </span>
@@ -209,8 +211,22 @@ export default function AboutPage() {
               We aim to make luxury travel more accessible, convenient and rewarding for individuals, families and corporate travellers.
             </p>
           </motion.div>
-        </motion.section>
-
+          
+          <motion.div 
+            variants={itemVariants} 
+            className="flex-shrink-0 flex justify-center w-full lg:w-auto lg:pr-8"
+          >
+            <div className="relative w-56 h-56 md:w-72 md:h-72 drop-shadow-xl bg-white rounded-full flex items-center justify-center p-4">
+              <Image 
+                src="/Img/logo-emblem.png" 
+                alt="The Luxe Yatra Logo" 
+                fill 
+                className="object-contain p-6"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
         {/* 3. Vision & Mission Grid */}
         <motion.section
           variants={containerVariants}
@@ -222,56 +238,61 @@ export default function AboutPage() {
           {/* Vision */}
           <motion.div
             variants={itemVariants}
-            className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-neutral-200/80 flex flex-col justify-between hover:border-neutral-300 transition-all duration-300 group"
+            className="relative bg-gradient-to-br from-white via-white to-cyan-50/80 rounded-3xl p-8 md:p-12 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-cyan-100/50 flex flex-col justify-between hover:shadow-[0_12px_40px_rgba(6,182,212,0.12)] hover:-translate-y-1 transition-all duration-500 group overflow-hidden"
           >
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Eye className="w-6 h-6" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-400/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none group-hover:bg-cyan-400/20 transition-colors duration-500" />
+            
+            <div className="relative z-10">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-50 to-cyan-100/50 text-cyan-600 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-cyan-500/20 transition-all duration-500 border border-cyan-200/50">
+                <Eye className="w-7 h-7" />
               </div>
-              <span className="text-xs uppercase tracking-widest font-bold text-neutral-400 mb-2 block">
+              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-cyan-600/80 mb-3 block">
                 Our Vision
               </span>
-              <h3 className="text-2xl font-[Vera] font-bold text-neutral-900 mb-4">
+              <h3 className="text-3xl font-[Vera] font-bold text-neutral-900 mb-6 leading-tight">
                 Inspiring Luxury Exploration Worldwide
               </h3>
-              <p className="text-neutral-600 text-base leading-relaxed font-light">
+              <p className="text-neutral-700 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide">
                 To establish The Luxe Yatra as a trusted and recognised name in premium travel membership, connecting members with exceptional hospitality and experiences across India and worldwide.
               </p>
             </div>
           </motion.div>
-
-          {/* Mission */}
+                 {/* Mission */}
           <motion.div
             variants={itemVariants}
-            className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-neutral-200/80 hover:border-neutral-300 transition-all duration-300 group"
+            className="relative bg-gradient-to-br from-white via-white to-amber-50/80 rounded-3xl p-8 md:p-12 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-amber-100/50 flex flex-col justify-between hover:shadow-[0_12px_40px_rgba(245,158,11,0.12)] hover:-translate-y-1 transition-all duration-500 group overflow-hidden"
           >
-            <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <Target className="w-6 h-6" />
+            <div className="absolute bottom-0 right-0 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl -mr-20 -mb-20 pointer-events-none group-hover:bg-amber-400/20 transition-colors duration-500" />
+
+            <div className="relative z-10">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100/50 text-amber-600 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-amber-500/20 transition-all duration-500 border border-amber-200/50">
+                <Target className="w-7 h-7" />
+              </div>
+              <span className="text-xs uppercase tracking-[0.2em] font-semibold text-amber-600/80 mb-3 block">
+                Our Mission
+              </span>
+              <h3 className="text-3xl font-[Vera] font-bold text-neutral-900 mb-6 leading-tight">
+                Seamless Premium Travel Deliverables
+              </h3>
+              <p className="text-neutral-700 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide mb-6">
+                To deliver a seamless premium travel experience through:
+              </p>
+              <ul className="space-y-4">
+                {[
+                  "Curated luxury and premium hotel options",
+                  "Exclusive member privileges",
+                  "Personalised travel assistance",
+                  "Bespoke holiday planning",
+                  "Professional customer service",
+                  "Transparent membership policies"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-4 text-neutral-700 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <span className="text-xs uppercase tracking-widest font-bold text-neutral-400 mb-2 block">
-              Our Mission
-            </span>
-            <h3 className="text-2xl font-[Vera] font-bold text-neutral-900 mb-4">
-              Seamless Premium Travel Deliverables
-            </h3>
-            <p className="text-neutral-600 text-sm mb-4 font-light">
-              To deliver a seamless premium travel experience through:
-            </p>
-            <ul className="space-y-2.5">
-              {[
-                "Curated luxury and premium hotel options",
-                "Exclusive member privileges",
-                "Personalised travel assistance",
-                "Bespoke holiday planning",
-                "Professional customer service",
-                "Transparent membership policies"
-              ].map((item, idx) => (
-                <li key={idx} className="flex items-center gap-2.5 text-neutral-700 text-sm font-medium">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
           </motion.div>
         </motion.section>
 
