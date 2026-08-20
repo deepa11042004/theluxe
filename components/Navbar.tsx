@@ -70,7 +70,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-5 left-0 right-0 z-99 py-6 flex items-center justify-center max-w-7xl mx-auto w-full pointer-events-auto bg-white/50 backdrop-blur-lg rounded-full shadow-md border border-white/50">
+      <header className="fixed top-2 left-0 right-0 z-99 py-6 flex items-center justify-center max-w-7xl mx-auto w-full pointer-events-auto bg-white/50 backdrop-blur-lg rounded-full shadow-md border border-white/50">
         {/* 1. Brand Text - Outside the cylinder shape at current position (top left) */}
         <div className="absolute left-4 lg:left-6 flex items-center z-50 pointer-events-auto">
           <Link

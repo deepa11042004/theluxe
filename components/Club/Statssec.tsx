@@ -47,23 +47,8 @@ export default function Statssec() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.6 }}
-              className="relative bg-white rounded-4xl p-8 md:p-8 min-h-70 border border-black/50 shadow-xs group flex flex-col justify-between items-start text-left"
+              className="relative bg-white rounded-4xl p-8 md:p-8 min-h-70 border border-[#D4AF37]/60 shadow-[0_4px_24px_rgba(212,175,55,0.06)] group flex flex-col justify-between items-start text-left"
             >
-              {/* Dynamic Icon Badge Area (Top Right Position) */}
-              <div className="absolute top-6 right-6">
-                {stat.isAccent ? (
-                  // Solid Orange Circle Icon Frame Variant
-                  <div className="w-8 h-8 rounded-full bg-neutral-800 flex items-center justify-center text-white shadow-sm shadow-orange-500/20 group-hover:scale-105 transition-transform duration-300">
-                    <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
-                  </div>
-                ) : (
-                  // Minimal/Neutral Floating Icon Variant
-                  <div className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-500 border border-neutral-200/40 group-hover:bg-neutral-900 group-hover:text-white group-hover:border-transparent transition-all duration-300">
-                    <ArrowUpRight className="w-4 h-4 stroke-2" />
-                  </div>
-                )}
-              </div>
-
               {/* High Contrast Structural Number Display */}
               <div className="text-5xl sm:text-6xl lg:text-7xl font-serif font-normal text-black leading-none mt-4 tracking-tight">
                 {stat.value}

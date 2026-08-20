@@ -37,7 +37,7 @@ const KEY_TENETS = [
 
 export default function KeyDetails() {
   return (
-    <section className="bg-white pb-20 px-6 w-full">
+    <section className="bg-neutral-50/50 py-24 px-6 w-full">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <h2 className="text-3xl md:text-6xl font-[Vera] tracking-tight text-neutral-900 mb-16 text-center">
@@ -45,31 +45,32 @@ export default function KeyDetails() {
         </h2>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {KEY_TENETS.map((tenet) => (
             <div
               key={tenet.id}
-              className="group relative bg-neutral-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200"
+              className="w-full flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-neutral-200 group"
             >
-              {/* Hero Image with Overlay */}
-              <div className="relative h-48 w-full">
+              {/* Top segment: Image */}
+              <div className="relative w-full h-56 sm:h-64 overflow-hidden">
                 <Image
                   src={tenet.image}
                   alt={tenet.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
-                <h3 className="absolute bottom-4 left-4 right-4 text-white text-xl font-semibold text-center drop-shadow-md">
-                  {tenet.title}
-                </h3>
               </div>
 
-              {/* Benefits List */}
-              <div className="p-6">
-                <ul className="space-y-3">
+              {/* Bottom segment: Text Content */}
+              <div className="p-6 sm:p-8 flex-grow flex flex-col bg-white">
+                <h3 className="text-neutral-900 text-xl md:text-2xl font-bold tracking-tight font-sans mb-5 border-b border-neutral-100 pb-4">
+                  {tenet.title}
+                </h3>
+                
+                {/* Benefits List */}
+                <ul className="space-y-4">
                   {tenet.benefits.map((benefit, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-sm text-neutral-700 leading-relaxed">
+                    <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-neutral-600 font-medium leading-relaxed">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 mt-1.5 shrink-0" />
                       <span>{benefit}</span>
                     </li>
