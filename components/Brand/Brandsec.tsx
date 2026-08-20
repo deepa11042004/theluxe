@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, ExternalLink } from "lucide-react";
+import { Search, X } from "lucide-react";
 import Image from "next/image";
 
 export type BrandLogoItem = {
@@ -14,6 +14,7 @@ export type BrandLogoItem = {
   tagline: string;
   description: string;
   locationCount: number;
+  website: string;
   // Some source logo PNGs are low-resolution and their wordmark text is illegible at display size.
   // "icon-text": show a cropped icon-only image plus the brand name rendered as live text.
   // "text": no usable icon in the source image; render the brand name as live text only.
@@ -27,61 +28,67 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "edition",
     name: "EDITION",
     category: "Luxury",
-    logoImg: "1.png",
+    logoImg: "10.png",
     hoverBgColor: "bg-black",
     tagline: "High-Concept Design & Luxury Stays",
     description: "An unexpected and refreshing blend of high-concept design, luxury, and authentic personal service.",
     locationCount: 19,
+    website: "https://www.editionhotels.com/",
   },
   {
     id: "ritz-carlton",
     name: "THE RITZ-CARLTON",
     category: "Luxury",
-    logoImg: "2.png",
+    logoImg: "25.png",
     hoverBgColor: "bg-[#002B49]",
     tagline: "Legendary Service & Refined Elegance",
     description: "Unforgettable experiences in the world's most vibrant cities and breathtaking resort destinations.",
     locationCount: 110,
+    website: "https://www.ritzcarlton.com/",
   },
   {
     id: "luxury-collection",
     name: "THE LUXURY COLLECTION",
     category: "Luxury",
-    logoImg: "3.png",
+    logoImg: "26.png",
     hoverBgColor: "bg-[#2A2421]",
     tagline: "Iconic, Authentic Destination Hotels",
     description: "A curated ensemble of world-renowned hotels and resorts offering unique, authentic experiences.",
     locationCount: 125,
+    website: "https://the-luxury-collection.marriott.com/",
   },
   {
     id: "st-regis",
     name: "ST. REGIS",
     category: "Luxury",
-    logoImg: "4.png",
+    logoImg: "24.png",
     hoverBgColor: "bg-[#1E1B18]",
     tagline: "Timeless Elegance & Signature Butler Service",
     description: "Combining classic sophistication with a modern sensibility at the finest addresses worldwide.",
     locationCount: 60,
+    website: "https://st-regis.marriott.com/",
   },
   {
     id: "w-hotels",
     name: "W HOTELS",
     category: "Luxury",
-    logoImg: "5.png",
+    logoImg: "28.png",
     hoverBgColor: "bg-[#5B0E2D]",
     tagline: "Vibrant Luxury Lifestyle & Bold Design",
     description: "Redefining luxury lifestyle with bold design, iconic Whatever/Whenever service, and dynamic energy.",
     locationCount: 70,
+    website: "https://w-hotels.marriott.com/",
   },
   {
     id: "jw-marriott",
     name: "JW MARRIOTT",
     category: "Luxury",
-    logoImg: "6.png",
+    logoImg: "18.png",
     hoverBgColor: "bg-[#1A2530]",
     tagline: "Enriched Luxury & Mindful Well-Being",
     description: "Designed to let guests focus on feeling whole—present in mind, nourished in body, and revitalized in spirit.",
     locationCount: 105,
+    website: "https://jw-marriott.marriott.com/",
   },
 
   // ROW 2: PREMIUM
@@ -89,11 +96,12 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "marriott",
     name: "MARRIOTT HOTELS",
     category: "Premium",
-    logoImg: "7.png",
+    logoImg: "22.png",
     hoverBgColor: "bg-[#A8000B]",
     tagline: "Thoughtfully Designed Modern Hospitality",
     description: "Elevating the art of hospitality to ensure guests can travel brilliantly in top destinations worldwide.",
     locationCount: 600,
+    website: "https://marriott-hotels.marriott.com/",
   },
   {
     id: "sheraton",
@@ -104,46 +112,51 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     tagline: "The World's Gathering Place",
     description: "Creating intuitive spaces where guests feel connected and inspired around the globe.",
     locationCount: 440,
+    website: "https://sheraton.marriott.com/",
   },
   {
     id: "marriott-vacation-club",
     name: "MARRIOTT VACATION CLUB",
     category: "Premium",
-    logoImg: "9.png",
+    logoImg: "4.png",
     hoverBgColor: "bg-[#003B71]",
     tagline: "Premium Vacation Ownership Resorts",
     description: "Delivering villa accommodations and exclusive resort experiences for ownership members worldwide.",
     locationCount: 90,
+    website: "https://www.marriottvacationclub.com/",
   },
   {
     id: "delta-hotels",
     name: "DELTA HOTELS",
     category: "Premium",
-    logoImg: "10.png",
+    logoImg: "19.png",
     hoverBgColor: "bg-[#252525]",
     tagline: "Simple Made Perfect",
     description: "Focusing on the details that matter to deliver a seamless, full-service hotel experience.",
     locationCount: 115,
+    website: "https://delta-hotels.marriott.com/",
   },
   {
     id: "westin",
     name: "WESTIN",
     category: "Premium",
-    logoImg: "11.png",
+    logoImg: "14.png",
     hoverBgColor: "bg-[#004B87]",
     tagline: "Empowering Well-Being On The Road",
     description: "Designed with signature wellness programs so guests can sleep, eat, move, and feel well.",
     locationCount: 235,
+    website: "https://westin.marriott.com/",
   },
   {
     id: "le-meridien",
     name: "LE MÉRIDIEN",
     category: "Premium",
-    logoImg: "12.png",
+    logoImg: "21.png",
     hoverBgColor: "bg-[#003B71]",
     tagline: "Glamorous European Travel & Chic Design",
     description: "Unlocking destination culture through timeless mid-century European design and chic dining.",
     locationCount: 115,
+    website: "https://le-meridien.marriott.com/",
   },
 
   // ROW 3: SELECT & BOUTIQUE
@@ -151,61 +164,67 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "renaissance",
     name: "RENAISSANCE HOTELS",
     category: "Premium",
-    logoImg: "13.png",
+    logoImg: "1.png",
     hoverBgColor: "bg-[#A8000B]",
     tagline: "Discover The Unexpected Local Style",
     description: "Inviting guests to discover unexpected local experiences through dedicated Navigators and design.",
     locationCount: 175,
+    website: "https://renaissance-hotels.marriott.com/",
   },
   {
     id: "autograph-collection",
     name: "AUTOGRAPH COLLECTION",
     category: "Premium",
-    logoImg: "14.png",
+    logoImg: "8.png",
     hoverBgColor: "bg-[#2A2421]",
     tagline: "Exactly Like Nothing Else",
     description: "A handpicked selection of independent luxury boutique hotels defined by vision and craft.",
     locationCount: 290,
+    website: "https://autograph-hotels.marriott.com/",
   },
   {
     id: "tribute-portfolio",
     name: "TRIBUTE PORTFOLIO",
     category: "Premium",
-    logoImg: "15.png",
+    logoImg: "27.jpg",
     hoverBgColor: "bg-[#8A4B00]",
     tagline: "Characterful Independent Boutique Stays",
     description: "A global family of characterful boutique stays bound by a passion for captivating design.",
     locationCount: 100,
+    website: "https://tribute-portfolio.marriott.com/",
   },
   {
     id: "design-hotels",
     name: "DESIGN HOTELS",
     category: "Premium",
-    logoImg: "16.png",
+    logoImg: "3.png",
     hoverBgColor: "bg-black",
     tagline: "Architecture, Culture & Visionary Style",
     description: "A global community of visionary hospitality concepts rooted in genuine design and culture.",
     locationCount: 120,
+    website: "https://www.designhotels.com/",
   },
   {
     id: "gaylord-hotels",
     name: "GAYLORD HOTELS",
     category: "Premium",
-    logoImg: "17.png",
+    logoImg: "2.png",
     hoverBgColor: "bg-[#003B71]",
     tagline: "Grand Resort Destinations & Conventions",
     description: "Magnificent resorts featuring glass atriums, fine dining, world-class spas, and entertainment.",
     locationCount: 6,
+    website: "https://gaylord-hotels.marriott.com/",
   },
   {
     id: "mgm-collection",
     name: "MGM COLLECTION",
     category: "Premium",
-    logoImg: "18.png",
+    logoImg: "5.png",
     hoverBgColor: "bg-[#1E1E1E]",
     tagline: "World-Class Entertainment & Strip Resorts",
     description: "Unrivaled entertainment, iconic Las Vegas strip resorts, gaming, and dining destinations.",
     locationCount: 16,
+    website: "https://mgm-collection.marriott.com/",
   },
 
   // ROW 4: SELECT PORTFOLIO
@@ -213,61 +232,67 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "outdoor-collection",
     name: "OUTDOOR COLLECTION",
     category: "Select",
-    logoImg: "19.png",
+    logoImg: "23.png",
     hoverBgColor: "bg-[#2C3E2E]",
     tagline: "Immersive Nature & Glamping Retreats",
     description: "Exceptional outdoor and nature retreat experiences with full Marriott Bonvoy privileges.",
     locationCount: 15,
+    website: "https://marriott.com/",
   },
   {
     id: "courtyard",
     name: "COURTYARD BY MARRIOTT",
     category: "Select",
-    logoImg: "20.png",
+    logoImg: "9.png",
     hoverBgColor: "bg-[#004A7C]",
     tagline: "Empowering Passion-Driven Travel",
     description: "Thoughtfully crafted spaces for guests to stay connected, refreshed, and productive.",
     locationCount: 1280,
+    website: "https://courtyard.marriott.com/",
   },
   {
     id: "four-points",
     name: "FOUR POINTS BY SHERATON",
     category: "Select",
-    logoImg: "21.png",
+    logoImg: "6.png",
     hoverBgColor: "bg-[#002D58]",
     tagline: "Classic Comfort & Best Brews",
     description: "Comfortable rooms, signature craft beer program, and reliable service for smart travelers.",
     locationCount: 300,
+    website: "https://four-points.marriott.com/",
   },
   {
     id: "springhill-suites",
     name: "SPRINGHILL SUITES",
     category: "Select",
-    logoImg: "22.png",
+    logoImg: "15.png",
     hoverBgColor: "bg-[#0B3C5D]",
     tagline: "Spacious Suites & West Elm Style",
     description: "All-suite hotel design offering stylish space, West Elm furnishings, and fresh breakfast.",
     locationCount: 520,
+    website: "https://springhill-suites.marriott.com/",
   },
   {
     id: "fairfield",
     name: "FAIRFIELD BY MARRIOTT",
     category: "Select",
-    logoImg: "23.png",
+    logoImg: "12.png",
     hoverBgColor: "bg-[#16355C]",
     tagline: "Warm Hospitality & Comforting Simplicity",
     description: "Delivering calm, intuitive comfort with signature Fairfield Guarantee for effortless travel.",
     locationCount: 1250,
+    website: "https://fairfield.marriott.com/",
   },
   {
     id: "ac-hotels",
     name: "AC HOTELS",
     category: "Select",
-    logoImg: "24.png",
+    logoImg: "36.jpg",
     hoverBgColor: "bg-[#252525]",
     tagline: "European-Inspired Minimal Design",
     description: "Harnessing Spanish heritage and modern European design to refine the essential hotel experience.",
     locationCount: 225,
+    website: "https://ac-hotels.marriott.com/",
   },
 
   // ROW 5: EXTENDED & LIFESTYLE
@@ -275,41 +300,45 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "citizenm",
     name: "CITIZENM",
     category: "Select",
-    logoImg: "25.png",
+    logoImg: "16.png",
     hoverBgColor: "bg-black",
     tagline: "Affordable Luxury & Tech Urban Stays",
     description: "Modern, tech-savvy boutique hotel stays in major global cities.",
     locationCount: 35,
+    website: "https://www.citizenm.com/",
   },
   {
     id: "aloft",
     name: "ALOFT HOTELS",
     category: "Select",
-    logoImg: "26.png",
+    logoImg: "7.png",
     hoverBgColor: "bg-[#8A1C5A]",
     tagline: "Tech-Forward & Live Music Culture",
     description: "Different by design: open spaces, vibrant W XYZ bar, and tech-savvy amenities for global travelers.",
     locationCount: 230,
+    website: "https://aloft-hotels.marriott.com/",
   },
   {
     id: "moxy",
     name: "MOXY HOTELS",
     category: "Select",
-    logoImg: "27.jpg",
+    logoImg: "20.png",
     hoverBgColor: "bg-[#E60067]",
     tagline: "Playful, Energetic Boutique Vibe",
     description: "Self-service grab-and-go food, lively bar check-in with a cocktail, and fun social spaces.",
     locationCount: 130,
+    website: "https://moxy-hotels.marriott.com/",
   },
   {
     id: "protea-hotels",
     name: "PROTEA HOTELS",
     category: "Select",
-    logoImg: "28.png",
+    logoImg: "35.png",
     hoverBgColor: "bg-[#004B87]",
     tagline: "African Hospitality Heritage",
     description: "Leading hotel brand in Africa offering warm local hospitality and modern comforts.",
     locationCount: 80,
+    website: "https://protea-hotels.marriott.com/",
   },
   {
     id: "city-express",
@@ -320,16 +349,18 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     tagline: "Smart Urban Accommodation",
     description: "Modern, essential urban hotel accommodation designed for business and leisure travel.",
     locationCount: 150,
+    website: "https://city-express.marriott.com/",
   },
   {
     id: "four-points-flex",
     name: "FOUR POINTS FLEX",
     category: "Select",
-    logoImg: "30.png",
+    logoImg: "29.png",
     hoverBgColor: "bg-[#002D58]",
     tagline: "Flexible Modern Value Stays",
     description: "Smart, flexible hospitality focused on quality fundamentals and great value.",
     locationCount: 40,
+    website: "https://four-points-flex.marriott.com/",
   },
 
   // ROW 6: EXTENDED STAYS & RESIDENCES
@@ -337,21 +368,23 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     id: "series",
     name: "SERIES BY MARRIOTT",
     category: "Select",
-    logoImg: "31.png",
+    logoImg: "32.png",
     hoverBgColor: "bg-[#333333]",
     tagline: "Curated Regional Boutique Hospitality",
     description: "Regional boutique collections offering distinct local character with trusted Marriott standards.",
     locationCount: 25,
+    website: "https://marriott.com/",
   },
   {
     id: "residence-inn",
     name: "RESIDENCE INN",
     category: "Select",
-    logoImg: "32.png",
+    logoImg: "30.png",
     hoverBgColor: "bg-[#004A7C]",
     tagline: "Extended Stay Comfort & Full Kitchens",
     description: "Spacious suites with full kitchens and free hot breakfast for long-term travel comfort.",
     locationCount: 880,
+    website: "https://residence-inn.marriott.com/",
   },
   {
     id: "towneplace-suites",
@@ -362,6 +395,7 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     tagline: "All-Suite Extended Travel Stays",
     description: "Simple, friendly extended-stay hotel with Weber grills, full kitchens, and cozy suites.",
     locationCount: 470,
+    website: "https://towneplace-suites.marriott.com/",
   },
   {
     id: "element",
@@ -373,32 +407,35 @@ export const ALL_BRANDS: BrandLogoItem[] = [
     tagline: "Eco-Conscious Extended Stay Stays",
     description: "Sustainably built extended stay hotels featuring eco-friendly design, natural light, and bike rentals.",
     locationCount: 100,
+    website: "https://element-hotels.marriott.com/",
   },
   {
     id: "studiores",
     name: "STUDIORES",
     category: "Select",
-    logoImg: "35.png",
+    logoImg: "31.png",
     hoverBgColor: "bg-[#1F3A60]",
     tagline: "Smart Midscale Extended Stay",
     description: "Affordable, comfortable long-term stays engineered for modern extended travelers.",
     locationCount: 20,
+    website: "https://studiores.marriott.com/",
   },
   {
     id: "marriott-executive-apartments",
     name: "EXECUTIVE APARTMENTS",
     category: "Select",
-    logoImg: "36.jpg",
+    logoImg: "11.png",
     hoverBgColor: "bg-[#A8000B]",
     tagline: "Luxury Serviced Corporate Apartments",
     description: "Five-star serviced apartments for international corporate executives and luxury long stays.",
     locationCount: 35,
+    website: "https://marriott-executive-apartments.marriott.com/",
   },
 
 
 ];
 
-const BrandCard = ({ brand, onClick }: { brand: BrandLogoItem, onClick: () => void }) => {
+const BrandCard = ({ brand }: { brand: BrandLogoItem }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   // On default: use grayscale and opacity to make the logo grey without turning white backgrounds into grey boxes
@@ -410,17 +447,19 @@ const BrandCard = ({ brand, onClick }: { brand: BrandLogoItem, onClick: () => vo
   const getLogoPath = (b: BrandLogoItem) => `/Img/brands/${b.logoImg}`;
 
   return (
-    <motion.div
+    <motion.a
+      href={brand.website}
+      target="_blank"
+      rel="noopener noreferrer"
       layout
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.98 }}
-      onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative rounded-2xl border border-neutral-200/80 bg-white shadow-sm hover:shadow-xl hover:border-neutral-300 transition-all duration-300 block h-28 text-center cursor-pointer overflow-hidden"
+      className="group relative rounded-2xl border border-neutral-200/80 bg-white shadow-sm hover:shadow-xl hover:border-neutral-300 transition-all duration-300 block h-28 text-center overflow-hidden"
     >
 
 
@@ -442,12 +481,11 @@ const BrandCard = ({ brand, onClick }: { brand: BrandLogoItem, onClick: () => vo
           />
         </div>
       </div>
-    </motion.div>
+    </motion.a>
   );
 };
 
 export default function Brandsec() {
-  const [selectedBrand, setSelectedBrand] = useState<BrandLogoItem | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<"All" | "Luxury" | "Premium" | "Select">("All");
 
@@ -475,7 +513,7 @@ export default function Brandsec() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
           <AnimatePresence>
             {filteredBrands.map((brand) => (
-              <BrandCard key={brand.id} brand={brand} onClick={() => setSelectedBrand(brand)} />
+              <BrandCard key={brand.id} brand={brand} />
             ))}
           </AnimatePresence>
         </div>
@@ -487,82 +525,6 @@ export default function Brandsec() {
         )}
       </div>
 
-      {/* Brand Detail Modal */}
-      <AnimatePresence>
-        {selectedBrand && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedBrand(null)}
-            className="fixed inset-0 bg-black/70 backdrop-blur-md z-100 flex items-center justify-center p-4"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 15 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl max-w-md w-full p-6 text-neutral-900 relative shadow-2xl overflow-hidden border border-neutral-100"
-            >
-              <button
-                onClick={() => setSelectedBrand(null)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-neutral-100 text-neutral-500 hover:text-black hover:bg-neutral-200 transition-colors cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-
-              {/* Original Logo in Modal Header */}
-              <div className="bg-neutral-50 rounded-2xl p-6 mb-5 flex items-center justify-center border border-neutral-100 relative h-28">
-                <Image
-                  src={getLogoPath(selectedBrand)}
-                  alt={`${selectedBrand.name} Logo`}
-                  fill
-                  unoptimized
-                  className="object-contain p-4"
-                />
-              </div>
-
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-neutral-900 text-white">
-                  {selectedBrand.category} Portfolio
-                </span>
-                <span className="text-xs font-semibold text-neutral-500">
-                  {selectedBrand.locationCount}+ Global Destinations
-                </span>
-              </div>
-
-              <h3 className="text-xl font-[Vera] font-bold text-neutral-900 mb-1">
-                {selectedBrand.name}
-              </h3>
-
-              <p className="text-xs font-semibold text-neutral-700 mb-3">
-                &ldquo;{selectedBrand.tagline}&rdquo;
-              </p>
-
-              <p className="text-xs text-neutral-600 leading-relaxed mb-6">
-                {selectedBrand.description}
-              </p>
-
-              <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
-                <a
-                  href="/resorts"
-                  className="bg-[#B38E46] hover:bg-[#997734] text-white px-5 py-2.5 rounded-full font-semibold text-xs transition-all flex items-center gap-1.5 shadow-md"
-                >
-                  <span>Explore Resorts</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-
-                <button
-                  onClick={() => setSelectedBrand(null)}
-                  className="text-xs font-semibold text-neutral-500 hover:text-black transition-colors cursor-pointer px-4 py-2"
-                >
-                  Close
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

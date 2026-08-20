@@ -7,7 +7,7 @@ import BannerForm from "@/components/Club/BannerForm";
 function Join() {
   return (
     <>
-      <Heading title="Join Club Elevate" className="" />
+      <Heading title="Join Luxe Club" className="" />
       <Joinsec />
       <FAQsec />
       <BannerForm />

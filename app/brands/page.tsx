@@ -13,7 +13,7 @@ export default function BrandsPage() {
     <main className="min-h-screen bg-[#F5F5F7]">
       <Heading
         title="Our Brand Portfolio"
-        subtitle="Discover world-renowned luxury hotel brands, boutique retreats, and iconic resort destinations accessible with Club Elevate."
+        subtitle="Discover world-renowned luxury hotel brands, boutique retreats, and iconic resort destinations accessible with Luxe Club."
         align="center"
         bgImage="/Img/futc-Re1Uc-eabi8-unsplash.jpg"
       />

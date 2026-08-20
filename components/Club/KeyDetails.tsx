@@ -41,7 +41,7 @@ export default function KeyDetails() {
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <h2 className="text-3xl md:text-6xl font-[Vera] tracking-tight text-neutral-900 mb-16 text-center">
-            Club Elevate | Key Tenets
+            Luxe Club | Key Tenets
         </h2>
 
         {/* Cards Grid */}

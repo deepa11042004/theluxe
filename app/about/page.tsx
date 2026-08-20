@@ -390,14 +390,14 @@ export default function AboutPage() {
                 </div>
 
                 <Link
-                  href="/clubelevate"
+                  href="/luxeclub"
                   className={`w-full py-3 rounded-full text-xs font-bold transition-all text-center flex items-center justify-center gap-2 ${
                     plan.popular
                       ? "bg-black text-white hover:bg-neutral-800 shadow-md"
                       : "bg-white text-neutral-900 hover:bg-neutral-200"
                   }`}
                 >
-                  <span>Join Club Elevate</span>
+                  <span>Join Luxe Club</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </motion.div>
@@ -559,7 +559,7 @@ export default function AboutPage() {
           </div>
 
           <Link
-            href="/clubelevate"
+            href="/luxeclub"
             className="bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold px-6 py-3 rounded-full transition-colors whitespace-nowrap shadow-sm"
           >
             Review Terms &amp; Join

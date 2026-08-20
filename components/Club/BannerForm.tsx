@@ -107,7 +107,7 @@ export default function BannerForm() {
                 {/* Header Title */}
                 <div className="flex items-center gap-3 mb-4">
                   <h2 className="text-2xl md:text-3xl font-[Vera] text-black tracking-wide">
-                    Know More About the Club Elevate Programme
+                    Know More About the Luxe Club Programme
                   </h2>
                 </div>
 
@@ -294,7 +294,7 @@ export default function BannerForm() {
             className="flex flex-col items-center lg:items-end text-center lg:text-right"
           >
             <span className="font-[Vera] italic font-light text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-wide block leading-none opacity-95">
-              Join Club Elevate
+              Join Luxe Club
             </span>
             <span className="font-sans text-xs sm:text-sm font-semibold tracking-[0.35em] text-white/90 uppercase block mt-4 pr-1">
               Unlock a world of luxury travel

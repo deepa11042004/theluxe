@@ -88,7 +88,7 @@ function ItineraryCard({ item, onPlay }: CardProps) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="group flex flex-col h-full bg-white border border-neutral-200 rounded-3xl overflow-hidden
+      className="group flex flex-col h-full bg-white border border-neutral-200 rounded-none overflow-hidden
                  hover:border-neutral-400 hover:shadow-xl hover:shadow-black/5 transition-[border-color,box-shadow] duration-300"
     >
       {/* ── Image ── */}

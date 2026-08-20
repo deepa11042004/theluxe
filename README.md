@@ -1,6 +1,6 @@
 # 🌹 The Luxe Yatra Worldwide Travels & Resorts
 
-Welcome to **The Luxe Yatra Worldwide Travels**, a luxury boutique hospitality and membership portal built on a modern stack. This platform offers seamless property exploration, custom curated experiences, membership enrolment via **Club Elevate**, and immersive travel stories.
+Welcome to **The Luxe Yatra Worldwide Travels**, a luxury boutique hospitality and membership portal built on a modern stack. This platform offers seamless property exploration, custom curated experiences, membership enrolment via **Luxe Club**, and immersive travel stories.
 
 ---
 
@@ -11,7 +11,7 @@ Welcome to **The Luxe Yatra Worldwide Travels**, a luxury boutique hospitality a
 - **✨ Experiences Portal**: Discover a tailored list of local adventures divided into:
   - **National**: Experiences inside the country.
   - **International**: Exotic travel routes and global exploration packages.
-- **💎 Club Elevate Membership**: Exclusive rewards, luxury concierge access, and private rates. Interactive enrollment form and program highlights.
+- **💎 Luxe Club Membership**: Exclusive rewards, luxury concierge access, and private rates. Interactive enrollment form and program highlights.
 - **📰 Travel Blog**: Curated journals, design reviews, and guidebooks written by luxury travel writers.
 - **🔒 Secure Member Authentication**: User login and sign-up portals to access tailored membership profiles.
 
@@ -36,9 +36,9 @@ Welcome to **The Luxe Yatra Worldwide Travels**, a luxury boutique hospitality a
 - [app/page.tsx](./app/page.tsx) — Landing Home page combining all key sections.
 - [app/resorts/page.tsx](./app/resorts/page.tsx) — Collection of top-tier resort properties.
 - [app/experiences/page.tsx](./app/experiences/page.tsx) — Gateway page for domestic and global travel experiences.
-- [app/clubelevate/page.tsx](./app/clubelevate/page.tsx) — Dedicated Club Elevate page detailing luxury membership benefits.
+- [app/luxeclub/page.tsx](./app/luxeclub/page.tsx) — Dedicated Luxe Club page detailing luxury membership benefits.
 - [app/blogs/page.tsx](./app/blogs/page.tsx) — The official The Luxe Yatra blog.
-- [app/join/page.tsx](./app/join/page.tsx) — Club Elevate member signup application form.
+- [app/join/page.tsx](./app/join/page.tsx) — Luxe Club member signup application form.
 - [app/login/page.tsx](./app/login/page.tsx) & [app/signup/page.tsx](./app/signup/page.tsx) — Authentication flow for members.
 
 ### Core Layout Components
@@ -56,7 +56,7 @@ Welcome to **The Luxe Yatra Worldwide Travels**, a luxury boutique hospitality a
 
 ### Feature specific components
 
-- [components/Club/](./components/Club) — Modular sub-components for Club Elevate detail page, FAQ accordions, and signup layout forms.
+- [components/Club/](./components/Club) — Modular sub-components for Luxe Club detail page, FAQ accordions, and signup layout forms.
 - [components/Resort/](./components/Resort) — Resort browsing section components.
 - [components/Experience/](./components/Experience) — Grid, layout, and descriptions of travel experiences.
 

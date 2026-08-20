@@ -116,7 +116,7 @@ export default function Membersec() {
         }}
       />
 
-      {/* SECTION 1: Club Elevate INFO */}
+      {/* SECTION 1: Luxe Club INFO */}
       <div className="relative py-20 px-6 max-w-6xl mx-auto text-center z-10">
         {/* Subtle Decorative Abstract Lines Background */}
         <div className="absolute top-0 left-0 w-44 h-44 opacity-30 pointer-events-none select-none">
@@ -136,14 +136,14 @@ export default function Membersec() {
         </div>
 
         <h2 className="text-sm font-[Vera] tracking-[0.3em] text-neutral-500 uppercase mb-3">
-          Club Elevate
+          Luxe Club
         </h2>
         <h3 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-black mb-6">
           A World of Privileged Access
         </h3>
 
         <p className="text-neutral-600 font-light text-sm md:text-base max-w-3xl mx-auto leading-relaxed mb-16">
-          Club Elevate unlocks privileged access to 140+ premium Club Mahindra
+          Luxe Club unlocks privileged access to 140+ premium Club Mahindra
           resorts, offering 7 nights/8 days holidays every year — filled with
           cherished family moments and thoughtfully crafted experiences across
           India and beyond. This membership programme is designed for modern
@@ -237,7 +237,7 @@ export default function Membersec() {
                   </div>
 
                   <a
-                    href="/clubelevate"
+                    href="/luxeclub"
                     className="bg-[#B38E46] hover:bg-[#997734] active:scale-95 text-white font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-sm transition duration-200 shadow-sm whitespace-nowrap shrink-0 cursor-pointer"
                   >
                     ENROL NOW

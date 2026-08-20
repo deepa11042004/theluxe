@@ -10,7 +10,7 @@ export default function Imagesec() {
       {/* MOBILE HEADING */}
       <div className="block md:hidden">
         <Heading
-          title="Club Elevate"
+          title="Luxe Club"
           subtitle="A World of Privileged Access"
         />
       </div>
@@ -20,8 +20,8 @@ export default function Imagesec() {
         {/* BACKGROUND IMAGE */}
         <div className="absolute inset-0 w-full h-full z-0 select-none pointer-events-none">
           <Image
-            src="/Img/clubelevate.png"
-            alt="Club Elevate"
+            src="/Img/luxeclub.png"
+            alt="Luxe Club"
             fill
             priority
             sizes="100vw"

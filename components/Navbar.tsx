@@ -66,7 +66,7 @@ export default function Navbar() {
   }
 
   const isDarkPage =
-    pathname === "/" || pathname === "/clubelevate" || pathname === "/join";
+    pathname === "/" || pathname === "/luxeclub" || pathname === "/join";
 
   return (
     <>
@@ -183,20 +183,20 @@ export default function Navbar() {
                 {/* Right Side Links */}
 
                 <Link
-                  href="/clubelevate"
+                  href="/luxeclub"
                   className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 font-semibold flex items-center gap-1 whitespace-nowrap"
                 >
                   <span className="bg-[#B38E46] text-white h-4 w-4 xl:h-4.5 xl:w-4.5 flex justify-center items-center rounded-full text-[9px] xl:text-[10px] tracking-wider">
                     C
                   </span>
-                  Club Elevate
+                  Luxe Club
                 </Link>
 
                 <Link
                   href="/blogs"
                   className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
                 >
-                  Blog
+                  Blogs
                 </Link>
 
                 <Link
@@ -250,7 +250,7 @@ export default function Navbar() {
             href="/join"
             className="bg-[#B38E46] hover:bg-[#997734] text-white rounded-full px-3 py-2 xl:px-4 xl:py-2.5 2xl:px-6 2xl:py-3 text-[12px] xl:text-sm 2xl:text-base font-semibold tracking-wide shadow-md transition-all flex items-center gap-1 xl:gap-2 group whitespace-nowrap"
           >
-            <span>Join Club Elevate</span>
+            <span>Join Luxe Club</span>
             <div className="bg-white p-0.5 rounded-full group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
               <ArrowUpRight className="w-2.5 h-2.5 xl:w-3 xl:h-3 text-[#B38E46]" />
             </div>
@@ -403,14 +403,14 @@ export default function Navbar() {
 
                 <motion.div variants={itemVariants}>
                   <Link
-                    href="/clubelevate"
+                    href="/luxeclub"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="hover:text-black transition-colors flex items-center gap-2"
                   >
                     <span className="bg-black text-white h-6 w-6 flex justify-center items-center rounded-full text-xs font-bold font-sans">
                       C
                     </span>
-                    Club Elevate
+                    Luxe Club
                   </Link>
                 </motion.div>
 
@@ -420,7 +420,7 @@ export default function Navbar() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="hover:text-black transition-colors"
                   >
-                    Blog
+                    Blogs
                   </Link>
                 </motion.div>
 
@@ -448,7 +448,7 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="bg-black hover:bg-neutral-900 text-white rounded-full px-8 py-4 text-base font-semibold tracking-wide shadow-md transition-all flex items-center gap-2 group w-full justify-center"
               >
-                <span>Join Club Elevate</span>
+                <span>Join Luxe Club</span>
                 <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </Link>
             </motion.div>

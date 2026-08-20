@@ -12,7 +12,7 @@ const testimonials = [
     id: 1,
     name: "Jenny Wilson",
     location: "New York, USA",
-    text: "Club Elevate transformed the way we travel. Every detail of our resort stay was meticulously planned. A truly 5-star luxury experience.",
+    text: "Luxe Club transformed the way we travel. Every detail of our resort stay was meticulously planned. A truly 5-star luxury experience.",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
   },
   {

@@ -4,16 +4,16 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const FAQ_DATA = {
-  "Club Elevate": [
+  "Luxe Club": [
     {
       question:
-        "How do I know which Club Elevate Programme fits my family best?",
+        "How do I know which Luxe Club Programme fits my family best?",
       answer:
         "Our team will help you choose based on your travel frequency, preferred seasons, and family size. EBONY offers year-round access, IVORY covers peak seasons, and JADE is ideal for off-peak travelers.",
     },
     {
       question:
-        "What are the tenure options available in the Club Elevate Programme? Are they fixed, or can I upgrade or downgrade tenures?",
+        "What are the tenure options available in the Luxe Club Programme? Are they fixed, or can I upgrade or downgrade tenures?",
       answer:
         "Tenure options vary by plan. You can typically upgrade or downgrade during renewal periods, subject to availability and terms. Contact our membership desk for personalized guidance.",
     },
@@ -23,7 +23,7 @@ const FAQ_DATA = {
         "EBONY: 52 weeks/year access. IVORY: 46 weeks (excludes peak). JADE: 24 weeks (off-peak only). Each key unlocks different benefits and pricing tiers.",
     },
     {
-      question: "Why should I become a Club Elevate member?",
+      question: "Why should I become a Luxe Club member?",
       answer:
         "Enjoy guaranteed holidays every year, future-proof pricing, complimentary breakfasts, resort discounts, and exclusive experiences — all designed for seamless family getaways.",
     },
@@ -73,12 +73,12 @@ const FAQ_DATA = {
 
 export default function FAQsec() {
   const [activeTab, setActiveTab] = useState<
-    "Club Elevate" | "upgrade" | "newMembership" | "bookingRules"
-  >("Club Elevate");
+    "Luxe Club" | "upgrade" | "newMembership" | "bookingRules"
+  >("Luxe Club");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const tabs = [
-    { id: "Club Elevate", label: "Club Elevate" },
+    { id: "Luxe Club", label: "Luxe Club" },
     { id: "upgrade", label: "Upgrade" },
     { id: "newMembership", label: "New Membership" },
     { id: "bookingRules", label: "Booking Rules" },

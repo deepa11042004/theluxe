@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const STATS = [
   {
     value: "30+",
-    description: "Years of Club Elevate, delivering timeless family holidays",
+    description: "Years of Luxe Club, delivering timeless family holidays",
     isAccent: false,
   },
   {
