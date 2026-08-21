@@ -136,7 +136,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 5 }}
                 transition={{ duration: 0.2 }}
-                className="flex items-center gap-1 xl:gap-2 2xl:gap-3.5 text-[13px] xl:text-sm 2xl:text-base font-medium text-gray-700"
+                className="flex items-center gap-1 xl:gap-2 2xl:gap-3.5 text-[13px] xl:text-sm 2xl:text-base font-[Vera] tracking-wide font-bold text-gray-700"
               >
                 {/* Left Side Links */}
                 <Link
@@ -155,7 +155,7 @@ export default function Navbar() {
 
                 <Link
                   href="/brands"
-                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap font-medium"
+                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap font-bold"
                 >
                   Brands
                 </Link>
@@ -280,7 +280,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center z-50 pointer-events-auto absolute right-4 lg:right-6">
           <Link
             href="/join"
-            className="bg-[#B38E46] hover:bg-[#997734] text-white rounded-full px-3 py-2 xl:px-4 xl:py-2.5 2xl:px-6 2xl:py-3 text-[12px] xl:text-sm 2xl:text-base font-semibold tracking-wide shadow-md transition-all flex items-center gap-1 xl:gap-2 group whitespace-nowrap"
+            className="bg-[#B38E46] hover:bg-[#997734] text-white rounded-full px-3 py-2 xl:px-4 xl:py-2.5 2xl:px-6 2xl:py-3 text-[12px] xl:text-sm 2xl:text-base font-[Vera] font-semibold tracking-wide shadow-md transition-all flex items-center gap-1 xl:gap-2 group whitespace-nowrap"
           >
             <span>Join Luxe Club</span>
             <div className="bg-white p-0.5 rounded-full group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
@@ -315,42 +315,36 @@ export default function Navbar() {
               <Link
                 href="/"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-2"
+                className="flex items-center group transition-transform duration-200 active:scale-95"
               >
-                <div className="text-black font-[Vera] text-2xl tracking-wide flex flex-col leading-none">
-                  <span className="font-semibold">The Luxe Yatra</span>
-                  <span className="text-[12px] tracking-[0.2em] font-medium text-neutral-550 uppercase">
-                    WORLDWIDE TRAVELS
-                  </span>
+                <div className="relative h-5 w-44">
+                  <Image
+                    src="/Img/logo-text.png"
+                    alt="The Luxe Yatra"
+                    fill
+                    className="object-contain object-left drop-shadow-sm"
+                    priority
+                  />
                 </div>
               </Link>
 
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="bg-black/5 hover:bg-black/10 text-black border border-black/10 px-6 py-2.5 rounded-full font-semibold shadow-xs transition-all flex items-center justify-center text-sm font-sans cursor-pointer active:scale-95"
+                className="text-black p-2 hover:text-neutral-500 transition-colors flex items-center justify-center cursor-pointer active:scale-95"
+                aria-label="Close menu"
               >
-                Close
+                <X className="w-7 h-7" />
               </button>
             </div>
 
             {/* Menu Items Container */}
             <div className="flex-1 flex flex-col justify-center max-w-xl mx-auto w-full py-8">
-              {/* Search Bar */}
-              <div className="relative mb-8 w-full">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
-                <input
-                  type="text"
-                  placeholder="Where would you like to go?"
-                  className="w-full bg-neutral-100/80 focus:bg-neutral-200/50 text-black rounded-full pl-12 pr-10 py-3.5 focus:outline-none focus:ring-1 focus:ring-black/10 placeholder-neutral-450 text-sm border border-neutral-200/70 transition-all font-sans"
-                />
-              </div>
-
               {/* Links List */}
               <motion.nav
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="flex flex-col gap-6 text-2xl font-medium text-neutral-700"
+                className="flex flex-col gap-5 text-[15px] font-[Vera] font-medium text-gray-700 tracking-wide"
               >
                 <motion.div variants={itemVariants}>
                   <Link
@@ -379,7 +373,7 @@ export default function Navbar() {
                 >
                   <button
                     onClick={() => setIsExperiencesOpen(!isExperiencesOpen)}
-                    className="flex items-center justify-between text-2xl font-medium text-neutral-700 hover:text-black transition-colors w-full text-left cursor-pointer"
+                    className="flex items-center justify-between text-[15px] font-[Vera] font-medium text-gray-700 hover:text-black transition-colors w-full text-left cursor-pointer tracking-wide"
                   >
                     <span>Experiences</span>
                     <ChevronDown
@@ -401,21 +395,21 @@ export default function Navbar() {
                         <Link
                           href="/experiences"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-lg text-neutral-500 hover:text-black transition-colors"
+                          className="text-[14px] font-[Vera] tracking-wide text-gray-500 hover:text-black transition-colors"
                         >
                           All Experiences
                         </Link>
                         <Link
                           href="/national"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-lg text-neutral-500 hover:text-black transition-colors"
+                          className="text-[14px] font-[Vera] tracking-wide text-gray-500 hover:text-black transition-colors"
                         >
                           National
                         </Link>
                         <Link
                           href="/international"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-lg text-neutral-500 hover:text-black transition-colors"
+                          className="text-[14px] font-[Vera] tracking-wide text-gray-500 hover:text-black transition-colors"
                         >
                           International
                         </Link>
@@ -438,9 +432,9 @@ export default function Navbar() {
                   <Link
                     href="/luxeclub"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-black transition-colors flex items-center gap-2"
+                    className="hover:text-black transition-colors flex items-center gap-2 font-semibold"
                   >
-                    <span className="bg-black text-white h-6 w-6 flex justify-center items-center rounded-full text-xs font-bold font-sans">
+                    <span className="bg-[#B38E46] text-white h-5 w-5 flex justify-center items-center rounded-full text-[10px] font-bold font-sans tracking-wider">
                       C
                     </span>
                     Luxe Club
@@ -479,10 +473,12 @@ export default function Navbar() {
               <Link
                 href="/join"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="bg-black hover:bg-neutral-900 text-white rounded-full px-8 py-4 text-base font-semibold tracking-wide shadow-md transition-all flex items-center gap-2 group w-full justify-center"
+                className="bg-[#B38E46] hover:bg-[#997734] text-white rounded-full px-8 py-4 text-base font-[Vera] font-semibold tracking-wide shadow-md transition-all flex items-center gap-2 group w-full justify-center"
               >
                 <span>Join Luxe Club</span>
-                <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <div className="bg-white p-0.5 rounded-full group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                  <ArrowUpRight className="w-4 h-4 text-[#B38E46]" />
+                </div>
               </Link>
             </motion.div>
           </motion.div>
