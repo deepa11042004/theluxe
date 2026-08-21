@@ -314,21 +314,21 @@ export default function Membersec() {
               {CAROUSEL_PRIVILEGES.map((item) => (
                 <div
                   key={item.id}
-                  className="relative shrink-0 w-[calc(100%-48px)] sm:w-[calc(50%-36px)] md:w-[calc(33.333%-32px)] lg:w-[calc(25%-18px)] aspect-3/4 rounded-none overflow-hidden shadow-xl bg-neutral-900 cursor-pointer group"
+                  className="relative shrink-0 w-[calc(100%-48px)] sm:w-[calc(50%-36px)] md:w-[calc(33.333%-32px)] lg:w-[calc(25%-18px)] aspect-3/4 rounded-3xl overflow-hidden border border-neutral-200/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-500 bg-neutral-100 cursor-pointer group"
                 >
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover brightness-[0.75] contrast-[1.05] group-hover:scale-110 transition-transform duration-700 ease-out"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
 
                   {/* Overlay Gradient for better text readability */}
                   <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60" />
 
-                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md px-4 py-3.5 rounded-none text-center shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                    <span className="text-neutral-900 text-xs sm:text-sm font-semibold tracking-tight font-sans block truncate">
+                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md px-4 py-3.5 rounded-2xl text-center shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    <span className="text-neutral-900 text-xs sm:text-sm font-[Vera] font-bold tracking-tight block truncate group-hover:text-[#B38E46] transition-colors">
                       {item.title}
                     </span>
                   </div>
@@ -342,8 +342,8 @@ export default function Membersec() {
             <button
               onClick={handlePrev}
               disabled={isFirstSlide}
-              className={`p-3 border rounded-full transition-all bg-white active:scale-95 text-neutral-900
-                ${isFirstSlide ? "border-neutral-800 bg-neutral-900/40 text-neutral-600 cursor-not-allowed active:scale-100" : "border-neutral-200 hover:bg-neutral-100"}`}
+              className={`p-3 border rounded-full transition-all bg-white active:scale-95 text-[#B38E46]
+                ${isFirstSlide ? "border-neutral-200 bg-neutral-50/40 text-neutral-400 cursor-not-allowed active:scale-100" : "border-[#B38E46] hover:bg-[#B38E46] hover:text-white shadow-md"}`}
               aria-label="Previous Privileges"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -351,8 +351,8 @@ export default function Membersec() {
             <button
               onClick={handleNext}
               disabled={isLastSlide}
-              className={`p-3 border rounded-full transition-all bg-white active:scale-95 text-neutral-900
-                ${isLastSlide ? "border-neutral-800 bg-neutral-900/40 text-neutral-600 cursor-not-allowed active:scale-100" : "border-neutral-200 hover:bg-neutral-100"}`}
+              className={`p-3 border rounded-full transition-all bg-white active:scale-95 text-[#B38E46]
+                ${isLastSlide ? "border-neutral-200 bg-neutral-50/40 text-neutral-400 cursor-not-allowed active:scale-100" : "border-[#B38E46] hover:bg-[#B38E46] hover:text-white shadow-md"}`}
               aria-label="Next Privileges"
             >
               <ArrowRight className="w-4 h-4" />
