@@ -97,7 +97,7 @@ const itemVariants: Variants = {
 
 export default function Activities() {
   return (
-    <section className="bg-white text-black py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden select-none">
+    <section className="bg-white text-black py-12 md:py-24 px-4 sm:px-6 lg:px-8 w-full overflow-hidden select-none">
       <div className="max-w-7xl mx-auto">
         {/* 1. Header Block with dynamic details matching image text structure */}
         <div className="text-center flex flex-col items-center mb-16 md:mb-24">
