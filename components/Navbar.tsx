@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, ChevronDown, ArrowUpRight } from "lucide-react";
+import { Search, X, ChevronDown, ArrowUpRight, Menu as MenuIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -71,18 +71,50 @@ export default function Navbar() {
   return (
     <>
       <header className="fixed top-2 left-0 right-0 z-99 py-6 flex items-center justify-center max-w-7xl mx-auto w-full pointer-events-auto bg-white/50 backdrop-blur-lg rounded-full shadow-md border border-white/50">
-        {/* 1. Brand Text - Outside the cylinder shape at current position (top left) */}
-        <div className="absolute left-4 lg:left-6 flex items-center z-50 pointer-events-auto">
+        {/* 1. Brand Text - Desktop Only */}
+        <div className="hidden lg:flex absolute left-6 items-center z-50 pointer-events-auto">
           <Link
             href="/"
             className="flex items-center group transition-transform duration-200 hover:scale-105 shrink"
           >
-            <div className="relative h-5 w-32 lg:h-5 lg:w-36 xl:h-5 xl:w-44 2xl:h-6 2xl:w-52">
+            <div className="relative lg:h-5 lg:w-36 xl:h-5 xl:w-44 2xl:h-6 2xl:w-52">
               <Image
                 src="/Img/logo-text.png"
                 alt="The Luxe Yatra"
                 fill
                 className="object-contain object-left drop-shadow-sm"
+                priority
+              />
+            </div>
+          </Link>
+        </div>
+
+        {/* Mobile Emblem Logo (Left Corner) */}
+        <div className="flex lg:hidden absolute left-4 z-50 pointer-events-auto items-center justify-center">
+          <Link href="/">
+            <div className="relative h-11 w-11 bg-white rounded-full shadow-sm border border-neutral-100/50 flex items-center justify-center p-1 transition-transform active:scale-95">
+              <div className="relative h-full w-full">
+                <Image
+                  src="/Img/logo-emblem.png"
+                  alt="The Luxe Yatra Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        {/* Mobile Text Logo (Center) */}
+        <div className="flex lg:hidden absolute left-1/2 -translate-x-1/2 z-50 pointer-events-auto items-center justify-center">
+          <Link href="/">
+            <div className="relative h-4 w-32 transition-transform active:scale-95">
+              <Image
+                src="/Img/logo-text.png"
+                alt="The Luxe Yatra"
+                fill
+                className="object-contain object-center drop-shadow-sm"
                 priority
               />
             </div>
@@ -258,12 +290,13 @@ export default function Navbar() {
         </div>
 
         {/* Mobile/Tablet Menu Button */}
-        <div className="flex lg:hidden items-center z-50 pointer-events-auto">
+        <div className="flex lg:hidden items-center z-50 pointer-events-auto absolute right-4">
           <button
             onClick={() => setIsMobileMenuOpen(true)}
-            className="bg-white text-black px-6 py-2.5 rounded-full font-semibold shadow-md transition-all hover:bg-neutral-100 flex items-center justify-center text-sm font-sans cursor-pointer active:scale-95 border border-white/10"
+            className="text-black p-2 rounded-full transition-all hover:bg-black/5 flex items-center justify-center cursor-pointer active:scale-95"
+            aria-label="Open Menu"
           >
-            Menu
+            <MenuIcon className="w-6 h-6" />
           </button>
         </div>
       </header>
