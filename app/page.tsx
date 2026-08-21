@@ -13,7 +13,7 @@ import Itinerary from "@/components/Home/Itinerary";
 
 function page() {
   return (
-    <>
+    <div className="w-full overflow-x-hidden flex flex-col">
       <Home />
       <About />
       <Overview />
@@ -26,7 +26,7 @@ function page() {
       <Clientsec />
       <Activities />
       <Blog />
-    </>
+    </div>
   );
 }
 

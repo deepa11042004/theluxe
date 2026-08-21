@@ -173,17 +173,17 @@ export default function Membersec() {
       </div>
 
       {/* SECTION 2: MEMBERSHIP TYPES & CARDS (TAJ EPICURE STYLE) */}
-      <div className="relative z-10 bg-white text-black py-20 px-6 w-full border-t border-neutral-200/60">
+      <div className="relative z-10 bg-white text-black py-12 md:py-16 px-6 w-full border-t border-neutral-200/60">
         <div className="max-w-7xl mx-auto text-center">
           <h3 className="text-2xl md:text-5xl font-[Vera] tracking-tight text-black mb-4 uppercase">
             Membership Types
           </h3>
-          <p className="text-neutral-500 text-xs md:text-sm font-medium tracking-widest mb-14 uppercase">
+          <p className="text-neutral-500 text-xs md:text-sm font-medium tracking-widest mb-8 md:mb-10 uppercase">
             Select your preferred membership tier below to enter a world of seamless vacations
           </p>
 
           {/* Taj Epicure Membership Card Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-14">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-6 md:mb-8">
             {MEMBERSHIPS.map((card, idx) => (
               <motion.div
                 key={idx}

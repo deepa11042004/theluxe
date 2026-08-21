@@ -199,7 +199,7 @@ function SlidingImageCarousel({ images }: { images: SlideItem[] }) {
 
 export default function Overview() {
   return (
-    <section className="bg-white text-black w-full overflow-hidden flex flex-col gap-24 py-16 lg:py-24">
+    <section className="bg-white text-black w-full overflow-hidden flex flex-col gap-16 md:gap-24 py-10 md:py-16 lg:py-24">
       {OVERVIEW_SECTIONS.map((section, index) => {
         // True = Text Left, Image Right | False = Image Left, Text Right
         const isTextLeft = index % 2 === 0;

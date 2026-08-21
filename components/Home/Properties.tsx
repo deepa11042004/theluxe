@@ -78,10 +78,10 @@ export default function Properties() {
   const next = () => setOffset((o) => Math.min(maxOffset, o + 1));
 
   return (
-    <section className="w-full min-h-screen bg-white flex items-center py-16 md:py-24">
+    <section className="w-full bg-white flex flex-col items-center py-10 md:py-16">
       <div className="w-full max-w-7xl mx-auto px-6 flex flex-col items-center">
         {/* Header */}
-        <div className="text-center flex flex-col items-center mb-10 md:mb-16">
+        <div className="text-center flex flex-col items-center mb-10 md:mb-12">
           <div className="inline-flex items-center gap-2 bg-[#B38E46] border border-[#B38E46] rounded-full px-4 py-1.5 text-xs text-white font-medium tracking-wider uppercase mb-6">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             Explore 200+ Resorts

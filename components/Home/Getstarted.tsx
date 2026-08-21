@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import {
   CalendarCheck,
@@ -122,16 +123,18 @@ export default function Getstarted() {
         {/* CTA row */}
         <FadeUp delay={0.8}>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <motion.button
-              whileHover={{
-                scale: 1.04,
-              }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#B38E46] text-white font-semibold text-xs uppercase tracking-wider shadow-lg hover:bg-[#997734] transition-all duration-300 cursor-pointer"
-            >
-              Explore
-              <ArrowRight size={15} strokeWidth={2} />
-            </motion.button>
+            <Link href="/about">
+              <motion.button
+                whileHover={{
+                  scale: 1.04,
+                }}
+                whileTap={{ scale: 0.97 }}
+                className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#B38E46] text-white font-semibold text-xs uppercase tracking-wider shadow-lg hover:bg-[#997734] transition-all duration-300 cursor-pointer"
+              >
+                Explore
+                <ArrowRight size={15} strokeWidth={2} />
+              </motion.button>
+            </Link>
           </div>
         </FadeUp>
       </div>

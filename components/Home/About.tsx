@@ -52,10 +52,10 @@ const rightImages = [
 
 export default function About() {
   return (
-    <section className="bg-white text-black min-h-screen w-full overflow-hidden flex items-center py-12 lg:py-20">
+    <section className="bg-white text-black min-h-fit md:min-h-screen w-full overflow-hidden flex items-center py-12 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* TOP CINEMATIC PICTURE COLLAGE WITH DATA IN CENTER */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch h-[550px] md:h-[620px] lg:h-[680px]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch h-auto md:h-[620px] lg:h-[680px]">
           {/* Left Vertical Marquee Slider Column */}
           <div className="hidden md:block md:col-span-3 h-full overflow-hidden relative rounded-3xl border border-neutral-100 bg-neutral-50 shadow-inner">
             {/* Top & Bottom Gradient Fades for Smooth Blend */}
@@ -94,20 +94,20 @@ export default function About() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="col-span-12 md:col-span-6 flex flex-col justify-center items-center text-center p-6 md:p-10 rounded-3xl bg-white/80 backdrop-blur-md border border-neutral-200 shadow-xl z-10 h-full overflow-y-auto"
+            className="col-span-1 md:col-span-6 flex flex-col justify-center items-center text-center p-6 md:p-10 rounded-3xl bg-white/80 backdrop-blur-md border border-neutral-200 shadow-xl z-10 h-auto md:h-full overflow-hidden md:overflow-y-auto"
           >
             {/* Micro-Header Tag */}
-            <span className="text-[13px] md:text-sm font-[Vera] tracking-[0.3em] text-neutral-500 uppercase mb-4 block">
+            <span className="text-[10px] md:text-sm font-[Vera] tracking-widest sm:tracking-[0.3em] text-neutral-500 uppercase mb-4 block break-words w-full">
               About The Luxe Yatra Worldwide Travel
             </span>
 
             {/* Luxury High-Contrast Headline */}
-            <h2 className="text-3xl sm:text-4xl xl:text-5xl font-[Vera] tracking-normal text-black mb-6 leading-[1.2] max-w-lg">
+            <h2 className="text-2xl sm:text-4xl xl:text-5xl font-[Vera] tracking-normal text-black mb-6 leading-[1.25] max-w-lg break-words w-full">
               We&apos;re Dedicated To Making Your Travel Simple &amp; Fun
             </h2>
 
             {/* Multi-Paragraph Content Block */}
-            <div className="space-y-5 text-neutral-700 font-light text-sm xl:text-base leading-relaxed tracking-wide max-w-md">
+            <div className="space-y-4 md:space-y-5 text-neutral-700 font-light text-xs sm:text-sm xl:text-base leading-relaxed tracking-wide max-w-md w-full break-words">
               <p>
                 A holiday is more than just sightseeing. It&apos;s about
                 enjoying exclusive experiences, unique accommodations across

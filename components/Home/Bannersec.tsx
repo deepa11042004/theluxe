@@ -61,7 +61,7 @@ export default function Bannersec() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-          className="text-4xl sm:text-5xl md:text-8xl font-[Vera] text-white mb-8 tracking-wide leading-tighest max-w-3xl"
+          className="text-3xl sm:text-5xl md:text-8xl font-[Vera] text-white mb-8 tracking-wide leading-tight max-w-3xl break-words w-full px-2"
         >
           Prefer your own type of vacations
         </motion.h2>
