@@ -36,7 +36,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
       title: item.title,
       duration: item.duration,
       spots: "Available",
-      price: "$1,499",
+      price: "₹1,24,999",
       tag: item.country,
       image: item.image,
     }));
@@ -259,7 +259,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
               <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200/60 flex items-center justify-between">
                 <div>
                   <span className="text-xs text-neutral-500 font-medium block">Starting from</span>
-                  <span className="text-2xl font-bold font-[Vera] text-neutral-900">$1,499</span>
+                  <span className="text-2xl font-bold font-[Vera] text-neutral-900">₹1,24,999</span>
                   <span className="text-xs text-neutral-500"> / person</span>
                 </div>
                 <span className="text-xs font-semibold text-[#B38E46] bg-[#B38E46]/10 px-3 py-1 rounded-full border border-[#B38E46]/20 font-[Vera]">
