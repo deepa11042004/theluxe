@@ -24,7 +24,8 @@ const LUXURY_RESORTS = [
     description:
       "A floating white-marble palace in the middle of Lake Pichola offering unparalleled royal hospitality and romantic sunset views over the Aravalli hills.",
     image:
-      "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=800&q=80",
+      "https://cdn.sanity.io/images/ocl5w36p/ihcl_prod/1c0c270e8d67352d82a51cc9a9c89c994bc882fe-1280x1760.jpg",
+    href: "https://www.tajhotels.com/en-in/taj/taj-lake-palace-udaipur/",
     category: "HERITAGE & PALACE",
     rating: 4.9,
     price: "₹48,500",
@@ -36,8 +37,8 @@ const LUXURY_RESORTS = [
     location: "Rishikesh, Uttarakhand, India",
     description:
       "A world-renowned luxury wellness sanctuary set on a 100-acre palace estate overlooking the spiritual Ganges River valley.",
-    image:
-      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+    image: "/Img/Untitled design (15).webp",
+    href: "https://www.anandaspa.com/",
     category: "MOUNTAIN & WELLNESS",
     rating: 4.95,
     price: "₹42,000",
@@ -49,8 +50,8 @@ const LUXURY_RESORTS = [
     location: "Agra, Uttar Pradesh, India",
     description:
       "Located just 600 meters from the Taj Mahal, every room and suite offers uninterrupted, breathtaking views of the monument of love.",
-    image:
-      "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80",
+    image: "/Img/e3371e9e.avif",
+    href: "https://www.oberoihotels.com/hotels-in-agra-amarvilas-resort/",
     category: "HERITAGE & PALACE",
     rating: 4.98,
     price: "₹55,000",
@@ -62,8 +63,8 @@ const LUXURY_RESORTS = [
     location: "Baa Atoll, Maldives",
     description:
       "An idyllic island hideaway featuring spacious beachfront and overwater villas with private pools, glassblowing studio, and open-air cinema.",
-    image:
-      "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80",
+    image: "/Img/soneva-fushi.jpg",
+    href: "https://soneva.com/resorts/soneva-fushi/",
     category: "BEACH & ISLAND",
     rating: 4.92,
     price: "₹1,15,000",
@@ -76,7 +77,8 @@ const LUXURY_RESORTS = [
     description:
       "A modern oasis carved out of pink sandstone, surrounded by mature palm groves and ancient ruined temples near Sariska National Park.",
     image:
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+      "https://www.aman.com/sites/default/files/2023-01/Amanbagh%2C%20India%20-%20Main%20Building%2C%20Pool%20View-3.jpg",
+    href: "https://www.aman.com/resorts/amanbagh",
     category: "WILDLIFE & SAFARI",
     rating: 4.88,
     price: "₹62,000",
@@ -88,8 +90,8 @@ const LUXURY_RESORTS = [
     location: "Kovalam, Kerala, India",
     description:
       "Perched high on a clifftop overlooking the Arabian Sea, blending authentic Malabar coastal luxury with world-class beach access.",
-    image:
-      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+    image: "/Img/Intro_1035x600_5.webp",
+    href: "https://www.theleela.com/the-leela-kovalam-a-raviz-hotel",
     category: "BEACH & ISLAND",
     rating: 4.9,
     price: "₹38,000",
@@ -204,12 +206,10 @@ export default function ResortSec() {
               >
                 {/* Media Image Area Container */}
                 <div className="w-full relative aspect-4/3 rounded-t-3xl overflow-hidden bg-neutral-100">
-                  <Image
+                  <img
                     src={resort.image}
                     alt={resort.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                   {/* Category Pill Tag */}
                   <span className="absolute top-4 left-4 text-[10px] font-[Vera] font-bold uppercase tracking-widest bg-[#B38E46] text-white px-3 py-1.5 rounded-full shadow-md z-10">
@@ -269,7 +269,9 @@ export default function ResortSec() {
                     </div>
 
                     <Link
-                      href="/contact"
+                      href={resort.href || "/contact"}
+                      target={resort.href ? "_blank" : undefined}
+                      rel={resort.href ? "noopener noreferrer" : undefined}
                       className="inline-flex items-center gap-1.5 text-xs font-[Vera] font-bold uppercase tracking-wider text-[#B38E46] group-hover:text-[#997734] transition-colors"
                     >
                       <span>Explore Resort</span>
