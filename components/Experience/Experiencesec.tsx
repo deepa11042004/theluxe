@@ -174,11 +174,11 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                     setActiveCategory(cat);
                     setSearchQuery(""); // Clear search when switching categories
                   }}
-                  className={`text-xs font-medium tracking-widest uppercase px-5 py-2.5 rounded-full border transition-all duration-300 active:scale-95
+                  className={`text-[11px] sm:text-xs font-[Vera] font-bold tracking-widest uppercase px-5 py-2.5 rounded-full border transition-all duration-300 active:scale-95 cursor-pointer
                     ${
                       isSelected
-                        ? "bg-black text-white border-black shadow-xs"
-                        : "bg-transparent text-neutral-600 border-dashed border-neutral-400 hover:text-black hover:border-black"
+                        ? "bg-[#B38E46] text-white border-[#B38E46] shadow-md"
+                        : "bg-transparent text-neutral-600 border-neutral-300 hover:text-neutral-900 hover:border-neutral-800"
                     }`}
                 >
                   {cat}
@@ -190,14 +190,14 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
 
         {/* 2. SEARCH BAR */}
         <div className="max-w-md mx-auto mb-12 relative">
-          <div className="relative flex items-center bg-neutral-50 border border-neutral-200 focus-within:border-neutral-900 rounded-full px-5 py-3 transition-all duration-300 shadow-xs">
-            <Search className="w-4 h-4 text-neutral-400 mr-3 shrink-0" />
+          <div className="relative flex items-center bg-neutral-50/80 border border-neutral-200 focus-within:border-[#B38E46] rounded-full px-5 py-3.5 transition-all duration-300 shadow-xs">
+            <Search className="w-4 h-4 text-[#B38E46] mr-3 shrink-0" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name, location, or details..."
-              className="bg-transparent text-sm text-neutral-950 placeholder-neutral-400 focus:outline-none w-full font-medium"
+              className="bg-transparent text-xs sm:text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none w-full font-medium"
             />
             {searchQuery && (
               <button
@@ -224,8 +224,8 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                 exit={{ opacity: 0, y: -10 }}
                 className="col-span-full py-20 text-center flex flex-col items-center justify-center text-neutral-500"
               >
-                <Search className="w-10 h-10 text-neutral-300 mb-4" />
-                <p className="text-xl font-bold text-neutral-900 mb-2">No destinations found</p>
+                <Search className="w-10 h-10 text-[#B38E46] mb-4 opacity-60" />
+                <p className="text-xl font-[Vera] font-bold text-neutral-900 mb-2">No destinations found</p>
                 <p className="text-sm text-neutral-400 font-light max-w-sm mx-auto leading-relaxed">
                   We couldn&apos;t find any results matching &ldquo;{searchQuery}&rdquo;. Try checking for typos or searching for a different keyword.
                 </p>
@@ -240,42 +240,44 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                 exit={{ opacity: 0, scale: 0.95, y: 10 }}
                 transition={{ type: "spring", stiffness: 180, damping: 22 }}
                 key={exp.id}
-                className="flex flex-col justify-between items-start group cursor-pointer w-full bg-white rounded-3xl"
+                className="flex flex-col justify-between items-start group cursor-pointer w-full bg-white rounded-3xl border border-neutral-200/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-500 overflow-hidden"
               >
                 {/* Media Image Area Container */}
-                <div className="w-full relative aspect-4/3 rounded-3xl overflow-hidden shadow-xs mb-6 bg-neutral-100">
+                <div className="w-full relative aspect-4/3 rounded-t-3xl overflow-hidden bg-neutral-100 shrink-0">
                   <Image
                     src={exp.image}
                     alt={`${exp.title} - ${exp.location}`}
                     fill
-                    sizes="(max-w-768px) 100vw, 33vw"
-                    className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out brightness-[0.96]"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                 </div>
 
-                {/* Location Name & Title Wrapper */}
-                <div className="grow mb-6">
-                  {/* Location Name (styled as category/location header above main title) */}
-                  <span className="text-[11px] font-bold text-neutral-400 tracking-wider font-sans uppercase mb-1 block">
-                    {exp.location}
-                  </span>
-                  
-                  {/* Property Name */}
-                  <h3 className="text-xl md:text-2xl font-bold tracking-tight text-neutral-900 mb-3 group-hover:text-neutral-600 transition-colors leading-snug">
-                    {exp.title}
-                  </h3>
-                  
-                  {/* Description */}
-                  <p className="text-neutral-500 font-light text-sm leading-relaxed tracking-wide line-clamp-3">
-                    {exp.description}
-                  </p>
-                </div>
+                {/* Content Block */}
+                <div className="p-6 grow flex flex-col justify-between w-full">
+                  <div>
+                    {/* Location Name */}
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-[#B38E46] uppercase tracking-widest mb-2 font-[Vera]">
+                      <span>{exp.location}</span>
+                    </div>
+                    
+                    {/* Property Name */}
+                    <h3 className="text-xl font-[Vera] font-bold tracking-tight text-neutral-900 mb-3 group-hover:text-[#B38E46] transition-colors leading-snug">
+                      {exp.title}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="text-neutral-500 font-light text-sm leading-relaxed tracking-wide line-clamp-3 mb-4">
+                      {exp.description}
+                    </p>
+                  </div>
 
-                {/* 3. Footer Action Call ("Explore Now" matching Resortsec style) */}
-                <div className="w-full pt-2 border-t border-transparent">
-                  <div className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-neutral-900 border-b-2 border-dotted border-neutral-300 pb-1 group-hover:border-neutral-900 transition-colors">
-                    <span>Explore Now</span>
-                    <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  {/* 3. Footer Action Call ("Explore Now" matching Resortsec style) */}
+                  <div className="w-full pt-4 border-t border-neutral-100 flex items-center justify-between mt-2">
+                    <div className="inline-flex items-center gap-1.5 text-xs font-[Vera] font-bold uppercase tracking-wider text-[#B38E46] group-hover:text-[#997734] transition-colors cursor-pointer">
+                      <span>Explore Now</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </div>
                 </div>
               </motion.div>

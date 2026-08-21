@@ -88,11 +88,11 @@ function ItineraryCard({ item, onPlay }: CardProps) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="group flex flex-col h-full bg-white border border-neutral-200 rounded-none overflow-hidden
-                 hover:border-neutral-400 hover:shadow-xl hover:shadow-black/5 transition-[border-color,box-shadow] duration-300"
+      className="group flex flex-col h-full bg-white border border-neutral-200/80 rounded-3xl overflow-hidden
+                 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-500"
     >
       {/* ── Image ── */}
-      <div className="relative h-64 w-full overflow-hidden shrink-0">
+      <div className="relative aspect-4/3 w-full overflow-hidden shrink-0 rounded-t-3xl bg-neutral-100">
         <Image
           src={item.image}
           alt={item.title}
@@ -103,7 +103,7 @@ function ItineraryCard({ item, onPlay }: CardProps) {
         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
 
         {/* Badge */}
-        <span className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-neutral-800 text-xs font-semibold px-3 py-1.5 rounded-full tracking-wide shadow-sm">
+        <span className="absolute top-4 left-4 bg-[#B38E46] text-white text-[10px] font-[Vera] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-md z-10">
           {item.badge}
         </span>
 
@@ -123,13 +123,13 @@ function ItineraryCard({ item, onPlay }: CardProps) {
       </div>
 
       {/* ── Body ── */}
-      <div className="p-6 flex flex-col flex-1 gap-3 bg-white">
-        <div className="flex items-center gap-1.5 text-neutral-400 text-xs font-bold uppercase tracking-widest">
-          <MapPin className="w-3.5 h-3.5 shrink-0 text-neutral-500" />
+      <div className="p-6 flex flex-col flex-1 gap-3 bg-white w-full">
+        <div className="flex items-center gap-1.5 text-[#B38E46] text-xs font-semibold uppercase tracking-widest font-[Vera]">
+          <MapPin className="w-3.5 h-3.5 shrink-0" />
           <span>{item.country}</span>
         </div>
 
-        <h3 className="text-xl font-bold text-neutral-900 leading-snug tracking-tight line-clamp-2 group-hover:text-black transition-colors duration-200">
+        <h3 className="text-xl font-[Vera] font-bold tracking-tight text-neutral-900 leading-snug line-clamp-2 group-hover:text-[#B38E46] transition-colors duration-200">
           {item.title}
         </h3>
 
@@ -137,20 +137,17 @@ function ItineraryCard({ item, onPlay }: CardProps) {
           {item.description}
         </p>
 
-        <div className="pt-4 mt-auto border-t border-neutral-100 flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-neutral-500 text-xs font-medium">
-            <Clock className="w-3.5 h-3.5 shrink-0" />
+        <div className="pt-4 mt-auto border-t border-neutral-100 flex items-center justify-between w-full">
+          <div className="flex items-center gap-1.5 text-neutral-500 text-xs font-medium font-[Vera]">
+            <Clock className="w-3.5 h-3.5 shrink-0 text-[#B38E46]" />
             <span>{item.duration}</span>
           </div>
           <Link
             href={`/itinerary/${item.id}`}
-            className="inline-flex items-center gap-1 text-xs font-semibold text-neutral-700
-                          border border-neutral-200 px-4 py-2 rounded-full
-                          group-hover:bg-neutral-900 group-hover:text-white group-hover:border-neutral-900
-                          transition-all duration-300 cursor-pointer select-none"
+            className="inline-flex items-center gap-1.5 text-xs font-[Vera] font-bold uppercase tracking-wider text-[#B38E46] group-hover:text-[#997734] transition-colors cursor-pointer"
           >
-            Explore
-            <ArrowRight className="w-3 h-3" />
+            <span>Explore</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>
@@ -268,11 +265,11 @@ export default function ItineraryPage() {
               <button
                 key={region.value}
                 onClick={() => setSelectedRegion(region.value as any)}
-                className={`text-xs font-medium tracking-widest uppercase px-5 py-2.5 rounded-full border transition-all duration-300 active:scale-95 cursor-pointer
+                className={`text-[11px] sm:text-xs font-[Vera] font-bold tracking-widest uppercase px-5 py-2.5 rounded-full border transition-all duration-300 active:scale-95 cursor-pointer
                   ${
                     isSelected
-                      ? "bg-black text-white border-black shadow-xs"
-                      : "bg-transparent text-neutral-600 border-dashed border-neutral-400 hover:text-black hover:border-black"
+                      ? "bg-[#B38E46] text-white border-[#B38E46] shadow-md"
+                      : "bg-transparent text-neutral-600 border-neutral-300 hover:text-neutral-900 hover:border-neutral-800"
                   }`}
               >
                 {region.label}
@@ -293,11 +290,11 @@ export default function ItineraryPage() {
               <button
                 key={dur.value}
                 onClick={() => setSelectedDuration(dur.value as any)}
-                className={`text-xs font-medium tracking-widest uppercase px-5 py-2.5 rounded-full border transition-all duration-300 active:scale-95 cursor-pointer
+                className={`text-[11px] sm:text-xs font-[Vera] font-bold tracking-widest uppercase px-5 py-2.5 rounded-full border transition-all duration-300 active:scale-95 cursor-pointer
                   ${
                     isSelected
-                      ? "bg-black text-white border-black shadow-xs"
-                      : "bg-transparent text-neutral-600 border-dashed border-neutral-400 hover:text-black hover:border-black"
+                      ? "bg-[#B38E46] text-white border-[#B38E46] shadow-md"
+                      : "bg-transparent text-neutral-600 border-neutral-300 hover:text-neutral-900 hover:border-neutral-800"
                   }`}
               >
                 {dur.label}
@@ -308,14 +305,14 @@ export default function ItineraryPage() {
 
         {/* 3. SEARCH BAR */}
         <div className="max-w-md mx-auto mb-10 relative">
-          <div className="relative flex items-center bg-white border border-neutral-200 focus-within:border-neutral-900 rounded-full px-5 py-3 transition-all duration-300 shadow-xs">
-            <Search className="w-4 h-4 text-neutral-400 mr-3 shrink-0" />
+          <div className="relative flex items-center bg-neutral-50/80 border border-neutral-200 focus-within:border-[#B38E46] rounded-full px-5 py-3.5 transition-all duration-300 shadow-xs">
+            <Search className="w-4 h-4 text-[#B38E46] mr-3 shrink-0" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search itineraries..."
-              className="bg-transparent text-sm text-neutral-950 placeholder-neutral-400 focus:outline-none w-full font-medium"
+              className="bg-transparent text-xs sm:text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none w-full font-medium"
             />
             {searchQuery && (
               <button
@@ -332,10 +329,10 @@ export default function ItineraryPage() {
         {/* 4. RESET BUTTON */}
         {hasActiveFilters && (
           <div className="flex justify-center mb-8">
-            <button
-              onClick={handleReset}
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white rounded-full text-xs font-bold tracking-widest uppercase transition-all duration-300 active:scale-95 shadow-md cursor-pointer"
-            >
+              <button
+                onClick={handleReset}
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-[#B38E46] hover:bg-[#997734] text-white rounded-full text-[11px] sm:text-xs font-[Vera] font-bold tracking-widest uppercase transition-all duration-300 active:scale-95 shadow-md cursor-pointer"
+              >
               <RotateCcw className="w-3.5 h-3.5" />
               Reset Filters
             </button>
@@ -381,8 +378,8 @@ export default function ItineraryPage() {
               exit={{ opacity: 0, y: 16, transition: { duration: 0.2 } }}
               className="flex flex-col items-center justify-center text-center py-20 px-4 bg-white border border-neutral-200 rounded-3xl"
             >
-              <Compass className="w-12 h-12 text-neutral-300 mb-4 animate-bounce" />
-              <h3 className="text-lg font-bold text-neutral-900 mb-1">
+              <Compass className="w-12 h-12 text-[#B38E46] mb-4 animate-bounce" />
+              <h3 className="text-lg font-[Vera] font-bold text-neutral-900 mb-1">
                 No Itineraries Found
               </h3>
               <p className="text-neutral-500 text-sm max-w-sm mb-6">
@@ -391,7 +388,7 @@ export default function ItineraryPage() {
               </p>
               <button
                 onClick={handleReset}
-                className="bg-neutral-900 hover:bg-neutral-800 text-white font-semibold px-5 py-2.5 rounded-full text-xs transition-colors"
+                className="bg-[#B38E46] hover:bg-[#997734] text-white font-[Vera] font-bold tracking-widest uppercase px-5 py-2.5 rounded-full text-[11px] sm:text-xs transition-colors shadow-md"
               >
                 Clear All Filters
               </button>
