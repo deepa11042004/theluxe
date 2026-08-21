@@ -2,103 +2,130 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Search, X } from "lucide-react";
+import { ArrowRight, Search, X, MapPin, Star, Sparkles, CheckCircle2 } from "lucide-react";
 
-// Filter Tags Categories matching the second screenshot structure
+// Resort Filter Categories
 const CATEGORIES = [
-  "ALL",
-  "EXPERIENCE",
-  "NATURE",
-  "CULTURE",
-  "HOSPITALITY",
-  "TRAVEL TIPS",
+  "ALL RESORTS",
+  "HERITAGE & PALACE",
+  "BEACH & ISLAND",
+  "MOUNTAIN & WELLNESS",
+  "WILDLIFE & SAFARI",
 ];
 
-// Mock Data
-const RESORT_BLOGS = [
+// Curated Luxury Resort Properties Data
+const LUXURY_RESORTS = [
   {
     id: 1,
-    title: "Safety in the state of Oaxaca : travel with peace of mind",
+    title: "Taj Lake Palace",
+    location: "Udaipur, Rajasthan, India",
     description:
-      "Everything you need to know about safety in Oaxaca. Cartel awareness and nightlife tips in Puerto Escondido for a serene journey with Nomádico.",
+      "A floating white-marble palace in the middle of Lake Pichola offering unparalleled royal hospitality and romantic sunset views over the Aravalli hills.",
     image:
-      "https://images.unsplash.com/photo-1602002418816-5c0aeef426aa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dmFjYXRpb258ZW58MHx8MHx8fDA%3D",
-    category: "TRAVEL TIPS",
+      "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=800&q=80",
+    category: "HERITAGE & PALACE",
+    rating: 4.9,
+    price: "₹48,500",
+    amenities: ["Royal Butler Service", "Private Boat Transfer", "Jharokha Dining"],
   },
   {
     id: 2,
-    title: "Playa Bacocho : the wild and preserved jewel of Puerto Escondido",
+    title: "Ananda in the Himalayas",
+    location: "Rishikesh, Uttarakhand, India",
     description:
-      "Discover Playa Bacocho with a sense of adventure. Between untouched nature and turtle releases, come recharge your batteries at Playa Bacocho, Oaxaca's haven of peace.",
+      "A world-renowned luxury wellness sanctuary set on a 100-acre palace estate overlooking the spiritual Ganges River valley.",
     image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-    category: "NATURE",
+      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+    category: "MOUNTAIN & WELLNESS",
+    rating: 4.95,
+    price: "₹42,000",
+    amenities: ["Ayurvedic Spa", "Yoga & Meditation", "Organic Gourmet"],
   },
   {
     id: 3,
-    title: "The Treasure of Monte Albán : Mysteries of Tomb No. 7",
+    title: "The Oberoi Amarvilas",
+    location: "Agra, Uttar Pradesh, India",
     description:
-      "Discover Tomb No. 7 and the treasure of Monte Albán. Between gold and precious stones, explore the fascinating history of these ruins in the heart of Oaxaca.",
+      "Located just 600 meters from the Taj Mahal, every room and suite offers uninterrupted, breathtaking views of the monument of love.",
     image:
-      "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80",
-    category: "CULTURE",
+      "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80",
+    category: "HERITAGE & PALACE",
+    rating: 4.98,
+    price: "₹55,000",
+    amenities: ["Taj Mahal Views", "Private Balconies", "Terrace Dining"],
   },
   {
     id: 4,
-    title: "Oaxacan Cuisine : A Journey Through Mole and Mezcal",
+    title: "Soneva Fushi",
+    location: "Baa Atoll, Maldives",
     description:
-      "Dive into the rich flavors of Oaxaca. From complex mole sauces to artisanal mezcal tastings, discover why this region is considered the culinary capital of Mexico.",
+      "An idyllic island hideaway featuring spacious beachfront and overwater villas with private pools, glassblowing studio, and open-air cinema.",
     image:
-      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80",
-    category: "EXPERIENCE",
+      "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80",
+    category: "BEACH & ISLAND",
+    rating: 4.92,
+    price: "₹1,15,000",
+    amenities: ["Private Pool", "Barefoot Luxury", "Observatory"],
   },
   {
     id: 5,
-    title: "Surfing in Mazunte : Waves for Every Level",
+    title: "Amanbagh Retreat",
+    location: "Alwar, Rajasthan, India",
     description:
-      "Catch the perfect wave in Mazunte. Whether you're a beginner looking for lessons or a pro seeking challenging breaks, the Pacific coast offers an unforgettable surfing experience.",
+      "A modern oasis carved out of pink sandstone, surrounded by mature palm groves and ancient ruined temples near Sariska National Park.",
     image:
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=800&q=80",
-    category: "EXPERIENCE",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80",
+    category: "WILDLIFE & SAFARI",
+    rating: 4.88,
+    price: "₹62,000",
+    amenities: ["Tiger Safaris", "Sandstone Pool Suites", "Heritage Walks"],
   },
   {
     id: 6,
-    title: "Yoga Retreats in Huatulco : Find Your Inner Peace",
+    title: "The Leela Palace Trail",
+    location: "Kovalam, Kerala, India",
     description:
-      "Reconnect with yourself amidst the lush jungles and pristine beaches of Huatulco. Explore top yoga retreats that offer meditation, holistic healing, and serene ocean views.",
+      "Perched high on a clifftop overlooking the Arabian Sea, blending authentic Malabar coastal luxury with world-class beach access.",
     image:
-      "https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHZhY2F0aW9ufGVufDB8fDB8fHww",
-    category: "HOSPITALITY",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+    category: "BEACH & ISLAND",
+    rating: 4.9,
+    price: "₹38,000",
+    amenities: ["Cliff-Top Infinity Pool", "Ayurvedic Treatments", "Beach Club"],
   },
 ];
 
 export default function ResortSec() {
-  const [activeCategory, setActiveCategory] = useState("ALL");
+  const [activeCategory, setActiveCategory] = useState("ALL RESORTS");
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filtering Logic
-  const filteredBlogs = RESORT_BLOGS.filter((blog) => {
+  const filteredResorts = LUXURY_RESORTS.filter((resort) => {
     let matchesCategory = true;
-    if (activeCategory === "ALL") matchesCategory = true;
-    else matchesCategory = blog.category === activeCategory;
+    if (activeCategory !== "ALL RESORTS") {
+      matchesCategory = resort.category === activeCategory;
+    }
 
     let matchesSearch = true;
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase();
       matchesSearch =
-        blog.title.toLowerCase().includes(query) ||
-        blog.description.toLowerCase().includes(query);
+        resort.title.toLowerCase().includes(query) ||
+        resort.location.toLowerCase().includes(query) ||
+        resort.description.toLowerCase().includes(query);
     }
 
     return matchesCategory && matchesSearch;
   });
 
   return (
-    <section className="bg-white text-black py-24 px-6 sm:px-12 relative overflow-hidden w-full select-none">
+    <section className="bg-white text-neutral-900 py-16 md:py-24 px-4 sm:px-8 lg:px-12 relative overflow-hidden w-full select-none">
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* 1. FILTERING CATEGORY NAVIGATION ROW */}
-        <div className="flex flex-wrap gap-3 items-center justify-center mb-16 border-b border-neutral-100 pb-8">
+        
+        {/* 1. CATEGORY NAVIGATION FILTER TABS */}
+        <div className="flex flex-wrap gap-2.5 sm:gap-3 items-center justify-center mb-10 pb-6">
           {CATEGORIES.map((cat) => {
             const isSelected = cat === activeCategory;
             return (
@@ -106,13 +133,13 @@ export default function ResortSec() {
                 key={cat}
                 onClick={() => {
                   setActiveCategory(cat);
-                  setSearchQuery(""); // Clear search when switching categories
+                  setSearchQuery("");
                 }}
-                className={`text-xs font-medium tracking-widest uppercase px-5 py-2.5 rounded-full border transition-all duration-300 active:scale-95
+                className={`text-[11px] sm:text-xs font-[Vera] font-bold tracking-widest uppercase px-5 py-2.5 rounded-full border transition-all duration-300 active:scale-95 cursor-pointer
                   ${
                     isSelected
-                      ? "bg-black text-white border-black shadow-xs"
-                      : "bg-transparent text-neutral-600 border-dashed border-neutral-400 hover:text-black hover:border-black"
+                      ? "bg-[#B38E46] text-white border-[#B38E46] shadow-md"
+                      : "bg-transparent text-neutral-600 border-neutral-300 hover:text-neutral-900 hover:border-neutral-800"
                   }`}
               >
                 {cat}
@@ -122,20 +149,20 @@ export default function ResortSec() {
         </div>
 
         {/* 2. SEARCH BAR */}
-        <div className="max-w-md mx-auto mb-12 relative">
-          <div className="relative flex items-center bg-neutral-50 border border-neutral-200 focus-within:border-neutral-900 rounded-full px-5 py-3 transition-all duration-300 shadow-xs">
-            <Search className="w-4 h-4 text-neutral-400 mr-3 shrink-0" />
+        <div className="max-w-md mx-auto mb-16 relative">
+          <div className="relative flex items-center bg-neutral-50/80 border border-neutral-200 focus-within:border-[#B38E46] rounded-full px-5 py-3.5 transition-all duration-300 shadow-xs">
+            <Search className="w-4 h-4 text-[#B38E46] mr-3 shrink-0" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search resorts..."
-              className="bg-transparent text-sm text-neutral-950 placeholder-neutral-400 focus:outline-none w-full font-medium"
+              placeholder="Search resorts by name, location, or experience..."
+              className="bg-transparent text-xs sm:text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none w-full font-medium"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="p-1 hover:bg-neutral-200 rounded-full transition-colors shrink-0"
+                className="p-1 hover:bg-neutral-200 rounded-full transition-colors shrink-0 cursor-pointer"
                 aria-label="Clear search"
               >
                 <X className="w-3.5 h-3.5 text-neutral-500" />
@@ -144,63 +171,110 @@ export default function ResortSec() {
           </div>
         </div>
 
-        {/* 3. BLOG CARDS GRID WINDOW */}
+        {/* 3. RESORTS GRID CONTAINER */}
         <motion.div
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 items-stretch"
         >
           <AnimatePresence mode="popLayout">
-            {filteredBlogs.length === 0 && (
+            {filteredResorts.length === 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 className="col-span-full py-20 text-center flex flex-col items-center justify-center text-neutral-500"
               >
-                <Search className="w-10 h-10 text-neutral-300 mb-4" />
-                <p className="text-xl font-bold text-neutral-900 mb-2">No resorts found</p>
+                <Search className="w-10 h-10 text-[#B38E46] mb-4 opacity-60" />
+                <p className="text-xl font-[Vera] font-bold text-neutral-900 mb-2">No resorts match your search</p>
                 <p className="text-sm text-neutral-400 font-light max-w-sm mx-auto leading-relaxed">
-                  We couldn&apos;t find any results matching &ldquo;{searchQuery}&rdquo;. Try checking for typos or searching for a different keyword.
+                  We couldn&apos;t find any properties matching &ldquo;{searchQuery}&rdquo;. Try checking for typos or clear your search filter.
                 </p>
               </motion.div>
             )}
 
-            {filteredBlogs.map((blog) => (
+            {filteredResorts.map((resort) => (
               <motion.div
                 layout
                 initial={{ opacity: 0, scale: 0.96, y: 15 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 10 }}
                 transition={{ type: "spring", stiffness: 180, damping: 22 }}
-                key={blog.id}
-                className="flex flex-col justify-between items-start group cursor-pointer w-full bg-white rounded-3xl"
+                key={resort.id}
+                className="flex flex-col justify-between items-start group cursor-pointer w-full bg-white rounded-3xl border border-neutral-200/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-500 overflow-hidden"
               >
                 {/* Media Image Area Container */}
-                <div className="w-full relative aspect-4/3 rounded-3xl overflow-hidden shadow-xs mb-6 bg-neutral-100">
+                <div className="w-full relative aspect-4/3 rounded-t-3xl overflow-hidden bg-neutral-100">
                   <Image
-                    src={blog.image}
-                    alt={blog.title}
+                    src={resort.image}
+                    alt={resort.title}
                     fill
-                    sizes="(max-w-768px) 100vw, 33vw"
-                    className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out brightness-[0.96]"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
+                  {/* Category Pill Tag */}
+                  <span className="absolute top-4 left-4 text-[10px] font-[Vera] font-bold uppercase tracking-widest bg-[#B38E46] text-white px-3 py-1.5 rounded-full shadow-md z-10">
+                    {resort.category.replace("&", "•")}
+                  </span>
+
+                  {/* Rating Tag */}
+                  <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md border border-white/20 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 z-10 shadow-sm">
+                    <Star className="w-3.5 h-3.5 fill-[#E5C158] text-[#E5C158]" />
+                    <span>{resort.rating}</span>
+                  </div>
                 </div>
 
-                {/* Title and Content Description Wrapper */}
-                <div className="grow mb-6">
-                  <h3 className="text-xl md:text-2xl font-bold tracking-tight text-neutral-900 mb-3 group-hover:text-neutral-600 transition-colors leading-snug">
-                    {blog.title}
-                  </h3>
-                  <p className="text-neutral-500 font-light text-sm leading-relaxed tracking-wide line-clamp-3">
-                    {blog.description}
-                  </p>
-                </div>
+                {/* Content Block */}
+                <div className="p-6 grow flex flex-col justify-between w-full">
+                  <div>
+                    {/* Location Badge */}
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-2 font-[Vera]">
+                      <MapPin className="w-3.5 h-3.5 text-[#B38E46] shrink-0" />
+                      <span>{resort.location}</span>
+                    </div>
 
-                {/* 3. Footer Action Call (READ THE PAGE -> Style matching Screenshot 3) */}
-                <div className="w-full pt-2 border-t border-transparent">
-                  <div className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-neutral-900 border-b-2 border-dotted border-neutral-300 pb-1 group-hover:border-neutral-900 transition-colors">
-                    <span>Read The Page</span>
-                    <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                    {/* Title */}
+                    <h3 className="text-xl font-[Vera] font-bold tracking-tight text-neutral-900 mb-3 group-hover:text-[#B38E46] transition-colors leading-snug">
+                      {resort.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-neutral-600 font-light text-sm leading-relaxed tracking-wide line-clamp-3 mb-4">
+                      {resort.description}
+                    </p>
+
+                    {/* Amenities Checklist */}
+                    <div className="flex flex-wrap gap-1.5 pt-2 mb-4">
+                      {resort.amenities.map((amenity, aIdx) => (
+                        <span
+                          key={aIdx}
+                          className="inline-flex items-center gap-1 text-[11px] font-medium text-neutral-700 bg-neutral-100 px-2.5 py-1 rounded-md"
+                        >
+                          <Sparkles className="w-3 h-3 text-[#B38E46]" />
+                          {amenity}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Footer Price & CTA */}
+                  <div className="w-full pt-4 border-t border-neutral-100 flex items-center justify-between mt-2">
+                    <div>
+                      <span className="text-[10px] text-neutral-400 uppercase block tracking-wider font-medium">
+                        Starting from
+                      </span>
+                      <span className="text-lg font-bold font-[Vera] text-neutral-900">
+                        {resort.price}
+                      </span>
+                      <span className="text-xs text-neutral-500 font-light"> / night</span>
+                    </div>
+
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-1.5 text-xs font-[Vera] font-bold uppercase tracking-wider text-[#B38E46] group-hover:text-[#997734] transition-colors"
+                    >
+                      <span>Explore Resort</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
                   </div>
                 </div>
               </motion.div>
