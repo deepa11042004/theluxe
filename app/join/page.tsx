@@ -7,7 +7,9 @@ import BannerForm from "@/components/Club/BannerForm";
 function Join() {
   return (
     <>
-      <Heading title="Join Luxe Club" className="" />
+      <div style={{ backgroundImage: 'repeating-linear-gradient(45deg, #ffffff, #ffffff 20px, #f9f9f9 20px, #f9f9f9 40px)' }}>
+        <Heading title="Join Luxe Club" bgClassName="bg-transparent" />
+      </div>
       <Joinsec />
       <FAQsec />
       <BannerForm />

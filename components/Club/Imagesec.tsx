@@ -58,16 +58,7 @@ const MEMBERSHIPS = [
 export default function Imagesec() {
   return (
     <>
-      {/* MOBILE HEADING */}
-      <div className="block md:hidden">
-        <Heading
-          title="Luxe Club"
-          subtitle="A World of Privileged Access"
-        />
-      </div>
-
-      {/* DESKTOP HEADER */}
-      <main className="hidden md:flex relative min-h-screen w-full flex-col items-center overflow-hidden select-none pb-24"
+      <main className="flex relative min-h-screen w-full flex-col items-center overflow-hidden select-none pb-12 md:pb-24"
         style={{
           backgroundImage: 'repeating-linear-gradient(45deg, #ffffff, #ffffff 20px, #f9f9f9 20px, #f9f9f9 40px)'
         }}
@@ -77,10 +68,10 @@ export default function Imagesec() {
             <span className="text-base md:text-xl font-serif italic text-[#B38E46] tracking-[0.3em] lowercase">
               launching
             </span>
-            <h1 className="text-5xl md:text-[5rem] md:leading-tight font-[Vera] tracking-[0.2em] text-neutral-900 uppercase drop-shadow-sm my-1">
+            <h1 className="text-4xl sm:text-5xl md:text-[5rem] md:leading-tight font-[Vera] tracking-[0.1em] sm:tracking-[0.2em] text-neutral-900 uppercase drop-shadow-sm my-1 text-center">
               The Luxe Club
             </h1>
-            <span className="text-xs md:text-base font-[Vera] tracking-[0.4em] text-neutral-500 uppercase mt-1">
+            <span className="text-[10px] sm:text-xs md:text-base font-[Vera] tracking-[0.2em] sm:tracking-[0.4em] text-neutral-500 uppercase mt-1 text-center">
               privileged access
             </span>
             <div className="w-20 md:w-28 h-[2px] bg-[#B38E46]/60 mt-5"></div>

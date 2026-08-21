@@ -8,6 +8,7 @@ type HeadingProps = {
   align?: "left" | "center" | "right";
   className?: string; // Optional: for additional custom styling
   bgImage?: string; // Optional: background image URL
+  bgClassName?: string; // Optional: to override bg-white
 };
 
 const Heading: React.FC<HeadingProps> = ({
@@ -16,6 +17,7 @@ const Heading: React.FC<HeadingProps> = ({
   align = "center",
   className = "",
   bgImage,
+  bgClassName,
 }) => {
   const alignmentClass = {
     left: "text-left items-start",
@@ -28,7 +30,7 @@ const Heading: React.FC<HeadingProps> = ({
 
   return (
     <div 
-      className={`relative w-full pt-36 pb-16 px-6 sm:px-12 lg:px-16 bg-cover bg-center ${!bgImage ? 'bg-white' : 'overflow-hidden'}`}
+      className={`relative w-full pt-36 pb-16 px-6 sm:px-12 lg:px-16 bg-cover bg-center ${!bgImage ? (bgClassName || 'bg-white') : 'overflow-hidden'}`}
       style={bgImage ? { backgroundImage: `url("${bgImage}")` } : undefined}
     >
       {bgImage && (

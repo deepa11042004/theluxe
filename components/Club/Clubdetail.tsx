@@ -314,7 +314,7 @@ export default function Membersec() {
               {CAROUSEL_PRIVILEGES.map((item) => (
                 <div
                   key={item.id}
-                  className="relative shrink-0 w-[calc(100%-48px)] sm:w-[calc(50%-36px)] md:w-[calc(33.333%-32px)] lg:w-[calc(25%-18px)] aspect-3/4 rounded-3xl overflow-hidden border border-neutral-200/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-500 bg-neutral-100 cursor-pointer group"
+                  className="relative shrink-0 w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] aspect-3/4 rounded-3xl overflow-hidden border border-neutral-200/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-500 bg-neutral-100 cursor-pointer group"
                 >
                   <Image
                     src={item.image}
@@ -466,12 +466,12 @@ export default function Membersec() {
           </div>
 
           {/* NEW SECTION: COMPARISON TABLE */}
-          <div className="mt-24 max-w-6xl mx-auto overflow-x-auto pb-10 px-4 sm:px-6">
+          <div className="mt-24 max-w-6xl mx-auto pb-10 px-4 sm:px-6 w-full">
             <h3 className="text-3xl md:text-4xl font-[Vera] tracking-tight text-center text-black mb-12">
               Membership Comparison
             </h3>
             
-            <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-neutral-100 overflow-hidden">
+            <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-neutral-100 overflow-x-auto w-full">
               <table className="w-full text-left border-collapse min-w-[800px]">
                 <thead>
                   <tr className="bg-neutral-900 text-white text-sm uppercase tracking-wider font-[Vera]">
