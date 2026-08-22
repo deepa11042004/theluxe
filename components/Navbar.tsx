@@ -77,9 +77,9 @@ export default function Navbar() {
             href="/"
             className="flex items-center group transition-transform duration-200 hover:scale-105 shrink"
           >
-            <div className="relative lg:h-5 lg:w-36 xl:h-5 xl:w-44 2xl:h-6 2xl:w-52">
+            <div className="relative lg:h-8 lg:w-56 xl:h-9 xl:w-64 2xl:h-10 2xl:w-72">
               <Image
-                src="/Img/logo-text.png"
+                src="/Img/logo-text-v3.png"
                 alt="The Luxe Yatra"
                 fill
                 className="object-contain object-left drop-shadow-sm"
@@ -95,7 +95,7 @@ export default function Navbar() {
             <div className="relative h-11 w-11 bg-white rounded-full shadow-sm border border-neutral-100/50 flex items-center justify-center p-1 transition-transform active:scale-95">
               <div className="relative h-full w-full">
                 <Image
-                  src="/Img/logo-emblem.png"
+                  src="/Img/logo-emblem-v3.png"
                   alt="The Luxe Yatra Logo"
                   fill
                   className="object-contain"
@@ -109,9 +109,9 @@ export default function Navbar() {
         {/* Mobile Text Logo (Center) */}
         <div className="flex lg:hidden absolute left-1/2 -translate-x-1/2 z-50 pointer-events-auto items-center justify-center">
           <Link href="/">
-            <div className="relative h-4 w-32 transition-transform active:scale-95">
+            <div className="relative h-6 w-44 transition-transform active:scale-95">
               <Image
-                src="/Img/logo-text.png"
+                src="/Img/logo-text-v3.png"
                 alt="The Luxe Yatra"
                 fill
                 className="object-contain object-center drop-shadow-sm"
@@ -200,7 +200,7 @@ export default function Navbar() {
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-neutral-100/50 flex items-center justify-center h-20 w-20 md:h-22 md:w-22 transition-transform duration-300 group-hover:scale-105">
                     <div className="relative h-13 w-13 md:h-15 md:w-15">
                       <Image
-                        src="/Img/logo-emblem.png"
+                        src="/Img/logo-emblem-v3.png"
                         alt="The Luxe Yatra Logo"
                         fill
                         className="object-contain"
@@ -317,9 +317,9 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center group transition-transform duration-200 active:scale-95"
               >
-                <div className="relative h-5 w-44">
+                <div className="relative h-8 w-56">
                   <Image
-                    src="/Img/logo-text.png"
+                    src="/Img/logo-text-v3.png"
                     alt="The Luxe Yatra"
                     fill
                     className="object-contain object-left drop-shadow-sm"

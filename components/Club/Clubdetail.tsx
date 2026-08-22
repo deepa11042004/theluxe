@@ -168,7 +168,7 @@ const CAROUSEL_PRIVILEGES = [
 
 const MEMBERSHIPS = [
   {
-    title: "PLATINUM",
+    title: "SIGNATURE",
     subtitle: "One Year Domestic — ₹12,999 gives you one full year of luxury hotel privileges across India.",
     bgClass: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white border-white/10",
     lineColor: "rgba(255,255,255,0.08)",
@@ -368,7 +368,7 @@ export default function Membersec() {
             Your Key to Unlock Privileged Experiences
           </h3>
           <p className="text-neutral-800 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide mb-14 uppercase">
-            Select from <span className="text-black font-bold">Platinum</span>,{" "}
+            Select from <span className="text-black font-bold">Signature</span>,{" "}
             <span className="text-neutral-900 font-bold">Diamond</span>, and{" "}
             <span className="text-[#165B54] font-bold">Imperial</span> Cards and
             enter a world of seamless vacations
@@ -476,7 +476,7 @@ export default function Membersec() {
                 <thead>
                   <tr className="bg-neutral-900 text-white text-sm uppercase tracking-wider font-[Vera]">
                     <th className="p-6 font-semibold w-1/4">Benefit</th>
-                    <th className="p-6 text-center font-semibold w-1/4">Platinum <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Domestic</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4">Signature <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Domestic</span></th>
                     <th className="p-6 text-center font-semibold w-1/4">Diamond <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Worldwide</span></th>
                     <th className="p-6 text-center font-semibold w-1/4 bg-gradient-to-t from-[#B38E46]/20 to-transparent text-[#D4AF37]">Imperial <span className="block text-xs text-[#D4AF37]/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Lifetime</span></th>
                   </tr>

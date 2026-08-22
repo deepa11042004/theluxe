@@ -28,8 +28,8 @@ function LuxeLogoEmblem() {
   return (
     <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-3 relative flex items-center justify-center rounded-full bg-white p-1 shadow-md border border-[#E5C158]/50">
       <Image
-        src="/Img/logo-emblem.png"
-        alt="The Luxe Yatra Logo"
+        src="/Img/logo-emblem-v3.png"
+        alt="Luxe Yatra Emblem"
         fill
         className="object-contain p-0.5"
       />
@@ -39,19 +39,19 @@ function LuxeLogoEmblem() {
 
 const MEMBERSHIPS = [
   {
-    title: "PLATINUM",
+    title: "SIGNATURE",
     tagline: "domestic",
-    cardBg: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white",
+    image: "/Img/card-domestic.jpg",
   },
   {
     title: "DIAMOND",
     tagline: "worldwide",
-    cardBg: "bg-gradient-to-br from-[#7F1D1D] via-[#6B1717] to-[#450A0A] text-white",
+    image: "/Img/card-worldwide.jpg",
   },
   {
     title: "IMPERIAL",
     tagline: "lifetime",
-    cardBg: "bg-gradient-to-br from-[#064E3B] via-[#043E2F] to-[#022C22] text-white",
+    image: "/Img/card-lifetime.jpg",
   }
 ];
 
@@ -86,30 +86,13 @@ export default function Imagesec() {
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
                 className="flex flex-col text-left group"
               >
-                <div
-                  className={`relative w-full aspect-[1.55/1] rounded-[1.75rem] p-6 md:p-8 flex flex-col justify-between items-center text-center overflow-hidden shadow-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-300 select-none ${card.cardBg}`}
-                >
-                  {/* Watermark Mandala Pattern in Top Right */}
-                  <div className="absolute -top-10 -right-10 pointer-events-none opacity-35">
-                    <MandalaPattern />
-                  </div>
-
-                  <div />
-
-                  {/* Center Branding */}
-                  <div className="relative z-10 flex flex-col items-center">
-                    <LuxeLogoEmblem />
-                    <h4 className="text-2xl md:text-3xl font-[Vera] tracking-[0.25em] font-bold text-[#E5C158] uppercase drop-shadow-sm">
-                      {card.title}
-                    </h4>
-                  </div>
-
-                  {/* Bottom Right Script Tagline */}
-                  <div className="w-full flex justify-end relative z-10">
-                    <span className="font-[serif] italic text-lg md:text-xl text-[#E5C158]/90 tracking-widest lowercase">
-                      {card.tagline}
-                    </span>
-                  </div>
+                <div className="relative w-full aspect-[1.55/1] rounded-[1.75rem] overflow-hidden shadow-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-300 select-none">
+                  <Image
+                    src={card.image}
+                    alt={`${card.title} Membership Card`}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               </motion.div>
             ))}

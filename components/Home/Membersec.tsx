@@ -20,10 +20,11 @@ const BENEFITS = [
 // Membership Cards Data Types (Taj Epicure Inspired Luxury Membership Passes)
 const MEMBERSHIPS = [
   {
-    id: "platinum",
-    title: "PLATINUM",
+    id: "signature",
+    title: "SIGNATURE",
     tagline: "domestic",
-    displayName: "Luxe Platinum",
+    image: "/Img/card-domestic.jpg",
+    displayName: "Luxe Signature",
     price: "₹ 12,999",
     taxText: "plus taxes",
     cardBg: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white",
@@ -40,6 +41,7 @@ const MEMBERSHIPS = [
     id: "diamond",
     title: "DIAMOND",
     tagline: "worldwide",
+    image: "/Img/card-worldwide.jpg",
     displayName: "Luxe Diamond",
     price: "₹ 19,999",
     taxText: "plus taxes",
@@ -57,6 +59,7 @@ const MEMBERSHIPS = [
     id: "imperial",
     title: "IMPERIAL",
     tagline: "lifetime",
+    image: "/Img/card-lifetime.jpg",
     displayName: "Luxe Imperial",
     price: "₹ 49,999",
     taxText: "one-time lifetime",
@@ -95,8 +98,8 @@ function LuxeLogoEmblem() {
   return (
     <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-3 relative flex items-center justify-center rounded-full bg-white p-1 shadow-md border border-[#E5C158]/50">
       <Image
-        src="/Img/logo-emblem.png"
-        alt="The Luxe Yatra Logo"
+        src="/Img/logo-emblem-v3.png"
+        alt="Luxe Yatra Logo"
         fill
         className="object-contain p-0.5"
       />
@@ -194,30 +197,13 @@ export default function Membersec() {
                 className="flex flex-col text-left group"
               >
                 {/* 1. PHYSICAL MEMBERSHIP CARD */}
-                <div
-                  className={`relative w-full aspect-[1.55/1] rounded-[1.75rem] p-6 md:p-8 flex flex-col justify-between items-center text-center overflow-hidden shadow-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-300 select-none ${card.cardBg}`}
-                >
-                  {/* Watermark Mandala Pattern in Top Right */}
-                  <div className="absolute -top-10 -right-10 pointer-events-none opacity-35">
-                    <MandalaPattern />
-                  </div>
-
-                  <div />
-
-                  {/* Center Branding */}
-                  <div className="relative z-10 flex flex-col items-center">
-                    <LuxeLogoEmblem />
-                    <h4 className="text-2xl md:text-3xl font-[Vera] tracking-[0.25em] font-bold text-[#E5C158] uppercase drop-shadow-sm">
-                      {card.title}
-                    </h4>
-                  </div>
-
-                  {/* Bottom Right Script Tagline */}
-                  <div className="w-full flex justify-end relative z-10">
-                    <span className="font-[serif] italic text-lg md:text-xl text-[#E5C158]/90 tracking-widest lowercase">
-                      {card.tagline}
-                    </span>
-                  </div>
+                <div className="relative w-full aspect-[1.55/1] rounded-[1.75rem] overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 select-none border border-neutral-200/50">
+                  <Image
+                    src={card.image}
+                    alt={`${card.displayName} Membership Card`}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
 
                 {/* 2. CARD DETAILS & ENROL BUTTON BELOW */}

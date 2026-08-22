@@ -93,8 +93,9 @@ export default function AboutPage() {
       name: "domestic",
       price: "₹12,999",
       period: "per year",
-      badge: "Platinum",
+      badge: "Signature",
       popular: false,
+      image: "/Img/card-domestic.jpg",
       features: [
         "Domestic Hotel & Resort Access",
         "Personalised Travel Assistance",
@@ -108,6 +109,7 @@ export default function AboutPage() {
       period: "per year",
       badge: "Diamond",
       popular: true,
+      image: "/Img/card-worldwide.jpg",
       features: [
         "Global & Domestic Hotel Access",
         "Priority Travel & Flight Assistance",
@@ -122,6 +124,7 @@ export default function AboutPage() {
       period: "one-time payment",
       badge: "Imperial",
       popular: false,
+      image: "/Img/card-lifetime.jpg",
       features: [
         "Unlimited Lifetime Global Access",
         "VIP Destination & Experience Bookings",
@@ -216,12 +219,12 @@ export default function AboutPage() {
             variants={itemVariants} 
             className="flex-shrink-0 flex justify-center w-full lg:w-auto lg:pr-8"
           >
-            <div className="relative w-56 h-56 md:w-72 md:h-72 drop-shadow-xl bg-white rounded-full flex items-center justify-center p-4">
+            <div className="relative w-56 h-56 md:w-72 md:h-72 drop-shadow-xl bg-white rounded-full flex items-center justify-center overflow-hidden p-4">
               <Image 
-                src="/Img/logo-emblem.png" 
+                src="/Img/logo-circle.png" 
                 alt="The Luxe Yatra Logo" 
                 fill 
-                className="object-contain p-6"
+                className="object-contain p-2 md:p-4 mix-blend-multiply"
               />
             </div>
           </motion.div>
@@ -381,14 +384,7 @@ export default function AboutPage() {
 
           {/* Taj Epicure Style Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10 items-start">
-            {membershipPlans.map((plan, idx) => {
-              const cardBg = idx === 0 
-                ? "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white" 
-                : idx === 1 
-                ? "bg-gradient-to-br from-[#7F1D1D] via-[#6B1717] to-[#450A0A] text-white" 
-                : "bg-gradient-to-br from-[#064E3B] via-[#043E2F] to-[#022C22] text-white";
-
-              return (
+            {membershipPlans.map((plan, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, y: 20 }}
@@ -398,50 +394,13 @@ export default function AboutPage() {
                   className="flex flex-col text-left group"
                 >
                   {/* 1. PHYSICAL MEMBERSHIP CARD */}
-                  <div
-                    className={`relative w-full aspect-[1.55/1] rounded-[1.75rem] p-6 md:p-8 flex flex-col justify-between items-center text-center overflow-hidden shadow-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-300 select-none ${cardBg}`}
-                  >
-                    {/* Watermark Mandala Pattern in Top Right */}
-                    <div className="absolute -top-10 -right-10 pointer-events-none opacity-35">
-                      <svg
-                        viewBox="0 0 200 200"
-                        className="w-72 h-72 stroke-[#E5C158]/70 fill-none stroke-[1.2] pointer-events-none"
-                      >
-                        <circle cx="100" cy="100" r="85" />
-                        <circle cx="100" cy="100" r="65" />
-                        <circle cx="100" cy="100" r="45" />
-                        {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
-                          <g key={deg} transform={`rotate(${deg} 100 100)`}>
-                            <ellipse cx="100" cy="55" rx="14" ry="32" />
-                            <polygon points="100,15 108,35 100,55 92,35" />
-                          </g>
-                        ))}
-                      </svg>
-                    </div>
-
-                    <div />
-
-                    {/* Center Branding */}
-                    <div className="relative z-10 flex flex-col items-center">
-                      <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-3 relative flex items-center justify-center rounded-full bg-white p-1 shadow-md border border-[#E5C158]/50">
-                        <Image
-                          src="/Img/logo-emblem.png"
-                          alt="The Luxe Yatra Logo"
-                          fill
-                          className="object-contain p-0.5"
-                        />
-                      </div>
-                      <h4 className="text-xl md:text-2xl font-[Vera] tracking-[0.2em] font-bold text-[#E5C158] uppercase drop-shadow-sm">
-                        {plan.badge}
-                      </h4>
-                    </div>
-
-                    {/* Bottom Right Script Tagline */}
-                    <div className="w-full flex justify-end relative z-10">
-                      <span className="font-[serif] italic text-xs md:text-sm text-[#E5C158]/90 tracking-widest lowercase">
-                        {plan.name}
-                      </span>
-                    </div>
+                  <div className="relative w-full aspect-[1.55/1] rounded-[1.75rem] overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 select-none border border-neutral-200/50">
+                    <Image
+                      src={plan.image}
+                      alt={`${plan.badge} Membership Card`}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
 
                   {/* 2. CARD DETAILS BELOW */}
@@ -471,8 +430,7 @@ export default function AboutPage() {
                     </ul>
                   </div>
                 </motion.div>
-              );
-            })}
+            ))}
           </div>
 
           <p className="relative z-10 text-center text-xs text-neutral-700 max-w-2xl mx-auto font-medium">
