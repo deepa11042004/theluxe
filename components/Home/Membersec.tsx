@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
-import { CheckCircle2, ShieldCheck, Star } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Benefit Data Types
 const BENEFITS = [
@@ -108,6 +108,15 @@ function LuxeLogoEmblem() {
 }
 
 export default function Membersec() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = scrollRef.current.clientWidth * 0.85;
+      scrollRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative bg-[#8ce6ff] w-full overflow-hidden text-neutral-900 border-t border-neutral-200/60">
       {/* Vertical Pinstripe Lining Background Layer with #94f7ff */}
@@ -186,7 +195,7 @@ export default function Membersec() {
           </p>
 
           {/* Taj Epicure Membership Card Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-6 md:mb-8">
+          <div ref={scrollRef} className="flex md:grid md:grid-cols-3 overflow-x-auto snap-x snap-mandatory gap-6 md:gap-8 items-start mb-6 md:mb-8 pb-4 md:pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {MEMBERSHIPS.map((card, idx) => (
               <motion.div
                 key={idx}
@@ -194,10 +203,10 @@ export default function Membersec() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className="flex flex-col text-left group"
+                className="flex flex-col text-left group min-w-[85vw] sm:min-w-[400px] md:min-w-0 shrink-0 snap-center"
               >
                 {/* 1. PHYSICAL MEMBERSHIP CARD */}
-                <div className="relative w-full aspect-[1.55/1] rounded-[1.75rem] overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 select-none border border-neutral-200/50">
+                <div className="relative w-full aspect-[1.55/1] rounded-[1rem] md:rounded-[1.75rem] overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 select-none border border-neutral-200/50">
                   <Image
                     src={card.image}
                     alt={`${card.displayName} Membership Card`}
@@ -243,6 +252,16 @@ export default function Membersec() {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Mobile Scroll Controls */}
+          <div className="flex md:hidden justify-center items-center gap-4 mt-2 z-20 relative">
+            <button onClick={() => scroll('left')} className="p-3 rounded-full bg-white border border-[#B38E46]/30 shadow-sm text-[#B38E46] active:scale-95 transition-transform" aria-label="Scroll left">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button onClick={() => scroll('right')} className="p-3 rounded-full bg-white border border-[#B38E46]/30 shadow-sm text-[#B38E46] active:scale-95 transition-transform" aria-label="Scroll right">
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </div>

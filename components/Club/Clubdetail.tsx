@@ -170,7 +170,7 @@ const MEMBERSHIPS = [
   {
     title: "SIGNATURE",
     subtitle: "One Year Domestic — ₹12,999 gives you one full year of luxury hotel privileges across India.",
-    bgClass: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white border-white/10",
+    bgClass: "bg-gradient-to-br from-[#2a2a2a] via-[#1a1a1a] to-[#0a0a0a] text-white border-white/10",
     lineColor: "rgba(255,255,255,0.08)",
     bulletColor: "bg-[#D4AF37]",
     benefits: [
@@ -188,7 +188,7 @@ const MEMBERSHIPS = [
   {
     title: "DIAMOND",
     subtitle: "One Year Worldwide — Pay ₹19,999 for a worldwide luxury travel membership.",
-    bgClass: "bg-gradient-to-br from-[#7F1D1D] via-[#6B1717] to-[#450A0A] text-white border-white/10",
+    bgClass: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white border-white/10",
     lineColor: "rgba(255,255,255,0.08)",
     bulletColor: "bg-[#D4AF37]",
     benefits: [
@@ -206,7 +206,7 @@ const MEMBERSHIPS = [
   {
     title: "IMPERIAL",
     subtitle: "Lifetime Membership — Pay ₹49,999 once and enjoy The Luxe Yatra lifestyle worldwide for a lifetime.",
-    bgClass: "bg-gradient-to-br from-[#064E3B] via-[#043E2F] to-[#022C22] text-white border-white/10",
+    bgClass: "bg-gradient-to-br from-[#2c7a72] via-[#205c56] to-[#123834] text-white border-white/10",
     lineColor: "rgba(255,255,255,0.08)",
     bulletColor: "bg-[#D4AF37]",
     benefits: [
