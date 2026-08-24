@@ -394,7 +394,7 @@ export default function AboutPage() {
           </div>
 
           {/* Taj Epicure Style Pricing Cards */}
-          <div ref={scrollRef} className="flex md:grid md:grid-cols-3 overflow-x-auto snap-x snap-mandatory gap-6 md:gap-8 relative z-10 items-start pb-4 md:pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div ref={scrollRef} className="flex md:grid md:grid-cols-3 overflow-x-auto snap-x snap-mandatory gap-6 md:gap-8 relative z-10 items-start pb-4 md:pb-8 px-2 md:px-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {membershipPlans.map((plan, idx) => (
                 <motion.div
                   key={idx}
@@ -402,7 +402,7 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.15 }}
-                  className="flex flex-col text-left group min-w-[85vw] sm:min-w-[400px] md:min-w-0 shrink-0 snap-center"
+                  className="flex flex-col text-left group w-[80vw] max-w-[320px] sm:max-w-none sm:w-[400px] md:w-auto shrink-0 snap-center"
                 >
                   {/* 1. PHYSICAL MEMBERSHIP CARD */}
                   <div className="relative w-full aspect-[1.55/1] rounded-[1rem] md:rounded-[1.75rem] overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 select-none border border-neutral-200/50">

@@ -11,7 +11,7 @@ export default function Bannersec() {
       {/* BACKGROUND IMAGES */}
 
       {/* LEFT SIDE BACKGROUND GRAPHIC */}
-      <div className="hidden lg:block absolute left-0 bottom-0 top-0 w-[45%] md:w-[40%] h-full pointer-events-none z-0 select-none opacity-50 mix-blend-screen">
+      <div className="absolute left-0 bottom-0 top-0 w-1/2 md:w-[45%] lg:w-[40%] h-full pointer-events-none z-0 select-none opacity-30 md:opacity-50 mix-blend-screen">
         <Image
           src="/Img/splash-left.png"
           alt="Left thematic elements"
@@ -22,7 +22,7 @@ export default function Bannersec() {
       </div>
 
       {/* RIGHT SIDE BACKGROUND GRAPHIC */}
-      <div className="hidden lg:block absolute right-0 bottom-0 top-0 w-[45%] md:w-[40%] h-full pointer-events-none z-0 select-none opacity-50 mix-blend-screen">
+      <div className="absolute right-0 bottom-0 top-0 w-1/2 md:w-[45%] lg:w-[40%] h-full pointer-events-none z-0 select-none opacity-30 md:opacity-50 mix-blend-screen">
         <Image
           src="/Img/splash-right.png"
           alt="Right thematic elements"

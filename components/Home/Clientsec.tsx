@@ -80,7 +80,7 @@ function useBreakpoint(): Breakpoint {
 
 
 const LAYOUT = {
-  mobile:  { cardWidth: 300, cardHeight: 300, gapNear: 0,   gapFar: 0,   visibleSide: 0 },
+  mobile:  { cardWidth: 280, cardHeight: 300, gapNear: 0,   gapFar: 0,   visibleSide: 0 },
   tablet:  { cardWidth: 300, cardHeight: 310, gapNear: 220, gapFar: 420, visibleSide: 2 },
   desktop: { cardWidth: 360, cardHeight: 320, gapNear: 280, gapFar: 520, visibleSide: 2 },
 };
