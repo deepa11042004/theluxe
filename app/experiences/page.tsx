@@ -15,6 +15,7 @@ export default function ExperiencesPage() {
         title="Experiences"
         subtitle="Discover curated journeys, luxury retreats, and unforgettable experiences across the globe."
         align="center"
+        bgImage="/Img/nature-photographer-29ezCWtMtnM-unsplash.jpg"
       />
       <Experiencesec type="all" />
     </>
