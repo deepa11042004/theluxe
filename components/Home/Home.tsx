@@ -114,7 +114,10 @@ export default function Home() {
 
         {/* Subtitle */}
         <motion.div variants={itemVariants}>
-          <p className="inline-block bg-white/20 rounded-full border border-white/30 shadow-lg text-sm md:text-base text-white max-w-2xl px-5 py-2.5 sm:px-8 sm:py-3 mt-10 sm:mt-14 mb-8 sm:mb-12 tracking-wide drop-shadow-md">
+          <p 
+            className="inline-block bg-black/40 backdrop-blur-md rounded-sm text-[10px] md:text-[11px] px-8 py-4 md:px-12 md:py-4 mt-10 sm:mt-14 mb-8 sm:mb-12 tracking-[0.25em] uppercase font-medium shadow-lg border border-white/20"
+            style={{ color: "white" }}
+          >
             Explore luxury boutique resorts and tailored holiday experiences.
           </p>
         </motion.div>

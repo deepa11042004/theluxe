@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, ChevronDown, ArrowUpRight, Menu as MenuIcon } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -32,276 +32,139 @@ const itemVariants = {
 } as const;
 
 export default function Navbar() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isExperiencesOpen, setIsExperiencesOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
 
-  // Scroll detection for header text contrast
+  // Scroll detection for glassy background and hiding text logo
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 30);
     };
+    handleScroll(); // Check on mount
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMobileMenuOpen(false);
   }, [pathname]);
-
-  // Focus the input automatically when search opens
-  useEffect(() => {
-    if (isSearchOpen && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isSearchOpen]);
 
   if (pathname === "/login" || pathname === "/signup") {
     return null;
   }
 
-  const isDarkPage =
-    pathname === "/" || pathname === "/luxeclub" || pathname === "/join";
-
   return (
     <>
-      <header className="fixed top-2 left-0 right-0 z-99 py-6 flex items-center justify-center max-w-7xl mx-auto w-full pointer-events-auto bg-transparent">
+      {/* 
+        MAIN NAVBAR
+        Transparent gradient top on mount, glassy background on scroll.
+      */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-[99] w-full transition-all duration-500 ease-in-out ${
+          isScrolled
+            ? "bg-black/30 backdrop-blur-lg py-3"
+            : "bg-gradient-to-b from-black/60 to-transparent py-5 lg:py-7"
+        }`}
+      >
+        <div className="max-w-[1800px] mx-auto px-5 md:px-8 xl:px-12 flex justify-between items-start w-full">
+          {/* LEFT SIDE: Hamburger + Experiences */}
+          <div className="flex items-center gap-6 xl:gap-10 flex-1 h-8 md:h-9 mt-1">
+            {/* Hamburger Icon */}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="flex flex-col justify-center gap-[5px] group cursor-pointer p-2 -ml-2"
+              aria-label="Open Menu"
+            >
+              <span className="w-6 h-[1.5px] bg-white transition-all duration-300 group-hover:w-8 group-hover:bg-[#d4af37]"></span>
+              <span className="w-5 h-[1.5px] bg-white transition-all duration-300 group-hover:w-8 group-hover:bg-[#d4af37]"></span>
+            </button>
 
+            {/* Experiences Dropdown (Desktop) */}
+            <div className="relative group/experiences hidden lg:block cursor-pointer py-2">
+              <div className="flex items-center gap-1.5 text-white text-[11px] xl:text-xs tracking-[0.2em] font-medium uppercase group-hover/experiences:text-[#d4af37] transition-colors">
+                <ChevronDown className="w-3.5 h-3.5 group-hover/experiences:rotate-180 transition-transform duration-300" />
+                EXPERIENCES
+              </div>
+              
+              {/* Dropdown Menu */}
+              <div className="absolute top-full left-0 pt-4 opacity-0 pointer-events-none group-hover/experiences:opacity-100 group-hover/experiences:pointer-events-auto transition-all duration-300 ease-out z-50">
+                <div className="bg-black/80 backdrop-blur-md border border-white/10 rounded-xl shadow-xl p-2 w-48 flex flex-col gap-1 text-white">
+                  <Link
+                    href="/national"
+                    className="px-4 py-2.5 rounded-lg hover:bg-white/10 transition-colors font-medium text-[10px] tracking-widest uppercase text-left"
+                  >
+                    National
+                  </Link>
+                  <Link
+                    href="/international"
+                    className="px-4 py-2.5 rounded-lg hover:bg-white/10 transition-colors font-medium text-[10px] tracking-widest uppercase text-left border-t border-white/5"
+                  >
+                    International
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        {/* Mobile Emblem Logo (Left Corner) */}
-        <div className="flex lg:hidden absolute left-4 z-50 pointer-events-auto items-center justify-center">
-          <Link href="/">
-            <div className="relative h-11 w-11 bg-white rounded-full shadow-sm border border-neutral-100/50 flex items-center justify-center p-1 transition-transform active:scale-95">
-              <div className="relative h-full w-full">
+          {/* CENTER LOGO */}
+          <div className="flex-1 flex justify-center shrink-0">
+            <Link href="/" className="flex flex-col items-center gap-1.5 group">
+              {/* Emblem */}
+              <motion.div
+                layout
+                className="relative h-8 w-8 md:h-9 md:w-9 transition-transform duration-500 group-hover:scale-105 mt-1"
+              >
                 <Image
                   src="/Img/logo-emblem-v3.png"
-                  alt="The Luxe Yatra Logo"
+                  alt="Luxe Yatra Emblem"
                   fill
-                  className="object-contain"
+                  className="object-contain brightness-0 invert drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
                   priority
                 />
-              </div>
-            </div>
-          </Link>
-        </div>
+              </motion.div>
 
-        {/* Mobile Text Logo (Center) */}
-        <div className="flex lg:hidden absolute left-1/2 -translate-x-1/2 z-50 pointer-events-auto items-center justify-center">
-          <Link href="/">
-            <div className="relative h-6 w-44 transition-transform active:scale-95">
-              <Image
-                src="/Img/logo-text-v3.png"
-                alt="The Luxe Yatra"
-                fill
-                className="object-contain object-center drop-shadow-sm"
-                priority
-              />
-            </div>
-          </Link>
-        </div>
-
-        {/* 2. Floating Capsule Navbar Container */}
-        <motion.div
-          layout
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="hidden lg:flex justify-between items-center w-[98%] max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8 py-2.5 lg:h-16 xl:h-18 2xl:h-20 pointer-events-auto bg-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
-        >
-          {/* Brand Text - Left Side of Pill */}
-          <div className="flex-1 flex justify-start">
-            <Link
-              href="/"
-              className="flex items-center group transition-transform duration-200 hover:scale-105 shrink-0"
-            >
-              <div className="relative lg:h-6 lg:w-44 xl:h-7 xl:w-56 2xl:h-8 2xl:w-64">
-                <Image
-                  src="/Img/logo-text-v3.png"
-                  alt="The Luxe Yatra"
-                  fill
-                  className="object-contain object-left drop-shadow-sm"
-                  priority
-                />
-              </div>
+              {/* Text Logo (Disappears on Scroll) */}
+              <AnimatePresence>
+                {!isScrolled && (
+                  <motion.div
+                    initial={{ opacity: 1, scale: 1, marginTop: 4 }}
+                    animate={{ opacity: 1, scale: 1, marginTop: 4 }}
+                    exit={{ opacity: 0, scale: 0.9, marginTop: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="relative h-8 w-60 md:h-10 md:w-72 origin-top"
+                  >
+                    <Image
+                      src="/Img/logo-text-v3.png"
+                      alt="The Luxe Yatra"
+                      fill
+                      className="object-contain object-top brightness-0 invert drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]"
+                      priority
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </Link>
           </div>
-          <AnimatePresence mode="wait">
-            {!isSearchOpen ? (
-              // NORMAL TABS STATE WITH LOGO IN THE MIDDLE
-              <motion.nav
-                key="nav-links"
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 5 }}
-                transition={{ duration: 0.2 }}
-                className="flex items-center gap-1 xl:gap-2 2xl:gap-3.5 text-[13px] xl:text-sm 2xl:text-base font-[Vera] tracking-wide font-semibold text-black"
-              >
-                {/* Left Side Links */}
-                <Link
-                  href="/resorts"
-                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
-                >
-                  Resorts
-                </Link>
 
-                <Link
-                  href="/itinerary"
-                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
-                >
-                  Itinerary
-                </Link>
-
-                <Link
-                  href="/brands"
-                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap font-bold"
-                >
-                  Brands
-                </Link>
-
-                {/* Experiences Dropdown */}
-                <div className="relative group/experiences px-1 xl:px-1.5 2xl:px-2 py-1 cursor-pointer">
-                  <div className="flex items-center gap-1 hover:text-neutral-600 transition-colors">
-                    Experiences
-                    <ChevronDown className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-black group-hover/experiences:text-neutral-600 transition-transform group-hover/experiences:rotate-180" />
-                  </div>
-                  {/* Dropdown Menu Container */}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 pointer-events-none group-hover/experiences:opacity-100 group-hover/experiences:pointer-events-auto transition-all duration-300 ease-out z-50">
-                    <div className="bg-white/95 backdrop-blur-md border border-neutral-100 rounded-2xl shadow-xl p-2 w-48 flex flex-col gap-1 text-black">
-                      <Link
-                        href="/experiences"
-                        className="px-4 py-2.5 rounded-xl hover:bg-neutral-50 hover:text-black transition-colors font-medium text-xs tracking-wider uppercase text-left"
-                      >
-                        All Experiences
-                      </Link>
-                      <Link
-                        href="/national"
-                        className="px-4 py-2.5 rounded-xl hover:bg-neutral-50 hover:text-black transition-colors font-medium text-xs tracking-wider uppercase text-left border-t border-neutral-100/50"
-                      >
-                        National
-                      </Link>
-                      <Link
-                        href="/international"
-                        className="px-4 py-2.5 rounded-xl hover:bg-neutral-50 hover:text-black transition-colors font-medium text-xs tracking-wider uppercase text-left"
-                      >
-                        International
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Logo in the Middle of Navbar */}
-                <Link
-                  href="/"
-                  className="mx-3 xl:mx-4 flex items-center justify-center group relative z-50 shrink-0"
-                  aria-label="The Luxe Yatra Home"
-                >
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-neutral-100/50 flex items-center justify-center h-20 w-20 md:h-22 md:w-22 transition-transform duration-300 group-hover:scale-105">
-                    <div className="relative h-13 w-13 md:h-15 md:w-15">
-                      <Image
-                        src="/Img/logo-emblem-v3.png"
-                        alt="The Luxe Yatra Logo"
-                        fill
-                        className="object-contain"
-                        priority
-                      />
-                    </div>
-                  </div>
-                  {/* Invisible spacer to maintain gap in flex layout */}
-                  <div className="w-14 md:w-16 h-1"></div>
-                </Link>
-
-                {/* Right Side Links */}
-
-                <Link
-                  href="/luxeclub"
-                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 font-semibold flex items-center gap-1 whitespace-nowrap"
-                >
-                  <span className="bg-[#B38E46] text-white h-4 w-4 xl:h-4.5 xl:w-4.5 flex justify-center items-center rounded-full text-[9px] xl:text-[10px] tracking-wider">
-                    C
-                  </span>
-                  Luxe Club
-                </Link>
-
-                <Link
-                  href="/blogs"
-                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
-                >
-                  Blogs
-                </Link>
-
-                <Link
-                  href="/login"
-                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
-                >
-                  <span className="hidden 2xl:inline">Member Login</span>
-                  <span className="2xl:hidden">Login</span>
-                </Link>
-
-                <Link
-                  href="/about"
-                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
-                >
-                  About
-                </Link>
-              </motion.nav>
-            ) : (
-              // SEARCH EXPANDED STATE
-              <motion.div
-                key="search-input"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex items-center w-full px-3 min-w-[340px] md:min-w-[480px]"
-              >
-                <div className="p-2 bg-gray-100 rounded-full mr-3">
-                  <Search className="w-5 h-5 text-black" />
-                </div>
-                <input
-                  ref={inputRef}
-                  type="text"
-                  placeholder="Where would you like to go?"
-                  className="w-full bg-transparent text-gray-800 focus:outline-none placeholder-gray-400 text-base"
-                />
-                <button
-                  onClick={() => setIsSearchOpen(false)}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors ml-2 cursor-pointer"
-                  aria-label="Close Search"
-                >
-                  <X className="w-5 h-5 text-black" />
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Action Button - Right Side of Pill */}
-          <div className="flex-1 flex justify-end">
+          {/* RIGHT SIDE: Action Button */}
+          <div className="flex-1 flex justify-end items-center h-8 md:h-9 mt-1">
             <Link
               href="/join"
-              className="bg-[#B38E46] hover:bg-[#997734] text-white rounded-full px-3 py-2 xl:px-4 xl:py-2.5 2xl:px-5 2xl:py-3 text-[12px] xl:text-sm 2xl:text-[15px] font-[Vera] font-semibold tracking-wide shadow-md transition-all flex items-center gap-1 xl:gap-2 group whitespace-nowrap shrink-0"
+              className="hidden md:inline-flex items-center justify-center border border-white hover:bg-white hover:text-black transition-all duration-300 px-6 py-2 xl:px-8 xl:py-2.5 text-[10px] xl:text-xs font-semibold tracking-[0.2em] uppercase text-white rounded-sm shadow-sm"
             >
-              <span>Join Luxe Club</span>
-              <div className="bg-white p-0.5 rounded-full group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-                <ArrowUpRight className="w-2.5 h-2.5 xl:w-3 xl:h-3 text-[#B38E46]" />
-              </div>
+              JOIN LUXE CLUB
             </Link>
           </div>
-        </motion.div>
-
-        {/* Mobile/Tablet Menu Button */}
-        <div className="flex lg:hidden items-center z-50 pointer-events-auto absolute right-4">
-          <button
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="text-black p-2 rounded-full transition-all hover:bg-black/5 flex items-center justify-center cursor-pointer active:scale-95"
-            aria-label="Open Menu"
-          >
-            <MenuIcon className="w-6 h-6" />
-          </button>
         </div>
       </header>
 
+      {/* 
+        FULL SCREEN MOBILE OVERLAY MENU 
+        Contains all links (Itinerary, Brands, Luxe Club, Blogs, etc.)
+      */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -309,21 +172,30 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-white/98 backdrop-blur-2xl z-100 flex flex-col justify-between p-6 md:p-12 pointer-events-auto"
+            className="fixed inset-0 bg-[#B38E46]/90 backdrop-blur-xl z-[100] flex flex-col justify-between p-6 md:p-12 pointer-events-auto overflow-y-auto"
           >
-            {/* Top row */}
-            <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
+            {/* Top row (Logo & Close button) */}
+            <div className="flex items-center justify-between w-full max-w-[1800px] mx-auto">
               <Link
                 href="/"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center group transition-transform duration-200 active:scale-95"
+                className="flex flex-col items-center gap-1.5 group active:scale-95 transition-transform"
               >
-                <div className="relative h-8 w-56">
+                <div className="relative h-10 w-10 md:h-12 md:w-12">
+                  <Image
+                    src="/Img/logo-emblem-v3.png"
+                    alt="The Luxe Yatra Emblem"
+                    fill
+                    className="object-contain brightness-0 invert drop-shadow-md"
+                    priority
+                  />
+                </div>
+                <div className="relative h-8 w-64 md:h-10 md:w-72 mt-2">
                   <Image
                     src="/Img/logo-text-v3.png"
-                    alt="The Luxe Yatra"
+                    alt="The Luxe Yatra Text"
                     fill
-                    className="object-contain object-left drop-shadow-sm"
+                    className="object-contain brightness-0 invert drop-shadow-md"
                     priority
                   />
                 </div>
@@ -331,55 +203,41 @@ export default function Navbar() {
 
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-black p-2 hover:text-neutral-500 transition-colors flex items-center justify-center cursor-pointer active:scale-95"
+                className="text-white p-2 hover:text-[#d4af37] transition-colors flex items-center justify-center cursor-pointer active:scale-95"
                 aria-label="Close menu"
               >
-                <X className="w-7 h-7" />
+                <X className="w-8 h-8" strokeWidth={1.5} />
               </button>
             </div>
 
             {/* Menu Items Container */}
-            <div className="flex-1 flex flex-col justify-center max-w-xl mx-auto w-full py-8">
-              {/* Links List */}
+            <div className="flex-1 flex flex-col justify-center max-w-xl mx-auto w-full py-12">
               <motion.nav
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="flex flex-col gap-5 text-[15px] font-[Vera] font-medium text-black tracking-wide"
+                className="flex flex-col gap-6 md:gap-8 text-lg md:text-xl font-light text-white tracking-[0.2em] uppercase text-center"
               >
                 <motion.div variants={itemVariants}>
                   <Link
                     href="/resorts"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-black transition-colors"
+                    className="hover:text-[#d4af37] transition-colors"
                   >
                     Resorts
                   </Link>
                 </motion.div>
 
-                <motion.div variants={itemVariants}>
-                  <Link
-                    href="/itinerary"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-black transition-colors"
-                  >
-                    Itinerary
-                  </Link>
-                </motion.div>
-
                 {/* Experiences Section with Accordion */}
-                <motion.div
-                  variants={itemVariants}
-                  className="flex flex-col gap-2"
-                >
+                <motion.div variants={itemVariants} className="flex flex-col items-center gap-3">
                   <button
                     onClick={() => setIsExperiencesOpen(!isExperiencesOpen)}
-                    className="flex items-center justify-between text-[15px] font-[Vera] font-medium text-black hover:text-black transition-colors w-full text-left cursor-pointer tracking-wide"
+                    className="flex items-center justify-center gap-2 hover:text-[#d4af37] transition-colors cursor-pointer"
                   >
                     <span>Experiences</span>
                     <ChevronDown
-                      className={`w-5 h-5 text-neutral-500 transition-transform duration-300 ${
-                        isExperiencesOpen ? "rotate-180 text-black" : ""
+                      className={`w-5 h-5 transition-transform duration-300 ${
+                        isExperiencesOpen ? "rotate-180 text-[#d4af37]" : ""
                       }`}
                     />
                   </button>
@@ -391,26 +249,19 @@ export default function Navbar() {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.25, ease: "easeInOut" }}
-                        className="overflow-hidden flex flex-col gap-3 pl-4 border-l border-neutral-200 mt-2"
+                        className="overflow-hidden flex flex-col items-center gap-4 mt-2"
                       >
-                        <Link
-                          href="/experiences"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-[14px] font-[Vera] tracking-wide text-black hover:text-black transition-colors"
-                        >
-                          All Experiences
-                        </Link>
                         <Link
                           href="/national"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-[14px] font-[Vera] tracking-wide text-black hover:text-black transition-colors"
+                          className="text-sm tracking-[0.2em] text-white/70 hover:text-white transition-colors"
                         >
                           National
                         </Link>
                         <Link
                           href="/international"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-[14px] font-[Vera] tracking-wide text-black hover:text-black transition-colors"
+                          className="text-sm tracking-[0.2em] text-white/70 hover:text-white transition-colors"
                         >
                           International
                         </Link>
@@ -421,9 +272,19 @@ export default function Navbar() {
 
                 <motion.div variants={itemVariants}>
                   <Link
+                    href="/itinerary"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="hover:text-[#d4af37] transition-colors"
+                  >
+                    Itinerary
+                  </Link>
+                </motion.div>
+
+                <motion.div variants={itemVariants}>
+                  <Link
                     href="/brands"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-black transition-colors"
+                    className="hover:text-[#d4af37] transition-colors"
                   >
                     Brands
                   </Link>
@@ -433,9 +294,9 @@ export default function Navbar() {
                   <Link
                     href="/luxeclub"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-black transition-colors flex items-center gap-2 font-semibold"
+                    className="hover:text-[#d4af37] transition-colors flex items-center justify-center gap-3"
                   >
-                    <span className="bg-[#B38E46] text-white h-5 w-5 flex justify-center items-center rounded-full text-[10px] font-bold font-sans tracking-wider">
+                    <span className="bg-[#B38E46] text-white h-6 w-6 flex justify-center items-center rounded-full text-[10px] font-bold font-sans tracking-wider">
                       C
                     </span>
                     Luxe Club
@@ -446,7 +307,7 @@ export default function Navbar() {
                   <Link
                     href="/blogs"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-black transition-colors"
+                    className="hover:text-[#d4af37] transition-colors"
                   >
                     Blogs
                   </Link>
@@ -454,9 +315,19 @@ export default function Navbar() {
 
                 <motion.div variants={itemVariants}>
                   <Link
+                    href="/about"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="hover:text-[#d4af37] transition-colors"
+                  >
+                    About
+                  </Link>
+                </motion.div>
+
+                <motion.div variants={itemVariants}>
+                  <Link
                     href="/login"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-black transition-colors"
+                    className="hover:text-[#d4af37] transition-colors text-sm mt-4 text-white/60"
                   >
                     Member Login
                   </Link>
@@ -469,17 +340,14 @@ export default function Navbar() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="w-full max-w-xl mx-auto flex justify-center"
+              className="w-full flex justify-center"
             >
               <Link
                 href="/join"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="bg-[#B38E46] hover:bg-[#997734] text-white rounded-full px-8 py-4 text-base font-[Vera] font-semibold tracking-wide shadow-md transition-all flex items-center gap-2 group w-full justify-center"
+                className="border border-white hover:bg-white hover:text-black transition-all duration-300 px-10 py-3 text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-white rounded-sm"
               >
-                <span>Join Luxe Club</span>
-                <div className="bg-white p-0.5 rounded-full group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-                  <ArrowUpRight className="w-4 h-4 text-[#B38E46]" />
-                </div>
+                JOIN LUXE CLUB
               </Link>
             </motion.div>
           </motion.div>
