@@ -240,7 +240,7 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
               >
                 <Search className="w-10 h-10 text-[#B38E46] mb-4 opacity-60" />
                 <p className="text-xl font-[Vera] font-bold text-neutral-900 mb-2">No destinations found</p>
-                <p className="text-sm text-neutral-400 font-light max-w-sm mx-auto leading-relaxed">
+                <p className="text-sm text-black font-light max-w-sm mx-auto leading-relaxed">
                   We couldn&apos;t find any results matching &ldquo;{searchQuery}&rdquo;. Try checking for typos or searching for a different keyword.
                 </p>
               </motion.div>
@@ -281,7 +281,7 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                     </h3>
                     
                     {/* Description */}
-                    <p className="text-neutral-500 font-light text-sm leading-relaxed tracking-wide line-clamp-3 mb-4">
+                    <p className="text-black font-light text-sm leading-relaxed tracking-wide line-clamp-3 mb-4">
                       {exp.description}
                     </p>
                   </div>

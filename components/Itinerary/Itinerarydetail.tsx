@@ -168,7 +168,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
               <h2 className="text-xl font-[Vera] text-neutral-900 mb-4 tracking-wide uppercase">
                 Journey Overview
               </h2>
-              <p className="text-neutral-700 font-light text-base leading-relaxed tracking-wide">
+              <p className="text-black font-light text-base leading-relaxed tracking-wide">
                 {currentItinerary.description}
               </p>
 
@@ -227,7 +227,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
                             transition={{ duration: 0.3, ease: "easeInOut" }}
                           >
                             <div className="p-5 sm:p-6 pt-0 border-t border-neutral-100 bg-neutral-50/30">
-                              <p className="text-sm sm:text-base text-neutral-700 font-light leading-relaxed tracking-wide pt-4">
+                              <p className="text-sm sm:text-base text-black font-light leading-relaxed tracking-wide pt-4">
                                 {item.text}
                               </p>
                             </div>
@@ -311,7 +311,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
                 </Link>
               </div>
 
-              <p className="text-[11px] text-center text-neutral-400 font-light pt-2">
+              <p className="text-[11px] text-center text-black font-light pt-2">
                 No immediate payment required. Our travel concierges will reach out within 2 hours.
               </p>
             </div>

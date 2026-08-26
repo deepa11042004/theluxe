@@ -1,9 +1,22 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
 import { CheckCircle2, ShieldCheck, Star, ChevronLeft, ChevronRight } from "lucide-react";
+
+const GALLERY_IMAGES = [
+  "Taj-ADDS-featured-image-1366x768.webp",
+  "alex-muzenhardt-4MQ0T4zBIys-unsplash.jpg",
+  "antonio-araujo-_Fa7cnjezGc-unsplash.jpg",
+  "isaac-quesada-xc4oxgAbDmw-unsplash.jpg",
+  "luigi-pozzoli-34Xicn82lY4-unsplash.jpg",
+  "mustafa-fatemi-f_LVflLUkv4-unsplash.jpg",
+  "reisetopia-3n7bxyRYQ24-unsplash.jpg",
+  "zoshua-colah-2emvg3WMluM-unsplash.jpg",
+  "zoshua-colah-JuI0xTZyKJ0-unsplash.jpg",
+  "zoshua-colah-vG-HDgrepRg-unsplash.jpg"
+];
 
 // Benefit Data Types
 const BENEFITS = [
@@ -21,56 +34,74 @@ const BENEFITS = [
 const MEMBERSHIPS = [
   {
     id: "signature",
-    title: "SIGNATURE",
+    title: "LUXE SIGNATURE",
     tagline: "domestic",
     image: "/Img/card-domestic.jpg",
     displayName: "Luxe Signature",
     price: "₹ 12,999",
-    taxText: "plus taxes",
+    taxText: "One Year Domestic",
     cardBg: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white",
     watermarkColor: "#60A5FA",
-    subtitle: "7N/8D domestic holidays every year across 46 weeks",
+    subtitle: "One full year of premium hotel privileges, exclusive rates and travel benefits across India.",
     benefits: [
-      "7N/8D domestic holidays every year across 46 weeks",
-      "Complimentary breakfast for 2 per room per night, up to 10 years",
-      "Priority access to signature domestic resorts",
-      "Dedicated member concierge support",
+      "5-Star & Premium Hotel Access",
+      "Exclusive Member Rates & Privileges",
+      "Unlimited Eligible Discount-Night Bookings*",
+      "Complimentary Welcome Stay Benefit*",
+      "Domestic Travel & Holiday Assistance",
+      "Airport Transfer Assistance",
+      "Dining & Lifestyle Privileges",
+      "Exclusive Member-Only Offers",
+      "Dedicated Booking Assistance",
     ],
   },
   {
     id: "diamond",
-    title: "DIAMOND",
+    title: "LUXE DIAMOND",
     tagline: "worldwide",
     image: "/Img/card-worldwide.jpg",
     displayName: "Luxe Diamond",
     price: "₹ 19,999",
-    taxText: "plus taxes",
+    taxText: "One Year Worldwide",
     cardBg: "bg-gradient-to-br from-[#7F1D1D] via-[#6B1717] to-[#450A0A] text-white",
     watermarkColor: "#F87171",
-    subtitle: "7N/8D worldwide holidays every year across 52 weeks",
+    subtitle: "Your gateway to premium travel privileges across India and worldwide.",
     benefits: [
-      "7N/8D worldwide holidays every year across 52 weeks",
-      "Complimentary breakfast for 2 per room per night, up to 10 years",
-      "Priority access to global signature experiences",
-      "Access to 140+ international & domestic resorts",
+      "Everything in Luxe Signature",
+      "Worldwide 5-Star & Luxury Hotel Access",
+      "Exclusive International Hotel Rates & Privileges",
+      "International Travel & Holiday Assistance",
+      "Visa & Travel Insurance Assistance",
+      "Cruise & Luxury Experience Assistance",
+      "Airport Transfer Assistance",
+      "International Dining & Lifestyle Privileges",
+      "Exclusive Worldwide Member Offers",
+      "Priority Booking & Travel Assistance",
     ],
   },
   {
     id: "imperial",
-    title: "IMPERIAL",
+    title: "LUXE IMPERIAL",
     tagline: "lifetime",
     image: "/Img/card-lifetime.jpg",
     displayName: "Luxe Imperial",
     price: "₹ 49,999",
-    taxText: "one-time lifetime",
+    taxText: "Lifetime Membership",
     cardBg: "bg-gradient-to-br from-[#064E3B] via-[#043E2F] to-[#022C22] text-white",
     watermarkColor: "#34D399",
-    subtitle: "Lifetime unlimited global access & VIP privileges",
+    subtitle: "Pay once and enjoy The Luxe Yatra lifestyle worldwide for a lifetime.",
     benefits: [
-      "Lifetime unlimited global & domestic access",
-      "Complimentary breakfast for 2 per room per night, up to 10 years",
-      "Maximum savings, VIP upgrades & dedicated concierge",
-      "Access to all 140+ luxury hotel & resort networks",
+      "Lifetime Membership",
+      "Worldwide 5-Star & Luxury Hotel Access",
+      "Exclusive Hotel Rates & Premium Privileges",
+      "Unlimited Eligible Discount-Night Bookings*",
+      "Domestic & International Travel Assistance",
+      "Visa & Travel Insurance Assistance",
+      "Cruise & Luxury Experience Assistance",
+      "Premium Dining & Lifestyle Privileges",
+      "Exclusive Lifetime Member Offers",
+      "Priority Booking & Concierge Assistance",
+      "Family Travel Privileges",
     ],
   },
 ];
@@ -117,6 +148,22 @@ export default function Membersec() {
     }
   };
 
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const maxGalleryIndex = Math.max(0, GALLERY_IMAGES.length - 2);
+
+  const nextGallerySlide = useCallback(() => {
+    setGalleryIndex((prev) => (prev >= maxGalleryIndex ? 0 : prev + 1));
+  }, [maxGalleryIndex]);
+
+  const prevGallerySlide = () => {
+    setGalleryIndex((prev) => (prev <= 0 ? maxGalleryIndex : prev - 1));
+  };
+
+  useEffect(() => {
+    const timer = setInterval(nextGallerySlide, 4000);
+    return () => clearInterval(timer);
+  }, [nextGallerySlide]);
+
   return (
     <section className="relative bg-[#8ce6ff] w-full overflow-hidden text-neutral-900 border-t border-neutral-200/60">
       {/* Vertical Pinstripe Lining Background Layer with #94f7ff */}
@@ -154,7 +201,7 @@ export default function Membersec() {
           A World of Privileged Access
         </h3>
 
-        <p className="text-neutral-600 font-light text-sm md:text-base max-w-3xl mx-auto leading-relaxed mb-16">
+        <p className="text-black font-light text-sm md:text-base max-w-3xl mx-auto leading-relaxed mb-16">
           Luxe Club unlocks privileged access to 140+ premium Club Mahindra
           resorts, offering 7 nights/8 days holidays every year — filled with
           cherished family moments and thoughtfully crafted experiences across
@@ -184,13 +231,21 @@ export default function Membersec() {
         </div>
       </div>
 
+      {/* SECTION 1.5: GALLERY SLIDER (Hidden as requested) */}
+      {/* 
+      <div className="relative w-full max-w-[100vw] bg-white pt-8 pb-16 border-t border-neutral-200/60 overflow-hidden group/slider">
+        ...
+      </div> 
+      */}
+
+
       {/* SECTION 2: MEMBERSHIP TYPES & CARDS (TAJ EPICURE STYLE) */}
       <div className="relative z-10 bg-white text-black py-12 md:py-16 px-6 w-full border-t border-neutral-200/60">
         <div className="max-w-7xl mx-auto text-center">
           <h3 className="text-2xl md:text-5xl font-[Vera] tracking-tight text-black mb-4 uppercase">
             Membership Types
           </h3>
-          <p className="text-neutral-500 text-xs md:text-sm font-medium tracking-widest mb-8 md:mb-10 uppercase">
+          <p className="text-black text-xs md:text-sm font-medium tracking-widest mb-8 md:mb-10 uppercase">
             Select your preferred membership tier below to enter a world of seamless vacations
           </p>
 

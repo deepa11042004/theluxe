@@ -281,7 +281,7 @@ export default function Joinsec() {
             <h2 className="text-2xl font-bold text-black mb-2">
               Welcome, {form.clientName || "Member"}!
             </h2>
-            <p className="text-neutral-600 text-sm leading-relaxed">
+            <p className="text-black text-sm leading-relaxed">
               Your registration application has been processed into the secure
               ecosystem.
             </p>
@@ -342,7 +342,7 @@ export default function Joinsec() {
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black mb-4 leading-tight">
             Join Our Membership
           </h1>
-          <p className="text-neutral-600 text-sm font-light leading-relaxed">
+          <p className="text-black text-sm font-light leading-relaxed">
             Create your account across four clear onboarding channels to
             seamlessly unlock exclusive member privileges.
           </p>

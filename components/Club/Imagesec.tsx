@@ -40,17 +40,17 @@ function LuxeLogoEmblem() {
 
 const MEMBERSHIPS = [
   {
-    title: "SIGNATURE",
+    title: "LUXE SIGNATURE",
     tagline: "domestic",
     image: "/Img/card-domestic.jpg",
   },
   {
-    title: "DIAMOND",
+    title: "LUXE DIAMOND",
     tagline: "worldwide",
     image: "/Img/card-worldwide.jpg",
   },
   {
-    title: "IMPERIAL",
+    title: "LUXE IMPERIAL",
     tagline: "lifetime",
     image: "/Img/card-lifetime.jpg",
   }

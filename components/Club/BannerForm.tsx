@@ -277,7 +277,7 @@ export default function BannerForm() {
                 <h3 className="text-xl font-serif text-neutral-900 mb-1">
                   Thank You
                 </h3>
-                <p className="text-neutral-500 font-sans text-xs font-light">
+                <p className="text-black font-sans text-xs font-light">
                   Your information has been securely registered.
                 </p>
               </motion.div>

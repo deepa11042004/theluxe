@@ -5,49 +5,34 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const leftImages = [
-  {
-    src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
-    alt: "Beach sunrise experience",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80",
-    alt: "Serene lake boat travel",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=600&q=80",
-    alt: "Maldives overwater villa",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80",
-    alt: "Luxury resort infinity pool",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80",
-    alt: "Tropical island coastline",
-  },
+  { src: "/Img/box/antonio-araujo-BNBxBNWupH0-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/bao-menglong-ZHw4bVH97t0-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/chesley-mccarty-IP8_8izFE4k-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/christian-ventura-lWTm4EBGaGQ-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/clay-banks-xvnPgm6lnAs-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/dad-hotel-Y-bJWAjPzsY-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/dad-hotel-zjDVpzqFIzc-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/despina-galani-dmBzB_RF_nk-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/dynamic-hong-kong-km5I2E-mJbo-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/grace-anne-bobadilla-_PU-Jr2SUYc-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/hans-sbg3FuIRQcs-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/huy-phan-IZ8akRW_5BY-unsplash.jpg", alt: "Gallery Image" },
 ];
 
 const rightImages = [
-  {
-    src: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=600&q=80",
-    alt: "Tropical travel coastline",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80",
-    alt: "Santorini Greece view",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80",
-    alt: "Luxury hotel lounge",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80",
-    alt: "Overwater luxury bungalow",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80",
-    alt: "Boutique resort suite",
-  },
+  { src: "/Img/box/jennifer-latuperisa-andresen-Cj7a21nHLyo-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/khatshoot-uzojmJr2Brc-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/max-61Cp_LP7bTU-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/natacha-missakian-3gdMevwmb1U-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/nerissa-j-5YaD_J20DWY-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/nusrat-ali-9QhyuOeu3Ik-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/olena-bohovyk-qv3VdC9vE_k-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/reisetopia-aI6Su7Mu9Ro-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/sergio-hernandez-trejo-cAAXqKf8uJw-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/visualsofdana-T5pL6ciEn-I-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/vivu-vietnam-rF8Ag1p8EYo-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/vojtech-bruzek-Yrxr3bsPdS0-unsplash.jpg", alt: "Gallery Image" },
+  { src: "/Img/box/yanhao-fang-zWLuDvEPbrM-unsplash.jpg", alt: "Gallery Image" },
 ];
 
 export default function About() {
@@ -103,30 +88,26 @@ export default function About() {
 
             {/* Luxury High-Contrast Headline */}
             <h2 className="text-2xl sm:text-4xl xl:text-5xl font-[Vera] tracking-normal text-black mb-6 leading-[1.25] max-w-lg break-words w-full">
-              We&apos;re Dedicated To Making Your Travel Simple &amp; Fun
+              Travel Beyond Ordinary
+              <span className="block text-xl sm:text-3xl xl:text-4xl text-neutral-700 font-normal mt-2">
+                Discover a World of Privileges
+              </span>
             </h2>
 
             {/* Multi-Paragraph Content Block */}
             <div className="space-y-4 md:space-y-5 text-neutral-700 font-light text-xs sm:text-sm xl:text-base leading-relaxed tracking-wide max-w-md w-full break-words">
               <p>
-                A holiday is more than just sightseeing. It&apos;s about
-                enjoying exclusive experiences, unique accommodations across
-                different terrains, and unparalleled privileges. That&apos;s
-                what being a The Luxe Yatra member is all about.
+                A holiday is more than a destination. It is about exceptional stays,
+                remarkable experiences and privileges designed around the way you love to travel.
               </p>
 
               <p>
-                We believe travel has a way of turning things around—bringing
-                back inspiration and reminding us to appreciate the finer
-                things. Let us inspire you to start living the life you were
-                meant to live.
+                With The Luxe Yatra, members unlock a world of curated travel benefits,
+                premium hospitality and memorable experiences across India and beyond.
               </p>
 
-              <p className="font-semibold text-black/90 mt-5 text-xs tracking-wider uppercase border-t border-black/10 pt-5">
-                The Luxe Yatra Worldwide Travel
-                <span className="block text-[10px] text-neutral-500 font-normal mt-1 normal-case">
-                  ( A Division of The Luxe Yatra Hotels and Resorts Pvt Ltd )
-                </span>
+              <p className="font-semibold text-black/90 mt-5 text-xs sm:text-sm tracking-wider uppercase border-t border-black/10 pt-5 font-[Vera]">
+                Travel beautifully. Stay exceptionally. Live the Luxe Yatra way.
               </p>
             </div>
           </motion.div>

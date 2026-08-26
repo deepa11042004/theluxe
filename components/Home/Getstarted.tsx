@@ -90,7 +90,7 @@ export default function Getstarted() {
         {/* Body */}
         <FadeUp delay={0.25}>
           <p
-            className="text-neutral-600 font-light leading-relaxed mb-12 mx-auto text-center"
+            className="text-black font-light leading-relaxed mb-12 mx-auto text-center"
             style={{
               fontSize: "1rem",
               maxWidth: 580,

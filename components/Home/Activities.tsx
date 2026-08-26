@@ -115,7 +115,7 @@ export default function Activities() {
             Good Reasons to Choose Us
           </h2>
 
-          <p className="text-neutral-600 font-medium text-lg sm:text-sm md:text-base max-w-2xl leading-relaxed">
+          <p className="text-black font-medium text-lg sm:text-sm md:text-base max-w-2xl leading-relaxed">
             We believe in responsible tourism and are committed to sustainable
             travel practices. Our partnerships with eco-friendly resorts ensure
             your luxury holiday positively impacts destinations.

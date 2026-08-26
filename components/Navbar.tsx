@@ -70,24 +70,8 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-2 left-0 right-0 z-99 py-6 flex items-center justify-center max-w-7xl mx-auto w-full pointer-events-auto bg-white/50 backdrop-blur-lg rounded-full shadow-md border border-white/50">
-        {/* 1. Brand Text - Desktop Only */}
-        <div className="hidden lg:flex absolute left-6 items-center z-50 pointer-events-auto">
-          <Link
-            href="/"
-            className="flex items-center group transition-transform duration-200 hover:scale-105 shrink"
-          >
-            <div className="relative lg:h-8 lg:w-56 xl:h-9 xl:w-64 2xl:h-10 2xl:w-72">
-              <Image
-                src="/Img/logo-text-v3.png"
-                alt="The Luxe Yatra"
-                fill
-                className="object-contain object-left drop-shadow-sm"
-                priority
-              />
-            </div>
-          </Link>
-        </div>
+      <header className="fixed top-2 left-0 right-0 z-99 py-6 flex items-center justify-center max-w-7xl mx-auto w-full pointer-events-auto bg-transparent">
+
 
         {/* Mobile Emblem Logo (Left Corner) */}
         <div className="flex lg:hidden absolute left-4 z-50 pointer-events-auto items-center justify-center">
@@ -121,12 +105,29 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* 2. Floating Capsule Navbar Container with Logo in the Middle */}
+        {/* 2. Floating Capsule Navbar Container */}
         <motion.div
           layout
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="hidden lg:flex px-2 xl:px-3 2xl:px-5 py-2 items-center h-14 pointer-events-auto mx-auto shrink-0"
+          className="hidden lg:flex justify-between items-center w-[98%] max-w-7xl mx-auto px-4 xl:px-6 2xl:px-8 py-2.5 lg:h-16 xl:h-18 2xl:h-20 pointer-events-auto bg-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
         >
+          {/* Brand Text - Left Side of Pill */}
+          <div className="flex-1 flex justify-start">
+            <Link
+              href="/"
+              className="flex items-center group transition-transform duration-200 hover:scale-105 shrink-0"
+            >
+              <div className="relative lg:h-6 lg:w-44 xl:h-7 xl:w-56 2xl:h-8 2xl:w-64">
+                <Image
+                  src="/Img/logo-text-v3.png"
+                  alt="The Luxe Yatra"
+                  fill
+                  className="object-contain object-left drop-shadow-sm"
+                  priority
+                />
+              </div>
+            </Link>
+          </div>
           <AnimatePresence mode="wait">
             {!isSearchOpen ? (
               // NORMAL TABS STATE WITH LOGO IN THE MIDDLE
@@ -136,38 +137,38 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 5 }}
                 transition={{ duration: 0.2 }}
-                className="flex items-center gap-1 xl:gap-2 2xl:gap-3.5 text-[13px] xl:text-sm 2xl:text-base font-[Vera] tracking-wide font-bold text-gray-700"
+                className="flex items-center gap-1 xl:gap-2 2xl:gap-3.5 text-[13px] xl:text-sm 2xl:text-base font-[Vera] tracking-wide font-semibold text-black"
               >
                 {/* Left Side Links */}
                 <Link
                   href="/resorts"
-                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
+                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
                 >
                   Resorts
                 </Link>
 
                 <Link
                   href="/itinerary"
-                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
+                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
                 >
                   Itinerary
                 </Link>
 
                 <Link
                   href="/brands"
-                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap font-bold"
+                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap font-bold"
                 >
                   Brands
                 </Link>
 
                 {/* Experiences Dropdown */}
-                <div className="relative group cursor-pointer flex items-center gap-1 hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap">
-                  <Link href="/experiences" className="flex items-center gap-0.5 xl:gap-1">
-                    <span>Experiences</span>
-                    <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
-                  </Link>
+                <div className="relative group/experiences px-1 xl:px-1.5 2xl:px-2 py-1 cursor-pointer">
+                  <div className="flex items-center gap-1 hover:text-neutral-600 transition-colors">
+                    Experiences
+                    <ChevronDown className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-black group-hover/experiences:text-neutral-600 transition-transform group-hover/experiences:rotate-180" />
+                  </div>
                   {/* Dropdown Menu Container */}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 ease-out z-50">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 pointer-events-none group-hover/experiences:opacity-100 group-hover/experiences:pointer-events-auto transition-all duration-300 ease-out z-50">
                     <div className="bg-white/95 backdrop-blur-md border border-neutral-100 rounded-2xl shadow-xl p-2 w-48 flex flex-col gap-1 text-gray-700">
                       <Link
                         href="/experiences"
@@ -216,7 +217,7 @@ export default function Navbar() {
 
                 <Link
                   href="/luxeclub"
-                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 font-semibold flex items-center gap-1 whitespace-nowrap"
+                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 font-semibold flex items-center gap-1 whitespace-nowrap"
                 >
                   <span className="bg-[#B38E46] text-white h-4 w-4 xl:h-4.5 xl:w-4.5 flex justify-center items-center rounded-full text-[9px] xl:text-[10px] tracking-wider">
                     C
@@ -226,14 +227,14 @@ export default function Navbar() {
 
                 <Link
                   href="/blogs"
-                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
+                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
                 >
                   Blogs
                 </Link>
 
                 <Link
                   href="/login"
-                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
+                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
                 >
                   <span className="hidden 2xl:inline">Member Login</span>
                   <span className="2xl:hidden">Login</span>
@@ -241,7 +242,7 @@ export default function Navbar() {
 
                 <Link
                   href="/about"
-                  className="hover:text-black transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
+                  className="hover:text-neutral-600 transition-colors px-1 xl:px-1.5 2xl:px-2 py-1 whitespace-nowrap"
                 >
                   About
                 </Link>
@@ -274,20 +275,20 @@ export default function Navbar() {
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
 
-        {/* 3. Action Button (Join Keystone / Agent Hub with Arrow) */}
-        <div className="hidden lg:flex items-center z-50 pointer-events-auto absolute right-4 lg:right-6">
-          <Link
-            href="/join"
-            className="bg-[#B38E46] hover:bg-[#997734] text-white rounded-full px-3 py-2 xl:px-4 xl:py-2.5 2xl:px-6 2xl:py-3 text-[12px] xl:text-sm 2xl:text-base font-[Vera] font-semibold tracking-wide shadow-md transition-all flex items-center gap-1 xl:gap-2 group whitespace-nowrap"
-          >
-            <span>Join Luxe Club</span>
-            <div className="bg-white p-0.5 rounded-full group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
-              <ArrowUpRight className="w-2.5 h-2.5 xl:w-3 xl:h-3 text-[#B38E46]" />
-            </div>
-          </Link>
-        </div>
+          {/* Action Button - Right Side of Pill */}
+          <div className="flex-1 flex justify-end">
+            <Link
+              href="/join"
+              className="bg-[#B38E46] hover:bg-[#997734] text-white rounded-full px-3 py-2 xl:px-4 xl:py-2.5 2xl:px-5 2xl:py-3 text-[12px] xl:text-sm 2xl:text-[15px] font-[Vera] font-semibold tracking-wide shadow-md transition-all flex items-center gap-1 xl:gap-2 group whitespace-nowrap shrink-0"
+            >
+              <span>Join Luxe Club</span>
+              <div className="bg-white p-0.5 rounded-full group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+                <ArrowUpRight className="w-2.5 h-2.5 xl:w-3 xl:h-3 text-[#B38E46]" />
+              </div>
+            </Link>
+          </div>
+        </motion.div>
 
         {/* Mobile/Tablet Menu Button */}
         <div className="flex lg:hidden items-center z-50 pointer-events-auto absolute right-4">

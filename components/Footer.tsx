@@ -55,7 +55,7 @@ export default function Footer() {
               <p>
                 <span className="font-bold text-white font-[Vera]">New Memberships</span> - 1800 209 2345
               </p>
-              <p className="text-neutral-500 text-[11px] sm:text-xs -mt-1 pl-0 font-[Vera] font-light">
+              <p className="text-black text-[11px] sm:text-xs -mt-1 pl-0 font-[Vera] font-light">
                 Monday to Sunday - IST - 9:00 AM to 9:00 PM
               </p>
 
@@ -72,7 +72,7 @@ export default function Footer() {
                 </span>{" "}
                 - 022 69779501
               </p>
-              <p className="text-neutral-500 text-[11px] sm:text-xs -mt-1 pl-0 font-[Vera] font-light">
+              <p className="text-black text-[11px] sm:text-xs -mt-1 pl-0 font-[Vera] font-light">
                 Monday to Sunday - IST - 7:00 AM to 12:00 PM
               </p>
 
@@ -123,7 +123,7 @@ export default function Footer() {
 
         {/* 3. LOWER SECTION: TRUE CENTER CALIBRATED COPYRIGHT NODE */}
         <div className="border-t border-neutral-900 pt-8 w-full flex items-center justify-center">
-          <p className="text-xs sm:text-sm font-[Vera] font-light text-neutral-500 tracking-wide text-center">
+          <p className="text-xs sm:text-sm font-[Vera] font-light text-black tracking-wide text-center">
             Copyright © 2026 The Luxe Yatra Travels. All rights reserved.
           </p>
         </div>

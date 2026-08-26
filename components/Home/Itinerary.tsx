@@ -160,7 +160,7 @@ function ItineraryCard({ item, onPlay }: CardProps) {
         </h3>
 
         {/* Description */}
-        <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 flex-1">
+        <p className="text-black text-sm leading-relaxed line-clamp-3 flex-1">
           {item.description}
         </p>
 

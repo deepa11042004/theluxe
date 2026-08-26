@@ -108,40 +108,56 @@ export default function AboutPage() {
       popular: false,
       image: "/Img/card-domestic.jpg",
       features: [
-        "Domestic Hotel & Resort Access",
-        "Personalised Travel Assistance",
-        "Exclusive Member Discounts & Vouchers",
-        "Standard Concierge Support"
+        "5-Star & Premium Hotel Access",
+        "Exclusive Member Rates & Privileges",
+        "Unlimited Eligible Discount-Night Bookings*",
+        "Complimentary Welcome Stay Benefit*",
+        "Domestic Travel & Holiday Assistance",
+        "Airport Transfer Assistance",
+        "Dining & Lifestyle Privileges",
+        "Exclusive Member-Only Offers",
+        "Dedicated Booking Assistance"
       ]
     },
     {
       name: "worldwide",
       price: "₹19,999",
       period: "per year",
-      badge: "Diamond",
+      badge: "Luxe Diamond",
       popular: true,
       image: "/Img/card-worldwide.jpg",
       features: [
-        "Global & Domestic Hotel Access",
-        "Priority Travel & Flight Assistance",
-        "Worldwide Member Rates & Privileges",
-        "Bespoke Holiday Planning Support",
-        "Dedicated Relationship Manager"
+        "Everything in Luxe Signature",
+        "Worldwide 5-Star & Luxury Hotel Access",
+        "Exclusive International Hotel Rates & Privileges",
+        "International Travel & Holiday Assistance",
+        "Visa & Travel Insurance Assistance",
+        "Cruise & Luxury Experience Assistance",
+        "Airport Transfer Assistance",
+        "International Dining & Lifestyle Privileges",
+        "Exclusive Worldwide Member Offers",
+        "Priority Booking & Travel Assistance"
       ]
     },
     {
       name: "lifetime",
       price: "₹49,999",
       period: "one-time payment",
-      badge: "Imperial",
+      badge: "Luxe Imperial",
       popular: false,
       image: "/Img/card-lifetime.jpg",
       features: [
-        "Unlimited Lifetime Global Access",
-        "VIP Destination & Experience Bookings",
-        "Maximum Savings & Luxury Upgrades",
-        "Dedicated 24/7 Private Concierge",
-        "Special Event & Wedding Hospitality Services"
+        "Lifetime Membership",
+        "Worldwide 5-Star & Luxury Hotel Access",
+        "Exclusive Hotel Rates & Premium Privileges",
+        "Unlimited Eligible Discount-Night Bookings*",
+        "Domestic & International Travel Assistance",
+        "Visa & Travel Insurance Assistance",
+        "Cruise & Luxury Experience Assistance",
+        "Premium Dining & Lifestyle Privileges",
+        "Exclusive Lifetime Member Offers",
+        "Priority Booking & Concierge Assistance",
+        "Family Travel Privileges"
       ]
     }
   ];
@@ -215,13 +231,13 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-5xl font-[Vera] text-neutral-900 tracking-tight leading-tight mb-6">
               Elevating How You Experience Luxury Travel
             </h2>
-            <p className="text-neutral-600 text-base md:text-lg leading-relaxed mb-6 font-light">
+            <p className="text-black text-base md:text-lg leading-relaxed mb-6 font-light">
               <strong className="font-semibold text-neutral-900">The Luxe Yatra</strong> is a premium travel and lifestyle membership company created for discerning travellers who value exceptional hospitality, personalised service and memorable experiences.
             </p>
-            <p className="text-neutral-600 text-base md:text-lg leading-relaxed mb-6 font-light">
+            <p className="text-black text-base md:text-lg leading-relaxed mb-6 font-light">
               Our platform brings together luxury hotel stays, curated holidays, travel assistance and lifestyle privileges through a single premium membership ecosystem.
             </p>
-            <p className="text-neutral-600 text-base md:text-lg leading-relaxed font-light">
+            <p className="text-black text-base md:text-lg leading-relaxed font-light">
               We aim to make luxury travel more accessible, convenient and rewarding for individuals, families and corporate travellers.
             </p>
           </motion.div>
@@ -266,7 +282,7 @@ export default function AboutPage() {
               <h3 className="text-3xl font-[Vera] font-bold text-neutral-900 mb-6 leading-tight">
                 Inspiring Luxury Exploration Worldwide
               </h3>
-              <p className="text-neutral-700 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide">
+              <p className="text-black font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide">
                 To establish The Luxe Yatra as a trusted and recognised name in premium travel membership, connecting members with exceptional hospitality and experiences across India and worldwide.
               </p>
             </div>
@@ -288,7 +304,7 @@ export default function AboutPage() {
               <h3 className="text-3xl font-[Vera] font-bold text-neutral-900 mb-6 leading-tight">
                 Seamless Premium Travel Deliverables
               </h3>
-              <p className="text-neutral-700 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide mb-6">
+              <p className="text-black font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide mb-6">
                 To deliver a seamless premium travel experience through:
               </p>
               <ul className="space-y-4">
@@ -325,7 +341,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-5xl font-[Vera] text-neutral-900 tracking-tight leading-tight mb-4">
               Our Travel & Lifestyle Ecosystem
             </h2>
-            <p className="text-neutral-600 font-[Vera] text-sm md:text-base leading-relaxed tracking-wide">
+            <p className="text-black font-[Vera] text-sm md:text-base leading-relaxed tracking-wide">
               Members can access a comprehensive range of travel and lifestyle services designed around your desires.
             </p>
           </div>
@@ -354,7 +370,7 @@ export default function AboutPage() {
                     <h3 className="text-xl font-bold font-[Vera] text-[#B38E46] mb-3">
                       {item.title}
                     </h3>
-                    <p className="text-neutral-600 font-[Vera] text-sm leading-relaxed tracking-wide">
+                    <p className="text-black font-[Vera] text-sm leading-relaxed tracking-wide">
                       {item.description}
                     </p>
                   </div>
@@ -388,7 +404,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-neutral-900">
               The Luxe Yatra Membership Plans
             </h2>
-            <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-[Vera] font-medium tracking-wide">
+            <p className="text-black text-sm md:text-base leading-relaxed font-[Vera] font-medium tracking-wide">
               Our membership model is designed for travellers who regularly choose premium hotels and experiences. Depending on the selected membership plan, members may receive access to exclusive hotel rates, special offers, travel benefits, vouchers and other privileges.
             </p>
           </div>
@@ -454,7 +470,7 @@ export default function AboutPage() {
             </button>
           </div>
 
-          <p className="relative z-10 text-center text-xs text-neutral-700 max-w-2xl mx-auto font-medium">
+          <p className="relative z-10 text-center text-xs text-black max-w-2xl mx-auto font-medium">
             Benefits, availability, booking conditions and applicable charges are governed by the respective membership plan and terms &amp; conditions.
           </p>
         </motion.section>
@@ -481,13 +497,13 @@ export default function AboutPage() {
             </div>
             
             <div className="space-y-4">
-              <p className="text-neutral-700 font-[Vera] font-medium text-sm md:text-base leading-relaxed tracking-wide">
+              <p className="text-black font-[Vera] font-medium text-sm md:text-base leading-relaxed tracking-wide">
                 The Luxe Yatra focuses on building access to a curated collection of premium and luxury hospitality options.
               </p>
-              <p className="text-neutral-700 font-[Vera] font-medium text-sm md:text-base leading-relaxed tracking-wide">
+              <p className="text-black font-[Vera] font-medium text-sm md:text-base leading-relaxed tracking-wide">
                 Our hotel directory can showcase <strong className="font-bold text-[#B38E46]">100+ leading hotel brands</strong> and a wider selection of properties across India and international destinations.
               </p>
-              <p className="text-neutral-700 font-[Vera] font-medium text-sm md:text-base leading-relaxed tracking-wide">
+              <p className="text-black font-[Vera] font-medium text-sm md:text-base leading-relaxed tracking-wide">
                 The network is designed to give members greater choice when planning luxury stays and holidays.
               </p>
             </div>
@@ -524,7 +540,7 @@ export default function AboutPage() {
               
               <div className="w-12 h-[1px] bg-[#B38E46]/40 mx-auto my-2" />
               
-              <p className="text-xs md:text-sm text-neutral-400 font-[Vera] leading-relaxed font-light px-4">
+              <p className="text-xs md:text-sm text-black font-[Vera] leading-relaxed font-light px-4">
                 Curated collections spanning Marriott, St. Regis, Ritz-Carlton, EDITION, Luxury Collection and many more.
               </p>
             </div>
@@ -545,7 +561,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-5xl font-[Vera] font-bold text-neutral-900 tracking-tight leading-tight">
               Why The Luxe Yatra
             </h2>
-            <p className="text-neutral-600 font-[Vera] text-sm md:text-base leading-relaxed tracking-wide font-medium">
+            <p className="text-black font-[Vera] text-sm md:text-base leading-relaxed tracking-wide font-medium">
               One Membership. Multiple Travel Privileges.
             </p>
           </div>
@@ -590,7 +606,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-5xl font-[Vera] font-bold text-neutral-900 tracking-tight leading-tight">
               Our Service Promise
             </h2>
-            <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-[Vera] font-medium tracking-wide">
+            <p className="text-black text-sm md:text-base leading-relaxed font-[Vera] font-medium tracking-wide">
               At The Luxe Yatra, we believe premium membership is not simply about access — it is about the quality of the experience. Our service approach is built around:
             </p>
           </div>
@@ -614,7 +630,7 @@ export default function AboutPage() {
                     <h3 className="text-lg font-bold font-[Vera] text-neutral-900 tracking-tight group-hover:text-[#B38E46] transition-colors duration-300">
                       {pillar.title}
                     </h3>
-                    <p className="text-neutral-500 text-xs md:text-sm leading-relaxed font-[Vera] font-medium tracking-wide">
+                    <p className="text-black text-xs md:text-sm leading-relaxed font-[Vera] font-medium tracking-wide">
                       {pillar.description}
                     </p>
                   </div>
@@ -642,7 +658,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-2xl md:text-3xl font-bold font-[Vera] text-neutral-900 tracking-tight">Trust &amp; Transparency</h3>
             </div>
-            <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-[Vera] font-medium tracking-wide">
+            <p className="text-black text-sm md:text-base leading-relaxed font-[Vera] font-medium tracking-wide">
               The Luxe Yatra follows a transparent membership framework. Hotel bookings, complimentary benefits, vouchers, discounts and other services are subject to availability, blackout dates, advance booking requirements, partner policies and the applicable membership terms &amp; conditions. We encourage every prospective member to review membership details prior to joining.
             </p>
           </div>

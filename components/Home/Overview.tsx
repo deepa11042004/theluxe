@@ -3,86 +3,158 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 
 type SlideItem = {
   src: string;
   alt: string;
   caption: string;
+  title: string;
 };
 
 const SECTION_1_IMAGES: SlideItem[] = [
   {
-    src: "/Img/amsterdam-canal.jpg",
-    alt: "Amsterdam Canal at Night",
-    caption: "Romantic Canal Cities"
+    src: "/Img/international resorts/TheBrando.jpg",
+    alt: "The Brando",
+    title: "The Brando",
+    caption: "Tetiaroa Atoll, French Polynesia"
   },
   {
-    src: "/Img/thailand-island.jpg",
-    alt: "Thailand Island and Boat",
-    caption: "Tropical Island Paradises"
+    src: "/Img/international resorts/putri-wamoro-jungle-nihi-sumba.webp",
+    alt: "Nihi Sumba",
+    title: "Nihi Sumba",
+    caption: "Wanokaka, Indonesia"
   },
   {
-    src: "/Img/woman-hand-holding-camera-standing-top-rock-nature-travel-concept_335224-887.avif",
-    alt: "Travel Exploration & Photography",
-    caption: "Mountain Peak Expeditions"
+    src: "/Img/international resorts/UBU_614_original.jpg",
+    alt: "Four Seasons Resort at Sayan",
+    title: "Four Seasons Resort at Sayan",
+    caption: "Ubud, Indonesia"
   },
   {
-    src: "/Img/wooden-bridge-koh-nangyuan-island-surat-thani-thailand_335224-1082.avif",
-    alt: "Koh Nang Yuan Island Wooden Bridge",
-    caption: "Exotic Coastal Retreats"
+    src: "/Img/international resorts/udaipur villas.jpg",
+    alt: "The Oberoi Udaivilas",
+    title: "The Oberoi Udaivilas",
+    caption: "Udaipur, India"
   },
   {
-    src: "/Img/beautiful-girl-standing-boat-looking-mountains-ratchaprapha-dam-khao-sok-national-park-surat-thani-province-thailand_335224-849.avif",
-    alt: "Khao Sok National Park Boat View",
-    caption: "Majestic Lake & Mountain Cruises"
+    src: "/Img/international resorts/soneva-fushi.jpg",
+    alt: "Soneva Fushi",
+    title: "Soneva Fushi",
+    caption: "Baa Atoll, Maldives"
+  },
+  {
+    src: "/Img/international resorts/SAN-exp-insider-hero-thumbnail-landscape.webp",
+    alt: "Grace Hotel",
+    title: "Grace Hotel",
+    caption: "Imerovigli, Greece"
+  },
+  {
+    src: "/Img/international resorts/RWCDB_DroneBorgo.jpg",
+    alt: "Rosewood Castiglion del Bosco",
+    title: "Rosewood Castiglion del Bosco",
+    caption: "Montalcino, Italy"
+  },
+  {
+    src: "/Img/international resorts/one-only-reethi-rah.jpg",
+    alt: "One&Only Reethi Rah",
+    title: "One&Only Reethi Rah",
+    caption: "North Malé Atoll, Maldives"
+  },
+  {
+    src: "/Img/international resorts/Six Senses Douro Valley Lamego Portugal.webp",
+    alt: "Six Senses Douro Valley",
+    title: "Six Senses Douro Valley",
+    caption: "Lamego, Portugal"
+  },
+  {
+    src: "/Img/international resorts/Royal Mansour Marrakech Morocco.webp",
+    alt: "Royal Mansour",
+    title: "Royal Mansour",
+    caption: "Marrakech, Morocco"
   }
 ];
 
 const SECTION_2_IMAGES: SlideItem[] = [
   {
-    src: "/Img/360_F_315088533_706xMSeuNJK4lnrTDvqRbcurHHkIubmr.jpg",
-    alt: "Luxury Resort Infinity Pool",
-    caption: "Exclusive Resort Stays"
+    src: "/Img/national resorts/Ananda in the Himalayas Rishikesh.jpg",
+    alt: "Ananda in the Himalayas",
+    title: "Ananda in the Himalayas",
+    caption: "Rishikesh"
   },
   {
-    src: "/Img/lisbon-8275994_640.jpg",
-    alt: "Lisbon Cityscape & Architecture",
-    caption: "Iconic Cultural Cities"
+    src: "/Img/national resorts/EVOLVE-BACK-COORG-RESORT.jpg",
+    alt: "Evolve Back",
+    title: "Evolve Back",
+    caption: "Coorg"
   },
   {
-    src: "/Img/nature-1207955_640.jpg",
-    alt: "Scenic Nature Landscapes",
-    caption: "Breath-taking Landscapes"
+    src: "/Img/national resorts/Kumarakom Lake Resort Kumarakom.jpg",
+    alt: "Kumarakom Lake Resort",
+    title: "Kumarakom Lake Resort",
+    caption: "Kumarakom"
   },
   {
-    src: "/Img/photo-1619120238346-978e07731e77.avif",
-    alt: "Exotic Destination Overlook",
-    caption: "Unrivaled Perspectives"
+    src: "/Img/national resorts/Rambagh Palace Jaipur.avif",
+    alt: "Rambagh Palace",
+    title: "Rambagh Palace",
+    caption: "Jaipur"
   },
   {
-    src: "/Img/winding-road-1556177_1280.jpg",
-    alt: "Scenic Winding Road Drive",
-    caption: "Unforgettable Road Journeys"
+    src: "/Img/national resorts/Taj Exotica Resort & Spa Benaulim.avif",
+    alt: "Taj Exotica Resort & Spa",
+    title: "Taj Exotica Resort & Spa",
+    caption: "Benaulim"
+  },
+  {
+    src: "/Img/national resorts/Taj Falaknuma Palace Hyderabad, Telangana.avif",
+    alt: "Taj Falaknuma Palace",
+    title: "Taj Falaknuma Palace",
+    caption: "Hyderabad"
+  },
+  {
+    src: "/Img/national resorts/Taj Lake Palace.avif",
+    alt: "Taj Lake Palace",
+    title: "Taj Lake Palace",
+    caption: "Udaipur"
+  },
+  {
+    src: "/Img/national resorts/The Oberoi Amarvilas Agra.webp",
+    alt: "The Oberoi Amarvilas",
+    title: "The Oberoi Amarvilas",
+    caption: "Agra"
+  },
+  {
+    src: "/Img/national resorts/Umaid Bhawan Palace Jodhpur.avif",
+    alt: "Umaid Bhawan Palace",
+    title: "Umaid Bhawan Palace",
+    caption: "Jodhpur"
+  },
+  {
+    src: "/Img/national resorts/Wildflower Hall Shimla.jpg",
+    alt: "Wildflower Hall",
+    title: "Wildflower Hall",
+    caption: "Shimla"
   }
 ];
 
 const OVERVIEW_SECTIONS = [
   {
-    tag: "Beautiful Places Await",
-    headline: "Great Journeys, Fascinating Places",
+    tag: "WORLD'S TOP 10 RESORTS",
+    headline: "Travel Better.\nLive More Luxuriously.",
     paragraphs: [
-      "Travel isn’t always comfortable—sometimes it challenges you. But the journey ultimately changes you, leaving lasting marks on your memory, consciousness, and heart. You take something with you, and hopefully, leave something good behind.",
-      "Our team of experienced experts meticulously designs each itinerary, ensuring a seamless, enriching experience. We offer tailor-made trips designed to cater precisely to your unique preferences and personal interests.",
+      "Discover thoughtfully curated journeys, exceptional stays, and exclusive privileges designed around the way you love to travel.",
+      "From premium hotels and bespoke experiences to privileged member benefits, The Luxe Yatra brings a more refined way to explore the world.",
     ],
+    ctaText: "Explore Luxe Experiences",
+    ctaLink: "/experiences",
     images: SECTION_1_IMAGES,
   },
   {
-    tag: "Life is an extraordinary journey",
-    headline: "Travel Is Your Ticket to Play in the Grandest Arenas",
+    tag: "INDIA'S FINEST RETREATS",
+    headline: "Discover India's\nMost Exceptional Stays",
     paragraphs: [
-      "The Luxe Yatra Worldwide Travel offers a kaleidoscope of options, from exotic beach getaways to awe-inspiring cultural expeditions. Whether you seek serene tropical paradises or high-adrenaline exploration, we have your perfect itinerary.",
-      "Immerse yourself completely in the heart and soul of your destination. Connect deeply with local communities, savor authentic traditional cuisines, and witness age-old traditions firsthand.",
+      "From royal palaces and serene retreats to beachfront escapes and tranquil resorts, discover a curated collection of India's finest stays and experiences.",
     ],
     images: SECTION_2_IMAGES,
   },
@@ -149,13 +221,18 @@ function SlidingImageCarousel({ images }: { images: SlideItem[] }) {
             className="object-cover object-center brightness-[0.9] contrast-[1.02]"
           />
           {/* Subtle gradient vignette */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           
           {/* Caption Overlay */}
-          <div className="absolute bottom-6 left-6 z-10">
-            <span className="text-xs uppercase tracking-widest text-white/80 font-medium px-3 py-1 bg-black/40 backdrop-blur-md rounded-full border border-white/20">
-              {images[currentIndex].caption}
-            </span>
+          <div className="absolute bottom-6 left-6 z-10 flex flex-col gap-2">
+            <h3 className="text-2xl font-[Vera] text-white drop-shadow-lg font-medium">
+              {images[currentIndex].title}
+            </h3>
+            <div>
+              <span className="text-xs uppercase tracking-widest text-white/90 font-medium px-3 py-1 bg-black/40 backdrop-blur-md rounded-full border border-white/20 shadow-md">
+                {images[currentIndex].caption}
+              </span>
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>
@@ -225,7 +302,7 @@ export default function Overview() {
               </span>
 
               {/* Luxury Headline */}
-              <h2 className="text-3xl sm:text-4xl xl:text-5xl font-[Vera] tracking-tight text-black mb-6 leading-[1.2]">
+              <h2 className="text-3xl sm:text-4xl xl:text-5xl font-[Vera] tracking-tight text-black mb-6 leading-[1.2] whitespace-pre-line">
                 {section.headline}
               </h2>
 
@@ -235,6 +312,19 @@ export default function Overview() {
                   <p key={pIdx}>{p}</p>
                 ))}
               </div>
+
+              {/* Optional CTA Button */}
+              {section.ctaText && (
+                <div className="pt-6">
+                  <a
+                    href={section.ctaLink || "/experiences"}
+                    className="inline-flex items-center gap-2.5 bg-[#B38E46] hover:bg-[#997734] active:scale-95 text-white font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
+                  >
+                    <span>{section.ctaText}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+              )}
             </motion.div>
 
             {/* VISUAL MEDIA BLOCK - SLIDING MOTION CAROUSEL */}

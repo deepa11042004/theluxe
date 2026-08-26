@@ -168,58 +168,60 @@ const CAROUSEL_PRIVILEGES = [
 
 const MEMBERSHIPS = [
   {
-    title: "SIGNATURE",
-    subtitle: "One Year Domestic — ₹12,999 gives you one full year of luxury hotel privileges across India.",
+    title: "LUXE SIGNATURE",
+    subtitle: "One Year Domestic — ₹12,999. One full year of premium hotel privileges, exclusive rates and travel benefits across India.",
     bgClass: "bg-gradient-to-br from-[#2a2a2a] via-[#1a1a1a] to-[#0a0a0a] text-white border-white/10",
     lineColor: "rgba(255,255,255,0.08)",
     bulletColor: "bg-[#D4AF37]",
     benefits: [
-      "Domestic luxury hotel bookings",
-      "Special member hotel rates/discounts",
-      "Unlimited eligible discount-night bookings*",
-      "Domestic travel assistance",
-      "Airport transfer assistance",
-      "Exclusive member offers",
-      "Holiday and travel assistance",
-      "Selected dining & lifestyle offers",
-      "Dedicated booking assistance"
+      "5-Star & Premium Hotel Access",
+      "Exclusive Member Rates & Privileges",
+      "Unlimited Eligible Discount-Night Bookings*",
+      "Complimentary Welcome Stay Benefit*",
+      "Domestic Travel & Holiday Assistance",
+      "Airport Transfer Assistance",
+      "Dining & Lifestyle Privileges",
+      "Exclusive Member-Only Offers",
+      "Dedicated Booking Assistance"
     ],
   },
   {
-    title: "DIAMOND",
-    subtitle: "One Year Worldwide — Pay ₹19,999 for a worldwide luxury travel membership.",
+    title: "LUXE DIAMOND",
+    subtitle: "One Year Worldwide — ₹19,999. Your gateway to premium travel privileges across India and worldwide.",
     bgClass: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white border-white/10",
     lineColor: "rgba(255,255,255,0.08)",
     bulletColor: "bg-[#D4AF37]",
     benefits: [
-      "Everything in Domestic Membership",
-      "Worldwide luxury hotel access",
-      "International 5-star hotel offers",
-      "International holiday assistance",
-      "Visa & Travel insurance assistance",
-      "Cruise & luxury experience assistance",
-      "Airport transfer assistance",
-      "International dining/lifestyle offers where available",
-      "Exclusive worldwide member offers"
+      "Everything in Luxe Signature",
+      "Worldwide 5-Star & Luxury Hotel Access",
+      "Exclusive International Hotel Rates & Privileges",
+      "International Travel & Holiday Assistance",
+      "Visa & Travel Insurance Assistance",
+      "Cruise & Luxury Experience Assistance",
+      "Airport Transfer Assistance",
+      "International Dining & Lifestyle Privileges",
+      "Exclusive Worldwide Member Offers",
+      "Priority Booking & Travel Assistance"
     ],
   },
   {
-    title: "IMPERIAL",
-    subtitle: "Lifetime Membership — Pay ₹49,999 once and enjoy The Luxe Yatra lifestyle worldwide for a lifetime.",
+    title: "LUXE IMPERIAL",
+    subtitle: "Lifetime Membership — ₹49,999. Pay once and enjoy The Luxe Yatra lifestyle worldwide for a lifetime.",
     bgClass: "bg-gradient-to-br from-[#2c7a72] via-[#205c56] to-[#123834] text-white border-white/10",
     lineColor: "rgba(255,255,255,0.08)",
     bulletColor: "bg-[#D4AF37]",
     benefits: [
-      "Lifetime membership, no annual renewal",
-      "Worldwide luxury hotel benefits & offers",
-      "Unlimited eligible discount-night bookings*",
-      "Domestic & international travel assistance",
-      "Visa & Travel insurance assistance",
-      "Cruise & luxury experiences",
-      "Premium dining & lifestyle offers",
-      "Exclusive lifetime-member offers",
-      "Priority member assistance",
-      "Family travel convenience"
+      "Lifetime Membership",
+      "Worldwide 5-Star & Luxury Hotel Access",
+      "Exclusive Hotel Rates & Premium Privileges",
+      "Unlimited Eligible Discount-Night Bookings*",
+      "Domestic & International Travel Assistance",
+      "Visa & Travel Insurance Assistance",
+      "Cruise & Luxury Experience Assistance",
+      "Premium Dining & Lifestyle Privileges",
+      "Exclusive Lifetime Member Offers",
+      "Priority Booking & Concierge Assistance",
+      "Family Travel Privileges"
     ],
   },
 ];
@@ -290,7 +292,7 @@ export default function Membersec() {
           A World of Privileged Access
         </h3>
 
-        <p className="text-neutral-800 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide max-w-3xl mx-auto mb-16">
+        <p className="text-black font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide max-w-3xl mx-auto mb-16">
           Luxe Club unlocks privileged access to 140+ premium resorts,
           offering 7 nights/8 days holidays every year — filled with cherished
           family moments and thoughtfully crafted experiences.
@@ -367,7 +369,7 @@ export default function Membersec() {
           <h3 className="text-2xl md:text-6xl font-[Vera] tracking-tight text-black mb-5">
             Your Key to Unlock Privileged Experiences
           </h3>
-          <p className="text-neutral-800 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide mb-14 uppercase">
+          <p className="text-black font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide mb-14 uppercase">
             Select from <span className="text-black font-bold">Signature</span>,{" "}
             <span className="text-neutral-900 font-bold">Diamond</span>, and{" "}
             <span className="text-[#165B54] font-bold">Imperial</span> Cards and
@@ -476,7 +478,7 @@ export default function Membersec() {
                 <thead>
                   <tr className="bg-neutral-900 text-white text-sm uppercase tracking-wider font-[Vera]">
                     <th className="p-6 font-semibold w-1/4">Benefit</th>
-                    <th className="p-6 text-center font-semibold w-1/4">Signature <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Domestic</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4">Luxe Signature <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Domestic</span></th>
                     <th className="p-6 text-center font-semibold w-1/4">Diamond <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Worldwide</span></th>
                     <th className="p-6 text-center font-semibold w-1/4 bg-gradient-to-t from-[#B38E46]/20 to-transparent text-[#D4AF37]">Imperial <span className="block text-xs text-[#D4AF37]/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Lifetime</span></th>
                   </tr>
@@ -638,9 +640,6 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
       </div>
 
       <div className="relative z-10">
-        <span className="text-xs uppercase font-semibold tracking-widest text-neutral-400 block mb-1">
-          Key
-        </span>
         <h4 className="text-3xl font-extrabold tracking-wide mb-4 font-sans">
           {card.title}
         </h4>

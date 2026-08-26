@@ -133,7 +133,7 @@ function ItineraryCard({ item, onPlay }: CardProps) {
           {item.title}
         </h3>
 
-        <p className="text-neutral-500 text-sm leading-relaxed line-clamp-3 flex-1">
+        <p className="text-black text-sm leading-relaxed line-clamp-3 flex-1">
           {item.description}
         </p>
 
@@ -382,7 +382,7 @@ export default function ItineraryPage() {
               <h3 className="text-lg font-[Vera] font-bold text-neutral-900 mb-1">
                 No Itineraries Found
               </h3>
-              <p className="text-neutral-500 text-sm max-w-sm mb-6">
+              <p className="text-black text-sm max-w-sm mb-6">
                 We couldn&apos;t find any itineraries matching your current
                 search or filters.
               </p>
