@@ -52,7 +52,7 @@ function Field({
 }) {
   return (
     <div className="group flex flex-col gap-2 w-full">
-      <label className="flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-neutral-500 group-focus-within:text-cyan-600 transition-colors">
+      <label className="flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-black group-focus-within:text-cyan-600 transition-colors">
         <span className="text-neutral-400 group-focus-within:text-cyan-600 transition-colors">
           {icon}
         </span>
@@ -281,7 +281,7 @@ export default function Joinsec() {
             <h2 className="text-2xl font-bold text-black mb-2">
               Welcome, {form.clientName || "Member"}!
             </h2>
-            <p className="text-black text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed">
               Your registration application has been processed into the secure
               ecosystem.
             </p>
@@ -307,7 +307,7 @@ export default function Joinsec() {
                 secondaryPin: "",
               });
             }}
-            className="text-xs text-neutral-500 hover:text-neutral-300 transition-colors underline underline-offset-4 cursor-pointer"
+            className="text-xs text-black hover:text-neutral-300 transition-colors underline underline-offset-4 cursor-pointer"
           >
             Submit another profile
           </button>
@@ -321,7 +321,7 @@ export default function Joinsec() {
       {/* LEFT SIDE: THE ASYMMETRIC BRANDING PANEL (Responsive Height Match)*/}
       <div className="lg:col-span-5 bg-neutral-50 border-b lg:border-b-0 lg:border-r border-neutral-200 p-8 sm:p-12 lg:p-16 flex flex-col justify-center relative min-h-80 lg:h-full overflow-hidden select-none">
         {/* Premium Background Image with Readability Shader */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-80">
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80" // Replace with your vacation/landscape asset
             alt="Onboarding Background"
@@ -342,7 +342,7 @@ export default function Joinsec() {
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black mb-4 leading-tight">
             Join Our Membership
           </h1>
-          <p className="text-black text-sm font-light leading-relaxed">
+          <p className="text-sm leading-relaxed">
             Create your account across four clear onboarding channels to
             seamlessly unlock exclusive member privileges.
           </p>
@@ -384,7 +384,7 @@ export default function Joinsec() {
               onClick={prev}
               disabled={step === 0}
               whileTap={{ scale: 0.96 }}
-              className="flex items-center gap-2 text-sm font-medium text-neutral-500 hover:text-black disabled:opacity-0 disabled:pointer-events-none transition-colors cursor-pointer py-2"
+              className="flex items-center gap-2 text-sm font-medium text-black hover:text-black disabled:opacity-0 disabled:pointer-events-none transition-colors cursor-pointer py-2"
             >
               <ChevronLeft size={16} />
               Back

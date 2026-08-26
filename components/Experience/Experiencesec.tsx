@@ -219,7 +219,7 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                 className="p-1 hover:bg-neutral-200 rounded-full transition-colors shrink-0"
                 aria-label="Clear search"
               >
-                <X className="w-3.5 h-3.5 text-neutral-500" />
+                <X className="w-3.5 h-3.5 text-black" />
               </button>
             )}
           </div>
@@ -236,11 +236,11 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="col-span-full py-20 text-center flex flex-col items-center justify-center text-neutral-500"
+                className="col-span-full py-20 text-center flex flex-col items-center justify-center text-black"
               >
                 <Search className="w-10 h-10 text-[#B38E46] mb-4 opacity-60" />
-                <p className="text-xl font-[Vera] font-bold text-neutral-900 mb-2">No destinations found</p>
-                <p className="text-sm text-black font-light max-w-sm mx-auto leading-relaxed">
+                <p className="text-xl font-[Vera] font-bold mb-2">No destinations found</p>
+                <p className="text-sm max-w-sm mx-auto leading-relaxed">
                   We couldn&apos;t find any results matching &ldquo;{searchQuery}&rdquo;. Try checking for typos or searching for a different keyword.
                 </p>
               </motion.div>
@@ -276,12 +276,12 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                     </div>
                     
                     {/* Property Name */}
-                    <h3 className="text-xl font-[Vera] font-bold tracking-tight text-neutral-900 mb-3 group-hover:text-[#B38E46] transition-colors leading-snug">
+                    <h3 className="text-xl font-bold tracking-tight text-neutral-900 mb-3 group-hover:text-[#B38E46] transition-colors leading-snug">
                       {exp.title}
                     </h3>
                     
                     {/* Description */}
-                    <p className="text-black font-light text-sm leading-relaxed tracking-wide line-clamp-3 mb-4">
+                    <p className="text-sm leading-relaxed tracking-wide line-clamp-3 mb-4">
                       {exp.description}
                     </p>
                   </div>

@@ -132,7 +132,7 @@ export default function Clientsec() {
         transition={{ duration: 0.7 }}
         className="text-center mb-10 sm:mb-14 z-10 relative"
       >
-        <p className="text-sm sm:text-lg tracking-[0.3em] uppercase mb-3 text-black">
+        <p className="text-sm sm:text-lg tracking-[0.3em] uppercase mb-3">
           Testimonials
         </p>
         <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-serif tracking-tight text-black">
@@ -274,7 +274,7 @@ export default function Clientsec() {
                     <p className={`text-white ${isActive ? "font-bold text-sm sm:text-base" : "font-semibold text-xs sm:text-sm"}`}>
                       {item.name}
                     </p>
-                    <p className="text-black text-xs mt-0.5">{item.location}</p>
+                    <p className="text-xs mt-0.5">{item.location}</p>
                   </div>
                 </div>
               </motion.div>

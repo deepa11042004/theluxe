@@ -160,7 +160,7 @@ function ItineraryCard({ item, onPlay }: CardProps) {
         </h3>
 
         {/* Description */}
-        <p className="text-black text-sm leading-relaxed line-clamp-3 flex-1">
+        <p className="text-sm leading-relaxed line-clamp-3 flex-1">
           {item.description}
         </p>
 
@@ -265,7 +265,7 @@ export default function Itinerary() {
               <span className="text-[10px] md:text-sm font-[Vera] tracking-[0.3em] text-neutral-800 uppercase mb-6 block">
                 Experience Luxury, Adventure & Culture
               </span>
-              <h2 className="text-4xl md:text-5xl font-[Vera] text-gray-900 tracking-tight uppercase leading-none">
+              <h2 className="text-4xl md:text-5xl text-gray-900 tracking-tight uppercase leading-none">
                 Exclusive Itinerary
               </h2>
             </motion.div>

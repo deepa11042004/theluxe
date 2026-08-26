@@ -285,14 +285,14 @@ export default function Membersec() {
           </span>
         </div>
 
-        <h2 className="text-lg font-[Vera] tracking-[0.3em] text-neutral-500 uppercase mb-3">
+        <h2 className="text-lg tracking-[0.3em] text-black uppercase mb-3">
           Luxe Club
         </h2>
-        <h3 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-neutral-900 mb-6">
+        <h3 className="text-3xl md:text-5xl tracking-tight text-neutral-900 mb-6">
           A World of Privileged Access
         </h3>
 
-        <p className="text-black font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide max-w-3xl mx-auto mb-16">
+        <p className="font-[Vera] text-sm xl:text-base leading-relaxed tracking-wide max-w-3xl mx-auto mb-16">
           Luxe Club unlocks privileged access to 140+ premium resorts,
           offering 7 nights/8 days holidays every year — filled with cherished
           family moments and thoughtfully crafted experiences.
@@ -300,7 +300,7 @@ export default function Membersec() {
 
         {/* HORIZONTAL SLIDING PRIVILEGES CAROUSEL */}
         <div className="w-full relative flex flex-col items-center mt-4">
-          <h4 className="text-3xl font-[Vera] tracking-wider text-neutral-900 font-medium mb-10">
+          <h4 className="text-3xl tracking-wider text-neutral-900 font-medium mb-10">
             Handpicked Privileges
           </h4>
 
@@ -366,10 +366,10 @@ export default function Membersec() {
       {/* SECTION 2: MEMBERSHIP PLANS */}
       <div className="bg-white text-black rounded-t-[2.5rem] py-24 px-6 w-full">
         <div className="max-w-7xl mx-auto text-center">
-          <h3 className="text-2xl md:text-6xl font-[Vera] tracking-tight text-black mb-5">
+          <h3 className="text-2xl md:text-6xl tracking-tight text-black mb-5">
             Your Key to Unlock Privileged Experiences
           </h3>
-          <p className="text-black font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide mb-14 uppercase">
+          <p className="font-[Vera] text-sm xl:text-base leading-relaxed tracking-wide mb-14 uppercase">
             Select from <span className="text-black font-bold">Signature</span>,{" "}
             <span className="text-neutral-900 font-bold">Diamond</span>, and{" "}
             <span className="text-[#165B54] font-bold">Imperial</span> Cards and
@@ -385,7 +385,7 @@ export default function Membersec() {
 
           {/* NEW SECTION: GENERAL BENEFITS */}
           <div className="text-left mt-16 max-w-5xl mx-auto">
-            <h3 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-center text-black mb-16">
+            <h3 className="text-3xl md:text-5xl tracking-tight text-center text-black mb-16">
               MEMBER BENEFITS
             </h3>
 
@@ -451,7 +451,7 @@ export default function Membersec() {
                 }} 
               />
               <div className="relative z-10">
-                <h4 className="text-2xl md:text-4xl font-[Vera] tracking-widest italic mb-6 text-white drop-shadow-md">
+                <h4 className="text-2xl md:text-4xl tracking-widest italic mb-6 text-white drop-shadow-md">
                   “One Membership. A World of Luxury Travel Privileges.”
                 </h4>
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 text-sm md:text-base font-semibold text-neutral-900">
@@ -469,7 +469,7 @@ export default function Membersec() {
 
           {/* NEW SECTION: COMPARISON TABLE */}
           <div className="mt-24 max-w-6xl mx-auto pb-10 px-4 sm:px-6 w-full">
-            <h3 className="text-3xl md:text-4xl font-[Vera] tracking-tight text-center text-black mb-12">
+            <h3 className="text-3xl md:text-4xl tracking-tight text-center text-black mb-12">
               Membership Comparison
             </h3>
             
@@ -486,20 +486,20 @@ export default function Membersec() {
                 <tbody className="text-sm text-neutral-800 font-[Vera]">
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Membership Fee</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">₹12,999</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">₹19,999</td>
+                    <td className="p-6 text-center text-black font-medium">₹12,999</td>
+                    <td className="p-6 text-center text-black font-medium">₹19,999</td>
                     <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">₹49,999</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Validity</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">1 Year</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">1 Year</td>
+                    <td className="p-6 text-center text-black font-medium">1 Year</td>
+                    <td className="p-6 text-center text-black font-medium">1 Year</td>
                     <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Lifetime</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Luxury Hotel Discounts</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">India</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">Worldwide</td>
+                    <td className="p-6 text-center text-black font-medium">India</td>
+                    <td className="p-6 text-center text-black font-medium">Worldwide</td>
                     <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Worldwide</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
@@ -540,32 +540,32 @@ export default function Membersec() {
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Airport Transfers</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">Available</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">Available</td>
+                    <td className="p-6 text-center text-black font-medium">Available</td>
+                    <td className="p-6 text-center text-black font-medium">Available</td>
                     <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Visa Assistance</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">Available</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">Available</td>
+                    <td className="p-6 text-center text-black font-medium">Available</td>
+                    <td className="p-6 text-center text-black font-medium">Available</td>
                     <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Travel Insurance</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">Available</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">Available</td>
+                    <td className="p-6 text-center text-black font-medium">Available</td>
+                    <td className="p-6 text-center text-black font-medium">Available</td>
                     <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Cruises & Experiences</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">Available</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">Available</td>
+                    <td className="p-6 text-center text-black font-medium">Available</td>
+                    <td className="p-6 text-center text-black font-medium">Available</td>
                     <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Dining & Lifestyle Offers</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">Selected offers</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">More offers</td>
+                    <td className="p-6 text-center text-black font-medium">Selected offers</td>
+                    <td className="p-6 text-center text-black font-medium">More offers</td>
                     <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Premium offers</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
@@ -576,8 +576,8 @@ export default function Membersec() {
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Membership Renewal</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">After 1 Year</td>
-                    <td className="p-6 text-center text-neutral-600 font-medium">After 1 Year</td>
+                    <td className="p-6 text-center text-black font-medium">After 1 Year</td>
+                    <td className="p-6 text-center text-black font-medium">After 1 Year</td>
                     <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">No annual renewal</td>
                   </tr>
                   <tr className="hover:bg-neutral-50/50 transition-colors group">
@@ -643,7 +643,7 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
         <h4 className="text-3xl font-extrabold tracking-wide mb-4 font-sans">
           {card.title}
         </h4>
-        <p className="text-sm opacity-80 leading-relaxed font-medium mb-6 border-b border-neutral-700/20 pb-6">
+        <p className="text-sm leading-relaxed mb-6 border-b border-neutral-700/20 pb-6">
           {card.subtitle}
         </p>
 
@@ -660,7 +660,7 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
               <span
                 className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 ${card.bulletColor}`}
               />
-              <span className="text-sm font-medium opacity-90">{benefit}</span>
+              <span className="text-sm font-medium">{benefit}</span>
             </li>
           ))}
         </ul>

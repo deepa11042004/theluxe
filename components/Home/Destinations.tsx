@@ -162,10 +162,10 @@ const Carousel = () => {
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             Explore 200+ Destinations
           </motion.div>
-          <h2 className="text-4xl md:text-8xl font-[Vera] tracking-tight text-black mb-2 md:mb-4">
+          <h2 className="text-4xl md:text-8xl tracking-tight text-black mb-2 md:mb-4">
             Popular Destinations
           </h2>
-          <p className="text-black/90 font-medium text-sm md:text-lg max-w-xl leading-relaxed">
+          <p className="text-sm md:text-lg max-w-xl leading-relaxed">
             From pristine beaches to snow-capped mountains, find your perfect
             getaway.
           </p>
@@ -272,10 +272,10 @@ const Carousel = () => {
                     <div
                       className={`transition-all duration-500 transform ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                     >
-                      <p className="font-[Vera] italic text-lg mb-2 opacity-90 drop-shadow-md">
+                      <p className="font-[Vera] italic text-lg mb-2 drop-shadow-md">
                         {slide.country}
                       </p>
-                      <h2 className="font-[Vera] text-3xl md:text-4xl font-light leading-tight uppercase max-w-[80%] mx-auto drop-shadow-md">
+                      <h2 className="text-3xl md:text-4xl leading-tight uppercase max-w-[80%] mx-auto drop-shadow-md">
                         {slide.title}
                       </h2>
                     </div>

@@ -114,7 +114,7 @@ export default function Home() {
 
         {/* Subtitle */}
         <motion.div variants={itemVariants}>
-          <p className="inline-block bg-white/20 rounded-full border border-white/30 shadow-lg text-sm md:text-base text-white font-medium max-w-2xl px-5 py-2.5 sm:px-8 sm:py-3 mt-10 sm:mt-14 mb-8 sm:mb-12 tracking-wide drop-shadow-md">
+          <p className="inline-block bg-white/20 rounded-full border border-white/30 shadow-lg text-sm md:text-base text-white max-w-2xl px-5 py-2.5 sm:px-8 sm:py-3 mt-10 sm:mt-14 mb-8 sm:mb-12 tracking-wide drop-shadow-md">
             Explore luxury boutique resorts and tailored holiday experiences.
           </p>
         </motion.div>

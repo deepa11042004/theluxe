@@ -33,7 +33,7 @@ export default function Statssec() {
       <div className="max-w-7xl mx-auto">
         {/* Section Heading: Centered Serif Font matching your screenshot */}
         <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-[Vera] text-black font-normal tracking-wide">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl text-black font-normal tracking-wide">
             Success stories that inspire
           </h2>
         </div>
@@ -55,7 +55,7 @@ export default function Statssec() {
               </div>
 
               {/* Lower Minimal Description block sitting at bottom of card */}
-              <div className="text-neutral-500 font-sans text-xs sm:text-sm font-medium leading-relaxed tracking-wide max-w-[90%] mt-8">
+              <div className="text-black font-sans text-xs sm:text-sm font-medium leading-relaxed tracking-wide max-w-[90%] mt-8">
                 {stat.description}
               </div>
             </motion.div>

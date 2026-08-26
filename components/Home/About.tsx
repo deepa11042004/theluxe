@@ -82,20 +82,20 @@ export default function About() {
             className="col-span-1 md:col-span-6 flex flex-col justify-center items-center text-center p-6 md:p-10 rounded-3xl bg-white/80 backdrop-blur-md border border-neutral-200 shadow-xl z-10 h-auto md:h-full overflow-hidden md:overflow-y-auto"
           >
             {/* Micro-Header Tag */}
-            <span className="text-[10px] md:text-sm font-[Vera] tracking-widest sm:tracking-[0.3em] text-neutral-500 uppercase mb-4 block break-words w-full">
+            <span className="text-[10px] md:text-sm font-[Vera] tracking-widest sm:tracking-[0.3em] text-black uppercase mb-4 block break-words w-full">
               About The Luxe Yatra Worldwide Travel
             </span>
 
             {/* Luxury High-Contrast Headline */}
-            <h2 className="text-2xl sm:text-4xl xl:text-5xl font-[Vera] tracking-normal text-black mb-6 leading-[1.25] max-w-lg break-words w-full">
+            <h2 className="text-2xl sm:text-4xl xl:text-5xl tracking-normal text-black mb-6 leading-[1.25] max-w-lg break-words w-full">
               Travel Beyond Ordinary
-              <span className="block text-xl sm:text-3xl xl:text-4xl text-neutral-700 font-normal mt-2">
+              <span className="block text-xl sm:text-3xl xl:text-4xl text-black font-normal mt-2">
                 Discover a World of Privileges
               </span>
             </h2>
 
             {/* Multi-Paragraph Content Block */}
-            <div className="space-y-4 md:space-y-5 text-neutral-700 font-light text-xs sm:text-sm xl:text-base leading-relaxed tracking-wide max-w-md w-full break-words">
+            <div className="space-y-4 md:space-y-5 text-black text-xs sm:text-sm xl:text-base leading-relaxed tracking-wide max-w-md w-full break-words">
               <p>
                 A holiday is more than a destination. It is about exceptional stays,
                 remarkable experiences and privileges designed around the way you love to travel.
@@ -106,7 +106,7 @@ export default function About() {
                 premium hospitality and memorable experiences across India and beyond.
               </p>
 
-              <p className="font-semibold text-black/90 mt-5 text-xs sm:text-sm tracking-wider uppercase border-t border-black/10 pt-5 font-[Vera]">
+              <p className="font-semibold mt-5 text-xs sm:text-sm tracking-wider uppercase border-t border-black/10 pt-5 font-[Vera]">
                 Travel beautifully. Stay exceptionally. Live the Luxe Yatra way.
               </p>
             </div>

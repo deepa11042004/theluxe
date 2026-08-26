@@ -129,16 +129,16 @@ function ItineraryCard({ item, onPlay }: CardProps) {
           <span>{item.country}</span>
         </div>
 
-        <h3 className="text-xl font-[Vera] font-bold tracking-tight text-neutral-900 leading-snug line-clamp-2 group-hover:text-[#B38E46] transition-colors duration-200">
+        <h3 className="text-xl font-bold tracking-tight text-neutral-900 leading-snug line-clamp-2 group-hover:text-[#B38E46] transition-colors duration-200">
           {item.title}
         </h3>
 
-        <p className="text-black text-sm leading-relaxed line-clamp-3 flex-1">
+        <p className="text-sm leading-relaxed line-clamp-3 flex-1">
           {item.description}
         </p>
 
         <div className="pt-4 mt-auto border-t border-neutral-100 flex items-center justify-between w-full">
-          <div className="flex items-center gap-1.5 text-neutral-500 text-xs font-medium font-[Vera]">
+          <div className="flex items-center gap-1.5 text-black text-xs font-medium font-[Vera]">
             <Clock className="w-3.5 h-3.5 shrink-0 text-[#B38E46]" />
             <span>{item.duration}</span>
           </div>
@@ -320,7 +320,7 @@ export default function ItineraryPage() {
                 className="p-1 hover:bg-neutral-200 rounded-full transition-colors shrink-0 cursor-pointer"
                 aria-label="Clear search"
               >
-                <X className="w-3.5 h-3.5 text-neutral-500" />
+                <X className="w-3.5 h-3.5 text-black" />
               </button>
             )}
           </div>
@@ -379,10 +379,10 @@ export default function ItineraryPage() {
               className="flex flex-col items-center justify-center text-center py-20 px-4 bg-white border border-neutral-200 rounded-3xl"
             >
               <Compass className="w-12 h-12 text-[#B38E46] mb-4 animate-bounce" />
-              <h3 className="text-lg font-[Vera] font-bold text-neutral-900 mb-1">
+              <h3 className="text-lg font-bold text-neutral-900 mb-1">
                 No Itineraries Found
               </h3>
-              <p className="text-black text-sm max-w-sm mb-6">
+              <p className="text-sm max-w-sm mb-6">
                 We couldn&apos;t find any itineraries matching your current
                 search or filters.
               </p>

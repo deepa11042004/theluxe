@@ -47,7 +47,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-36 mb-6">
         <Link
           href="/itinerary"
-          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-neutral-500 hover:text-[#B38E46] transition-colors duration-200 cursor-pointer group"
+          className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-black hover:text-[#B38E46] transition-colors duration-200 cursor-pointer group"
         >
           <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
           <span>Back to All Itineraries</span>
@@ -130,12 +130,12 @@ export default function ItineraryDetail({ id }: { id?: string }) {
           <span className="text-xs font-[Vera] font-bold text-[#B38E46] tracking-[0.3em] uppercase block mb-3">
             Luxury Itinerary — {currentItinerary.country}
           </span>
-          <h1 className="text-3xl sm:text-5xl font-[Vera] tracking-tight text-neutral-900 mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-5xl tracking-tight text-neutral-900 mb-6 leading-tight">
             {currentItinerary.title}
           </h1>
 
           {/* Parameter Info Chips */}
-          <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-neutral-700 font-medium pt-2">
+          <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-black font-medium pt-2">
             <div className="flex items-center gap-2 px-4 py-2 bg-neutral-100/80 rounded-full border border-neutral-200/60">
               <Clock className="w-4 h-4 text-[#B38E46]" />
               <span>{currentItinerary.duration}</span>
@@ -165,10 +165,10 @@ export default function ItineraryDetail({ id }: { id?: string }) {
           <div className="lg:col-span-8 space-y-12">
             {/* Overview Summary */}
             <div className="bg-neutral-50/70 rounded-3xl p-6 sm:p-8 border border-neutral-200/70 shadow-xs">
-              <h2 className="text-xl font-[Vera] text-neutral-900 mb-4 tracking-wide uppercase">
+              <h2 className="text-xl text-neutral-900 mb-4 tracking-wide uppercase">
                 Journey Overview
               </h2>
-              <p className="text-black font-light text-base leading-relaxed tracking-wide">
+              <p className="text-base leading-relaxed tracking-wide">
                 {currentItinerary.description}
               </p>
 
@@ -188,7 +188,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
 
             {/* Day-by-Day Schedule Timeline */}
             <div>
-              <h2 className="text-2xl sm:text-3xl font-[Vera] text-neutral-900 mb-8 tracking-tight uppercase">
+              <h2 className="text-2xl sm:text-3xl text-neutral-900 mb-8 tracking-tight uppercase">
                 Day-by-Day Itinerary
               </h2>
 
@@ -209,7 +209,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
                           <span className="text-xs font-[Vera] font-bold px-3.5 py-1.5 bg-[#B38E46] text-white rounded-lg shrink-0 tracking-widest uppercase">
                             {item.day}
                           </span>
-                          <h3 className="text-base sm:text-lg font-[Vera] font-semibold text-neutral-900 tracking-tight">
+                          <h3 className="text-base sm:text-lg font-semibold text-neutral-900 tracking-tight">
                             {item.title}
                           </h3>
                         </div>
@@ -227,7 +227,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
                             transition={{ duration: 0.3, ease: "easeInOut" }}
                           >
                             <div className="p-5 sm:p-6 pt-0 border-t border-neutral-100 bg-neutral-50/30">
-                              <p className="text-sm sm:text-base text-black font-light leading-relaxed tracking-wide pt-4">
+                              <p className="text-sm sm:text-base leading-relaxed tracking-wide pt-4">
                                 {item.text}
                               </p>
                             </div>
@@ -251,16 +251,16 @@ export default function ItineraryDetail({ id }: { id?: string }) {
                 <span className="text-[10px] font-[Vera] font-bold text-[#B38E46] tracking-[0.25em] uppercase block">
                   Tailored Travel Package
                 </span>
-                <h3 className="text-2xl font-[Vera] text-neutral-900 tracking-tight">
+                <h3 className="text-2xl text-neutral-900 tracking-tight">
                   Interested in this itinerary?
                 </h3>
               </div>
 
               <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200/60 flex items-center justify-between">
                 <div>
-                  <span className="text-xs text-neutral-500 font-medium block">Starting from</span>
+                  <span className="text-xs text-black font-medium block">Starting from</span>
                   <span className="text-2xl font-bold font-[Vera] text-neutral-900">₹1,24,999</span>
-                  <span className="text-xs text-neutral-500"> / person</span>
+                  <span className="text-xs text-black"> / person</span>
                 </div>
                 <span className="text-xs font-semibold text-[#B38E46] bg-[#B38E46]/10 px-3 py-1 rounded-full border border-[#B38E46]/20 font-[Vera]">
                   {currentItinerary.duration.split("/")[0]}
@@ -269,10 +269,10 @@ export default function ItineraryDetail({ id }: { id?: string }) {
 
               {/* Inclusions List */}
               <div className="space-y-3 pt-2">
-                <h4 className="text-xs font-[Vera] font-bold tracking-wider text-neutral-800 uppercase">
+                <h4 className="text-xs font-bold tracking-wider text-neutral-800 uppercase">
                   Package Inclusions
                 </h4>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-600 font-light">
+                <ul className="space-y-2.5 text-xs sm:text-sm text-black">
                   <li className="flex items-center gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0" />
                     <span>5-Star Luxury Accommodations</span>
@@ -311,7 +311,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
                 </Link>
               </div>
 
-              <p className="text-[11px] text-center text-black font-light pt-2">
+              <p className="text-[11px] text-center pt-2">
                 No immediate payment required. Our travel concierges will reach out within 2 hours.
               </p>
             </div>
@@ -326,7 +326,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
             <span className="text-xs font-[Vera] font-bold text-[#B38E46] tracking-[0.3em] uppercase block mb-3">
               Curated Selection
             </span>
-            <h2 className="text-3xl sm:text-4xl font-[Vera] tracking-tight text-neutral-900 uppercase">
+            <h2 className="text-3xl sm:text-4xl tracking-tight text-neutral-900 uppercase">
               Recommended For You
             </h2>
           </div>
@@ -355,14 +355,14 @@ export default function ItineraryDetail({ id }: { id?: string }) {
                   </div>
 
                   <div className="p-6">
-                    <div className="flex items-center gap-4 text-xs font-medium text-neutral-500 uppercase tracking-wider mb-2">
+                    <div className="flex items-center gap-4 text-xs font-medium text-black uppercase tracking-wider mb-2">
                       <span>{rec.duration}</span>
                       <span>•</span>
                       <span className="text-[#B38E46] font-semibold">
                         {rec.spots}
                       </span>
                     </div>
-                    <h3 className="text-lg font-[Vera] font-semibold text-neutral-900 leading-snug group-hover:text-[#B38E46] transition-colors">
+                    <h3 className="text-lg font-semibold text-neutral-900 leading-snug group-hover:text-[#B38E46] transition-colors">
                       {rec.title}
                     </h3>
                   </div>
@@ -376,7 +376,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
                     <span className="text-xl font-bold font-[Vera] text-neutral-900">
                       {rec.price}
                     </span>
-                    <span className="text-xs text-neutral-500 font-light">
+                    <span className="text-xs text-black">
                       {" "}
                       /person
                     </span>

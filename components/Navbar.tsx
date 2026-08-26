@@ -169,7 +169,7 @@ export default function Navbar() {
                   </div>
                   {/* Dropdown Menu Container */}
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 pointer-events-none group-hover/experiences:opacity-100 group-hover/experiences:pointer-events-auto transition-all duration-300 ease-out z-50">
-                    <div className="bg-white/95 backdrop-blur-md border border-neutral-100 rounded-2xl shadow-xl p-2 w-48 flex flex-col gap-1 text-gray-700">
+                    <div className="bg-white/95 backdrop-blur-md border border-neutral-100 rounded-2xl shadow-xl p-2 w-48 flex flex-col gap-1 text-black">
                       <Link
                         href="/experiences"
                         className="px-4 py-2.5 rounded-xl hover:bg-neutral-50 hover:text-black transition-colors font-medium text-xs tracking-wider uppercase text-left"
@@ -257,7 +257,7 @@ export default function Navbar() {
                 className="flex items-center w-full px-3 min-w-[340px] md:min-w-[480px]"
               >
                 <div className="p-2 bg-gray-100 rounded-full mr-3">
-                  <Search className="w-5 h-5 text-gray-500" />
+                  <Search className="w-5 h-5 text-black" />
                 </div>
                 <input
                   ref={inputRef}
@@ -270,7 +270,7 @@ export default function Navbar() {
                   className="p-2 hover:bg-gray-100 rounded-full transition-colors ml-2 cursor-pointer"
                   aria-label="Close Search"
                 >
-                  <X className="w-5 h-5 text-gray-500" />
+                  <X className="w-5 h-5 text-black" />
                 </button>
               </motion.div>
             )}
@@ -345,7 +345,7 @@ export default function Navbar() {
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="flex flex-col gap-5 text-[15px] font-[Vera] font-medium text-gray-700 tracking-wide"
+                className="flex flex-col gap-5 text-[15px] font-[Vera] font-medium text-black tracking-wide"
               >
                 <motion.div variants={itemVariants}>
                   <Link
@@ -374,7 +374,7 @@ export default function Navbar() {
                 >
                   <button
                     onClick={() => setIsExperiencesOpen(!isExperiencesOpen)}
-                    className="flex items-center justify-between text-[15px] font-[Vera] font-medium text-gray-700 hover:text-black transition-colors w-full text-left cursor-pointer tracking-wide"
+                    className="flex items-center justify-between text-[15px] font-[Vera] font-medium text-black hover:text-black transition-colors w-full text-left cursor-pointer tracking-wide"
                   >
                     <span>Experiences</span>
                     <ChevronDown
@@ -396,21 +396,21 @@ export default function Navbar() {
                         <Link
                           href="/experiences"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-[14px] font-[Vera] tracking-wide text-gray-500 hover:text-black transition-colors"
+                          className="text-[14px] font-[Vera] tracking-wide text-black hover:text-black transition-colors"
                         >
                           All Experiences
                         </Link>
                         <Link
                           href="/national"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-[14px] font-[Vera] tracking-wide text-gray-500 hover:text-black transition-colors"
+                          className="text-[14px] font-[Vera] tracking-wide text-black hover:text-black transition-colors"
                         >
                           National
                         </Link>
                         <Link
                           href="/international"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-[14px] font-[Vera] tracking-wide text-gray-500 hover:text-black transition-colors"
+                          className="text-[14px] font-[Vera] tracking-wide text-black hover:text-black transition-colors"
                         >
                           International
                         </Link>

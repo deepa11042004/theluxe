@@ -78,10 +78,10 @@ export default function Imagesec() {
             <span className="text-base md:text-xl font-serif italic text-[#B38E46] tracking-[0.3em] lowercase">
               launching
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-[5rem] md:leading-tight font-[Vera] tracking-[0.1em] sm:tracking-[0.2em] text-neutral-900 uppercase drop-shadow-sm my-1 text-center">
+            <h1 className="text-4xl sm:text-5xl md:text-[5rem] md:leading-tight tracking-[0.1em] sm:tracking-[0.2em] text-neutral-900 uppercase drop-shadow-sm my-1 text-center">
               The Luxe Club
             </h1>
-            <span className="text-[10px] sm:text-xs md:text-base font-[Vera] tracking-[0.2em] sm:tracking-[0.4em] text-neutral-500 uppercase mt-1 text-center">
+            <span className="text-[10px] sm:text-xs md:text-base font-[Vera] tracking-[0.2em] sm:tracking-[0.4em] text-black uppercase mt-1 text-center">
               privileged access
             </span>
             <div className="w-20 md:w-28 h-[2px] bg-[#B38E46]/60 mt-5"></div>

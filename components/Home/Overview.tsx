@@ -225,7 +225,7 @@ function SlidingImageCarousel({ images }: { images: SlideItem[] }) {
           
           {/* Caption Overlay */}
           <div className="absolute bottom-6 left-6 z-10 flex flex-col gap-2">
-            <h3 className="text-2xl font-[Vera] text-white drop-shadow-lg font-medium">
+            <h3 className="text-2xl text-white drop-shadow-lg font-medium">
               {images[currentIndex].title}
             </h3>
             <div>
@@ -302,7 +302,7 @@ export default function Overview() {
               </span>
 
               {/* Luxury Headline */}
-              <h2 className="text-3xl sm:text-4xl xl:text-5xl font-[Vera] tracking-tight text-black mb-6 leading-[1.2] whitespace-pre-line">
+              <h2 className="text-3xl sm:text-4xl xl:text-5xl tracking-tight text-black mb-6 leading-[1.2] whitespace-pre-line">
                 {section.headline}
               </h2>
 

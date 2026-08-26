@@ -111,11 +111,11 @@ export default function Activities() {
             Explore 200+ Experiences
           </motion.div>
 
-          <h2 className="text-3xl md:text-8xl font-[Vera] tracking-tight text-neutral-900 mb-5 max-w-2xl">
+          <h2 className="text-3xl md:text-8xl tracking-tight text-neutral-900 mb-5 max-w-2xl">
             Good Reasons to Choose Us
           </h2>
 
-          <p className="text-black font-medium text-lg sm:text-sm md:text-base max-w-2xl leading-relaxed">
+          <p className="text-lg sm:text-sm md:text-base max-w-2xl leading-relaxed">
             We believe in responsible tourism and are committed to sustainable
             travel practices. Our partnerships with eco-friendly resorts ensure
             your luxury holiday positively impacts destinations.

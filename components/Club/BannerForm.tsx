@@ -106,7 +106,7 @@ export default function BannerForm() {
               <>
                 {/* Header Title */}
                 <div className="flex items-center gap-3 mb-4">
-                  <h2 className="text-2xl md:text-3xl font-[Vera] text-black tracking-wide">
+                  <h2 className="text-2xl md:text-3xl text-black tracking-wide">
                     Know More About the Luxe Club Programme
                   </h2>
                 </div>
@@ -122,7 +122,7 @@ export default function BannerForm() {
                         placeholder="Your full name*"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full bg-transparent text-sm text-neutral-900 focus:outline-none font-sans font-light tracking-wide placeholder-neutral-400"
+                        className="w-full bg-transparent text-sm text-neutral-900 focus:outline-none font-sans tracking-wide placeholder-neutral-400"
                       />
                       {errors.name && (
                         <span className="absolute -bottom-4 left-0 text-[10px] text-red-500">
@@ -138,7 +138,7 @@ export default function BannerForm() {
                         placeholder="Mobile No.*"
                         value={formData.mobile}
                         onChange={handleChange}
-                        className="w-full bg-transparent text-sm text-neutral-900 focus:outline-none font-sans font-light tracking-wide placeholder-neutral-400"
+                        className="w-full bg-transparent text-sm text-neutral-900 focus:outline-none font-sans tracking-wide placeholder-neutral-400"
                       />
                       {errors.mobile && (
                         <span className="absolute -bottom-4 left-0 text-[10px] text-red-500">
@@ -157,7 +157,7 @@ export default function BannerForm() {
                         placeholder="City*"
                         value={formData.city}
                         onChange={handleChange}
-                        className="w-full bg-transparent text-sm text-neutral-900 focus:outline-none font-sans font-light tracking-wide placeholder-neutral-400 pr-6"
+                        className="w-full bg-transparent text-sm text-neutral-900 focus:outline-none font-sans tracking-wide placeholder-neutral-400 pr-6"
                       />
                       <Search className="w-3.5 h-3.5 text-neutral-400 absolute right-1 pointer-events-none" />
                       {errors.city && (
@@ -172,7 +172,7 @@ export default function BannerForm() {
                         name="age"
                         value={formData.age}
                         onChange={handleChange}
-                        className="w-full bg-transparent text-sm text-neutral-900 focus:outline-none font-sans font-light tracking-wide placeholder-neutral-400 appearance-none pr-6 cursor-pointer"
+                        className="w-full bg-transparent text-sm text-neutral-900 focus:outline-none font-sans tracking-wide placeholder-neutral-400 appearance-none pr-6 cursor-pointer"
                       >
                         {ageOptions.map((opt) => (
                           <option
@@ -201,7 +201,7 @@ export default function BannerForm() {
                       placeholder="Email ID*"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full bg-transparent text-sm text-neutral-900 focus:outline-none font-sans font-light tracking-wide placeholder-neutral-400"
+                      className="w-full bg-transparent text-sm text-neutral-900 focus:outline-none font-sans tracking-wide placeholder-neutral-400"
                     />
                     {errors.email && (
                       <span className="absolute -bottom-4 left-0 text-[10px] text-red-500">
@@ -222,14 +222,14 @@ export default function BannerForm() {
                     />
                     <label
                       htmlFor="consent"
-                      className="text-[10px] text-neutral-500 font-sans font-light leading-relaxed select-none cursor-pointer"
+                      className="text-[10px] text-black font-sans leading-relaxed select-none cursor-pointer"
                     >
                       I agree to be contacted by Club Mahindra regarding my
                       interest via phone call, WhatsApp, or any other medium. I
                       hereby provide my consent as per the{" "}
                       <a
                         href="#tnc"
-                        className="underline font-normal text-neutral-700 hover:text-neutral-900 transition-colors"
+                        className="underline font-normal text-black hover:text-neutral-900 transition-colors"
                       >
                         T&C and Declaration
                       </a>
@@ -277,7 +277,7 @@ export default function BannerForm() {
                 <h3 className="text-xl font-serif text-neutral-900 mb-1">
                   Thank You
                 </h3>
-                <p className="text-black font-sans text-xs font-light">
+                <p className="font-sans text-xs">
                   Your information has been securely registered.
                 </p>
               </motion.div>
@@ -293,7 +293,7 @@ export default function BannerForm() {
             transition={{ duration: 1, delay: 0.3 }}
             className="flex flex-col items-center lg:items-end text-center lg:text-right"
           >
-            <span className="font-[Vera] italic font-light text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-wide block leading-none opacity-95">
+            <span className="font-[Vera] italic text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-wide block leading-none opacity-95">
               Join Luxe Club
             </span>
             <span className="font-sans text-xs sm:text-sm font-semibold tracking-[0.35em] text-white/90 uppercase block mt-4 pr-1">

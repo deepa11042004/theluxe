@@ -194,14 +194,14 @@ export default function Membersec() {
           </span>
         </div>
 
-        <h2 className="text-sm font-[Vera] tracking-[0.3em] text-neutral-500 uppercase mb-3">
+        <h2 className="text-sm tracking-[0.3em] text-black uppercase mb-3">
           Luxe Club
         </h2>
-        <h3 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-black mb-6">
+        <h3 className="text-3xl md:text-5xl tracking-tight text-black mb-6">
           A World of Privileged Access
         </h3>
 
-        <p className="text-black font-light text-sm md:text-base max-w-3xl mx-auto leading-relaxed mb-16">
+        <p className="text-sm md:text-base max-w-3xl mx-auto leading-relaxed mb-16">
           Luxe Club unlocks privileged access to 140+ premium Club Mahindra
           resorts, offering 7 nights/8 days holidays every year — filled with
           cherished family moments and thoughtfully crafted experiences across
@@ -212,7 +212,7 @@ export default function Membersec() {
 
         {/* Open Grid Layout for Key Benefits */}
         <div className="max-w-4xl mx-auto">
-          <h4 className="text-base font-[Vera] tracking-[0.15em] text-[#B38E46] uppercase text-center mb-8 flex items-center justify-center gap-2">
+          <h4 className="text-base tracking-[0.15em] text-[#B38E46] uppercase text-center mb-8 flex items-center justify-center gap-2">
             <Star className="w-4 h-4 fill-[#B38E46] text-[#B38E46]" /> Key Privileged Benefits
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
@@ -222,7 +222,7 @@ export default function Membersec() {
                 className="flex items-center gap-3.5 px-5 py-3.5 bg-white rounded-xl border border-neutral-200/80 shadow-xs hover:border-[#B38E46]/50 transition duration-300"
               >
                 <CheckCircle2 className="w-5 h-5 text-[#B38E46] shrink-0" />
-                <span className="text-neutral-900 text-sm font-[Vera] font-light tracking-wide">
+                <span className="text-neutral-900 text-sm font-[Vera] tracking-wide">
                   {benefit}
                 </span>
               </div>
@@ -242,10 +242,10 @@ export default function Membersec() {
       {/* SECTION 2: MEMBERSHIP TYPES & CARDS (TAJ EPICURE STYLE) */}
       <div className="relative z-10 bg-white text-black py-12 md:py-16 px-6 w-full border-t border-neutral-200/60">
         <div className="max-w-7xl mx-auto text-center">
-          <h3 className="text-2xl md:text-5xl font-[Vera] tracking-tight text-black mb-4 uppercase">
+          <h3 className="text-2xl md:text-5xl tracking-tight text-black mb-4 uppercase">
             Membership Types
           </h3>
-          <p className="text-black text-xs md:text-sm font-medium tracking-widest mb-8 md:mb-10 uppercase">
+          <p className="text-xs md:text-sm tracking-widest mb-8 md:mb-10 uppercase">
             Select your preferred membership tier below to enter a world of seamless vacations
           </p>
 
@@ -273,14 +273,14 @@ export default function Membersec() {
                 {/* 2. CARD DETAILS & ENROL BUTTON BELOW */}
                 <div className="mt-5 flex items-start justify-between gap-4 px-1">
                   <div>
-                    <h4 className="text-lg font-bold text-neutral-900 tracking-tight font-[Vera]">
+                    <h4 className="text-lg font-bold text-neutral-900 tracking-tight">
                       {card.displayName}
                     </h4>
                     <div className="flex items-baseline gap-1.5 mt-1">
                       <span className="text-xl font-extrabold font-[Vera] text-neutral-900">
                         {card.price}
                       </span>
-                      <span className="text-xs text-neutral-500 font-medium">
+                      <span className="text-xs text-black font-medium">
                         {card.taxText}
                       </span>
                     </div>
@@ -298,9 +298,9 @@ export default function Membersec() {
                 <div className="mt-4 pt-4 border-t border-neutral-100 px-1">
                   <ul className="space-y-3">
                     {card.benefits.map((b, bIdx) => (
-                      <li key={bIdx} className="flex items-start gap-2.5 text-sm font-[Vera] font-light text-neutral-600 tracking-wide leading-snug">
+                      <li key={bIdx} className="flex items-start gap-2.5 text-sm font-[Vera] text-black tracking-wide leading-snug">
                         <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0 mt-[2px]" />
-                        <span className="font-[Vera] font-light">{b}</span>
+                        <span className="font-[Vera]">{b}</span>
                       </li>
                     ))}
                   </ul>

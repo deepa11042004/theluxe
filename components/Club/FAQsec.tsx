@@ -69,7 +69,7 @@ export default function FAQsec() {
     <section className="bg-neutral-50 text-neutral-900 py-24 px-6 w-full flex flex-col items-center">
       <div className="max-w-4xl mx-auto w-full">
         {/* Heading */}
-        <h2 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-center mb-16 text-neutral-900">
+        <h2 className="text-3xl md:text-5xl tracking-tight text-center mb-16 text-neutral-900">
           Frequently Asked Questions
         </h2>
 
@@ -91,7 +91,7 @@ export default function FAQsec() {
                   <motion.span
                     animate={{ rotate: openIndex === idx ? 45 : 0 }}
                     transition={{ duration: 0.2 }}
-                    className="text-neutral-500 text-2xl font-light shrink-0 ml-4"
+                    className="text-black text-2xl shrink-0 ml-4"
                   >
                     +
                   </motion.span>

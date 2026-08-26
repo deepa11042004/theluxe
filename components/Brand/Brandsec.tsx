@@ -519,8 +519,8 @@ export default function Brandsec() {
         </div>
 
         {filteredBrands.length === 0 && (
-          <div className="text-center py-20 text-neutral-500">
-            <p className="text-sm font-medium">No brand found matching &quot;{searchQuery}&quot;.</p>
+          <div className="text-center py-20 text-black">
+            <p className="text-sm">No brand found matching &quot;{searchQuery}&quot;.</p>
           </div>
         )}
       </div>

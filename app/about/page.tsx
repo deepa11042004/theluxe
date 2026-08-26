@@ -228,16 +228,16 @@ export default function AboutPage() {
             <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B38E46] mb-3 block">
               Who We Are
             </span>
-            <h2 className="text-3xl md:text-5xl font-[Vera] text-neutral-900 tracking-tight leading-tight mb-6">
+            <h2 className="text-3xl md:text-5xl text-neutral-900 tracking-tight leading-tight mb-6">
               Elevating How You Experience Luxury Travel
             </h2>
-            <p className="text-black text-base md:text-lg leading-relaxed mb-6 font-light">
+            <p className="text-base md:text-lg leading-relaxed mb-6">
               <strong className="font-semibold text-neutral-900">The Luxe Yatra</strong> is a premium travel and lifestyle membership company created for discerning travellers who value exceptional hospitality, personalised service and memorable experiences.
             </p>
-            <p className="text-black text-base md:text-lg leading-relaxed mb-6 font-light">
+            <p className="text-base md:text-lg leading-relaxed mb-6">
               Our platform brings together luxury hotel stays, curated holidays, travel assistance and lifestyle privileges through a single premium membership ecosystem.
             </p>
-            <p className="text-black text-base md:text-lg leading-relaxed font-light">
+            <p className="text-base md:text-lg leading-relaxed">
               We aim to make luxury travel more accessible, convenient and rewarding for individuals, families and corporate travellers.
             </p>
           </motion.div>
@@ -279,10 +279,10 @@ export default function AboutPage() {
               <span className="text-xs uppercase tracking-[0.2em] font-semibold text-cyan-600/80 mb-3 block">
                 Our Vision
               </span>
-              <h3 className="text-3xl font-[Vera] font-bold text-neutral-900 mb-6 leading-tight">
+              <h3 className="text-3xl font-bold text-neutral-900 mb-6 leading-tight">
                 Inspiring Luxury Exploration Worldwide
               </h3>
-              <p className="text-black font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide">
+              <p className="font-[Vera] text-sm xl:text-base leading-relaxed tracking-wide">
                 To establish The Luxe Yatra as a trusted and recognised name in premium travel membership, connecting members with exceptional hospitality and experiences across India and worldwide.
               </p>
             </div>
@@ -301,10 +301,10 @@ export default function AboutPage() {
               <span className="text-xs uppercase tracking-[0.2em] font-semibold text-amber-600/80 mb-3 block">
                 Our Mission
               </span>
-              <h3 className="text-3xl font-[Vera] font-bold text-neutral-900 mb-6 leading-tight">
+              <h3 className="text-3xl font-bold text-neutral-900 mb-6 leading-tight">
                 Seamless Premium Travel Deliverables
               </h3>
-              <p className="text-black font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide mb-6">
+              <p className="font-[Vera] text-sm xl:text-base leading-relaxed tracking-wide mb-6">
                 To deliver a seamless premium travel experience through:
               </p>
               <ul className="space-y-4">
@@ -316,7 +316,7 @@ export default function AboutPage() {
                   "Professional customer service",
                   "Transparent membership policies"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-4 text-neutral-700 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide">
+                  <li key={i} className="flex items-start gap-4 text-black font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide">
                     <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
@@ -338,10 +338,10 @@ export default function AboutPage() {
             <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B38E46] mb-4 block">
               Ecosystem
             </span>
-            <h2 className="text-3xl md:text-5xl font-[Vera] text-neutral-900 tracking-tight leading-tight mb-4">
+            <h2 className="text-3xl md:text-5xl text-neutral-900 tracking-tight leading-tight mb-4">
               Our Travel & Lifestyle Ecosystem
             </h2>
-            <p className="text-black font-[Vera] text-sm md:text-base leading-relaxed tracking-wide">
+            <p className="font-[Vera] text-sm md:text-base leading-relaxed tracking-wide">
               Members can access a comprehensive range of travel and lifestyle services designed around your desires.
             </p>
           </div>
@@ -367,10 +367,10 @@ export default function AboutPage() {
                         {item.badge}
                       </span>
                     </div>
-                    <h3 className="text-xl font-bold font-[Vera] text-[#B38E46] mb-3">
+                    <h3 className="text-xl font-bold text-[#B38E46] mb-3">
                       {item.title}
                     </h3>
-                    <p className="text-black font-[Vera] text-sm leading-relaxed tracking-wide">
+                    <p className="font-[Vera] text-sm leading-relaxed tracking-wide">
                       {item.description}
                     </p>
                   </div>
@@ -401,10 +401,10 @@ export default function AboutPage() {
             <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B38E46] block">
               Membership
             </span>
-            <h2 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-neutral-900">
+            <h2 className="text-3xl md:text-5xl tracking-tight text-neutral-900">
               The Luxe Yatra Membership Plans
             </h2>
-            <p className="text-black text-sm md:text-base leading-relaxed font-[Vera] font-medium tracking-wide">
+            <p className="text-sm md:text-base leading-relaxed font-[Vera] tracking-wide">
               Our membership model is designed for travellers who regularly choose premium hotels and experiences. Depending on the selected membership plan, members may receive access to exclusive hotel rates, special offers, travel benefits, vouchers and other privileges.
             </p>
           </div>
@@ -432,14 +432,14 @@ export default function AboutPage() {
 
                   {/* 2. CARD DETAILS BELOW */}
                   <div className="mt-6 flex flex-col gap-1 px-1">
-                    <h4 className="text-lg font-bold text-neutral-900 tracking-tight font-[Vera]">
+                    <h4 className="text-lg font-bold text-neutral-900 tracking-tight">
                       Luxe {plan.badge.split(' ')[0]}
                     </h4>
                     <div className="flex items-baseline gap-1.5 mt-1">
                       <span className="text-2xl font-extrabold font-[Vera] text-neutral-900">
                         {plan.price}
                       </span>
-                      <span className="text-xs text-neutral-600 font-medium">
+                      <span className="text-xs text-black font-medium">
                         {plan.period}
                       </span>
                     </div>
@@ -449,7 +449,7 @@ export default function AboutPage() {
                   <div className="mt-4 pt-4 border-t border-neutral-200 px-1">
                     <ul className="space-y-3">
                       {plan.features.map((feat, fIdx) => (
-                        <li key={fIdx} className="flex items-start gap-2.5 text-sm font-[Vera] font-medium text-neutral-700 tracking-wide leading-snug">
+                        <li key={fIdx} className="flex items-start gap-2.5 text-sm font-[Vera] font-medium text-black tracking-wide leading-snug">
                           <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0 mt-[2px]" />
                           <span>{feat}</span>
                         </li>
@@ -470,7 +470,7 @@ export default function AboutPage() {
             </button>
           </div>
 
-          <p className="relative z-10 text-center text-xs text-black max-w-2xl mx-auto font-medium">
+          <p className="relative z-10 text-center text-xs max-w-2xl mx-auto">
             Benefits, availability, booking conditions and applicable charges are governed by the respective membership plan and terms &amp; conditions.
           </p>
         </motion.section>
@@ -491,19 +491,19 @@ export default function AboutPage() {
               <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B38E46] block mb-3">
                 Global Access
               </span>
-              <h2 className="text-3xl md:text-5xl font-[Vera] font-bold text-neutral-900 tracking-tight leading-tight">
+              <h2 className="text-3xl md:text-5xl font-bold text-neutral-900 tracking-tight leading-tight">
                 Our Hotel Network
               </h2>
             </div>
             
             <div className="space-y-4">
-              <p className="text-black font-[Vera] font-medium text-sm md:text-base leading-relaxed tracking-wide">
+              <p className="font-[Vera] text-sm md:text-base leading-relaxed tracking-wide">
                 The Luxe Yatra focuses on building access to a curated collection of premium and luxury hospitality options.
               </p>
-              <p className="text-black font-[Vera] font-medium text-sm md:text-base leading-relaxed tracking-wide">
+              <p className="font-[Vera] text-sm md:text-base leading-relaxed tracking-wide">
                 Our hotel directory can showcase <strong className="font-bold text-[#B38E46]">100+ leading hotel brands</strong> and a wider selection of properties across India and international destinations.
               </p>
-              <p className="text-black font-[Vera] font-medium text-sm md:text-base leading-relaxed tracking-wide">
+              <p className="font-[Vera] text-sm md:text-base leading-relaxed tracking-wide">
                 The network is designed to give members greater choice when planning luxury stays and holidays.
               </p>
             </div>
@@ -533,14 +533,14 @@ export default function AboutPage() {
                 <span className="text-6xl md:text-7xl font-extrabold font-[Vera] bg-gradient-to-br from-[#E5C158] to-[#B38E46] text-transparent bg-clip-text drop-shadow-sm">
                   100+
                 </span>
-                <p className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-neutral-300 mt-2">
+                <p className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] mt-2">
                   Leading Hotel Brands
                 </p>
               </div>
               
               <div className="w-12 h-[1px] bg-[#B38E46]/40 mx-auto my-2" />
               
-              <p className="text-xs md:text-sm text-black font-[Vera] leading-relaxed font-light px-4">
+              <p className="text-xs md:text-sm font-[Vera] leading-relaxed px-4">
                 Curated collections spanning Marriott, St. Regis, Ritz-Carlton, EDITION, Luxury Collection and many more.
               </p>
             </div>
@@ -558,10 +558,10 @@ export default function AboutPage() {
             <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B38E46] block">
               Advantages
             </span>
-            <h2 className="text-3xl md:text-5xl font-[Vera] font-bold text-neutral-900 tracking-tight leading-tight">
+            <h2 className="text-3xl md:text-5xl font-bold text-neutral-900 tracking-tight leading-tight">
               Why The Luxe Yatra
             </h2>
-            <p className="text-black font-[Vera] text-sm md:text-base leading-relaxed tracking-wide font-medium">
+            <p className="font-[Vera] text-sm md:text-base leading-relaxed tracking-wide">
               One Membership. Multiple Travel Privileges.
             </p>
           </div>
@@ -603,10 +603,10 @@ export default function AboutPage() {
             <span className="text-xs uppercase tracking-[0.25em] font-semibold text-[#B38E46] block">
               Commitment
             </span>
-            <h2 className="text-3xl md:text-5xl font-[Vera] font-bold text-neutral-900 tracking-tight leading-tight">
+            <h2 className="text-3xl md:text-5xl font-bold text-neutral-900 tracking-tight leading-tight">
               Our Service Promise
             </h2>
-            <p className="text-black text-sm md:text-base leading-relaxed font-[Vera] font-medium tracking-wide">
+            <p className="text-sm md:text-base leading-relaxed font-[Vera] tracking-wide">
               At The Luxe Yatra, we believe premium membership is not simply about access — it is about the quality of the experience. Our service approach is built around:
             </p>
           </div>
@@ -627,10 +627,10 @@ export default function AboutPage() {
                     <PillarIcon className="w-6 h-6" />
                   </div>
                   <div className="relative z-10 flex flex-col gap-3">
-                    <h3 className="text-lg font-bold font-[Vera] text-neutral-900 tracking-tight group-hover:text-[#B38E46] transition-colors duration-300">
+                    <h3 className="text-lg font-bold text-neutral-900 tracking-tight group-hover:text-[#B38E46] transition-colors duration-300">
                       {pillar.title}
                     </h3>
-                    <p className="text-black text-xs md:text-sm leading-relaxed font-[Vera] font-medium tracking-wide">
+                    <p className="text-xs md:text-sm leading-relaxed font-[Vera] tracking-wide">
                       {pillar.description}
                     </p>
                   </div>
@@ -656,9 +656,9 @@ export default function AboutPage() {
               <div className="bg-gradient-to-br from-[#D4AF37]/10 to-transparent p-3 rounded-xl border border-[#D4AF37]/20 flex items-center justify-center">
                 <ShieldCheck className="w-6 h-6 text-[#B38E46]" />
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold font-[Vera] text-neutral-900 tracking-tight">Trust &amp; Transparency</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 tracking-tight">Trust &amp; Transparency</h3>
             </div>
-            <p className="text-black text-sm md:text-base leading-relaxed font-[Vera] font-medium tracking-wide">
+            <p className="text-sm md:text-base leading-relaxed font-[Vera] tracking-wide">
               The Luxe Yatra follows a transparent membership framework. Hotel bookings, complimentary benefits, vouchers, discounts and other services are subject to availability, blackout dates, advance booking requirements, partner policies and the applicable membership terms &amp; conditions. We encourage every prospective member to review membership details prior to joining.
             </p>
           </div>

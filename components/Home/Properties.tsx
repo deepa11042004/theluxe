@@ -89,7 +89,7 @@ export default function Properties() {
           <h2 className="text-4xl md:text-8xl font-serif tracking-tight text-black mb-4">
             Popular Resorts
           </h2>
-          <p className="text-black font-light text-sm md:text-lg max-w-xl leading-relaxed">
+          <p className="text-sm md:text-lg max-w-xl leading-relaxed">
             From oceanfront luxury villas to secluded mountain retreats, find
             your perfect resort getaway.
           </p>
@@ -249,6 +249,7 @@ function DestCard({
           animate={{ y: hovered ? -3 : 0 }}
           transition={{ duration: 0.3 }}
           style={{
+            color: "white",
             fontFamily: '"Vera", sans-serif',
             fontSize: "clamp(1.1rem, 2vw, 1.6rem)",
             fontWeight: 700,

@@ -52,21 +52,21 @@ export default function LoginPage() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-xl"
         >
-          <h1 className="text-xl md:text-2xl font-[Vera] font-bold tracking-widest text-white uppercase mb-4 md:mb-8">
+          <h1 className="text-xl md:text-2xl font-bold tracking-widest text-white uppercase mb-4 md:mb-8">
             The Luxe Yatra TRAVELS
           </h1>
 
           {/* Heading */}
-          <h1 className="text-3xl md:text-6xl lg:text-7xl font-[Vera] tracking-wide uppercase leading-[1.05] mb-4 md:mb-6">
+          <h1 className="text-3xl md:text-6xl lg:text-7xl tracking-wide uppercase leading-[1.05] mb-4 md:mb-6">
             Explore <br />
             <span className="text-white">Horizons</span>
           </h1>
 
           {/* Subheading & Description */}
-          <p className="text-base md:text-2xl font-medium text-white/90 mb-2 md:mb-4 leading-snug">
+          <p className="text-base md:text-2xl text-white/90 mb-2 md:mb-4 leading-snug">
             Where Your Dream Destinations Become Reality.
           </p>
-          <p className="text-xs md:text-base font-medium text-white/70 max-w-md leading-relaxed">
+          <p className="text-xs md:text-base text-white/70 max-w-md leading-relaxed">
             Embark on a journey where every corner of the world is within your
             reach.
           </p>
@@ -156,7 +156,7 @@ export default function LoginPage() {
           </div>
 
           {/* Footer Link */}
-          <p className="text-center text-sm text-white/80 font-medium">
+          <p className="text-center text-sm text-white/80">
             Are you new?{" "}
             <Link
               href="/signup"

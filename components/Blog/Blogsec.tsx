@@ -96,7 +96,7 @@ export default function Blog() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl md:text-2xl font-[Vera] font-bold tracking-tight text-neutral-900 leading-snug group-hover:text-[#B38E46] transition-colors duration-200">
+                  <h3 className="text-xl md:text-2xl font-bold tracking-tight text-neutral-900 leading-snug group-hover:text-[#B38E46] transition-colors duration-200">
                     {post.title}
                   </h3>
                 </div>

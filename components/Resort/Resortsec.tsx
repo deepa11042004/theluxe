@@ -167,7 +167,7 @@ export default function ResortSec() {
                 className="p-1 hover:bg-neutral-200 rounded-full transition-colors shrink-0 cursor-pointer"
                 aria-label="Clear search"
               >
-                <X className="w-3.5 h-3.5 text-neutral-500" />
+                <X className="w-3.5 h-3.5 text-black" />
               </button>
             )}
           </div>
@@ -184,11 +184,11 @@ export default function ResortSec() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="col-span-full py-20 text-center flex flex-col items-center justify-center text-neutral-500"
+                className="col-span-full py-20 text-center flex flex-col items-center justify-center text-black"
               >
                 <Search className="w-10 h-10 text-[#B38E46] mb-4 opacity-60" />
-                <p className="text-xl font-[Vera] font-bold text-neutral-900 mb-2">No resorts match your search</p>
-                <p className="text-sm text-black font-light max-w-sm mx-auto leading-relaxed">
+                <p className="text-xl font-[Vera] font-bold mb-2">No resorts match your search</p>
+                <p className="text-sm max-w-sm mx-auto leading-relaxed">
                   We couldn&apos;t find any properties matching &ldquo;{searchQuery}&rdquo;. Try checking for typos or clear your search filter.
                 </p>
               </motion.div>
@@ -227,18 +227,18 @@ export default function ResortSec() {
                 <div className="p-6 grow flex flex-col justify-between w-full">
                   <div>
                     {/* Location Badge */}
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-2 font-[Vera]">
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-black uppercase tracking-widest mb-2 font-[Vera]">
                       <MapPin className="w-3.5 h-3.5 text-[#B38E46] shrink-0" />
                       <span>{resort.location}</span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl font-[Vera] font-bold tracking-tight text-neutral-900 mb-3 group-hover:text-[#B38E46] transition-colors leading-snug">
+                    <h3 className="text-xl font-bold tracking-tight text-neutral-900 mb-3 group-hover:text-[#B38E46] transition-colors leading-snug">
                       {resort.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-black font-light text-sm leading-relaxed tracking-wide line-clamp-3 mb-4">
+                    <p className="text-sm leading-relaxed tracking-wide line-clamp-3 mb-4">
                       {resort.description}
                     </p>
 
@@ -247,7 +247,7 @@ export default function ResortSec() {
                       {resort.amenities.map((amenity, aIdx) => (
                         <span
                           key={aIdx}
-                          className="inline-flex items-center gap-1 text-[11px] font-medium text-neutral-700 bg-neutral-100 px-2.5 py-1 rounded-md"
+                          className="inline-flex items-center gap-1 text-[11px] font-medium text-black bg-neutral-100 px-2.5 py-1 rounded-md"
                         >
                           <Sparkles className="w-3 h-3 text-[#B38E46]" />
                           {amenity}
@@ -265,7 +265,7 @@ export default function ResortSec() {
                       <span className="text-lg font-bold font-[Vera] text-neutral-900">
                         {resort.price}
                       </span>
-                      <span className="text-xs text-neutral-500 font-light"> / night</span>
+                      <span className="text-xs text-black"> / night</span>
                     </div>
 
                     <Link

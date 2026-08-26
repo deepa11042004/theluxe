@@ -72,7 +72,7 @@ export default function Getstarted() {
         {/* Headline */}
         <FadeUp delay={0.15}>
           <h2
-            className="text-neutral-900 leading-[1.15] mb-6 font-[Vera] text-center"
+            className="text-neutral-900 leading-[1.15] mb-6 text-center"
             style={{
               fontSize: "clamp(2.5rem, 5vw, 3.8rem)",
               letterSpacing: "-0.02em",
@@ -90,7 +90,7 @@ export default function Getstarted() {
         {/* Body */}
         <FadeUp delay={0.25}>
           <p
-            className="text-black font-light leading-relaxed mb-12 mx-auto text-center"
+            className="leading-relaxed mb-12 mx-auto text-center"
             style={{
               fontSize: "1rem",
               maxWidth: 580,
@@ -111,7 +111,7 @@ export default function Getstarted() {
                   <Icon size={20} className="text-neutral-900 group-hover:text-[#B38E46] transition-colors" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p className="text-neutral-900 text-sm font-semibold tracking-wide leading-snug">
+                  <p className="text-sm font-semibold tracking-wide leading-snug">
                     {title}
                   </p>
                 </div>

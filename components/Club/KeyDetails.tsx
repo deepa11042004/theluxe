@@ -40,7 +40,7 @@ export default function KeyDetails() {
     <section className="bg-neutral-50/50 py-24 px-6 w-full">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
-        <h2 className="text-3xl md:text-6xl font-[Vera] tracking-tight text-neutral-900 mb-16 text-center">
+        <h2 className="text-3xl md:text-6xl tracking-tight text-neutral-900 mb-16 text-center">
             Luxe Club | Key Tenets
         </h2>
 
