@@ -55,7 +55,7 @@ for (const [id, url] of Object.entries(brands)) {
 // Update modal to show link
 content = content.replace(
   /<a\n                  href="\/resorts"/,
-  '<a\n                  href={selectedBrand.website}\n                  target="_blank"\n                  rel="noopener noreferrer"\n                  className="bg-[#B38E46] hover:bg-[#997734] text-white px-5 py-2.5 rounded-full font-semibold text-xs transition-all flex items-center gap-1.5 shadow-md"\n                >\n                  <span>Visit Website</span>\n                  <ExternalLink className="w-3.5 h-3.5" />\n                </a>\n                <a\n                  href="/resorts"'
+  '<a\n                  href={selectedBrand.website}\n                  target="_blank"\n                  rel="noopener noreferrer"\n                  className="bg-[#EFBF04] hover:bg-[#d6ab03] text-white px-5 py-2.5 rounded-full font-semibold text-xs transition-all flex items-center gap-1.5 shadow-md"\n                >\n                  <span>Visit Website</span>\n                  <ExternalLink className="w-3.5 h-3.5" />\n                </a>\n                <a\n                  href="/resorts"'
 );
 
 

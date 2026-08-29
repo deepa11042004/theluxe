@@ -80,9 +80,9 @@ function useBreakpoint(): Breakpoint {
 
 
 const LAYOUT = {
-  mobile:  { cardWidth: 280, cardHeight: 300, gapNear: 0,   gapFar: 0,   visibleSide: 0 },
-  tablet:  { cardWidth: 300, cardHeight: 310, gapNear: 220, gapFar: 420, visibleSide: 2 },
-  desktop: { cardWidth: 360, cardHeight: 320, gapNear: 280, gapFar: 520, visibleSide: 2 },
+  mobile:  { cardWidth: 280, cardHeight: 300, gapNear: 0,   visibleSide: 0 },
+  tablet:  { cardWidth: 310, cardHeight: 310, gapNear: 360, visibleSide: 1 },
+  desktop: { cardWidth: 360, cardHeight: 320, gapNear: 420, visibleSide: 1 },
 };
 
 // ─── Main Component ───────────────────────────────────────────────────────────
@@ -122,9 +122,8 @@ export default function Clientsec() {
   const trackHeight = layout.cardHeight + 40;
 
   return (
-    <section className="w-full min-h-screen flex flex-col items-center justify-center py-16 sm:py-20 px-4 overflow-hidden bg-white">
-
-      {/* Header */}
+    <section className="w-full min-h-screen flex flex-col items-center justify-center py-16 sm:py-20 px-4 overflow-hidden bg-white relative border-b border-neutral-200">
+      {/* Header Block */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -132,10 +131,10 @@ export default function Clientsec() {
         transition={{ duration: 0.7 }}
         className="text-center mb-10 sm:mb-14 z-10 relative"
       >
-        <p className="text-sm sm:text-lg tracking-[0.3em] uppercase mb-3">
-          Testimonials
-        </p>
-        <h2 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-serif tracking-tight text-black">
+        <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
+          TESTIMONIALS
+        </div>
+        <h2 className="text-4xl md:text-8xl font-serif tracking-tight text-black">
           What Our Clients Say
         </h2>
       </motion.div>
@@ -145,24 +144,23 @@ export default function Clientsec() {
         className="relative w-full max-w-7xl flex items-center justify-center"
         style={{ height: trackHeight }}
       >
-        {/* Prev arrow — desktop only (absolute, beside cards) */}
+        {/* Prev Arrow — Positioned Outside Side Card */}
         <button
           onClick={prev}
           aria-label="Previous testimonial"
-          className="hidden lg:flex absolute left-10 z-50 w-12 h-12 rounded-full bg-[#B38E46] text-white shadow-lg items-center justify-center hover:scale-110 hover:bg-[#997734] transition-all duration-200 cursor-pointer"
+          className="flex absolute left-1 md:left-[calc(50%-560px)] lg:left-[calc(50%-600px)] xl:left-[calc(50%-630px)] top-1/2 -translate-y-1/2 z-50 text-black hover:text-neutral-700 transition-colors p-2 cursor-pointer"
         >
-          <ChevronLeft size={18} className="text-white" strokeWidth={2} />
+          <ChevronLeft className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16" strokeWidth={1.5} />
         </button>
 
-        {/* Next arrow — desktop only (absolute, beside cards) */}
+        {/* Next Arrow — Positioned Outside Side Card */}
         <button
           onClick={next}
           aria-label="Next testimonial"
-          className="hidden lg:flex absolute right-10 z-50 w-12 h-12 rounded-full bg-[#B38E46] text-white shadow-lg items-center justify-center hover:scale-110 hover:bg-[#997734] transition-all duration-200 cursor-pointer"
+          className="flex absolute right-1 md:right-[calc(50%-560px)] lg:right-[calc(50%-600px)] xl:right-[calc(50%-630px)] top-1/2 -translate-y-1/2 z-50 text-black hover:text-neutral-700 transition-colors p-2 cursor-pointer"
         >
-          <ChevronRight size={18} className="text-white" strokeWidth={2} />
+          <ChevronRight className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16" strokeWidth={1.5} />
         </button>
-
         {/* Cards track */}
         <div
           className="relative w-full h-full flex items-center justify-center"
@@ -194,34 +192,21 @@ export default function Clientsec() {
               // Only show the active card; others slide off-screen
               if (isActive) { scale = 1; xOffset = 0; zIndex = 50; opacity = 1; }
               else { scale = 0.85; xOffset = distance * 400; zIndex = 10; opacity = 0; }
-            } else if (bp === "tablet") {
-              // Same as desktop — center + 2 neighbours each side, fully visible
-              if (isActive) {
-                scale = 1;    xOffset = 0;                               zIndex = 50; opacity = 1;   blur = 0;
-              } else if (absD === 1) {
-                scale = 0.85; xOffset = distance * layout.gapNear;       zIndex = 40; opacity = 1;   blur = 0;
-              } else if (absD === 2) {
-                scale = 0.75; xOffset = distance * layout.gapFar;        zIndex = 30; opacity = 0.7; blur = 2;
-              } else {
-                scale = 0.6;  xOffset = distance * (layout.gapFar + 200); zIndex = 10; opacity = 0;
-              }
             } else {
-              // Desktop: center + 2 on each side
+              // Tablet / Desktop: 3 cards (center + 1 on each side)
               if (isActive) {
                 scale = 1; xOffset = 0; zIndex = 50; opacity = 1; blur = 0;
               } else if (absD === 1) {
                 scale = 0.85; xOffset = distance * layout.gapNear; zIndex = 40; opacity = 1; blur = 0;
-              } else if (absD === 2) {
-                scale = 0.75; xOffset = distance * layout.gapFar; zIndex = 30; opacity = 0.7; blur = 2;
               } else {
-                scale = 0.6; xOffset = distance * (layout.gapFar + 200); zIndex = 10; opacity = 0;
+                scale = 0.6; xOffset = distance * (layout.gapNear + 250); zIndex = 10; opacity = 0; blur = 2;
               }
             }
 
             return (
               <motion.div
                 key={item.id}
-                className={`absolute flex flex-col justify-between bg-[rgb(25,25,112)] rounded-2xl p-6 sm:p-8 cursor-pointer select-none shadow-xl border-2 transition-colors duration-300 ${isActive ? 'border-sky-400' : 'border-[rgb(25,25,112)]'}`}
+                className="absolute flex flex-col justify-between bg-[rgb(25,25,112)] rounded-2xl p-6 sm:p-8 cursor-pointer select-none shadow-xl border-0 transition-colors duration-300"
                 style={{
                   width: layout.cardWidth,
                   minHeight: layout.cardHeight,
@@ -244,37 +229,40 @@ export default function Clientsec() {
               >
                 <div>
                   <QuoteIcon
-                    size={isActive ? 36 : 26}
-                    className={isActive ? "text-white" : "text-neutral-700"}
+                    size={isActive ? 36 : 28}
+                    className="text-white"
                   />
                   <p
-                    className={`mt-4 leading-relaxed ${
-                      isActive ? "text-white text-sm sm:text-[15px]" : "text-neutral-400 text-xs sm:text-[13px]"
-                    }`}
+                    className="mt-4 leading-relaxed text-white text-sm sm:text-[15px] font-light"
+                    style={{ color: "#ffffff" }}
                   >
                     &quot;{item.text}&quot;
                   </p>
                 </div>
 
-                <div
-                  className={`flex items-center gap-3 mt-5 pt-5 border-t ${
-                    isActive ? "border-neutral-800" : "border-neutral-900"
-                  }`}
-                >
+                <div className="flex items-center gap-3 mt-5 pt-5 border-t border-white/15">
                   <Image
                     width={48}
                     height={48}
                     src={item.avatar}
                     alt={item.name}
-                    className={`rounded-full object-cover ring-2 ring-offset-2 ring-offset-black shrink-0 ${
-                      isActive ? "ring-white w-11 h-11 sm:w-12 sm:h-12" : "ring-transparent w-9 h-9 sm:w-10 sm:h-10"
+                    className={`rounded-full object-cover ring-2 ring-white shrink-0 ${
+                      isActive ? "w-11 h-11 sm:w-12 sm:h-12" : "w-9 h-9 sm:w-10 sm:h-10 opacity-90"
                     }`}
                   />
                   <div>
-                    <p className={`text-white ${isActive ? "font-bold text-sm sm:text-base" : "font-semibold text-xs sm:text-sm"}`}>
+                    <p
+                      className="text-white font-bold text-sm sm:text-base"
+                      style={{ color: "#ffffff" }}
+                    >
                       {item.name}
                     </p>
-                    <p className="text-xs mt-0.5">{item.location}</p>
+                    <p
+                      className="text-white/80 text-xs mt-0.5"
+                      style={{ color: "rgba(255, 255, 255, 0.85)" }}
+                    >
+                      {item.location}
+                    </p>
                   </div>
                 </div>
               </motion.div>
@@ -283,40 +271,23 @@ export default function Clientsec() {
         </div>
       </div>
 
-      {/* Mobile & Tablet nav buttons — shown below cards */}
-      <div className="flex lg:hidden items-center gap-4 mt-6">
-        <button
-          onClick={prev}
-          aria-label="Previous testimonial"
-          className="w-11 h-11 rounded-full bg-[#B38E46] text-white shadow-lg flex items-center justify-center hover:bg-[#997734] active:scale-95 transition-all duration-200 cursor-pointer"
-        >
-          <ChevronLeft size={18} className="text-white" strokeWidth={2} />
-        </button>
-        <button
-          onClick={next}
-          aria-label="Next testimonial"
-          className="w-11 h-11 rounded-full bg-[#B38E46] text-white shadow-lg flex items-center justify-center hover:bg-[#997734] active:scale-95 transition-all duration-200 cursor-pointer"
-        >
-          <ChevronRight size={18} className="text-white" strokeWidth={2} />
-        </button>
-      </div>
 
-      {/* Dot indicators */}
-      <div className="flex items-center gap-2 mt-4 sm:mt-5">
+
+      {/* Circular Dot Indicators */}
+      <div className="flex items-center justify-center gap-3 mt-10 md:mt-12">
         {testimonials.map((_, i) => (
           <button
             key={i}
             onClick={() => !isAnimating && setActive(i)}
             aria-label={`Go to testimonial ${i + 1}`}
-            className="focus:outline-none cursor-pointer"
+            className="focus:outline-none cursor-pointer p-1"
           >
-            <motion.div
-              animate={{
-                width: i === active ? 24 : 8,
-                backgroundColor: i === active ? "#B38E46" : "#d1d5db",
-              }}
-              transition={{ duration: 0.3 }}
-              className="h-2 rounded-full"
+            <div
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                i === active
+                  ? "bg-black scale-125"
+                  : "bg-gray-300 hover:bg-gray-400"
+              }`}
             />
           </button>
         ))}

@@ -3,53 +3,50 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 const BLOG_POSTS = [
   {
     id: 1,
-    tag: "The Luxe Yatra Press",
     title: "A Dram of One's Own: Private Distillery Tours",
+    date: "January 12, 2026",
     image:
-      "https://images.unsplash.com/photo-1760943013869-65a30a4fafd1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJpdmF0ZSUyMGRlc3RpbmF0aW9ufGVufDB8fDB8fHww",
-    link: "#",
+      "https://images.unsplash.com/photo-1760943013869-65a30a4fafd1?w=800&auto=format&fit=crop&q=80",
+    link: "/blogs/1",
   },
   {
     id: 2,
-    tag: "The Luxe Yatra Press",
-    title:
-      "How The Luxe Yatra Offers Luxury Travelers Access to Private Estates",
+    title: "How The Luxe Yatra Offers Luxury Access to Estates",
+    date: "February 18, 2026",
     image:
       "https://images.unsplash.com/photo-1544085311-11a028465b03?auto=format&fit=crop&w=800&q=80",
-    link: "#",
+    link: "/blogs/2",
   },
   {
     id: 3,
-    tag: "The Luxe Yatra Press",
     title: "Seven Great Hidden Island Escapes to Rent This Summer",
+    date: "March 05, 2026",
     image:
       "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=800&q=80",
-    link: "#",
+    link: "/blogs/3",
   },
 ];
 
 export default function Blog() {
   return (
-    <section className="bg-white pt-4 pb-12 md:py-24 px-6 sm:px-12 lg:px-16 w-full overflow-hidden select-none">
+    <section className="bg-white py-16 md:py-24 px-6 sm:px-12 lg:px-16 w-full overflow-hidden select-none">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col items-center mb-12 md:mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-6xl font-[Vera] text-black text-center"
-          >
+        {/* Header Block */}
+        <div className="text-center flex flex-col items-center mb-12 md:mb-16">
+          <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
+            LATEST ARTICLES & INSIGHTS
+          </div>
+          <h2 className="text-4xl md:text-8xl font-serif tracking-tight text-black mb-4">
             Blogs
-          </motion.h2>
+          </h2>
         </div>
 
-        {/* 2. Blog Cards Grid */}
+        {/* Blog Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
           {BLOG_POSTS.map((post, index) => (
             <motion.div
@@ -57,42 +54,54 @@ export default function Blog() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.15, duration: 0.8 }}
-              className="group cursor-pointer flex flex-col bg-white rounded-3xl border border-neutral-200/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-500 overflow-hidden"
+              transition={{ delay: index * 0.15, duration: 0.7 }}
+              className="group cursor-pointer flex flex-col bg-transparent rounded-none border-0 overflow-hidden"
             >
-              {/* Image Container */}
-              <div className="relative aspect-4/3 w-full overflow-hidden shrink-0 bg-neutral-100">
+              {/* Image Container with Hover Overlay (Image 2) */}
+              <div className="relative aspect-[4/5] w-full overflow-hidden shrink-0 bg-neutral-100 rounded-none">
                 <Image
                   src={post.image}
                   alt={post.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
+
+                {/* Golden Tint Hover Overlay with Centered READ MORE */}
+                <div className="absolute inset-0 bg-[#B38E46]/65 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                  <span className="text-white text-xs tracking-[0.35em] font-medium uppercase border-b border-white pb-1">
+                    READ MORE
+                  </span>
+                </div>
               </div>
 
-              {/* Content Area */}
-              <div className="p-6 md:p-8 flex flex-col grow justify-between">
-                <div>
-                  {/* Meta Row: Tag and External Icon */}
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-[10px] md:text-xs font-[Vera] font-bold tracking-widest text-[#B38E46] uppercase">
-                      {post.tag}
-                    </span>
-                    <ExternalLink className="w-4 h-4 text-neutral-400 group-hover:text-[#B38E46] transition-colors" />
-                  </div>
+              {/* Content Area below Image */}
+              <div className="pt-6 pb-2 flex flex-col flex-1 gap-2.5">
+                {/* Title */}
+                <h3 className="text-xl md:text-2xl text-neutral-900 leading-snug font-light" style={{ fontFamily: "var(--work-font), sans-serif", fontWeight: 300 }}>
+                  {post.title}
+                </h3>
 
-                  {/* Title */}
-                  <h3 className="text-xl md:text-2xl font-bold tracking-tight text-neutral-900 leading-snug group-hover:text-[#B38E46] transition-colors duration-200">
-                    {post.title}
-                  </h3>
+                {/* Date */}
+                <p className="text-sm italic font-light text-neutral-500 tracking-wide">
+                  {post.date}
+                </p>
+
+                {/* READ MORE Link */}
+                <div className="pt-2">
+                  <Link
+                    href={post.link}
+                    className="inline-block text-xs tracking-[0.25em] font-medium text-neutral-600 uppercase"
+                  >
+                    READ MORE
+                  </Link>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* 3. View All Button (Moved to bottom) */}
+        {/* View All Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -101,9 +110,9 @@ export default function Blog() {
         >
           <Link
             href="/blogs"
-            className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-black uppercase border-b border-black pb-1 hover:opacity-60 transition"
+            className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-colors cursor-pointer rounded-md"
           >
-            View All
+            VIEW ALL
           </Link>
         </motion.div>
       </div>

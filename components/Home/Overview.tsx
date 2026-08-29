@@ -198,7 +198,7 @@ function SlidingImageCarousel({ images }: { images: SlideItem[] }) {
   };
 
   return (
-    <div className="relative w-full h-full min-h-[380px] lg:min-h-[480px] rounded-2xl overflow-hidden shadow-2xl group border border-neutral-200/80">
+    <div className="relative w-full h-full min-h-[380px] lg:min-h-[480px] rounded-none overflow-hidden shadow-2xl group border border-neutral-200/80">
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
           key={currentIndex}
@@ -229,7 +229,7 @@ function SlidingImageCarousel({ images }: { images: SlideItem[] }) {
               {images[currentIndex].title}
             </h3>
             <div>
-              <span className="text-xs uppercase tracking-widest text-white/90 font-medium px-3 py-1 bg-black/40 backdrop-blur-md rounded-full border border-white/20 shadow-md">
+              <span className="inline-block bg-black/40 backdrop-blur-md rounded-sm text-[10px] md:text-[11px] px-6 py-2.5 tracking-[0.25em] uppercase font-medium shadow-lg text-white">
                 {images[currentIndex].caption}
               </span>
             </div>
@@ -240,18 +240,18 @@ function SlidingImageCarousel({ images }: { images: SlideItem[] }) {
       {/* Manual Navigation Controls */}
       <button
         onClick={handlePrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/30 backdrop-blur-md border border-white/40 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white hover:text-black cursor-pointer shadow-lg"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-white opacity-0 group-hover:opacity-100 transition-all hover:scale-110 cursor-pointer drop-shadow-md"
         aria-label="Previous Slide"
       >
-        <ChevronLeft className="w-5 h-5" />
+        <ChevronLeft className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1.5} />
       </button>
 
       <button
         onClick={handleNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/30 backdrop-blur-md border border-white/40 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white hover:text-black cursor-pointer shadow-lg"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-white opacity-0 group-hover:opacity-100 transition-all hover:scale-110 cursor-pointer drop-shadow-md"
         aria-label="Next Slide"
       >
-        <ChevronRight className="w-5 h-5" />
+        <ChevronRight className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1.5} />
       </button>
 
       {/* Dot Indicators */}
@@ -263,8 +263,8 @@ function SlidingImageCarousel({ images }: { images: SlideItem[] }) {
               setDirection(idx > currentIndex ? 1 : -1);
               setCurrentIndex(idx);
             }}
-            className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-              idx === currentIndex ? "w-6 bg-white" : "w-2 bg-white/40 hover:bg-white/70"
+            className={`rounded-full transition-all duration-300 cursor-pointer ${
+              idx === currentIndex ? "w-3 h-3 bg-white" : "w-2 h-2 bg-white/50 hover:bg-white/80"
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />
@@ -276,7 +276,7 @@ function SlidingImageCarousel({ images }: { images: SlideItem[] }) {
 
 export default function Overview() {
   return (
-    <section className="bg-white text-black w-full overflow-hidden flex flex-col gap-16 md:gap-24 py-10 md:py-16 lg:py-24">
+    <section className="bg-white text-black w-full overflow-hidden flex flex-col gap-16 md:gap-24 py-10 md:py-16 lg:py-24 border-b border-neutral-200">
       {OVERVIEW_SECTIONS.map((section, index) => {
         // True = Text Left, Image Right | False = Image Left, Text Right
         const isTextLeft = index % 2 === 0;
@@ -318,10 +318,9 @@ export default function Overview() {
                 <div className="pt-6">
                   <a
                     href={section.ctaLink || "/experiences"}
-                    className="inline-flex items-center gap-2.5 bg-[#B38E46] hover:bg-[#997734] active:scale-95 text-white font-bold text-xs uppercase tracking-wider px-7 py-3.5 rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
+                    className="inline-flex items-center justify-center bg-transparent border border-[#B38E46] hover:bg-[#B38E46] hover:text-white active:scale-95 text-black font-medium text-xs md:text-sm uppercase tracking-[0.2em] px-10 py-4 rounded-sm transition-all duration-300"
                   >
                     <span>{section.ctaText}</span>
-                    <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
               )}

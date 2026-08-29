@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Heart, ChevronRight, ChevronLeft } from "lucide-react";
 
 const destinations = [
   {
@@ -10,273 +10,236 @@ const destinations = [
     name: "Lucknow",
     image:
       "https://images.unsplash.com/photo-1659202313780-1d8c8beea7d3?q=80&w=736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    desc: "Experience the royal heritage, grand architecture, and exquisite culinary delights of the City of Nawabs. Immerse yourself in timeless luxury and authentic cultural traditions.",
+    tags: "HERITAGE • CULTURE",
   },
   {
     id: 2,
     name: "Agra",
     image:
       "https://images.unsplash.com/photo-1724947053227-2335bf21d0ae?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    desc: "Witness the timeless beauty of the Taj Mahal, explore magnificent Mughal monuments, and indulge in luxury hospitality along the banks of the Yamuna River.",
+    tags: "MONUMENT • HISTORY",
   },
   {
     id: 3,
     name: "Rishikesh",
     image:
       "https://images.unsplash.com/photo-1650341259809-9314b0de9268?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    desc: "Find peace and adventure in the Yoga Capital of the World along the sacred Ganges. Discover spiritual retreats, tranquil wellness spa centers, and serene riverfront stays.",
+    tags: "WELLNESS • ADVENTURE",
   },
   {
     id: 4,
     name: "Jim Corbett",
     image:
       "https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=600&q=85",
+    desc: "Embark on thrilling wildlife safaris in India's oldest and most prestigious national park. Stay in luxury jungle lodges nestled in pristine wilderness and forest reserves.",
+    tags: "WILDLIFE • NATURE",
   },
   {
     id: 5,
     name: "Nanital",
     image:
       "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=85",
+    desc: "Relax by the emerald lake surrounded by lush green hills in this charming hill station. Enjoy private boating, mountain views, and luxury lakeside retreats.",
+    tags: "LAKES • MOUNTAINS",
   },
   {
     id: 6,
     name: "Bhimtal",
     image:
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=85",
+    desc: "Escape the crowds and enjoy serene boating, nature walks, and birdwatching in a tranquil setting. Experience secluded luxury amidst pristine lakes and pine forests.",
+    tags: "SERENE • RETREAT",
   },
 ];
 
-// Gap between cards in px — keep in sync with the gap-3 class (12px)
-const GAP = 12;
-
-function useVisibleCount() {
-  const [count, setCount] = useState(4);
-  useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth;
-      if (w < 640) setCount(1);
-      else if (w < 1024) setCount(2);
-      else if (w < 1280) setCount(3);
-      else setCount(4);
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-  return count;
-}
-
 export default function Properties() {
-  const [offset, setOffset] = useState(0);
-  const visibleCount = useVisibleCount();
-  const maxOffset = Math.max(0, destinations.length - visibleCount);
+  const [activeIndex, setActiveIndex] = useState(2);
+  const [cardWidth, setCardWidth] = useState(340);
+  const gap = 24;
 
-  // Clamp offset when screen resizes
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setOffset((o) => Math.min(o, maxOffset));
-  }, [maxOffset]);
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setCardWidth(290);
+      } else {
+        setCardWidth(380);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  const prev = () => setOffset((o) => Math.max(0, o - 1));
-  const next = () => setOffset((o) => Math.min(maxOffset, o + 1));
+  const prev = () => setActiveIndex((i) => Math.max(0, i - 1));
+  const next = () => setActiveIndex((i) => Math.min(destinations.length - 1, i + 1));
 
   return (
-    <section className="w-full bg-white flex flex-col items-center py-10 md:py-16">
-      <div className="w-full max-w-7xl mx-auto px-6 flex flex-col items-center">
+    <section className="w-full bg-white flex flex-col items-center py-10 md:py-16 overflow-hidden border-b border-neutral-200">
+      <div className="w-full max-w-7xl mx-auto px-6 flex flex-col items-center relative">
         {/* Header */}
         <div className="text-center flex flex-col items-center mb-10 md:mb-12">
-          <div className="inline-flex items-center gap-2 bg-[#B38E46] border border-[#B38E46] rounded-full px-4 py-1.5 text-xs text-white font-medium tracking-wider uppercase mb-6">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+          <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
             Explore 200+ Resorts
           </div>
           <h2 className="text-4xl md:text-8xl font-serif tracking-tight text-black mb-4">
             Popular Resorts
           </h2>
-          <p className="text-sm md:text-lg max-w-xl leading-relaxed">
+          <p className="text-xs md:text-sm max-w-xl leading-relaxed text-neutral-600">
             From oceanfront luxury villas to secluded mountain retreats, find
             your perfect resort getaway.
           </p>
         </div>
 
-        {/* Navigation + Cards */}
-        <div className="w-full flex flex-col">
-          {/* Arrows */}
-          <div className="flex justify-end gap-3 mb-6">
-            <motion.button
-              onClick={prev}
-              disabled={offset === 0}
-              whileTap={offset > 0 ? { scale: 0.94 } : {}}
-              className="w-12 h-12 rounded-full bg-[#B38E46] flex items-center justify-center hover:bg-[#997734] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            >
-              <ArrowLeft size={18} strokeWidth={1.8} className="text-white" />
-            </motion.button>
-            <motion.button
-              onClick={next}
-              disabled={offset >= maxOffset}
-              whileTap={offset < maxOffset ? { scale: 0.94 } : {}}
-              className="w-12 h-12 rounded-full bg-[#B38E46] flex items-center justify-center hover:bg-[#997734] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            >
-              <ArrowRight size={18} strokeWidth={1.8} className="text-white" />
-            </motion.button>
-          </div>
 
-          {/* Track */}
-          {/*
-            KEY FIX:
-            - Each card is sized as: (100% - gaps) / visibleCount
-              → we use CSS calc so cards always fill the viewport exactly.
-            - The strip translates by: offset * (cardWidth + gap)
-              → expressed in CSS calc so it stays pixel-perfect at every breakpoint.
-            - We use a CSS custom property --vc (visible count) to share the value
-              cleanly between card sizing and strip translation.
-          */}
-          <div className="overflow-hidden w-full">
+
+        {/* Carousel Container with Outer Framing */}
+        <div className="relative w-full py-6">
+          <div className="relative w-full h-[420px] md:h-[500px] flex items-center justify-center">
+            {/* Centered Track */}
             <motion.div
-              className="flex cursor-grab active:cursor-grabbing"
-              style={{
-                gap: GAP,
-                // Translate left by exactly `offset` card-widths (including gaps)
-                // cardWidth = (100% - gaps_between_visible) / visibleCount
-                // translation = offset * (cardWidth + gap)
-                //             = offset * ((100% - (visibleCount-1)*gap) / visibleCount + gap)
-              }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.15}
-              onDragEnd={(_, info) => {
-                if (info.offset.x < -50) next();
-                else if (info.offset.x > 50) prev();
-              }}
+              className="absolute top-0 left-1/2 flex items-center h-full"
               animate={{
-                // Each card occupies: (containerWidth - (visibleCount-1)*GAP) / visibleCount
-                // We shift by offset multiples of (cardWidth + GAP)
-                x: `calc(${offset} * -1 * ((100% - ${(visibleCount - 1) * GAP}px) / ${visibleCount} + ${GAP}px))`,
+                x: `calc(-${activeIndex * (cardWidth + gap) + cardWidth / 2}px)`,
               }}
               transition={{
                 type: "spring",
-                stiffness: 280,
-                damping: 30,
-                mass: 0.9,
+                stiffness: 260,
+                damping: 28,
               }}
+              style={{ gap }}
             >
-              {destinations.map((dest, i) => (
-                <DestCard
-                  key={dest.id}
-                  dest={dest}
-                  index={i}
-                  visibleCount={visibleCount}
-                />
-              ))}
+              {destinations.map((dest, i) => {
+                const isActive = i === activeIndex;
+                const isVisible = Math.abs(i - activeIndex) <= 1;
+
+                return (
+                  <motion.div
+                    key={dest.id}
+                    className="relative shrink-0 flex items-center justify-center h-full transition-opacity duration-300"
+                    style={{
+                      width: cardWidth,
+                      opacity: isVisible ? 1 : 0,
+                      pointerEvents: isVisible ? "auto" : "none",
+                    }}
+                  >
+                    {isActive ? (
+                      /* Active Card Container with Outer Black Frame & Padding */
+                      <div className="relative border border-neutral-800 bg-white p-6 md:p-10 shadow-xl w-full h-full flex flex-col justify-center">
+                        <div className="relative w-full h-full overflow-hidden rounded-none group cursor-pointer">
+                          {/* Image */}
+                          <img
+                            src={dest.image}
+                            alt={dest.name}
+                            className="w-full h-full object-cover"
+                          />
+
+                          {/* Active Content */}
+                          <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col justify-end">
+                            <h3 className="text-white text-2xl md:text-3xl font-light tracking-wide mb-1" style={{ color: "#ffffff", fontFamily: "var(--work-font), sans-serif" }}>
+                              {dest.name}
+                            </h3>
+
+                            <div className="mt-2 flex items-center justify-between gap-4">
+                              <p className="leading-snug line-clamp-4 font-light" style={{ color: "#ffffff", fontSize: "13.5px" }}>
+                                {dest.desc}
+                              </p>
+                              <div className="w-9 h-9 shrink-0 bg-white rounded-full flex items-center justify-center shadow-md cursor-pointer hover:bg-neutral-100 transition-colors">
+                                <ChevronRight className="w-4 h-4 text-black" strokeWidth={2} />
+                              </div>
+                            </div>
+
+                            <p className="uppercase mt-3 font-medium" style={{ color: "rgba(255, 255, 255, 0.9)", fontSize: "11px", letterSpacing: "0.2em" }}>
+                              {dest.tags}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      /* Non-Active Square Card */
+                      <motion.div
+                        className="relative w-[72%] md:w-[68%] aspect-square overflow-hidden rounded-none cursor-pointer group shadow-md"
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                        onClick={() => setActiveIndex(i)}
+                      >
+                        {/* Image */}
+                        <img
+                          src={dest.image}
+                          alt={dest.name}
+                          className="w-full h-full object-cover"
+                        />
+
+                        {/* Gradient Overlay */}
+                        <div
+                          className="absolute inset-0 pointer-events-none"
+                          style={{
+                            background:
+                              "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)",
+                          }}
+                        />
+
+                        {/* Non-Active Content */}
+                        <div className="absolute bottom-5 left-5 right-5 z-10">
+                          <h3 className="text-white text-xl md:text-2xl font-light tracking-wide mb-1" style={{ color: "#ffffff", fontFamily: "var(--work-font), sans-serif" }}>
+                            {dest.name}
+                          </h3>
+                          <p className="uppercase" style={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "8px", letterSpacing: "0.25em" }}>
+                            {dest.tags}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </motion.div>
+                );
+              })}
             </motion.div>
+
+            {/* Embedded Navigation Arrows - Outside Side Cards */}
+            <button
+              onClick={prev}
+              disabled={activeIndex === 0}
+              aria-label="Previous resort"
+              className="absolute left-0 md:left-[calc(50%-560px)] lg:left-[calc(50%-600px)] top-1/2 -translate-y-1/2 text-[#B38E46] hover:text-[#997734] transition-all hover:scale-110 disabled:opacity-0 cursor-pointer z-30 drop-shadow-md"
+            >
+              <ChevronLeft className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20" strokeWidth={1.2} />
+            </button>
+            <button
+              onClick={next}
+              disabled={activeIndex === destinations.length - 1}
+              aria-label="Next resort"
+              className="absolute right-0 md:right-[calc(50%-560px)] lg:right-[calc(50%-600px)] top-1/2 -translate-y-1/2 text-[#B38E46] hover:text-[#997734] transition-all hover:scale-110 disabled:opacity-0 cursor-pointer z-30 drop-shadow-md"
+            >
+              <ChevronRight className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20" strokeWidth={1.2} />
+            </button>
           </div>
 
-          {/* Dot indicators */}
-          <div className="flex justify-center gap-2 mt-8">
-            {Array.from({ length: maxOffset + 1 }).map((_, i) => (
+          {/* Dot Indicators below carousel */}
+          <div className="flex justify-center items-center gap-2 mt-8">
+            {destinations.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setOffset(i)}
+                onClick={() => setActiveIndex(i)}
                 className={`transition-all duration-300 rounded-full cursor-pointer ${
-                  offset === i
-                    ? "w-6 h-2 bg-[#B38E46]"
-                    : "w-2 h-2 bg-neutral-300 hover:bg-neutral-400"
+                  activeIndex === i
+                    ? "w-2.5 h-2.5 bg-black"
+                    : "w-1.5 h-1.5 bg-neutral-300 hover:bg-neutral-500"
                 }`}
                 aria-label={`Go to slide ${i + 1}`}
               />
             ))}
           </div>
+
+          {/* VIEW ALL Button */}
+          <div className="flex justify-center mt-8">
+            <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-colors rounded-md cursor-pointer">
+              VIEW ALL
+            </button>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function DestCard({
-  dest,
-  index,
-  visibleCount,
-}: {
-  dest: (typeof destinations)[0];
-  index: number;
-  visibleCount: number;
-}) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <motion.div
-      className="relative shrink-0 overflow-hidden rounded-sm cursor-pointer"
-      style={{
-        // Each card fills exactly 1/visibleCount of the container, accounting for gaps
-        width: `calc((100% - ${(visibleCount - 1) * GAP}px) / ${visibleCount})`,
-        flex: `0 0 calc((100% - ${(visibleCount - 1) * GAP}px) / ${visibleCount})`,
-        aspectRatio: "3 / 4.2",
-      }}
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        delay: index * 0.07,
-        duration: 0.55,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-    >
-      {/* Image */}
-      <motion.img
-        src={dest.image}
-        alt={dest.name}
-        className="w-full h-full object-cover"
-        animate={{ scale: hovered ? 1.07 : 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      />
-
-      {/* Gradient */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.18) 45%, transparent 100%)",
-        }}
-      />
-
-      {/* Label */}
-      <div className="absolute bottom-5 left-5 z-10">
-        <p
-          className="text-[10px] tracking-[0.22em] font-[Vera] uppercase mb-1"
-          style={{ color: "#B38E46", fontWeight: 600 }}
-        >
-          Destination
-        </p>
-        <motion.p
-          className="text-white uppercase font-[Vera]"
-          animate={{ y: hovered ? -3 : 0 }}
-          transition={{ duration: 0.3 }}
-          style={{
-            color: "white",
-            fontFamily: '"Vera", sans-serif',
-            fontSize: "clamp(1.1rem, 2vw, 1.6rem)",
-            fontWeight: 700,
-            letterSpacing: "0.04em",
-            textShadow: "0 2px 12px rgba(0,0,0,0.4)",
-          }}
-        >
-          {dest.name}
-        </motion.p>
-      </div>
-
-      {/* Hover shine */}
-      <AnimatePresence>
-        {hovered && (
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              background:
-                "linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.07) 50%, transparent 70%)",
-            }}
-          />
-        )}
-      </AnimatePresence>
-    </motion.div>
   );
 }

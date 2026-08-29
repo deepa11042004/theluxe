@@ -71,38 +71,54 @@ export default function Navbar() {
       >
         <div className="max-w-[1800px] mx-auto px-5 md:px-8 xl:px-12 flex justify-between items-start w-full">
           {/* LEFT SIDE: Hamburger + Experiences */}
-          <div className="flex items-center gap-6 xl:gap-10 flex-1 h-8 md:h-9 mt-1">
+          <div className="flex items-center gap-2.5 sm:gap-3.5 flex-1 h-8 md:h-9 mt-1">
             {/* Hamburger Icon */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="flex flex-col justify-center gap-[5px] group cursor-pointer p-2 -ml-2"
+              className="flex flex-col justify-center gap-[5px] group cursor-pointer p-1"
               aria-label="Open Menu"
             >
-              <span className="w-6 h-[1.5px] bg-white transition-all duration-300 group-hover:w-8 group-hover:bg-[#d4af37]"></span>
-              <span className="w-5 h-[1.5px] bg-white transition-all duration-300 group-hover:w-8 group-hover:bg-[#d4af37]"></span>
+              <span className="w-6 h-[1.5px] bg-white transition-all duration-300 group-hover:w-8 group-hover:bg-[#B38E46]"></span>
+              <span className="w-5 h-[1.5px] bg-white transition-all duration-300 group-hover:w-8 group-hover:bg-[#B38E46]"></span>
             </button>
 
             {/* Experiences Dropdown (Desktop) */}
             <div className="relative group/experiences hidden lg:block cursor-pointer py-2">
-              <div className="flex items-center gap-1.5 text-white text-[11px] xl:text-xs tracking-[0.2em] font-medium uppercase group-hover/experiences:text-[#d4af37] transition-colors">
+              <div className="flex items-center gap-1.5 text-white text-[11px] xl:text-xs tracking-[0.2em] font-medium uppercase group-hover/experiences:text-[#B38E46] transition-colors">
                 <ChevronDown className="w-3.5 h-3.5 group-hover/experiences:rotate-180 transition-transform duration-300" />
                 EXPERIENCES
               </div>
               
-              {/* Dropdown Menu */}
-              <div className="absolute top-full left-0 pt-4 opacity-0 pointer-events-none group-hover/experiences:opacity-100 group-hover/experiences:pointer-events-auto transition-all duration-300 ease-out z-50">
-                <div className="bg-black/80 backdrop-blur-md border border-white/10 rounded-xl shadow-xl p-2 w-48 flex flex-col gap-1 text-white">
+              {/* Dropdown Menu matching reference image with golden glassy translucent style */}
+              <div className="absolute top-full left-0 pt-3 opacity-0 pointer-events-none group-hover/experiences:opacity-100 group-hover/experiences:pointer-events-auto transition-all duration-300 ease-out z-50">
+                <div className="bg-[#B38E46]/85 backdrop-blur-md border-0 rounded-none shadow-xl w-64 flex flex-col text-white overflow-hidden">
                   <Link
                     href="/national"
-                    className="px-4 py-2.5 rounded-lg hover:bg-white/10 transition-colors font-medium text-[10px] tracking-widest uppercase text-left"
+                    className="px-6 py-4 hover:bg-white/15 transition-colors duration-200 text-left flex flex-col gap-1 border-b border-white/20"
                   >
-                    National
+                    <span
+                      className="font-medium text-xs md:text-sm tracking-[0.25em] uppercase text-white"
+                      style={{ fontFamily: "var(--work-font), sans-serif" }}
+                    >
+                      India
+                    </span>
+                    <span className="text-[10px] text-white/85 font-light tracking-wider uppercase">
+                      Top 50 Luxury Hotels
+                    </span>
                   </Link>
                   <Link
                     href="/international"
-                    className="px-4 py-2.5 rounded-lg hover:bg-white/10 transition-colors font-medium text-[10px] tracking-widest uppercase text-left border-t border-white/5"
+                    className="px-6 py-4 hover:bg-white/15 transition-colors duration-200 text-left flex flex-col gap-1"
                   >
-                    International
+                    <span
+                      className="font-medium text-xs md:text-sm tracking-[0.25em] uppercase text-white"
+                      style={{ fontFamily: "var(--work-font), sans-serif" }}
+                    >
+                      International
+                    </span>
+                    <span className="text-[10px] text-white/85 font-light tracking-wider uppercase">
+                      Top 50 Luxury Hotels
+                    </span>
                   </Link>
                 </div>
               </div>
@@ -115,7 +131,7 @@ export default function Navbar() {
               {/* Emblem */}
               <motion.div
                 layout
-                className="relative h-8 w-8 md:h-9 md:w-9 transition-transform duration-500 group-hover:scale-105 mt-1"
+                className="relative h-12 w-12 md:h-14 md:w-14 transition-transform duration-500 group-hover:scale-105 mt-1"
               >
                 <Image
                   src="/Img/logo-emblem-v3.png"
@@ -153,7 +169,7 @@ export default function Navbar() {
           <div className="flex-1 flex justify-end items-center h-8 md:h-9 mt-1">
             <Link
               href="/join"
-              className="hidden md:inline-flex items-center justify-center border border-white hover:bg-white hover:text-black transition-all duration-300 px-6 py-2 xl:px-8 xl:py-2.5 text-[10px] xl:text-xs font-semibold tracking-[0.2em] uppercase text-white rounded-sm shadow-sm"
+              className="hidden md:inline-flex items-center justify-center border border-white hover:bg-white hover:text-black transition-all duration-300 px-6 py-2 xl:px-8 xl:py-2.5 text-[10px] xl:text-xs font-semibold tracking-[0.2em] uppercase text-white rounded-md shadow-sm"
             >
               JOIN LUXE CLUB
             </Link>
@@ -181,7 +197,7 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex flex-col items-center gap-1.5 group active:scale-95 transition-transform"
               >
-                <div className="relative h-10 w-10 md:h-12 md:w-12">
+                <div className="relative h-14 w-14 md:h-16 md:w-16">
                   <Image
                     src="/Img/logo-emblem-v3.png"
                     alt="The Luxe Yatra Emblem"
@@ -203,7 +219,7 @@ export default function Navbar() {
 
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-white p-2 hover:text-[#d4af37] transition-colors flex items-center justify-center cursor-pointer active:scale-95"
+                className="text-white p-2 hover:text-[#B38E46] transition-colors flex items-center justify-center cursor-pointer active:scale-95"
                 aria-label="Close menu"
               >
                 <X className="w-8 h-8" strokeWidth={1.5} />
@@ -222,7 +238,7 @@ export default function Navbar() {
                   <Link
                     href="/resorts"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-[#d4af37] transition-colors"
+                    className="hover:text-[#B38E46] transition-colors"
                   >
                     Resorts
                   </Link>
@@ -232,12 +248,12 @@ export default function Navbar() {
                 <motion.div variants={itemVariants} className="flex flex-col items-center gap-3">
                   <button
                     onClick={() => setIsExperiencesOpen(!isExperiencesOpen)}
-                    className="flex items-center justify-center gap-2 hover:text-[#d4af37] transition-colors cursor-pointer"
+                    className="flex items-center justify-center gap-2 hover:text-[#B38E46] transition-colors cursor-pointer"
                   >
                     <span>Experiences</span>
                     <ChevronDown
                       className={`w-5 h-5 transition-transform duration-300 ${
-                        isExperiencesOpen ? "rotate-180 text-[#d4af37]" : ""
+                        isExperiencesOpen ? "rotate-180 text-[#B38E46]" : ""
                       }`}
                     />
                   </button>
@@ -254,16 +270,18 @@ export default function Navbar() {
                         <Link
                           href="/national"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-sm tracking-[0.2em] text-white/70 hover:text-white transition-colors"
+                          className="flex flex-col items-center gap-0.5 text-white/90 hover:text-[#B38E46] transition-colors text-center"
                         >
-                          National
+                          <span className="text-sm tracking-[0.2em] font-medium uppercase">India</span>
+                          <span className="text-[11px] font-light text-neutral-300 tracking-wider">Top 50 Luxury Hotels</span>
                         </Link>
                         <Link
                           href="/international"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-sm tracking-[0.2em] text-white/70 hover:text-white transition-colors"
+                          className="flex flex-col items-center gap-0.5 text-white/90 hover:text-[#B38E46] transition-colors text-center pt-2 border-t border-white/10 w-full"
                         >
-                          International
+                          <span className="text-sm tracking-[0.2em] font-medium uppercase">International</span>
+                          <span className="text-[11px] font-light text-neutral-300 tracking-wider">Top 50 Luxury Hotels</span>
                         </Link>
                       </motion.div>
                     )}
@@ -274,7 +292,7 @@ export default function Navbar() {
                   <Link
                     href="/itinerary"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-[#d4af37] transition-colors"
+                    className="hover:text-[#B38E46] transition-colors"
                   >
                     Itinerary
                   </Link>
@@ -284,7 +302,7 @@ export default function Navbar() {
                   <Link
                     href="/brands"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-[#d4af37] transition-colors"
+                    className="hover:text-[#B38E46] transition-colors"
                   >
                     Brands
                   </Link>
@@ -294,7 +312,7 @@ export default function Navbar() {
                   <Link
                     href="/luxeclub"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-[#d4af37] transition-colors flex items-center justify-center gap-3"
+                    className="hover:text-[#B38E46] transition-colors flex items-center justify-center gap-3"
                   >
                     <span className="bg-[#B38E46] text-white h-6 w-6 flex justify-center items-center rounded-full text-[10px] font-bold font-sans tracking-wider">
                       C
@@ -307,7 +325,7 @@ export default function Navbar() {
                   <Link
                     href="/blogs"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-[#d4af37] transition-colors"
+                    className="hover:text-[#B38E46] transition-colors"
                   >
                     Blogs
                   </Link>
@@ -317,7 +335,7 @@ export default function Navbar() {
                   <Link
                     href="/about"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-[#d4af37] transition-colors"
+                    className="hover:text-[#B38E46] transition-colors"
                   >
                     About
                   </Link>
@@ -327,7 +345,7 @@ export default function Navbar() {
                   <Link
                     href="/login"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-[#d4af37] transition-colors text-sm mt-4 text-white/60"
+                    className="hover:text-[#B38E46] transition-colors text-sm mt-4 text-white/60"
                   >
                     Member Login
                   </Link>
@@ -345,7 +363,7 @@ export default function Navbar() {
               <Link
                 href="/join"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="border border-white hover:bg-white hover:text-black transition-all duration-300 px-10 py-3 text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-white rounded-sm"
+                className="border border-white hover:bg-white hover:text-black transition-all duration-300 px-10 py-3 text-xs md:text-sm font-semibold tracking-[0.2em] uppercase text-white rounded-md"
               >
                 JOIN LUXE CLUB
               </Link>

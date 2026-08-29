@@ -1,530 +1,490 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Search, X } from "lucide-react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
-export type BrandLogoItem = {
+export type BrandItem = {
   id: string;
   name: string;
-  category: "Luxury" | "Premium" | "Select";
-  logoImg: string; // Original brand logo PNG filename in public/Img/brands/
-  hoverBgColor: string;
-  tagline: string;
-  description: string;
-  locationCount: number;
+  subtext?: string;
+  logoImg?: string;
   website: string;
-  // Some source logo PNGs are low-resolution and their wordmark text is illegible at display size.
-  // "icon-text": show a cropped icon-only image plus the brand name rendered as live text.
-  // "text": no usable icon in the source image; render the brand name as live text only.
-  // undefined/"image": use logoImg as-is (default, most brands).
-  logoMode?: "icon-text" | "text";
 };
 
-export const ALL_BRANDS: BrandLogoItem[] = [
-  // ROW 1: LUXURY
-  {
-    id: "edition",
-    name: "EDITION",
-    category: "Luxury",
-    logoImg: "10.png",
-    hoverBgColor: "bg-black",
-    tagline: "High-Concept Design & Luxury Stays",
-    description: "An unexpected and refreshing blend of high-concept design, luxury, and authentic personal service.",
-    locationCount: 19,
-    website: "https://www.editionhotels.com/",
-  },
-  {
-    id: "ritz-carlton",
-    name: "THE RITZ-CARLTON",
-    category: "Luxury",
-    logoImg: "25.png",
-    hoverBgColor: "bg-[#002B49]",
-    tagline: "Legendary Service & Refined Elegance",
-    description: "Unforgettable experiences in the world's most vibrant cities and breathtaking resort destinations.",
-    locationCount: 110,
-    website: "https://www.ritzcarlton.com/",
-  },
-  {
-    id: "luxury-collection",
-    name: "THE LUXURY COLLECTION",
-    category: "Luxury",
-    logoImg: "26.png",
-    hoverBgColor: "bg-[#2A2421]",
-    tagline: "Iconic, Authentic Destination Hotels",
-    description: "A curated ensemble of world-renowned hotels and resorts offering unique, authentic experiences.",
-    locationCount: 125,
-    website: "https://the-luxury-collection.marriott.com/",
-  },
-  {
-    id: "st-regis",
-    name: "ST. REGIS",
-    category: "Luxury",
-    logoImg: "24.png",
-    hoverBgColor: "bg-[#1E1B18]",
-    tagline: "Timeless Elegance & Signature Butler Service",
-    description: "Combining classic sophistication with a modern sensibility at the finest addresses worldwide.",
-    locationCount: 60,
-    website: "https://st-regis.marriott.com/",
-  },
-  {
-    id: "w-hotels",
-    name: "W HOTELS",
-    category: "Luxury",
-    logoImg: "28.png",
-    hoverBgColor: "bg-[#5B0E2D]",
-    tagline: "Vibrant Luxury Lifestyle & Bold Design",
-    description: "Redefining luxury lifestyle with bold design, iconic Whatever/Whenever service, and dynamic energy.",
-    locationCount: 70,
-    website: "https://w-hotels.marriott.com/",
-  },
-  {
-    id: "jw-marriott",
-    name: "JW MARRIOTT",
-    category: "Luxury",
-    logoImg: "18.png",
-    hoverBgColor: "bg-[#1A2530]",
-    tagline: "Enriched Luxury & Mindful Well-Being",
-    description: "Designed to let guests focus on feeling whole—present in mind, nourished in body, and revitalized in spirit.",
-    locationCount: 105,
-    website: "https://jw-marriott.marriott.com/",
-  },
+export type RegionCategory = {
+  id: string;
+  number: string;
+  title: string;
+  subtitle: string;
+  brands: BrandItem[];
+};
 
-  // ROW 2: PREMIUM
+export const LUXURY_REGIONS: RegionCategory[] = [
   {
-    id: "marriott",
-    name: "MARRIOTT HOTELS",
-    category: "Premium",
-    logoImg: "22.png",
-    hoverBgColor: "bg-[#A8000B]",
-    tagline: "Thoughtfully Designed Modern Hospitality",
-    description: "Elevating the art of hospitality to ensure guests can travel brilliantly in top destinations worldwide.",
-    locationCount: 600,
-    website: "https://marriott-hotels.marriott.com/",
+    id: "india",
+    number: "01",
+    title: "INDIA",
+    subtitle: "INDIA'S FINEST LUXURY BRANDS",
+    brands: [
+      {
+        id: "taj",
+        name: "TAJ",
+        logoImg: "26.png",
+        website: "https://www.tajhotels.com/",
+      },
+      {
+        id: "oberoi",
+        name: "Oberoi",
+        subtext: "HOTELS & RESORTS",
+        logoImg: "25.png",
+        website: "https://www.oberoihotels.com/",
+      },
+      {
+        id: "the-leela",
+        name: "THE LEELA",
+        subtext: "PALACES HOTELS RESORTS",
+        logoImg: "24.png",
+        website: "https://www.theleela.com/",
+      },
+      {
+        id: "raffles-india",
+        name: "RAFFLES",
+        subtext: "INDIA",
+        logoImg: "18.png",
+        website: "https://www.raffles.com/",
+      },
+      {
+        id: "aman-india",
+        name: "ĀMAN",
+        subtext: "INDIA",
+        logoImg: "10.png",
+        website: "https://www.aman.com/",
+      },
+      {
+        id: "sujan",
+        name: "SUJÁN",
+        subtext: "LUXURY",
+        logoImg: "8.png",
+        website: "https://thesujanlife.com/",
+      },
+      {
+        id: "anantara",
+        name: "ANANTARA",
+        subtext: "HOTELS·RESORTS·SPAS",
+        logoImg: "14.png",
+        website: "https://www.anantara.com/",
+      },
+      {
+        id: "itc-hotels",
+        name: "ITC HOTELS",
+        subtext: "RESPONSIBLE LUXURY",
+        logoImg: "22.png",
+        website: "https://www.itchotels.com/",
+      },
+      {
+        id: "oberoi-beach",
+        name: "The Oberoi",
+        subtext: "BEACH RESORTS",
+        logoImg: "25.png",
+        website: "https://www.oberoihotels.com/",
+      },
+      {
+        id: "ihcl-select",
+        name: "IHCL",
+        subtext: "SELECT",
+        logoImg: "26.png",
+        website: "https://www.ihcltata.com/",
+      },
+      {
+        id: "cgh-earth",
+        name: "CGH EARTH",
+        subtext: "EXPERIENCES",
+        logoImg: "21.png",
+        website: "https://www.cghearth.com/",
+      },
+      {
+        id: "evolve-back",
+        name: "EVOLVE BACK",
+        logoImg: "1.png",
+        website: "https://www.evolveback.com/",
+      },
+      {
+        id: "wildflower-hall",
+        name: "WILDFLOWER HALL",
+        subtext: "SHIMLA",
+        logoImg: "12.png",
+        website: "https://www.oberoihotels.com/hotels-in-shimla-wfh/",
+      },
+      {
+        id: "postcard-hotels",
+        name: "THE POSTCARD",
+        subtext: "HOTELS",
+        logoImg: "3.png",
+        website: "https://www.postcardresorts.com/",
+      },
+      {
+        id: "taj-exotica",
+        name: "TAJ EXOTICA",
+        subtext: "RESORT & SPA",
+        logoImg: "26.png",
+        website: "https://www.tajhotels.com/",
+      },
+    ],
   },
   {
-    id: "sheraton",
-    name: "SHERATON",
-    category: "Premium",
-    logoImg: "8.png",
-    hoverBgColor: "bg-[#002B49]",
-    tagline: "The World's Gathering Place",
-    description: "Creating intuitive spaces where guests feel connected and inspired around the globe.",
-    locationCount: 440,
-    website: "https://sheraton.marriott.com/",
+    id: "asia",
+    number: "02",
+    title: "ASIA",
+    subtitle: "ASIA'S FINEST LUXURY BRANDS",
+    brands: [
+      {
+        id: "aman",
+        name: "ĀMAN",
+        subtext: "HOTELS AND RESORTS",
+        logoImg: "10.png",
+        website: "https://www.aman.com/",
+      },
+      {
+        id: "capella",
+        name: "CAPELLA",
+        subtext: "HOTELS AND RESORTS",
+        logoImg: "28.png",
+        website: "https://capellahotels.com/",
+      },
+      {
+        id: "rosewood",
+        name: "ROSEWOOD",
+        subtext: "HOTELS & RESORTS",
+        logoImg: "5.png",
+        website: "https://www.rosewoodhotels.com/",
+      },
+      {
+        id: "bvlgari",
+        name: "BVLGARI",
+        subtext: "HOTELS & RESORTS",
+        logoImg: "19.png",
+        website: "https://www.bulgarihotels.com/",
+      },
+      {
+        id: "six-senses",
+        name: "SIX SENSES",
+        subtext: "HOTELS RESORTS SPAS",
+        logoImg: "2.png",
+        website: "https://www.sixsenses.com/",
+      },
+      {
+        id: "shangri-la",
+        name: "SHANGRI-LA",
+        subtext: "HOTELS AND RESORTS",
+        logoImg: "4.png",
+        website: "https://www.shangri-la.com/",
+      },
+      {
+        id: "park-hyatt-asia",
+        name: "PARK HYATT™",
+        logoImg: "23.png",
+        website: "https://www.hyatt.com/brands/park-hyatt",
+      },
+      {
+        id: "st-regis-asia",
+        name: "ST REGIS",
+        subtext: "HOTELS & RESORTS",
+        logoImg: "24.png",
+        website: "https://st-regis.marriott.com/",
+      },
+      {
+        id: "ritz-carlton-asia",
+        name: "THE RITZ-CARLTON",
+        subtext: "HOTELS & RESORTS",
+        logoImg: "25.png",
+        website: "https://www.ritzcarlton.com/",
+      },
+      {
+        id: "banyan-tree",
+        name: "BANYAN TREE",
+        subtext: "HOTELS & RESORTS",
+        logoImg: "16.png",
+        website: "https://www.banyantree.com/",
+      },
+      {
+        id: "como",
+        name: "COMO",
+        subtext: "HOTELS AND RESORTS",
+        logoImg: "15.png",
+        website: "https://www.comohotels.com/",
+      },
+      {
+        id: "alila",
+        name: "Alila.",
+        subtext: "HOTELS AND RESORTS",
+        logoImg: "7.png",
+        website: "https://www.alilahotels.com/",
+      },
+      {
+        id: "w-hotels-asia",
+        name: "W HOTELS",
+        logoImg: "28.png",
+        website: "https://w-hotels.marriott.com/",
+      },
+      {
+        id: "andaz",
+        name: "Andaz",
+        subtext: "HOTELS",
+        logoImg: "9.png",
+        website: "https://www.hyatt.com/brands/andaz",
+      },
+      {
+        id: "one-hotels-asia",
+        name: "1 HOTELS",
+        logoImg: "31.png",
+        website: "https://www.1hotels.com/",
+      },
+      {
+        id: "soneva",
+        name: "SONEVA",
+        subtext: "HOTELS & RESORTS",
+        logoImg: "13.png",
+        website: "https://soneva.com/",
+      },
+    ],
   },
   {
-    id: "marriott-vacation-club",
-    name: "MARRIOTT VACATION CLUB",
-    category: "Premium",
-    logoImg: "4.png",
-    hoverBgColor: "bg-[#003B71]",
-    tagline: "Premium Vacation Ownership Resorts",
-    description: "Delivering villa accommodations and exclusive resort experiences for ownership members worldwide.",
-    locationCount: 90,
-    website: "https://www.marriottvacationclub.com/",
+    id: "worldwide",
+    number: "03",
+    title: "WORLDWIDE",
+    subtitle: "THE WORLD'S FINEST LUXURY BRANDS",
+    brands: [
+      {
+        id: "four-seasons",
+        name: "FOUR SEASONS",
+        subtext: "HOTELS AND RESORTS",
+        logoImg: "11.png",
+        website: "https://www.fourseasons.com/",
+      },
+      {
+        id: "mandarin-oriental",
+        name: "MANDARIN ORIENTAL",
+        subtext: "THE HOTEL GROUP",
+        logoImg: "20.png",
+        website: "https://www.mandarinoriental.com/",
+      },
+      {
+        id: "peninsula",
+        name: "THE PENINSULA",
+        subtext: "HOTELS",
+        logoImg: "17.png",
+        website: "https://www.peninsula.com/",
+      },
+      {
+        id: "one-only",
+        name: "One&Only",
+        subtext: "RESORTS",
+        logoImg: "6.png",
+        website: "https://www.oneandonlyresorts.com/",
+      },
+      {
+        id: "cheval-blanc",
+        name: "Cheval Blanc",
+        logoImg: "27.jpg",
+        website: "https://www.chevalblanc.com/",
+      },
+      {
+        id: "belmond",
+        name: "BELMOND",
+        logoImg: "29.png",
+        website: "https://www.belmond.com/",
+      },
+      {
+        id: "fairmont",
+        name: "Fairmont",
+        subtext: "HOTELS & RESORTS",
+        logoImg: "30.png",
+        website: "https://www.fairmont.com/",
+      },
+      {
+        id: "raffles-world",
+        name: "RAFFLES",
+        subtext: "HOTELS & RESORTS",
+        logoImg: "18.png",
+        website: "https://www.raffles.com/",
+      },
+      {
+        id: "waldorf-astoria",
+        name: "WALDORF ASTORIA",
+        subtext: "HOTELS & RESORTS",
+        logoImg: "32.png",
+        website: "https://www.hilton.com/en/waldorf-astoria/",
+      },
+      {
+        id: "park-hyatt-world",
+        name: "PARK HYATT™",
+        logoImg: "23.png",
+        website: "https://www.hyatt.com/brands/park-hyatt",
+      },
+      {
+        id: "conrad",
+        name: "CONRAD",
+        subtext: "HOTELS & RESORTS",
+        logoImg: "33.png",
+        website: "https://www.hilton.com/en/conrad/",
+      },
+      {
+        id: "one-hotels-world",
+        name: "1 HOTELS",
+        logoImg: "31.png",
+        website: "https://www.1hotels.com/",
+      },
+      {
+        id: "edition-world",
+        name: "EDITION",
+        subtext: "HOTELS",
+        logoImg: "10.png",
+        website: "https://www.editionhotels.com/",
+      },
+      {
+        id: "sls",
+        name: "SLS",
+        subtext: "HOTELS",
+        logoImg: "34.jpg",
+        website: "https://www.slshotels.com/",
+      },
+      {
+        id: "mondrian",
+        name: "MONDRIAN",
+        subtext: "HOTELS",
+        logoImg: "35.png",
+        website: "https://book.ennismore.com/hotels/mondrian",
+      },
+      {
+        id: "gleneagles",
+        name: "GLENEAGLES",
+        subtext: "TOWN & COUNTRY ESTATE",
+        logoImg: "36.jpg",
+        website: "https://gleneagles.com/",
+      },
+    ],
   },
-  {
-    id: "delta-hotels",
-    name: "DELTA HOTELS",
-    category: "Premium",
-    logoImg: "19.png",
-    hoverBgColor: "bg-[#252525]",
-    tagline: "Simple Made Perfect",
-    description: "Focusing on the details that matter to deliver a seamless, full-service hotel experience.",
-    locationCount: 115,
-    website: "https://delta-hotels.marriott.com/",
-  },
-  {
-    id: "westin",
-    name: "WESTIN",
-    category: "Premium",
-    logoImg: "14.png",
-    hoverBgColor: "bg-[#004B87]",
-    tagline: "Empowering Well-Being On The Road",
-    description: "Designed with signature wellness programs so guests can sleep, eat, move, and feel well.",
-    locationCount: 235,
-    website: "https://westin.marriott.com/",
-  },
-  {
-    id: "le-meridien",
-    name: "LE MÉRIDIEN",
-    category: "Premium",
-    logoImg: "21.png",
-    hoverBgColor: "bg-[#003B71]",
-    tagline: "Glamorous European Travel & Chic Design",
-    description: "Unlocking destination culture through timeless mid-century European design and chic dining.",
-    locationCount: 115,
-    website: "https://le-meridien.marriott.com/",
-  },
-
-  // ROW 3: SELECT & BOUTIQUE
-  {
-    id: "renaissance",
-    name: "RENAISSANCE HOTELS",
-    category: "Premium",
-    logoImg: "1.png",
-    hoverBgColor: "bg-[#A8000B]",
-    tagline: "Discover The Unexpected Local Style",
-    description: "Inviting guests to discover unexpected local experiences through dedicated Navigators and design.",
-    locationCount: 175,
-    website: "https://renaissance-hotels.marriott.com/",
-  },
-  {
-    id: "autograph-collection",
-    name: "AUTOGRAPH COLLECTION",
-    category: "Premium",
-    logoImg: "8.png",
-    hoverBgColor: "bg-[#2A2421]",
-    tagline: "Exactly Like Nothing Else",
-    description: "A handpicked selection of independent luxury boutique hotels defined by vision and craft.",
-    locationCount: 290,
-    website: "https://autograph-hotels.marriott.com/",
-  },
-  {
-    id: "tribute-portfolio",
-    name: "TRIBUTE PORTFOLIO",
-    category: "Premium",
-    logoImg: "27.jpg",
-    hoverBgColor: "bg-[#8A4B00]",
-    tagline: "Characterful Independent Boutique Stays",
-    description: "A global family of characterful boutique stays bound by a passion for captivating design.",
-    locationCount: 100,
-    website: "https://tribute-portfolio.marriott.com/",
-  },
-  {
-    id: "design-hotels",
-    name: "DESIGN HOTELS",
-    category: "Premium",
-    logoImg: "3.png",
-    hoverBgColor: "bg-black",
-    tagline: "Architecture, Culture & Visionary Style",
-    description: "A global community of visionary hospitality concepts rooted in genuine design and culture.",
-    locationCount: 120,
-    website: "https://www.designhotels.com/",
-  },
-  {
-    id: "gaylord-hotels",
-    name: "GAYLORD HOTELS",
-    category: "Premium",
-    logoImg: "2.png",
-    hoverBgColor: "bg-[#003B71]",
-    tagline: "Grand Resort Destinations & Conventions",
-    description: "Magnificent resorts featuring glass atriums, fine dining, world-class spas, and entertainment.",
-    locationCount: 6,
-    website: "https://gaylord-hotels.marriott.com/",
-  },
-  {
-    id: "mgm-collection",
-    name: "MGM COLLECTION",
-    category: "Premium",
-    logoImg: "5.png",
-    hoverBgColor: "bg-[#1E1E1E]",
-    tagline: "World-Class Entertainment & Strip Resorts",
-    description: "Unrivaled entertainment, iconic Las Vegas strip resorts, gaming, and dining destinations.",
-    locationCount: 16,
-    website: "https://mgm-collection.marriott.com/",
-  },
-
-  // ROW 4: SELECT PORTFOLIO
-  {
-    id: "outdoor-collection",
-    name: "OUTDOOR COLLECTION",
-    category: "Select",
-    logoImg: "23.png",
-    hoverBgColor: "bg-[#2C3E2E]",
-    tagline: "Immersive Nature & Glamping Retreats",
-    description: "Exceptional outdoor and nature retreat experiences with full Marriott Bonvoy privileges.",
-    locationCount: 15,
-    website: "https://marriott.com/",
-  },
-  {
-    id: "courtyard",
-    name: "COURTYARD BY MARRIOTT",
-    category: "Select",
-    logoImg: "9.png",
-    hoverBgColor: "bg-[#004A7C]",
-    tagline: "Empowering Passion-Driven Travel",
-    description: "Thoughtfully crafted spaces for guests to stay connected, refreshed, and productive.",
-    locationCount: 1280,
-    website: "https://courtyard.marriott.com/",
-  },
-  {
-    id: "four-points",
-    name: "FOUR POINTS BY SHERATON",
-    category: "Select",
-    logoImg: "6.png",
-    hoverBgColor: "bg-[#002D58]",
-    tagline: "Classic Comfort & Best Brews",
-    description: "Comfortable rooms, signature craft beer program, and reliable service for smart travelers.",
-    locationCount: 300,
-    website: "https://four-points.marriott.com/",
-  },
-  {
-    id: "springhill-suites",
-    name: "SPRINGHILL SUITES",
-    category: "Select",
-    logoImg: "15.png",
-    hoverBgColor: "bg-[#0B3C5D]",
-    tagline: "Spacious Suites & West Elm Style",
-    description: "All-suite hotel design offering stylish space, West Elm furnishings, and fresh breakfast.",
-    locationCount: 520,
-    website: "https://springhill-suites.marriott.com/",
-  },
-  {
-    id: "fairfield",
-    name: "FAIRFIELD BY MARRIOTT",
-    category: "Select",
-    logoImg: "12.png",
-    hoverBgColor: "bg-[#16355C]",
-    tagline: "Warm Hospitality & Comforting Simplicity",
-    description: "Delivering calm, intuitive comfort with signature Fairfield Guarantee for effortless travel.",
-    locationCount: 1250,
-    website: "https://fairfield.marriott.com/",
-  },
-  {
-    id: "ac-hotels",
-    name: "AC HOTELS",
-    category: "Select",
-    logoImg: "36.jpg",
-    hoverBgColor: "bg-[#252525]",
-    tagline: "European-Inspired Minimal Design",
-    description: "Harnessing Spanish heritage and modern European design to refine the essential hotel experience.",
-    locationCount: 225,
-    website: "https://ac-hotels.marriott.com/",
-  },
-
-  // ROW 5: EXTENDED & LIFESTYLE
-  {
-    id: "citizenm",
-    name: "CITIZENM",
-    category: "Select",
-    logoImg: "16.png",
-    hoverBgColor: "bg-black",
-    tagline: "Affordable Luxury & Tech Urban Stays",
-    description: "Modern, tech-savvy boutique hotel stays in major global cities.",
-    locationCount: 35,
-    website: "https://www.citizenm.com/",
-  },
-  {
-    id: "aloft",
-    name: "ALOFT HOTELS",
-    category: "Select",
-    logoImg: "7.png",
-    hoverBgColor: "bg-[#8A1C5A]",
-    tagline: "Tech-Forward & Live Music Culture",
-    description: "Different by design: open spaces, vibrant W XYZ bar, and tech-savvy amenities for global travelers.",
-    locationCount: 230,
-    website: "https://aloft-hotels.marriott.com/",
-  },
-  {
-    id: "moxy",
-    name: "MOXY HOTELS",
-    category: "Select",
-    logoImg: "20.png",
-    hoverBgColor: "bg-[#E60067]",
-    tagline: "Playful, Energetic Boutique Vibe",
-    description: "Self-service grab-and-go food, lively bar check-in with a cocktail, and fun social spaces.",
-    locationCount: 130,
-    website: "https://moxy-hotels.marriott.com/",
-  },
-  {
-    id: "protea-hotels",
-    name: "PROTEA HOTELS",
-    category: "Select",
-    logoImg: "35.png",
-    hoverBgColor: "bg-[#004B87]",
-    tagline: "African Hospitality Heritage",
-    description: "Leading hotel brand in Africa offering warm local hospitality and modern comforts.",
-    locationCount: 80,
-    website: "https://protea-hotels.marriott.com/",
-  },
-  {
-    id: "city-express",
-    name: "CITY EXPRESS",
-    category: "Select",
-    logoImg: "29.png",
-    hoverBgColor: "bg-[#F37023]",
-    tagline: "Smart Urban Accommodation",
-    description: "Modern, essential urban hotel accommodation designed for business and leisure travel.",
-    locationCount: 150,
-    website: "https://city-express.marriott.com/",
-  },
-  {
-    id: "four-points-flex",
-    name: "FOUR POINTS FLEX",
-    category: "Select",
-    logoImg: "29.png",
-    hoverBgColor: "bg-[#002D58]",
-    tagline: "Flexible Modern Value Stays",
-    description: "Smart, flexible hospitality focused on quality fundamentals and great value.",
-    locationCount: 40,
-    website: "https://four-points-flex.marriott.com/",
-  },
-
-  // ROW 6: EXTENDED STAYS & RESIDENCES
-  {
-    id: "series",
-    name: "SERIES BY MARRIOTT",
-    category: "Select",
-    logoImg: "32.png",
-    hoverBgColor: "bg-[#333333]",
-    tagline: "Curated Regional Boutique Hospitality",
-    description: "Regional boutique collections offering distinct local character with trusted Marriott standards.",
-    locationCount: 25,
-    website: "https://marriott.com/",
-  },
-  {
-    id: "residence-inn",
-    name: "RESIDENCE INN",
-    category: "Select",
-    logoImg: "30.png",
-    hoverBgColor: "bg-[#004A7C]",
-    tagline: "Extended Stay Comfort & Full Kitchens",
-    description: "Spacious suites with full kitchens and free hot breakfast for long-term travel comfort.",
-    locationCount: 880,
-    website: "https://residence-inn.marriott.com/",
-  },
-  {
-    id: "towneplace-suites",
-    name: "TOWNEPLACE SUITES",
-    category: "Select",
-    logoImg: "33.png",
-    hoverBgColor: "bg-[#C41230]",
-    tagline: "All-Suite Extended Travel Stays",
-    description: "Simple, friendly extended-stay hotel with Weber grills, full kitchens, and cozy suites.",
-    locationCount: 470,
-    website: "https://towneplace-suites.marriott.com/",
-  },
-  {
-    id: "element",
-    name: "ELEMENT HOTELS",
-    category: "Select",
-    logoImg: "34.jpg",
-    logoMode: "icon-text",
-    hoverBgColor: "bg-[#386641]",
-    tagline: "Eco-Conscious Extended Stay Stays",
-    description: "Sustainably built extended stay hotels featuring eco-friendly design, natural light, and bike rentals.",
-    locationCount: 100,
-    website: "https://element-hotels.marriott.com/",
-  },
-  {
-    id: "studiores",
-    name: "STUDIORES",
-    category: "Select",
-    logoImg: "31.png",
-    hoverBgColor: "bg-[#1F3A60]",
-    tagline: "Smart Midscale Extended Stay",
-    description: "Affordable, comfortable long-term stays engineered for modern extended travelers.",
-    locationCount: 20,
-    website: "https://studiores.marriott.com/",
-  },
-  {
-    id: "marriott-executive-apartments",
-    name: "EXECUTIVE APARTMENTS",
-    category: "Select",
-    logoImg: "11.png",
-    hoverBgColor: "bg-[#A8000B]",
-    tagline: "Luxury Serviced Corporate Apartments",
-    description: "Five-star serviced apartments for international corporate executives and luxury long stays.",
-    locationCount: 35,
-    website: "https://marriott-executive-apartments.marriott.com/",
-  },
-
-
 ];
 
-const BrandCard = ({ brand }: { brand: BrandLogoItem }) => {
+const BrandCard = ({ brand }: { brand: BrandItem }) => {
   const [isHovered, setIsHovered] = useState(false);
-
-  // On default: use grayscale and opacity to make the logo grey without turning white backgrounds into grey boxes
-  const defaultFilter = 'grayscale(100%) opacity(60%)';
-  // On hover: remove filters to show the logo in its original native brand color
-  const hoverFilter = 'none';
-
-  // Fallback map for the 6 missing logos that couldn't be cropped from the reference screenshots
-  const getLogoPath = (b: BrandLogoItem) => `/Img/brands/${b.logoImg}`;
 
   return (
     <motion.a
       href={brand.website}
       target="_blank"
       rel="noopener noreferrer"
-      layout
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ y: -4, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative rounded-2xl border border-neutral-200/80 bg-white shadow-sm hover:shadow-xl hover:border-neutral-300 transition-all duration-300 block h-28 text-center overflow-hidden"
+      className="group relative bg-white rounded-none border border-neutral-200/90 shadow-2xs hover:shadow-lg hover:border-[#B38E46] transition-all duration-300 flex flex-col items-center justify-center p-4 min-h-[110px] text-center overflow-hidden"
     >
-
-
-      {/* Brand Logo Rendering */}
-      <div className="absolute inset-0 px-4 py-4 z-20 transition-transform duration-300 select-none flex items-center justify-center overflow-hidden">
-        <div className="relative w-full h-full flex items-center justify-center">
+      {brand.logoImg ? (
+        <div className="relative w-full h-14 flex items-center justify-center">
           <Image
-            src={getLogoPath(brand)}
+            src={`/Img/brands/${brand.logoImg}`}
             alt={`${brand.name} Logo`}
             fill
             unoptimized
-            className="object-contain transition-all duration-300 group-hover:scale-110"
-            style={{ 
-              filter: isHovered ? hoverFilter : defaultFilter,
-              mixBlendMode: 'multiply'
+            className="object-contain transition-all duration-300 group-hover:scale-105"
+            style={{
+              filter: isHovered ? "none" : "grayscale(100%) opacity(75%)",
+              mixBlendMode: "multiply",
             }}
-            priority
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
           />
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center">
+          <span
+            className="text-lg sm:text-xl font-serif tracking-widest text-neutral-900 group-hover:text-[#B38E46] transition-colors"
+            style={{ fontFamily: "var(--work-font), sans-serif" }}
+          >
+            {brand.name}
+          </span>
+          {brand.subtext && (
+            <span className="text-[9px] sm:text-[10px] font-light tracking-[0.2em] text-neutral-500 uppercase mt-0.5">
+              {brand.subtext}
+            </span>
+          )}
+        </div>
+      )}
     </motion.a>
   );
 };
 
 export default function Brandsec() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<"All" | "Luxury" | "Premium" | "Select">("All");
-
-  const filteredBrands = ALL_BRANDS.filter((brand) => {
-    const matchesCategory = selectedCategory === "All" || brand.category === selectedCategory;
-    const matchesSearch =
-      brand.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      brand.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      brand.category.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
-  const getLogoPath = (b: BrandLogoItem) => {
-    if (b.id === 'towneplace-suites') return '/Img/brands/TownePlace_Suites_logo.svg.png';
-    if (b.id === 'element') return '/Img/brands/series_by_marriott_Logo.png';
-    if (b.id === 'homes-villas') return '/Img/brands/hvmi-social-logo.png';
-    if (b.id === 'ac-hotels') return '/Img/brands/Logo_AC-Hotels-by-Marriott.jpg';
-    return `/Img/brands/${b.logoImg}`;
-  };
-
   return (
-    <section className="min-h-screen bg-[#F5F5F7] text-neutral-900 py-12 px-4 sm:px-6 lg:px-8">
+    <section className="min-h-screen bg-[#F8F9FA] text-neutral-900 py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Exact Marriott 6-Column Grid Layout using ORIGINAL LOGO IMAGES */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-          <AnimatePresence>
-            {filteredBrands.map((brand) => (
-              <BrandCard key={brand.id} brand={brand} />
-            ))}
-          </AnimatePresence>
+        {/* Collection Section Title Header matching Image 2 */}
+        <div className="text-center mb-16 flex flex-col items-center">
+          <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
+            EXCLUSIVE HOSPITALITY PORTFOLIO
+          </div>
+          <h2 className="text-4xl md:text-7xl lg:text-8xl font-serif tracking-tight text-black max-w-6xl mx-auto leading-[1.1]">
+            The World&apos;s Most Exceptional Luxury Hospitality Collection
+          </h2>
         </div>
 
-        {filteredBrands.length === 0 && (
-          <div className="text-center py-20 text-black">
-            <p className="text-sm">No brand found matching &quot;{searchQuery}&quot;.</p>
-          </div>
-        )}
-      </div>
+        {/* 3 Regional Hospitality Charts with Horizontal Blue Header (matching request) */}
+        <div className="space-y-12">
+          {LUXURY_REGIONS.map((region) => (
+            <motion.div
+              key={region.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6 }}
+              className="bg-white rounded-none border border-neutral-200/90 shadow-sm overflow-hidden"
+            >
+              {/* Horizontal Header Banner (using exact review card color rgb(25,25,112)) */}
+              <div className="bg-[rgb(25,25,112)] text-white py-4 sm:py-5 px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-[#B38E46]/30">
+                {/* Left Side: Number & Region Name */}
+                <div className="flex items-center gap-4">
+                  <span
+                    className="text-2xl sm:text-3xl font-light text-[#B38E46] tracking-[0.2em]"
+                    style={{ fontFamily: "var(--work-font), sans-serif" }}
+                  >
+                    {region.number}
+                  </span>
+                  <span className="h-5 w-[1px] bg-[#B38E46]/40 hidden sm:block"></span>
+                  <h3
+                    className="text-lg sm:text-xl text-white uppercase font-light tracking-[0.35em]"
+                    style={{ fontFamily: "var(--work-font), sans-serif" }}
+                  >
+                    {region.title}
+                  </h3>
+                </div>
 
+                {/* Right Side: Subtitle Tagline */}
+                <div
+                  className="text-xs sm:text-sm tracking-[0.35em] font-light text-[#B38E46] uppercase text-center sm:text-right"
+                  style={{ fontFamily: "var(--work-font), sans-serif" }}
+                >
+                  {region.subtitle}
+                </div>
+              </div>
+
+              {/* Brand Grid Container */}
+              <div className="p-4 sm:p-6 bg-[#FAFAFA]">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+                  {region.brands.map((brand) => (
+                    <BrandCard key={brand.id} brand={brand} />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Indigo Vertical Line below last chart */}
+        <div className="flex justify-center mt-12 md:mt-16 mb-4">
+          <div className="w-[1.5px] h-32 md:h-48 bg-[rgb(25,25,112)]"></div>
+        </div>
+      </div>
     </section>
   );
 }

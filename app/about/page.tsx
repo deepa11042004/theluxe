@@ -363,7 +363,7 @@ export default function AboutPage() {
                       <div className="w-14 h-14 scale-110 rounded-2xl bg-[#B38E46]/5 text-[#B38E46] flex items-center justify-center border border-[#B38E46]/30">
                         <IconComponent className="w-6 h-6" />
                       </div>
-                      <span className="text-[9px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B38E46] text-white shadow-sm">
+                      <span className="text-[9px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full bg-gradient-to-r from-[#B38E46] to-[#B38E46] text-white shadow-sm">
                         {item.badge}
                       </span>
                     </div>
@@ -525,7 +525,7 @@ export default function AboutPage() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] opacity-20" style={{ backgroundSize: '16px 16px' }} />
 
             <div className="relative z-10 flex flex-col items-center space-y-6">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4AF37]/20 to-transparent flex items-center justify-center border border-[#D4AF37]/30 mb-2">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#B38E46]/20 to-transparent flex items-center justify-center border border-[#B38E46]/30 mb-2">
                 <Sparkles className="w-8 h-8 text-[#E5C158]" />
               </div>
               
@@ -653,7 +653,7 @@ export default function AboutPage() {
 
           <div className="space-y-4 max-w-3xl relative z-10">
             <div className="flex items-center gap-4">
-              <div className="bg-gradient-to-br from-[#D4AF37]/10 to-transparent p-3 rounded-xl border border-[#D4AF37]/20 flex items-center justify-center">
+              <div className="bg-gradient-to-br from-[#B38E46]/10 to-transparent p-3 rounded-xl border border-[#B38E46]/20 flex items-center justify-center">
                 <ShieldCheck className="w-6 h-6 text-[#B38E46]" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 tracking-tight">Trust &amp; Transparency</h3>

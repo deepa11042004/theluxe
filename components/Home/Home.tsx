@@ -80,18 +80,18 @@ export default function Home() {
       {/* 2. Slider Navigation Controls (Left/Right Buttons) */}
       <button
         onClick={handlePrev}
-        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/20 hover:scale-110 cursor-pointer shadow-lg"
+        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-white opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 cursor-pointer drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
         aria-label="Previous Hero Slide"
       >
-        <ChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-12 h-12 md:w-16 md:h-16" strokeWidth={1.5} />
       </button>
 
       <button
         onClick={handleNext}
-        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/20 hover:scale-110 cursor-pointer shadow-lg"
+        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-white opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 cursor-pointer drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
         aria-label="Next Hero Slide"
       >
-        <ChevronRight className="w-6 h-6" />
+        <ChevronRight className="w-12 h-12 md:w-16 md:h-16" strokeWidth={1.5} />
       </button>
 
       {/* 3. Hero Content Section */}
@@ -131,10 +131,10 @@ export default function Home() {
             <button
               key={idx}
               onClick={() => setCurrentSlide(idx)}
-              className={`h-2.5 rounded-full transition-all duration-500 cursor-pointer ${
+              className={`rounded-full transition-all duration-500 cursor-pointer ${
                 idx === currentSlide
-                  ? "w-8 bg-[#B38E46] shadow-sm"
-                  : "w-2.5 bg-black/30 hover:bg-black/60"
+                  ? "w-3 h-3 bg-[#B38E46] shadow-sm"
+                  : "w-2 h-2 bg-black/30 hover:bg-black/60"
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />

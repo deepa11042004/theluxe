@@ -172,7 +172,7 @@ const MEMBERSHIPS = [
     subtitle: "One Year Domestic — ₹12,999. One full year of premium hotel privileges, exclusive rates and travel benefits across India.",
     bgClass: "bg-gradient-to-br from-[#2a2a2a] via-[#1a1a1a] to-[#0a0a0a] text-white border-white/10",
     lineColor: "rgba(255,255,255,0.08)",
-    bulletColor: "bg-[#D4AF37]",
+    bulletColor: "bg-[#B38E46]",
     benefits: [
       "5-Star & Premium Hotel Access",
       "Exclusive Member Rates & Privileges",
@@ -190,7 +190,7 @@ const MEMBERSHIPS = [
     subtitle: "One Year Worldwide — ₹19,999. Your gateway to premium travel privileges across India and worldwide.",
     bgClass: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white border-white/10",
     lineColor: "rgba(255,255,255,0.08)",
-    bulletColor: "bg-[#D4AF37]",
+    bulletColor: "bg-[#B38E46]",
     benefits: [
       "Everything in Luxe Signature",
       "Worldwide 5-Star & Luxury Hotel Access",
@@ -209,7 +209,7 @@ const MEMBERSHIPS = [
     subtitle: "Lifetime Membership — ₹49,999. Pay once and enjoy The Luxe Yatra lifestyle worldwide for a lifetime.",
     bgClass: "bg-gradient-to-br from-[#2c7a72] via-[#205c56] to-[#123834] text-white border-white/10",
     lineColor: "rgba(255,255,255,0.08)",
-    bulletColor: "bg-[#D4AF37]",
+    bulletColor: "bg-[#B38E46]",
     benefits: [
       "Lifetime Membership",
       "Worldwide 5-Star & Luxury Hotel Access",
@@ -442,7 +442,7 @@ export default function Membersec() {
               </RadiantCard>
             </div>
             
-            <div className="mt-16 text-center bg-gradient-to-br from-[#D4AF37] to-[#B38E46] p-12 rounded-none relative overflow-hidden">
+            <div className="mt-16 text-center bg-gradient-to-br from-[#B38E46] to-[#B38E46] p-12 rounded-none relative overflow-hidden">
               <div 
                 className="absolute inset-0 opacity-20 pointer-events-none" 
                 style={{ 
@@ -480,7 +480,7 @@ export default function Membersec() {
                     <th className="p-6 font-semibold w-1/4">Benefit</th>
                     <th className="p-6 text-center font-semibold w-1/4">Luxe Signature <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Domestic</span></th>
                     <th className="p-6 text-center font-semibold w-1/4">Diamond <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Worldwide</span></th>
-                    <th className="p-6 text-center font-semibold w-1/4 bg-gradient-to-t from-[#B38E46]/20 to-transparent text-[#D4AF37]">Imperial <span className="block text-xs text-[#D4AF37]/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Lifetime</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4 bg-gradient-to-t from-[#B38E46]/20 to-transparent text-[#B38E46]">Imperial <span className="block text-xs text-[#B38E46]/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Lifetime</span></th>
                   </tr>
                 </thead>
                 <tbody className="text-sm text-neutral-800 font-[Vera]">

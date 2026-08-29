@@ -158,10 +158,9 @@ const Carousel = () => {
       <div className="max-w-7xl mx-auto">
         {/* 1. Header Block */}
         <div className="text-center flex flex-col items-center mb-4 md:mb-8">
-          <motion.div className="inline-flex items-center gap-2 bg-[#B38E46] border border-[#B38E46] backdrop-blur-md rounded-full px-4 py-1.5 text-xs text-white font-medium tracking-wider uppercase mb-3 md:mb-6">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+          <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
             Explore 200+ Destinations
-          </motion.div>
+          </div>
           <h2 className="text-4xl md:text-8xl tracking-tight text-black mb-2 md:mb-4">
             Popular Destinations
           </h2>
@@ -275,7 +274,10 @@ const Carousel = () => {
                       <p className="font-[Vera] italic text-lg mb-2 drop-shadow-md">
                         {slide.country}
                       </p>
-                      <h2 className="text-3xl md:text-4xl leading-tight uppercase max-w-[80%] mx-auto drop-shadow-md">
+                      <h2
+                        className="text-3xl md:text-4xl leading-tight uppercase max-w-[80%] mx-auto drop-shadow-md font-light tracking-wide"
+                        style={{ fontFamily: "var(--work-font), sans-serif" }}
+                      >
                         {slide.title}
                       </h2>
                     </div>
@@ -292,20 +294,43 @@ const Carousel = () => {
             onClick={prevSlide}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="w-10 h-10 bg-[#B38E46] text-white rounded-full flex items-center justify-center hover:bg-[#997734] shadow-md transition-colors cursor-pointer"
+            className="text-[#B38E46] hover:text-[#997734] transition-colors cursor-pointer drop-shadow-sm"
             aria-label="Previous slide"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={40} strokeWidth={1.5} />
           </motion.button>
           <motion.button
             onClick={nextSlide}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="w-10 h-10 bg-[#B38E46] text-white rounded-full flex items-center justify-center hover:bg-[#997734] shadow-md transition-colors cursor-pointer"
+            className="text-[#B38E46] hover:text-[#997734] transition-colors cursor-pointer drop-shadow-sm"
             aria-label="Next slide"
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={40} strokeWidth={1.5} />
           </motion.button>
+        </div>
+
+        {/* Dot Indicators */}
+        <div className="flex justify-center items-center gap-2 mt-6">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentIndex(i)}
+              className={`transition-all duration-300 rounded-full cursor-pointer ${
+                currentIndex === i
+                  ? "w-2.5 h-2.5 bg-black"
+                  : "w-1.5 h-1.5 bg-neutral-300 hover:bg-neutral-500"
+              }`}
+              aria-label={`Go to destination ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* VIEW ALL Button */}
+        <div className="flex justify-center mt-6">
+          <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-colors rounded-md cursor-pointer">
+            VIEW ALL
+          </button>
         </div>
       </div>
     </section>
