@@ -101,13 +101,13 @@ const SECTION_2_IMAGES: SlideItem[] = [
     caption: "Jaipur"
   },
   {
-    src: "/Img/national resorts/Taj Exotica Resort & Spa Benaulim.avif",
+    src: "/Img/national resorts/Taj-Exotica-Resort-Spa-Benaulim.avif",
     alt: "Taj Exotica Resort & Spa",
     title: "Taj Exotica Resort & Spa",
     caption: "Benaulim"
   },
   {
-    src: "/Img/national resorts/Taj Falaknuma Palace Hyderabad, Telangana.avif",
+    src: "/Img/national resorts/Taj-Falaknuma-Palace-Hyderabad-Telangana.avif",
     alt: "Taj Falaknuma Palace",
     title: "Taj Falaknuma Palace",
     caption: "Hyderabad"

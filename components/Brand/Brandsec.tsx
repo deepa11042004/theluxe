@@ -306,7 +306,7 @@ export const LUXURY_REGIONS: RegionCategory[] = [
         id: "raffles-world",
         name: "RAFFLES",
         subtext: "HOTELS & RESORTS",
-        logoImg: "Worldwide/Raffles_Hotels_&_Resorts_logo.svg.webp",
+        logoImg: "Worldwide/Raffles_Hotels_and_Resorts_logo.svg.webp",
         website: "https://www.raffles.com/",
       },
       {
@@ -326,7 +326,7 @@ export const LUXURY_REGIONS: RegionCategory[] = [
         id: "conrad",
         name: "CONRAD",
         subtext: "HOTELS & RESORTS",
-        logoImg: "Worldwide/Conrad_hotels_&_Resorts.jpg",
+        logoImg: "Worldwide/Conrad_hotels_and_Resorts.jpg",
         website: "https://www.hilton.com/en/conrad/",
       },
       {
