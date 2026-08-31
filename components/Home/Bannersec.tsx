@@ -65,7 +65,7 @@ export default function Bannersec() {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="border border-white bg-transparent text-white px-8 py-3.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-white hover:text-black transition-colors cursor-pointer rounded-md"
+            className="border border-[#B38E46] bg-transparent text-white px-8 py-3.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 cursor-pointer rounded-sm"
           >
             EXPLORE VACATIONS
           </motion.button>

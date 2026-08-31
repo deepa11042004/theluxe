@@ -296,7 +296,7 @@ export default function ItineraryDetail({ id }: { id?: string }) {
               <div className="space-y-3 pt-4">
                 <Link
                   href="/contact"
-                  className="w-full flex items-center justify-center gap-2 bg-[#B38E46] hover:bg-[#997734] text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl transition duration-200 shadow-md cursor-pointer active:scale-95"
+                  className="w-full flex items-center justify-center gap-2 border border-[#B38E46] bg-transparent text-[#B38E46] hover:bg-[#B38E46] hover:text-white font-medium text-xs uppercase tracking-[0.25em] py-3.5 rounded-sm transition-all duration-300 shadow-xs cursor-pointer active:scale-95"
                 >
                   <PhoneCall className="w-4 h-4" />
                   <span>Inquire About This Trip</span>
@@ -304,9 +304,9 @@ export default function ItineraryDetail({ id }: { id?: string }) {
 
                 <Link
                   href="/luxeclub"
-                  className="w-full flex items-center justify-center gap-2 bg-neutral-900 hover:bg-black text-white font-bold text-xs uppercase tracking-widest py-3.5 rounded-xl transition duration-200 cursor-pointer active:scale-95 border border-neutral-800"
+                  className="w-full flex items-center justify-center gap-2 border border-[#B38E46] bg-[#B38E46] hover:bg-[#997734] text-white font-medium text-xs uppercase tracking-[0.25em] py-3.5 rounded-sm transition-all duration-300 cursor-pointer active:scale-95 shadow-sm"
                 >
-                  <ShieldCheck className="w-4 h-4 text-[#E5C158]" />
+                  <ShieldCheck className="w-4 h-4 text-white" />
                   <span>Enrol via Luxe Club</span>
                 </Link>
               </div>
@@ -392,10 +392,10 @@ export default function ItineraryDetail({ id }: { id?: string }) {
           <div className="text-center">
             <Link
               href="/itinerary"
-              className="inline-flex items-center gap-2 bg-neutral-900 hover:bg-black text-white font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition duration-300 shadow-md active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 border border-[#B38E46] bg-transparent text-[#B38E46] hover:bg-[#B38E46] hover:text-white font-medium text-xs uppercase tracking-[0.25em] px-8 py-3.5 rounded-sm transition-all duration-300 shadow-xs active:scale-95 cursor-pointer"
             >
               <span>View All Itineraries</span>
-              <ArrowRight className="w-4 h-4 text-[#E5C158]" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

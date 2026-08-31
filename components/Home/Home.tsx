@@ -99,24 +99,24 @@ export default function Home() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 grow max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center pt-32 sm:pt-40 pb-8 sm:pb-12"
+        className="relative z-10 grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center pt-24 sm:pt-28 pb-6 sm:pb-8"
       >
         {/* Hero Headlines */}
         <motion.h1
           variants={itemVariants}
-          className="text-5xl md:text-6xl lg:text-8xl font-[Vera] tracking-tight text-white max-w-4xl leading-tight md:leading-tightest drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] xl:text-[7.25rem] font-[Vera] tracking-tight text-white leading-tight drop-shadow-[0_4px_25px_rgba(0,0,0,0.85)]"
         >
           Discover Your Next <br className="hidden sm:block" />
-          <span className="text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]">
+          <span className="text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.85)]">
             Dream Vacation
           </span>
         </motion.h1>
 
         {/* Subtitle */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={itemVariants} className="mt-8 sm:mt-12 md:mt-16">
           <p 
-            className="inline-block bg-black/40 backdrop-blur-md rounded-sm text-[10px] md:text-[11px] px-8 py-4 md:px-12 md:py-4 mt-10 sm:mt-14 mb-8 sm:mb-12 tracking-[0.25em] uppercase font-medium shadow-lg border border-white/20"
-            style={{ color: "white" }}
+            className="inline-block bg-black/45 backdrop-blur-md rounded-sm text-[10px] md:text-[11.5px] px-6 py-3.5 md:px-10 md:py-4 tracking-[0.18em] md:tracking-[0.25em] uppercase font-medium shadow-lg border border-white/25"
+            style={{ color: "#ffffff" }}
           >
             Explore luxury boutique resorts and tailored holiday experiences.
           </p>
@@ -125,19 +125,23 @@ export default function Home() {
         {/* Slider Indicator Dots */}
         <motion.div
           variants={itemVariants}
-          className="flex items-center gap-2 mt-10"
+          className="flex items-center justify-center gap-3 mt-6 sm:mt-8"
         >
           {HERO_SLIDES.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentSlide(idx)}
-              className={`rounded-full transition-all duration-500 cursor-pointer ${
-                idx === currentSlide
-                  ? "w-3 h-3 bg-[#B38E46] shadow-sm"
-                  : "w-2 h-2 bg-black/30 hover:bg-black/60"
-              }`}
+              className="focus:outline-none cursor-pointer p-1"
               aria-label={`Go to slide ${idx + 1}`}
-            />
+            >
+              <div
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  idx === currentSlide
+                    ? "bg-white scale-125 shadow-sm"
+                    : "bg-white/40 hover:bg-white/70"
+                }`}
+              />
+            </button>
           ))}
         </motion.div>
       </motion.div>

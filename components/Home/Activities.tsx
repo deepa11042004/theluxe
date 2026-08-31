@@ -108,7 +108,7 @@ export default function Activities() {
             EXPLORE 200+ EXPERIENCES
           </div>
 
-          <h2 className="text-3xl md:text-8xl tracking-tight text-neutral-900 mb-5 max-w-3xl font-serif">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl tracking-tight text-neutral-900 mb-5 max-w-3xl font-serif">
             Good Reasons to Choose Us
           </h2>
 

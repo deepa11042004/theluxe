@@ -134,7 +134,7 @@ export default function Clientsec() {
         <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
           TESTIMONIALS
         </div>
-        <h2 className="text-4xl md:text-8xl font-serif tracking-tight text-black">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black">
           What Our Clients Say
         </h2>
       </motion.div>

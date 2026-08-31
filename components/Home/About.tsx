@@ -53,10 +53,10 @@ export default function About() {
           </div>
 
           {/* Luxury Serif Headline matching other section headers */}
-          <h2 className="text-4xl md:text-8xl font-serif tracking-tight text-black mb-4">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
             Travel Beyond Ordinary
           </h2>
-          <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-light text-black uppercase tracking-wider mb-6">
+          <p className="text-xl sm:text-2xl md:text-3xl font-serif font-light text-black uppercase tracking-wider mb-6">
             DISCOVER A WORLD OF PRIVILEGES
           </p>
 

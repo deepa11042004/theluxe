@@ -90,12 +90,12 @@ function ItineraryCard({ item }: CardProps) {
         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
       />
 
-      {/* Dark Gradient Overlay for text contrast */}
+      {/* Gradient Overlay only behind bottom text (Top 65% 100% clear without black shade) */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.2) 100%)",
+            "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.65) 35%, rgba(0,0,0,0) 65%)",
         }}
       />
 
@@ -146,7 +146,7 @@ export default function Itinerary() {
           <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
             EXPERIENCE LUXURY, ADVENTURE & CULTURE
           </div>
-          <h2 className="text-4xl md:text-8xl font-serif tracking-tight text-black mb-4">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
             Exclusive Itinerary
           </h2>
           <p className="text-xs md:text-sm max-w-xl leading-relaxed text-neutral-600">
@@ -173,7 +173,7 @@ export default function Itinerary() {
         {/* SEE MORE ITINERARIES Button */}
         <div className="flex justify-center mt-12">
           <Link href="/itinerary">
-            <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-colors rounded-md cursor-pointer">
+            <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 rounded-sm cursor-pointer">
               SEE MORE ITINERARIES
             </button>
           </Link>

@@ -181,7 +181,7 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-8 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white py-3.5 rounded-xl font-bold tracking-wider text-sm transition-all uppercase shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full mt-8 border border-[#B38E46] bg-[#B38E46] hover:bg-[#997734] active:scale-[0.98] text-white py-3.5 rounded-sm font-medium tracking-[0.25em] text-xs sm:text-sm transition-all uppercase shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

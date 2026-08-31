@@ -410,7 +410,7 @@ export default function Joinsec() {
                   scale: 1.02,
                 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-2 bg-black text-white text-sm font-bold px-7 py-3 rounded-full transition-all cursor-pointer"
+                className="flex items-center gap-2 border border-[#B38E46] bg-transparent text-[#B38E46] hover:bg-[#B38E46] hover:text-white font-medium text-xs sm:text-sm uppercase tracking-[0.25em] px-7 py-3 rounded-sm transition-all duration-300 shadow-xs cursor-pointer"
               >
                 Complete Submission
                 <CheckCircle2 size={15} />

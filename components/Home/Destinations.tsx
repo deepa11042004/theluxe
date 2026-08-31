@@ -161,7 +161,7 @@ const Carousel = () => {
           <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
             Explore 200+ Destinations
           </div>
-          <h2 className="text-4xl md:text-8xl tracking-tight text-black mb-2 md:mb-4">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-2 md:mb-4">
             Popular Destinations
           </h2>
           <p className="text-sm md:text-lg max-w-xl leading-relaxed">
@@ -311,24 +311,28 @@ const Carousel = () => {
         </div>
 
         {/* Dot Indicators */}
-        <div className="flex justify-center items-center gap-2 mt-6">
+        <div className="flex items-center justify-center gap-3 mt-6">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentIndex(i)}
-              className={`transition-all duration-300 rounded-full cursor-pointer ${
-                currentIndex === i
-                  ? "w-2.5 h-2.5 bg-black"
-                  : "w-1.5 h-1.5 bg-neutral-300 hover:bg-neutral-500"
-              }`}
+              className="focus:outline-none cursor-pointer p-1"
               aria-label={`Go to destination ${i + 1}`}
-            />
+            >
+              <div
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  currentIndex === i
+                    ? "bg-black scale-125"
+                    : "bg-gray-300 hover:bg-gray-400"
+                }`}
+              />
+            </button>
           ))}
         </div>
 
         {/* VIEW ALL Button */}
         <div className="flex justify-center mt-6">
-          <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-colors rounded-md cursor-pointer">
+          <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 rounded-sm cursor-pointer">
             VIEW ALL
           </button>
         </div>

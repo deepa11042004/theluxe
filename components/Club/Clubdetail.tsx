@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
-import { ArrowLeft, ArrowRight, ShieldCheck, Check, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ShieldCheck, Check, X, ChevronLeft, ChevronRight, Hotel, Gift, Plane, Globe, Headphones } from "lucide-react";
 import Image from "next/image";
 
 const HotelIcon = () => (
@@ -69,42 +69,23 @@ const BellIcon = () => (
   </svg>
 );
 
-// Radiant Card Component
-const RadiantCard = ({ title, icon, children, className = "" }: { title: string, icon: React.ReactNode, children: React.ReactNode, className?: string }) => (
-  <div className={`relative overflow-hidden bg-white p-8 rounded-3xl border border-neutral-100 shadow-[0_4px_24px_rgba(0,0,0,0.04)] group ${className}`}>
-    
-    {/* Gradient Base */}
-    <div 
-      className="absolute bottom-0 left-0 right-0 h-[70%] z-0 pointer-events-none transition-opacity duration-700 opacity-60 group-hover:opacity-100"
-      style={{
-        background: `
-          radial-gradient(circle at 10% 100%, rgba(74, 222, 128, 0.6) 0%, transparent 60%),
-          radial-gradient(circle at 50% 100%, rgba(250, 204, 21, 0.6) 0%, transparent 60%),
-          radial-gradient(circle at 90% 100%, rgba(251, 146, 60, 0.6) 0%, transparent 60%)
-        `
-      }}
-    />
-
-    {/* Rays */}
-    <div 
-      className="absolute inset-0 z-0 pointer-events-none opacity-50"
-      style={{
-        background: 'repeating-conic-gradient(from 270deg at 50% 100%, transparent 0deg, transparent 1.5deg, white 1.6deg, white 2.1deg)',
-        maskImage: 'linear-gradient(to top, black 10%, transparent 70%)',
-        WebkitMaskImage: 'linear-gradient(to top, black 10%, transparent 70%)',
-      }}
-    />
-
-    {/* Content */}
-    <div className="relative z-10">
-      <h4 className="text-xl font-bold font-sans tracking-tight text-neutral-900 mb-4 flex items-center gap-3">
-        {icon && <span className="flex-shrink-0 drop-shadow-sm">{icon}</span>}
-        {title}
-      </h4>
-      <div className="text-neutral-800 font-[Vera] font-medium text-sm xl:text-base leading-relaxed tracking-wide">
-        {children}
-      </div>
+// Modern Luxury Benefit Card Component
+const BenefitCard = ({ title, icon, items, className = "" }: { title: string, icon: React.ReactNode, items: string[], className?: string }) => (
+  <div className={`bg-white p-8 rounded-none border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-[#B38E46]/60 transition-all duration-300 group flex flex-col text-left ${className}`}>
+    <div className="w-12 h-12 rounded-sm bg-[#B38E46]/10 border border-[#B38E46]/30 flex items-center justify-center text-[#B38E46] mb-6 group-hover:bg-[#B38E46] group-hover:text-white transition-colors duration-300">
+      {icon}
     </div>
+    <h4 className="text-xl font-[Vera] tracking-tight text-neutral-900 mb-5 font-bold">
+      {title}
+    </h4>
+    <ul className="space-y-3 font-sans">
+      {items.map((item, idx) => (
+        <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-neutral-700 font-medium leading-relaxed">
+          <Check className="w-4 h-4 text-[#B38E46] mt-0.5 shrink-0" strokeWidth={2.5} />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
   </div>
 );
 
@@ -168,11 +149,13 @@ const CAROUSEL_PRIVILEGES = [
 
 const MEMBERSHIPS = [
   {
+    id: "signature",
     title: "LUXE SIGNATURE",
-    subtitle: "One Year Domestic — ₹12,999. One full year of premium hotel privileges, exclusive rates and travel benefits across India.",
-    bgClass: "bg-gradient-to-br from-[#2a2a2a] via-[#1a1a1a] to-[#0a0a0a] text-white border-white/10",
-    lineColor: "rgba(255,255,255,0.08)",
-    bulletColor: "bg-[#B38E46]",
+    price: "₹ 12,999",
+    duration: "ONE YEAR • DOMESTIC",
+    subtitle: "One full year of premium hotel privileges, exclusive rates and travel benefits across India.",
+    bgClass: "bg-gradient-to-b from-[#141414] via-[#0d0d0d] to-[#050505] text-white border-neutral-800 hover:border-[#B38E46]/60",
+    badge: null,
     benefits: [
       "5-Star & Premium Hotel Access",
       "Exclusive Member Rates & Privileges",
@@ -186,11 +169,13 @@ const MEMBERSHIPS = [
     ],
   },
   {
+    id: "diamond",
     title: "LUXE DIAMOND",
-    subtitle: "One Year Worldwide — ₹19,999. Your gateway to premium travel privileges across India and worldwide.",
-    bgClass: "bg-gradient-to-br from-[#0B2545] via-[#091F3A] to-[#041226] text-white border-white/10",
-    lineColor: "rgba(255,255,255,0.08)",
-    bulletColor: "bg-[#B38E46]",
+    price: "₹ 19,999",
+    duration: "ONE YEAR • WORLDWIDE",
+    subtitle: "Your gateway to 5-star hotel privileges and premium travel benefits across India and worldwide.",
+    bgClass: "bg-gradient-to-b from-[#0e1d35] via-[#091426] to-[#040914] text-white border-[#B38E46]/50 hover:border-[#B38E46] shadow-xl shadow-[#B38E46]/10",
+    badge: "MOST POPULAR",
     benefits: [
       "Everything in Luxe Signature",
       "Worldwide 5-Star & Luxury Hotel Access",
@@ -205,11 +190,13 @@ const MEMBERSHIPS = [
     ],
   },
   {
+    id: "imperial",
     title: "LUXE IMPERIAL",
-    subtitle: "Lifetime Membership — ₹49,999. Pay once and enjoy The Luxe Yatra lifestyle worldwide for a lifetime.",
-    bgClass: "bg-gradient-to-br from-[#2c7a72] via-[#205c56] to-[#123834] text-white border-white/10",
-    lineColor: "rgba(255,255,255,0.08)",
-    bulletColor: "bg-[#B38E46]",
+    price: "₹ 49,999",
+    duration: "LIFETIME • WORLDWIDE",
+    subtitle: "Pay once and enjoy The Luxe Yatra lifestyle and worldwide privileges for a lifetime.",
+    bgClass: "bg-gradient-to-b from-[#0a2e29] via-[#061d19] to-[#020d0b] text-white border-emerald-900/60 hover:border-[#B38E46]/60",
+    badge: "LIFETIME ACCESS",
     benefits: [
       "Lifetime Membership",
       "Worldwide 5-Star & Luxury Hotel Access",
@@ -279,20 +266,25 @@ export default function Membersec() {
           </svg>
         </div>
 
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-linear-to-tr from-neutral-900 to-neutral-800 border border-neutral-700/60 shadow-xl mb-6">
-          <span className="text-white font-[Vera] text-xl tracking-wider">
-            LC
-          </span>
+        {/* Micro-Header Tag */}
+        <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
+          LUXE CLUB
         </div>
 
-        <h2 className="text-lg tracking-[0.3em] text-black uppercase mb-3">
-          Luxe Club
-        </h2>
-        <h3 className="text-3xl md:text-5xl tracking-tight text-neutral-900 mb-6">
+        {/* Luxury Serif Headline matching About section */}
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
           A World of Privileged Access
-        </h3>
+        </h2>
+        <p className="text-xl sm:text-2xl md:text-3xl font-serif font-light text-black uppercase tracking-wider mb-6">
+          DISCOVER A WORLD OF PRIVILEGES
+        </p>
 
-        <p className="font-[Vera] text-sm xl:text-base leading-relaxed tracking-wide max-w-3xl mx-auto mb-16">
+        {/* Small Golden Vertical Divider */}
+        <div className="flex justify-center my-6">
+          <div className="w-[1.5px] h-12 md:h-16 bg-[#B38E46]/80"></div>
+        </div>
+
+        <p className="text-black text-sm sm:text-base xl:text-lg leading-relaxed tracking-wide max-w-3xl mx-auto mb-16">
           Luxe Club unlocks privileged access to 140+ premium resorts,
           offering 7 nights/8 days holidays every year — filled with cherished
           family moments and thoughtfully crafted experiences.
@@ -300,7 +292,12 @@ export default function Membersec() {
 
         {/* HORIZONTAL SLIDING PRIVILEGES CAROUSEL */}
         <div className="w-full relative flex flex-col items-center mt-4">
-          <h4 className="text-3xl tracking-wider text-neutral-900 font-medium mb-10">
+          {/* Small Golden Vertical Divider */}
+          <div className="flex justify-center mb-6">
+            <div className="w-[1.5px] h-12 md:h-16 bg-[#B38E46]/80"></div>
+          </div>
+
+          <h4 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-black mb-10">
             Handpicked Privileges
           </h4>
 
@@ -316,7 +313,7 @@ export default function Membersec() {
               {CAROUSEL_PRIVILEGES.map((item) => (
                 <div
                   key={item.id}
-                  className="relative shrink-0 w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] aspect-3/4 rounded-3xl overflow-hidden border border-neutral-200/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-500 bg-neutral-100 cursor-pointer group"
+                  className="relative shrink-0 w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] aspect-3/4 rounded-none overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 bg-black cursor-pointer group"
                 >
                   <Image
                     src={item.image}
@@ -326,54 +323,85 @@ export default function Membersec() {
                     className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
 
-                  {/* Overlay Gradient for better text readability */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60" />
+                  {/* Overlay Gradient for text readability */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0) 75%)",
+                    }}
+                  />
 
-                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md px-4 py-3.5 rounded-2xl text-center shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                    <span className="text-neutral-900 text-xs sm:text-sm font-[Vera] font-bold tracking-tight block truncate group-hover:text-[#B38E46] transition-colors">
-                      {item.title}
+                  <div className="absolute inset-0 p-5 flex flex-col justify-end text-white z-10 text-left">
+                    <span className="text-[10px] text-white/80 uppercase tracking-widest font-medium mb-1 font-[Vera]">
+                      LUXE PRIVILEGE
                     </span>
+                    <h5
+                      className="text-base md:text-lg font-medium text-white leading-snug group-hover:text-[#B38E46] transition-colors duration-200"
+                      style={{ color: "#ffffff", fontFamily: "var(--work-font), sans-serif" }}
+                    >
+                      {item.title}
+                    </h5>
                   </div>
                 </div>
               ))}
             </motion.div>
           </div>
 
-          {/* Carousel Control Buttons */}
-          <div className="flex items-center gap-3 mt-10">
+          {/* Carousel Control Arrows & Dots */}
+          <div className="flex items-center justify-center gap-6 mt-10">
             <button
               onClick={handlePrev}
               disabled={isFirstSlide}
-              className={`p-3 border rounded-full transition-all bg-white active:scale-95 text-[#B38E46]
-                ${isFirstSlide ? "border-neutral-200 bg-neutral-50/40 text-neutral-400 cursor-not-allowed active:scale-100" : "border-[#B38E46] hover:bg-[#B38E46] hover:text-white shadow-md"}`}
+              className="text-[#B38E46] hover:text-[#997734] transition-all hover:scale-110 disabled:opacity-30 cursor-pointer drop-shadow-md"
               aria-label="Previous Privileges"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ChevronLeft className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1.2} />
             </button>
+
+            {/* Standardized Dot Indicators */}
+            <div className="flex items-center justify-center gap-3">
+              {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCarouselIndex(i)}
+                  className="focus:outline-none cursor-pointer p-1"
+                  aria-label={`Go to slide ${i + 1}`}
+                >
+                  <div
+                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                      i === carouselIndex
+                        ? "bg-black scale-125"
+                        : "bg-gray-300 hover:bg-gray-400"
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+
             <button
               onClick={handleNext}
               disabled={isLastSlide}
-              className={`p-3 border rounded-full transition-all bg-white active:scale-95 text-[#B38E46]
-                ${isLastSlide ? "border-neutral-200 bg-neutral-50/40 text-neutral-400 cursor-not-allowed active:scale-100" : "border-[#B38E46] hover:bg-[#B38E46] hover:text-white shadow-md"}`}
+              className="text-[#B38E46] hover:text-[#997734] transition-all hover:scale-110 disabled:opacity-30 cursor-pointer drop-shadow-md"
               aria-label="Next Privileges"
             >
-              <ArrowRight className="w-4 h-4" />
+              <ChevronRight className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1.2} />
             </button>
           </div>
         </div>
       </div>
 
       {/* SECTION 2: MEMBERSHIP PLANS */}
-      <div className="bg-white text-black rounded-t-[2.5rem] py-24 px-6 w-full">
-        <div className="max-w-7xl mx-auto text-center">
-          <h3 className="text-2xl md:text-6xl tracking-tight text-black mb-5">
+      <div className="bg-white text-black border-t border-neutral-200 py-20 md:py-24 px-6 w-full">
+        <div className="max-w-7xl mx-auto text-center flex flex-col items-center">
+          <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
+            EXPLORE MEMBERSHIPS
+          </div>
+          <h3 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
             Your Key to Unlock Privileged Experiences
           </h3>
-          <p className="font-[Vera] text-sm xl:text-base leading-relaxed tracking-wide mb-14 uppercase">
-            Select from <span className="text-black font-bold">Signature</span>,{" "}
-            <span className="text-neutral-900 font-bold">Diamond</span>, and{" "}
-            <span className="text-[#165B54] font-bold">Imperial</span> Cards and
-            enter a world of seamless vacations
+          <p className="text-xs md:text-sm max-w-xl leading-relaxed text-neutral-600 mb-14">
+            Select from Signature, Diamond, and Imperial cards and enter a world of seamless vacations.
           </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-14">
@@ -384,62 +412,79 @@ export default function Membersec() {
 
 
           {/* NEW SECTION: GENERAL BENEFITS */}
-          <div className="text-left mt-16 max-w-5xl mx-auto">
-            <h3 className="text-3xl md:text-5xl tracking-tight text-center text-black mb-16">
-              MEMBER BENEFITS
+          <div className="text-center mt-20 pt-20 border-t border-neutral-200 max-w-5xl mx-auto flex flex-col items-center w-full">
+            <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
+              EXCLUSIVE PRIVILEGES
+            </div>
+            <h3 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
+              Member Benefits
             </h3>
+            <p className="text-xs md:text-sm max-w-xl leading-relaxed text-neutral-600 mb-14">
+              Unlock exclusive luxury hotel vouchers, dining privileges, and complete travel services designed around your lifestyle.
+            </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-              <RadiantCard title="Luxury Hotel Benefits" icon={<HotelIcon />}>
-                <ul className="space-y-2">
-                  <li>• Access to 10,000+ hotels & resorts</li>
-                  <li>• Premium 4★ & 5★ hotel offers</li>
-                  <li>• Exclusive member rates</li>
-                  <li>• Luxury hotel discounts</li>
-                  <li>• Special hotel packages & seasonal offers</li>
-                  <li>• Selected property upgrades & added privileges</li>
-                </ul>
-              </RadiantCard>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <BenefitCard
+                title="Luxury Hotel Benefits"
+                icon={<Hotel className="w-6 h-6" />}
+                items={[
+                  "Access to 10,000+ hotels & resorts",
+                  "Premium 4★ & 5★ hotel offers",
+                  "Exclusive member rates",
+                  "Luxury hotel discounts",
+                  "Special hotel packages & seasonal offers",
+                  "Selected property upgrades & added privileges",
+                ]}
+              />
 
-              <RadiantCard title="₹50,000 Welcome Benefits" icon={<GiftIcon />}>
-                <ul className="space-y-2">
-                  <li>• Luxury hotel vouchers</li>
-                  <li>• Partner hotel vouchers</li>
-                  <li>• Dining & lifestyle vouchers</li>
-                  <li>• Special travel offers</li>
-                </ul>
-              </RadiantCard>
+              <BenefitCard
+                title="₹50,000 Welcome Benefits"
+                icon={<Gift className="w-6 h-6" />}
+                items={[
+                  "Luxury hotel vouchers",
+                  "Partner hotel vouchers",
+                  "Dining & lifestyle vouchers",
+                  "Special travel offers",
+                ]}
+              />
 
-              <RadiantCard title="Complete Travel Benefits" icon={<PlaneIcon />}>
-                <ul className="space-y-2">
-                  <li>• Domestic & international flights</li>
-                  <li>• Holiday packages</li>
-                  <li>• Airport transfers</li>
-                  <li>• Visa assistance</li>
-                  <li>• Travel insurance assistance</li>
-                  <li>• Cruises & luxury experiences</li>
-                </ul>
-              </RadiantCard>
+              <BenefitCard
+                title="Complete Travel Benefits"
+                icon={<Plane className="w-6 h-6" />}
+                items={[
+                  "Domestic & international flights",
+                  "Holiday packages",
+                  "Airport transfers",
+                  "Visa assistance",
+                  "Travel insurance assistance",
+                  "Cruises & luxury experiences",
+                ]}
+              />
 
-              <RadiantCard title="Bespoke Travel" icon={<GlobeIcon />}>
-                <ul className="space-y-2">
-                  <li>• Personalised holiday planning</li>
-                  <li>• International destinations</li>
-                  <li>• Family vacations</li>
-                  <li>• Honeymoon & romantic getaways</li>
-                  <li>• Destination weddings</li>
-                  <li>• Corporate & group travel</li>
-                </ul>
-              </RadiantCard>
+              <BenefitCard
+                title="Bespoke Travel"
+                icon={<Globe className="w-6 h-6" />}
+                items={[
+                  "Personalised holiday planning",
+                  "International destinations",
+                  "Family vacations",
+                  "Honeymoon & romantic getaways",
+                  "Destination weddings",
+                  "Corporate & group travel",
+                ]}
+              />
 
-              <RadiantCard title="Luxe Concierge" icon={<BellIcon />} className="md:col-span-2 lg:col-span-1">
-                <ul className="space-y-2">
-                  <li>• Dedicated booking assistance</li>
-                  <li>• Hotel & holiday recommendations</li>
-                  <li>• Special occasion arrangements</li>
-                  <li>• Priority travel assistance</li>
-                </ul>
-              </RadiantCard>
+              <BenefitCard
+                title="Luxe Concierge"
+                icon={<Headphones className="w-6 h-6" />}
+                className="md:col-span-2 lg:col-span-1"
+                items={[
+                  "Dedicated booking assistance",
+                  "Hotel & holiday recommendations",
+                  "Special occasion arrangements",
+                  "Priority travel assistance",
+                ]}
+              />
             </div>
             
             <div className="mt-16 text-center bg-gradient-to-br from-[#B38E46] to-[#B38E46] p-12 rounded-none relative overflow-hidden">
@@ -469,18 +514,18 @@ export default function Membersec() {
 
           {/* NEW SECTION: COMPARISON TABLE */}
           <div className="mt-24 max-w-6xl mx-auto pb-10 px-4 sm:px-6 w-full">
-            <h3 className="text-3xl md:text-4xl tracking-tight text-center text-black mb-12">
+            <h3 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-center text-black mb-12">
               Membership Comparison
             </h3>
             
-            <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-neutral-100 overflow-x-auto w-full">
+            <div className="bg-white rounded-none shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-neutral-200 overflow-x-auto w-full">
               <table className="w-full text-left border-collapse min-w-[800px]">
                 <thead>
-                  <tr className="bg-neutral-900 text-white text-sm uppercase tracking-wider font-[Vera]">
+                  <tr className="bg-[rgb(25,25,112)] text-white text-sm uppercase tracking-wider font-[Vera]">
                     <th className="p-6 font-semibold w-1/4">Benefit</th>
-                    <th className="p-6 text-center font-semibold w-1/4">Luxe Signature <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Domestic</span></th>
-                    <th className="p-6 text-center font-semibold w-1/4">Diamond <span className="block text-xs text-neutral-400 mt-1 capitalize font-[Vera] font-medium tracking-normal">Worldwide</span></th>
-                    <th className="p-6 text-center font-semibold w-1/4 bg-gradient-to-t from-[#B38E46]/20 to-transparent text-[#B38E46]">Imperial <span className="block text-xs text-[#B38E46]/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Lifetime</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4">Luxe Signature <span className="block text-xs text-indigo-200/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Domestic</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4">Diamond <span className="block text-xs text-indigo-200/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Worldwide</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4 text-[#B38E46]">Imperial <span className="block text-xs text-[#B38E46]/80 mt-1 capitalize font-[Vera] font-medium tracking-normal">Lifetime</span></th>
                   </tr>
                 </thead>
                 <tbody className="text-sm text-neutral-800 font-[Vera]">
@@ -608,8 +653,8 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
     const rect = element.getBoundingClientRect();
     const mouseX = e.clientX - rect.left - rect.width / 2;
     const mouseY = e.clientY - rect.top - rect.height / 2;
-    rotateX.set(-(mouseY / rect.height) * 14);
-    rotateY.set((mouseX / rect.width) * 14);
+    rotateX.set(-(mouseY / rect.height) * 10);
+    rotateY.set((mouseX / rect.width) * 10);
   };
 
   const handleMouseLeave = () => {
@@ -625,45 +670,62 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ transform }}
-      className={`relative rounded-3xl p-8 border flex flex-col justify-between text-left transition-all duration-150 ease-out shadow-md select-none overflow-hidden h-full min-h-120 ${card.bgClass}`}
+      className={`relative rounded-none p-8 sm:p-9 border flex flex-col justify-between text-left transition-all duration-300 ease-out shadow-xl select-none overflow-hidden h-full min-h-[580px] group ${card.bgClass}`}
     >
-      <div
-        className="absolute top-0 right-0 w-60 h-40 pointer-events-none select-none opacity-40 z-0"
-        style={{ color: card.lineColor }}
-      >
-        <svg
-          viewBox="0 0 100 100"
-          className="w-full h-full stroke-current fill-none stroke-[0.75]"
-        >
-          <path d="M30,-20 Q80,20 130,40 M10,-20 Q70,30 130,60 M-10,-20 Q60,40 130,80 M-30,-20 Q50,50 130,100" />
-        </svg>
-      </div>
+      {/* Top Badge */}
+      {card.badge && (
+        <div className="absolute top-0 right-0 z-20">
+          <span className="inline-block bg-[#B38E46] text-white text-[9px] font-[Vera] font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-bl-sm shadow-md">
+            {card.badge}
+          </span>
+        </div>
+      )}
 
+      {/* Card Content Top */}
       <div className="relative z-10">
-        <h4 className="text-3xl font-extrabold tracking-wide mb-4 font-sans">
+        <h4 className="text-2xl sm:text-3xl font-[Vera] tracking-wider text-white mb-2">
           {card.title}
         </h4>
-        <p className="text-sm leading-relaxed mb-6 border-b border-neutral-700/20 pb-6">
+
+        {/* Price & Duration */}
+        <div className="my-4 flex flex-col gap-1">
+          <div className="text-3xl sm:text-4xl font-serif text-[#B38E46] font-medium tracking-tight">
+            {card.price}
+          </div>
+          <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-white/80" style={{ color: "rgba(255, 255, 255, 0.8)" }}>
+            {card.duration}
+          </div>
+        </div>
+
+        <p className="text-xs sm:text-sm leading-relaxed font-light mb-6 border-b border-white/15 pb-6 text-white" style={{ color: "#ffffff" }}>
           {card.subtitle}
         </p>
 
-        <h5 className="text-xs font-bold tracking-wider uppercase mb-4 flex items-center gap-1.5">
-          <ShieldCheck className="w-4 h-4 opacity-70" /> Benefits:
+        <h5 className="text-[10px] font-bold tracking-[0.25em] text-[#B38E46] uppercase mb-4 flex items-center gap-1.5 font-[Vera]">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#B38E46]" /> Included Benefits:
         </h5>
 
-        <ul className="space-y-3.5">
+        <ul className="space-y-3">
           {card.benefits.map((benefit, i) => (
             <li
               key={i}
-              className="flex items-start gap-2.5 text-xs leading-relaxed"
+              className="flex items-start gap-3 text-xs leading-relaxed text-white/90"
             >
-              <span
-                className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 ${card.bulletColor}`}
-              />
-              <span className="text-sm font-medium">{benefit}</span>
+              <Check className="w-3.5 h-3.5 text-[#B38E46] mt-0.5 shrink-0" strokeWidth={2.5} />
+              <span className="font-light tracking-wide">{benefit}</span>
             </li>
           ))}
         </ul>
+      </div>
+
+      {/* CTA Button Bottom */}
+      <div className="relative z-10 mt-8 pt-6 border-t border-white/10">
+        <a
+          href="/join"
+          className="w-full py-3.5 inline-flex items-center justify-center border border-[#B38E46] text-[#B38E46] hover:bg-[#B38E46] hover:text-white transition-all duration-300 text-xs tracking-[0.25em] uppercase font-medium rounded-sm shadow-sm cursor-pointer"
+        >
+          SELECT PLAN
+        </a>
       </div>
     </motion.div>
   );

@@ -41,7 +41,7 @@ export default function Blog() {
           <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
             LATEST ARTICLES & INSIGHTS
           </div>
-          <h2 className="text-4xl md:text-8xl font-serif tracking-tight text-black mb-4">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
             Blogs
           </h2>
         </div>
@@ -110,7 +110,7 @@ export default function Blog() {
         >
           <Link
             href="/blogs"
-            className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-colors cursor-pointer rounded-md"
+            className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 cursor-pointer rounded-sm"
           >
             VIEW ALL
           </Link>

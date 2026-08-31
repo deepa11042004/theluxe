@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Search, X } from "lucide-react";
+import { ArrowRight, MapPin, Search, X } from "lucide-react";
 
 // Types
 export interface ExperienceItem {
@@ -188,11 +188,11 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                     setActiveCategory(cat);
                     setSearchQuery(""); // Clear search when switching categories
                   }}
-                  className={`text-[11px] sm:text-xs font-[Vera] font-bold tracking-widest uppercase px-5 py-2.5 rounded-full border transition-all duration-300 active:scale-95 cursor-pointer
+                  className={`text-xs tracking-[0.25em] font-medium uppercase px-7 py-2.5 rounded-sm border transition-all duration-300 active:scale-95 cursor-pointer
                     ${
                       isSelected
-                        ? "bg-[#B38E46] text-white border-[#B38E46] shadow-md"
-                        : "bg-transparent text-neutral-600 border-neutral-300 hover:text-neutral-900 hover:border-neutral-800"
+                        ? "bg-[#B38E46] text-white border-[#B38E46] shadow-sm"
+                        : "bg-white text-[#B38E46] border-[#B38E46] hover:bg-[#B38E46] hover:text-white"
                     }`}
                 >
                   {cat}
@@ -204,7 +204,7 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
 
         {/* 2. SEARCH BAR */}
         <div className="max-w-md mx-auto mb-12 relative">
-          <div className="relative flex items-center bg-neutral-50/80 border border-neutral-200 focus-within:border-[#B38E46] rounded-full px-5 py-3.5 transition-all duration-300 shadow-xs">
+          <div className="relative flex items-center bg-white border border-[#B38E46] rounded-sm px-5 py-3.5 transition-all duration-300 shadow-2xs">
             <Search className="w-4 h-4 text-[#B38E46] mr-3 shrink-0" />
             <input
               type="text"
@@ -216,10 +216,10 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="p-1 hover:bg-neutral-200 rounded-full transition-colors shrink-0"
+                className="p-1 hover:bg-neutral-100 rounded-full transition-colors shrink-0 cursor-pointer"
                 aria-label="Clear search"
               >
-                <X className="w-3.5 h-3.5 text-black" />
+                <X className="w-3.5 h-3.5 text-neutral-600" />
               </button>
             )}
           </div>
@@ -249,53 +249,72 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
             {filteredExperiences.map((exp) => (
               <motion.div
                 layout
-                initial={{ opacity: 0, scale: 0.96, y: 15 }}
+                initial={{ opacity: 0, scale: 0.98, y: 15 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                transition={{ type: "spring", stiffness: 180, damping: 22 }}
+                exit={{ opacity: 0, scale: 0.97, y: 10 }}
+                transition={{ duration: 0.4 }}
                 key={exp.id}
-                className="flex flex-col justify-between items-start group cursor-pointer w-full bg-white rounded-3xl border border-neutral-200/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-500 overflow-hidden"
+                className="group relative h-[480px] w-full bg-black border-0 rounded-none overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer"
               >
-                {/* Media Image Area Container */}
-                <div className="w-full relative aspect-4/3 rounded-t-3xl overflow-hidden bg-neutral-100 shrink-0">
-                  <Image
-                    src={exp.image}
-                    alt={`${exp.title} - ${exp.location}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
+                {/* Full Bleed Background Image stretched full card */}
+                <Image
+                  src={exp.image}
+                  alt={`${exp.title} - ${exp.location}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover w-full h-full absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+
+                {/* Gradient Overlay only behind bottom text (Top 65% 100% clear without black shade) */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.65) 35%, rgba(0,0,0,0) 65%)",
+                  }}
+                />
+
+                {/* Category Tag at Top */}
+                <div className="absolute top-4 left-4 z-10">
+                  <span className="bg-black/50 backdrop-blur-md text-white text-[10px] tracking-[0.2em] uppercase font-light px-3 py-1.5 border border-white/20">
+                    {exp.category ? exp.category.toUpperCase() : "EXPERIENCE"}
+                  </span>
                 </div>
 
-                {/* Content Block */}
-                <div className="p-6 grow flex flex-col justify-between w-full">
-                  <div>
-                    {/* Location Name */}
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-[#B38E46] uppercase tracking-widest mb-2 font-[Vera]">
-                      <span>{exp.location}</span>
-                    </div>
-                    
-                    {/* Property Name */}
-                    <h3 className="text-xl font-bold tracking-tight text-neutral-900 mb-3 group-hover:text-[#B38E46] transition-colors leading-snug">
-                      {exp.title}
-                    </h3>
-                    
-                    {/* Description */}
-                    <p className="text-sm leading-relaxed tracking-wide line-clamp-3 mb-4">
-                      {exp.description}
-                    </p>
+                {/* Content Layer Overlayed on Image */}
+                <div className="absolute inset-0 p-6 sm:p-7 flex flex-col justify-end text-white z-10">
+                  {/* Location Badge */}
+                  <div className="text-[10px] text-white/80 uppercase tracking-[0.25em] font-medium mb-1.5 flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-[#B38E46] shrink-0" />
+                    <span>{exp.location}</span>
                   </div>
 
-                  {/* 3. Footer Action Call ("Explore Now" matching Resortsec style) */}
-                  <div className="w-full pt-4 border-t border-neutral-100 flex items-center justify-between mt-2">
+                  {/* Title */}
+                  <h3
+                    className="text-xl sm:text-2xl font-medium text-white leading-snug mb-2"
+                    style={{ color: "#ffffff", fontFamily: "var(--work-font), sans-serif" }}
+                  >
+                    {exp.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p
+                    className="leading-relaxed line-clamp-3 font-light mb-5"
+                    style={{ color: "rgba(255, 255, 255, 0.88)", fontSize: "12.5px" }}
+                  >
+                    {exp.description}
+                  </p>
+
+                  {/* Footer Action Call ("EXPLORE NOW") */}
+                  <div className="pt-4 border-t border-white/20 flex items-center justify-between">
                     <Link
                       href={exp.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-[Vera] font-bold uppercase tracking-wider text-[#B38E46] group-hover:text-[#997734] transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-[#B38E46] transition-colors duration-200 cursor-pointer uppercase tracking-widest"
                     >
-                      <span>Explore Now</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      <span>EXPLORE NOW</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 </div>
@@ -303,6 +322,11 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Indigo Vertical Line Accent at Bottom (Matching Resorts Page) */}
+        <div className="flex justify-center mt-16 md:mt-20">
+          <div className="w-[1.5px] h-32 md:h-48 bg-[rgb(25,25,112)]"></div>
+        </div>
       </div>
     </section>
   );

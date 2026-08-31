@@ -129,7 +129,7 @@ export default function Getstarted() {
                   scale: 1.04,
                 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#B38E46] text-white font-semibold text-xs uppercase tracking-wider shadow-lg hover:bg-[#997734] transition-all duration-300 cursor-pointer"
+                className="flex items-center gap-2.5 px-8 py-3.5 rounded-sm border border-[#B38E46] bg-transparent text-neutral-900 font-medium text-xs uppercase tracking-[0.25em] hover:bg-[#B38E46] hover:text-white transition-all duration-300 shadow-sm cursor-pointer"
               >
                 Explore
                 <ArrowRight size={15} strokeWidth={2} />

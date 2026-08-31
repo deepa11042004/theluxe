@@ -88,65 +88,86 @@ function ItineraryCard({ item, onPlay }: CardProps) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="group flex flex-col h-full bg-white border border-neutral-200/80 rounded-3xl overflow-hidden
-                 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all duration-500"
+      className="group relative h-[460px] w-full bg-black border-0 rounded-none overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer"
     >
-      {/* ── Image ── */}
-      <div className="relative aspect-4/3 w-full overflow-hidden shrink-0 rounded-t-3xl bg-neutral-100">
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+      {/* ── Background Image stretched full card ── */}
+      <Image
+        src={item.image}
+        alt={item.title}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+      />
 
-        {/* Badge */}
-        <span className="absolute top-4 left-4 bg-[#B38E46] text-white text-[10px] font-[Vera] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-md z-10">
+      {/* Gradient Overlay only behind bottom text */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.65) 40%, rgba(0,0,0,0) 70%)",
+        }}
+      />
+
+      {/* Top Badge */}
+      {item.badge && (
+        <span className="absolute top-4 left-4 bg-[#B38E46] text-white text-[10px] font-[Vera] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm shadow-md z-20">
           {item.badge}
         </span>
+      )}
 
-        {/* Play button */}
-        <div className="absolute inset-0 flex items-center justify-center">
+      {/* Video Play Button */}
+      {item.youtubeId && (
+        <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
           <button
-            onClick={() => onPlay(item.youtubeId)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onPlay(item.youtubeId);
+            }}
             aria-label={`Play video for ${item.title}`}
-            className="w-14 h-14 rounded-full border border-white/40 bg-white/10 backdrop-blur-md
+            className="pointer-events-auto w-12 h-12 rounded-full border border-white/40 bg-white/10 backdrop-blur-md
                        flex items-center justify-center cursor-pointer
                        hover:scale-110 hover:bg-white/20 active:scale-95
                        transition-all duration-300 shadow-lg"
           >
-            <Play className="w-5 h-5 text-white fill-white ml-0.5" />
+            <Play className="w-4 h-4 text-white fill-white ml-0.5" />
           </button>
         </div>
-      </div>
+      )}
 
-      {/* ── Body ── */}
-      <div className="p-6 flex flex-col flex-1 gap-3 bg-white w-full">
-        <div className="flex items-center gap-1.5 text-[#B38E46] text-xs font-semibold uppercase tracking-widest font-[Vera]">
-          <MapPin className="w-3.5 h-3.5 shrink-0" />
-          <span>{item.country}</span>
+      {/* ── Body Overlayed directly on Image ── */}
+      <div className="absolute inset-0 p-6 flex flex-col justify-end text-white z-10">
+        {/* Country */}
+        <div className="text-[10px] text-white/80 uppercase tracking-widest font-medium mb-1 font-[Vera]">
+          {item.country}
         </div>
 
-        <h3 className="text-xl font-bold tracking-tight text-neutral-900 leading-snug line-clamp-2 group-hover:text-[#B38E46] transition-colors duration-200">
+        {/* Title */}
+        <h3
+          className="text-xl font-medium text-white leading-snug mb-2 group-hover:text-[#B38E46] transition-colors duration-200"
+          style={{ color: "#ffffff", fontFamily: "var(--work-font), sans-serif" }}
+        >
           {item.title}
         </h3>
 
-        <p className="text-sm leading-relaxed line-clamp-3 flex-1">
+        {/* Description */}
+        <p
+          className="leading-relaxed line-clamp-3 font-light mb-4"
+          style={{ color: "rgba(255,255,255,0.9)", fontSize: "12.5px" }}
+        >
           {item.description}
         </p>
 
-        <div className="pt-4 mt-auto border-t border-neutral-100 flex items-center justify-between w-full">
-          <div className="flex items-center gap-1.5 text-black text-xs font-medium font-[Vera]">
-            <Clock className="w-3.5 h-3.5 shrink-0 text-[#B38E46]" />
-            <span>{item.duration}</span>
+        {/* Footer */}
+        <div className="pt-4 border-t border-white/20 flex items-center justify-between">
+          <div className="text-[11px] text-white/80 font-medium uppercase tracking-wider font-[Vera]">
+            {item.duration}
           </div>
+
           <Link
             href={`/itinerary/${item.id}`}
-            className="inline-flex items-center gap-1.5 text-xs font-[Vera] font-bold uppercase tracking-wider text-[#B38E46] group-hover:text-[#997734] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-[#B38E46] transition-colors duration-200 cursor-pointer uppercase tracking-widest font-[Vera]"
           >
-            <span>Explore</span>
+            <span>EXPLORE</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -265,11 +286,11 @@ export default function ItineraryPage() {
               <button
                 key={region.value}
                 onClick={() => setSelectedRegion(region.value as any)}
-                className={`text-[11px] sm:text-xs font-[Vera] font-bold tracking-widest uppercase px-5 py-2.5 rounded-full border transition-all duration-300 active:scale-95 cursor-pointer
+                className={`text-xs tracking-[0.25em] font-medium uppercase px-6 py-2.5 rounded-sm border transition-all duration-300 active:scale-95 cursor-pointer
                   ${
                     isSelected
-                      ? "bg-[#B38E46] text-white border-[#B38E46] shadow-md"
-                      : "bg-transparent text-neutral-600 border-neutral-300 hover:text-neutral-900 hover:border-neutral-800"
+                      ? "bg-[#B38E46] text-white border-[#B38E46] shadow-sm"
+                      : "bg-white text-[#B38E46] border-[#B38E46] hover:bg-[#B38E46] hover:text-white"
                   }`}
               >
                 {region.label}
@@ -290,11 +311,11 @@ export default function ItineraryPage() {
               <button
                 key={dur.value}
                 onClick={() => setSelectedDuration(dur.value as any)}
-                className={`text-[11px] sm:text-xs font-[Vera] font-bold tracking-widest uppercase px-5 py-2.5 rounded-full border transition-all duration-300 active:scale-95 cursor-pointer
+                className={`text-xs tracking-[0.25em] font-medium uppercase px-6 py-2.5 rounded-sm border transition-all duration-300 active:scale-95 cursor-pointer
                   ${
                     isSelected
-                      ? "bg-[#B38E46] text-white border-[#B38E46] shadow-md"
-                      : "bg-transparent text-neutral-600 border-neutral-300 hover:text-neutral-900 hover:border-neutral-800"
+                      ? "bg-[#B38E46] text-white border-[#B38E46] shadow-sm"
+                      : "bg-white text-[#B38E46] border-[#B38E46] hover:bg-[#B38E46] hover:text-white"
                   }`}
               >
                 {dur.label}
@@ -305,7 +326,7 @@ export default function ItineraryPage() {
 
         {/* 3. SEARCH BAR */}
         <div className="max-w-md mx-auto mb-10 relative">
-          <div className="relative flex items-center bg-neutral-50/80 border border-neutral-200 focus-within:border-[#B38E46] rounded-full px-5 py-3.5 transition-all duration-300 shadow-xs">
+          <div className="relative flex items-center bg-white border border-[#B38E46] rounded-sm px-5 py-3.5 transition-all duration-300 shadow-2xs">
             <Search className="w-4 h-4 text-[#B38E46] mr-3 shrink-0" />
             <input
               type="text"
@@ -317,10 +338,10 @@ export default function ItineraryPage() {
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="p-1 hover:bg-neutral-200 rounded-full transition-colors shrink-0 cursor-pointer"
+                className="p-1 hover:bg-neutral-100 rounded-full transition-colors shrink-0 cursor-pointer"
                 aria-label="Clear search"
               >
-                <X className="w-3.5 h-3.5 text-black" />
+                <X className="w-3.5 h-3.5 text-neutral-600" />
               </button>
             )}
           </div>
@@ -329,10 +350,10 @@ export default function ItineraryPage() {
         {/* 4. RESET BUTTON */}
         {hasActiveFilters && (
           <div className="flex justify-center mb-8">
-              <button
-                onClick={handleReset}
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-[#B38E46] hover:bg-[#997734] text-white rounded-full text-[11px] sm:text-xs font-[Vera] font-bold tracking-widest uppercase transition-all duration-300 active:scale-95 shadow-md cursor-pointer"
-              >
+            <button
+              onClick={handleReset}
+              className="inline-flex items-center gap-2 px-6 py-2.5 border border-[#B38E46] bg-transparent text-[#B38E46] hover:bg-[#B38E46] hover:text-white rounded-sm text-xs font-medium tracking-[0.25em] uppercase transition-all duration-300 active:scale-95 shadow-xs cursor-pointer"
+            >
               <RotateCcw className="w-3.5 h-3.5" />
               Reset Filters
             </button>
@@ -388,7 +409,7 @@ export default function ItineraryPage() {
               </p>
               <button
                 onClick={handleReset}
-                className="bg-[#B38E46] hover:bg-[#997734] text-white font-[Vera] font-bold tracking-widest uppercase px-5 py-2.5 rounded-full text-[11px] sm:text-xs transition-colors shadow-md"
+                className="border border-[#B38E46] bg-transparent text-[#B38E46] hover:bg-[#B38E46] hover:text-white font-medium tracking-[0.25em] uppercase px-6 py-2.5 rounded-sm text-xs transition-all duration-300 shadow-xs cursor-pointer"
               >
                 Clear All Filters
               </button>

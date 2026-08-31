@@ -12,7 +12,7 @@ export default function BrandsPage() {
   return (
     <main className="min-h-screen bg-[#F5F5F7]">
       <Heading
-        title="Our Brand Portfolio"
+        title="Our Brands Portfolio"
         align="center"
         bgImage="/Img/futc-Re1Uc-eabi8-unsplash.jpg"
       />

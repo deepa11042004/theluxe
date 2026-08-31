@@ -218,27 +218,29 @@ export default function Membersec() {
           </svg>
         </div>
 
-        {/* Central Brand Emblem */}
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#B38E46] shadow-md mb-6">
-          <span className="text-white font-[Vera] text-xl tracking-wider font-bold">
-            LC
-          </span>
+        {/* Micro-Header Tag */}
+        <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
+          LUXE CLUB
         </div>
 
-        <h2 className="text-sm tracking-[0.3em] text-black uppercase mb-3">
-          Luxe Club
-        </h2>
-        <h3 className="text-3xl md:text-5xl tracking-tight text-black mb-6">
+        {/* Luxury Serif Headline matching About section */}
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
           A World of Privileged Access
-        </h3>
+        </h2>
+        <p className="text-xl sm:text-2xl md:text-3xl font-serif font-light text-black uppercase tracking-wider mb-6">
+          DISCOVER A WORLD OF PRIVILEGES
+        </p>
 
-        <p className="text-sm md:text-base max-w-3xl mx-auto leading-relaxed mb-16">
+        {/* Small Golden Vertical Divider */}
+        <div className="flex justify-center my-6">
+          <div className="w-[1.5px] h-12 md:h-16 bg-[#B38E46]/80"></div>
+        </div>
+
+        <p className="text-black text-sm sm:text-base xl:text-lg max-w-3xl mx-auto leading-relaxed mb-16">
           Luxe Club unlocks privileged access to 140+ premium Club Mahindra
           resorts, offering 7 nights/8 days holidays every year — filled with
           cherished family moments and thoughtfully crafted experiences across
-          India and beyond. This membership programme is designed for modern
-          families who seek simplicity, flexibility, and elevated holiday
-          experiences.
+          India and beyond.
         </p>
 
         {/* Open Grid Layout for Key Benefits */}
@@ -398,7 +400,7 @@ export default function Membersec() {
                 <div className="mt-6 w-full pt-4 border-t border-neutral-100/50">
                   <a
                     href="/luxeclub"
-                    className="block w-full text-center bg-[#B38E46] hover:bg-[#997734] active:scale-95 text-white font-bold text-sm uppercase tracking-wider px-4 py-3.5 rounded-none transition duration-200 shadow-sm cursor-pointer"
+                    className="block w-full text-center border border-[#B38E46] bg-transparent hover:bg-[#B38E46] text-[#B38E46] hover:text-white active:scale-95 font-medium text-xs sm:text-sm uppercase tracking-[0.25em] px-4 py-3.5 rounded-sm transition-all duration-300 shadow-xs cursor-pointer"
                   >
                     ENROL NOW
                   </a>

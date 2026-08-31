@@ -156,6 +156,8 @@ const OVERVIEW_SECTIONS = [
     paragraphs: [
       "From royal palaces and serene retreats to beachfront escapes and tranquil resorts, discover a curated collection of India's finest stays and experiences.",
     ],
+    ctaText: "Explore Luxe Experiences",
+    ctaLink: "/national",
     images: SECTION_2_IMAGES,
   },
 ];
@@ -255,7 +257,7 @@ function SlidingImageCarousel({ images }: { images: SlideItem[] }) {
       </button>
 
       {/* Dot Indicators */}
-      <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2">
+      <div className="absolute bottom-6 right-6 z-20 flex items-center gap-3">
         {images.map((_, idx) => (
           <button
             key={idx}
@@ -263,11 +265,17 @@ function SlidingImageCarousel({ images }: { images: SlideItem[] }) {
               setDirection(idx > currentIndex ? 1 : -1);
               setCurrentIndex(idx);
             }}
-            className={`rounded-full transition-all duration-300 cursor-pointer ${
-              idx === currentIndex ? "w-3 h-3 bg-white" : "w-2 h-2 bg-white/50 hover:bg-white/80"
-            }`}
+            className="focus:outline-none cursor-pointer p-1"
             aria-label={`Go to slide ${idx + 1}`}
-          />
+          >
+            <div
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                idx === currentIndex
+                  ? "bg-white scale-125 shadow-sm"
+                  : "bg-white/50 hover:bg-white/80"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>
@@ -318,7 +326,7 @@ export default function Overview() {
                 <div className="pt-6">
                   <a
                     href={section.ctaLink || "/experiences"}
-                    className="inline-flex items-center justify-center bg-transparent border border-[#B38E46] hover:bg-[#B38E46] hover:text-white active:scale-95 text-black font-medium text-xs md:text-sm uppercase tracking-[0.2em] px-10 py-4 rounded-sm transition-all duration-300"
+                    className="inline-flex items-center justify-center bg-transparent border border-[#B38E46] text-[#B38E46] hover:bg-[#B38E46] hover:text-white active:scale-95 font-medium text-xs md:text-sm uppercase tracking-[0.25em] px-8 py-3.5 rounded-sm transition-all duration-300 shadow-xs cursor-pointer"
                   >
                     <span>{section.ctaText}</span>
                   </a>
