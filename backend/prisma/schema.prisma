@@ -1,0 +1,478 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// USERS & RBAC
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  password_hash String
+  role_id       String
+  status        String    @default("ACTIVE") // ACTIVE, INACTIVE
+  last_login_at DateTime?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  role       Role       @relation(fields: [role_id], references: [id])
+  audit_logs AuditLog[]
+
+  @@index([email])
+  @@index([role_id])
+  @@map("users")
+}
+
+model Role {
+  id          String   @id @default(uuid())
+  name        String   @unique // SUPER_ADMIN, CONTENT_MANAGER, EDITOR
+  description String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  users            User[]
+  role_permissions RolePermission[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  role_permissions RolePermission[]
+
+  @@map("permissions")
+}
+
+model RolePermission {
+  id            String @id @default(uuid())
+  role_id       String
+  permission_id String
+
+  role       Role       @relation(fields: [role_id], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permission_id], references: [id], onDelete: Cascade)
+
+  @@unique([role_id, permission_id])
+  @@map("role_permissions")
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  user_id    String?
+  action     String // CREATE, UPDATE, DELETE, PUBLISH, UNPUBLISH, LOGIN, LOGOUT, PASSWORD_CHANGE
+  entity     String
+  entity_id  String?
+  old_data   String?
+  new_data   String?
+  ip_address String?
+  user_agent String?
+  created_at DateTime @default(now())
+
+  user User? @relation(fields: [user_id], references: [id], onDelete: SetNull)
+
+  @@index([user_id])
+  @@index([action])
+  @@index([entity])
+  @@map("audit_logs")
+}
+
+// HOTELS
+model Hotel {
+  id                        String    @id @default(uuid())
+  name                      String
+  slug                      String    @unique
+  short_description         String?
+  description               String?
+  region                    String?
+  country                   String?
+  state_province            String?
+  city                      String?
+  location_area             String?
+  address                   String?
+  latitude                  Float?
+  longitude                 Float?
+  hotel_type                String?
+  luxury_category           String?
+  official_website          String?
+  booking_url               String?
+  google_maps_url           String?
+  best_time_to_visit        String?
+  highlights                String?
+  amenities                 String?
+  dining_information        String?
+  spa_wellness              String?
+  activities                String?
+  why_we_recommend          String?
+  is_featured               Boolean   @default(false)
+  is_popular                Boolean   @default(false)
+  is_top_hotel              Boolean   @default(false)
+  top_hotel_rank            Int?
+  is_india_top_50           Boolean   @default(false)
+  is_international_top_50   Boolean   @default(false)
+  display_order             Int       @default(0)
+  status                    String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
+  published_at              DateTime?
+  seo_title                 String?
+  seo_description           String?
+  canonical_url             String?
+  og_title                  String?
+  og_description            String?
+  og_image                  String?
+  robots_index              Boolean   @default(true)
+  robots_follow             Boolean   @default(true)
+  created_by                String?
+  updated_by                String?
+  created_at                DateTime  @default(now())
+  updated_at                DateTime  @updatedAt
+  deleted_at                DateTime?
+
+  images HotelImage[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([region])
+  @@index([country])
+  @@index([city])
+  @@index([is_featured])
+  @@index([published_at])
+  @@map("hotels")
+}
+
+model HotelImage {
+  id            String   @id @default(uuid())
+  hotel_id      String
+  media_id      String?
+  image_url     String
+  alt_text      String?
+  caption       String?
+  image_type    String   @default("gallery") // cover, gallery, room, dining, spa, experience, location
+  display_order Int      @default(0)
+  is_primary    Boolean  @default(false)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  hotel Hotel @relation(fields: [hotel_id], references: [id], onDelete: Cascade)
+
+  @@index([hotel_id])
+  @@map("hotel_images")
+}
+
+// DESTINATIONS
+model Destination {
+  id                             String    @id @default(uuid())
+  name                           String
+  slug                           String    @unique
+  short_description              String?
+  description                    String?
+  country                        String?
+  state_region                   String?
+  city                           String?
+  continent                      String?
+  destination_type               String?
+  best_time_to_visit             String?
+  ideal_duration                 String?
+  currency                       String?
+  language                       String?
+  time_zone                      String?
+  categories                     String?
+  is_featured                    Boolean   @default(false)
+  is_popular                     Boolean   @default(false)
+  is_india_destination           Boolean   @default(false)
+  is_international_destination   Boolean   @default(false)
+  display_order                  Int       @default(0)
+  status                         String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
+  published_at                   DateTime?
+  seo_title                      String?
+  seo_description                String?
+  canonical_url                  String?
+  og_title                       String?
+  og_description                 String?
+  og_image                       String?
+  robots_index                   Boolean   @default(true)
+  robots_follow                  Boolean   @default(true)
+  created_by                     String?
+  updated_by                     String?
+  created_at                     DateTime  @default(now())
+  updated_at                     DateTime  @updatedAt
+  deleted_at                     DateTime?
+
+  images                 DestinationImage[]
+  itinerary_destinations ItineraryDestination[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([country])
+  @@index([is_featured])
+  @@index([published_at])
+  @@map("destinations")
+}
+
+model DestinationImage {
+  id             String   @id @default(uuid())
+  destination_id String
+  media_id       String?
+  image_url      String
+  alt_text       String?
+  caption        String?
+  image_type     String   @default("gallery")
+  display_order  Int      @default(0)
+  is_primary     Boolean  @default(false)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  destination Destination @relation(fields: [destination_id], references: [id], onDelete: Cascade)
+
+  @@index([destination_id])
+  @@map("destination_images")
+}
+
+// ITINERARIES
+model Itinerary {
+  id                  String    @id @default(uuid())
+  title               String
+  slug                String    @unique
+  short_description   String?
+  overview            String?
+  region              String?
+  category            String?
+  nights              Int       @default(1)
+  days                Int       @default(1)
+  min_travelers       Int       @default(1)
+  max_travelers       Int       @default(10)
+  price_from          Float?
+  price_currency      String?   @default("INR")
+  price_unit          String?   @default("per person")
+  is_flights_included Boolean   @default(false)
+  is_featured         Boolean   @default(false)
+  display_order       Int       @default(0)
+  status              String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
+  published_at        DateTime?
+  seo_title           String?
+  seo_description     String?
+  canonical_url       String?
+  og_title            String?
+  og_description      String?
+  og_image            String?
+  robots_index        Boolean   @default(true)
+  robots_follow       Boolean   @default(true)
+  created_by          String?
+  updated_by          String?
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+  deleted_at          DateTime?
+
+  destinations ItineraryDestination[]
+  days_list    ItineraryDay[]
+  features     ItineraryFeature[]
+  inclusions   ItineraryInclusion[]
+  exclusions   ItineraryExclusion[]
+  images       ItineraryImage[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([region])
+  @@index([category])
+  @@index([is_featured])
+  @@index([published_at])
+  @@map("itineraries")
+}
+
+model ItineraryDestination {
+  id             String @id @default(uuid())
+  itinerary_id   String
+  destination_id String
+  display_order  Int    @default(0)
+
+  itinerary   Itinerary   @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
+  destination Destination @relation(fields: [destination_id], references: [id], onDelete: Cascade)
+
+  @@unique([itinerary_id, destination_id])
+  @@map("itinerary_destinations")
+}
+
+model ItineraryDay {
+  id            String   @id @default(uuid())
+  itinerary_id  String
+  day_number    Int
+  title         String
+  description   String?
+  image_url     String?
+  media_id      String?
+  display_order Int      @default(0)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  itinerary Itinerary @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
+
+  @@index([itinerary_id])
+  @@map("itinerary_days")
+}
+
+model ItineraryFeature {
+  id            String   @id @default(uuid())
+  itinerary_id  String
+  name          String
+  icon          String?
+  display_order Int      @default(0)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  itinerary Itinerary @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
+
+  @@index([itinerary_id])
+  @@map("itinerary_features")
+}
+
+model ItineraryInclusion {
+  id            String   @id @default(uuid())
+  itinerary_id  String
+  title         String
+  display_order Int      @default(0)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  itinerary Itinerary @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
+
+  @@index([itinerary_id])
+  @@map("itinerary_inclusions")
+}
+
+model ItineraryExclusion {
+  id            String   @id @default(uuid())
+  itinerary_id  String
+  title         String
+  display_order Int      @default(0)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  itinerary Itinerary @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
+
+  @@index([itinerary_id])
+  @@map("itinerary_exclusions")
+}
+
+model ItineraryImage {
+  id            String   @id @default(uuid())
+  itinerary_id  String
+  media_id      String?
+  image_url     String
+  alt_text      String?
+  caption       String?
+  image_type    String   @default("gallery")
+  display_order Int      @default(0)
+  is_primary    Boolean  @default(false)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  itinerary Itinerary @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
+
+  @@index([itinerary_id])
+  @@map("itinerary_images")
+}
+
+// BLOGS
+model BlogCategory {
+  id            String   @id @default(uuid())
+  name          String   @unique
+  slug          String   @unique
+  description   String?
+  display_order Int      @default(0)
+  status        String   @default("ACTIVE")
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  blogs Blog[]
+
+  @@map("blog_categories")
+}
+
+model Blog {
+  id              String    @id @default(uuid())
+  title           String
+  slug            String    @unique
+  excerpt         String?
+  content         String?
+  category_id     String?
+  author_id       String?
+  author_name     String?
+  author_bio      String?
+  author_image    String?
+  reading_time    Int?      @default(5)
+  is_featured     Boolean   @default(false)
+  display_order   Int       @default(0)
+  status          String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED, SCHEDULED
+  published_at    DateTime?
+  scheduled_at    DateTime?
+  seo_title       String?
+  seo_description String?
+  canonical_url   String?
+  og_title        String?
+  og_description  String?
+  og_image        String?
+  robots_index    Boolean   @default(true)
+  robots_follow   Boolean   @default(true)
+  created_by      String?
+  updated_by      String?
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+  deleted_at      DateTime?
+
+  category BlogCategory? @relation(fields: [category_id], references: [id], onDelete: SetNull)
+  images   BlogImage[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([category_id])
+  @@index([is_featured])
+  @@index([published_at])
+  @@map("blogs")
+}
+
+model BlogImage {
+  id            String   @id @default(uuid())
+  blog_id       String
+  media_id      String?
+  image_url     String
+  alt_text      String?
+  caption       String?
+  display_order Int      @default(0)
+  is_featured   Boolean  @default(false)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  blog Blog @relation(fields: [blog_id], references: [id], onDelete: Cascade)
+
+  @@index([blog_id])
+  @@map("blog_images")
+}
+
+// MEDIA LIBRARY
+model Media {
+  id                String    @id @default(uuid())
+  original_filename String
+  filename          String
+  url               String
+  mime_type         String
+  file_size         Int
+  width             Int?
+  height            Int?
+  alt_text          String?
+  caption           String?
+  folder            String?   @default("general")
+  created_by        String?
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  deleted_at        DateTime?
+
+  @@index([filename])
+  @@index([mime_type])
+  @@map("media")
+}

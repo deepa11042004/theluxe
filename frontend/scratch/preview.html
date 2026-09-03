@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: sans-serif; background: #eee; }
+    .grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .card { background: white; padding: 10px; text-align: center; border-radius: 8px; width: 200px; }
+    img { max-width: 100%; height: auto; max-height: 100px; }
+  </style>
+</head>
+<body>
+  <h1>Brand Logos</h1>
+  <div class="grid" id="grid"></div>
+  <script>
+    const grid = document.getElementById('grid');
+    const exts = {27: 'jpg', 34: 'jpg', 36: 'jpg'};
+    for (let i = 1; i <= 36; i++) {
+      const ext = exts[i] || 'png';
+      const file = i + '.' + ext;
+      grid.innerHTML += `<div class="card">
+        <img src="../public/Img/brands/${file}" />
+        <div><strong>${file}</strong></div>
+      </div>`;
+    }
+  </script>
+</body>
+</html>

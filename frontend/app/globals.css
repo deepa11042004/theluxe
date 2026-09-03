@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Vera";
+  src: url("/Font/VeraHumana95.8c80f68b.woff2") format("woff2");
+}
+
+@theme {
+  /* Elegant serif for brand wordmarks/logotypes (brand cards, brand modal) — maps the `font-serif` utility to Playfair Display. */
+  --font-serif: var(--font-playfair), Georgia, serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--cormorant-font), serif;
+}
+
+body, p {
+  font-family: var(--work-font), sans-serif;
+  font-weight: 400;
+  font-size: calc(14px + (47 - 45) * ((100vw - 480px) / (1600 - 480)));
+  line-height: 1.7;
+  letter-spacing: 0.075em;
+  color: #000000;
+}
