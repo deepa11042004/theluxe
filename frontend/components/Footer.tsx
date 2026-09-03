@@ -38,11 +38,10 @@ const DUMMY_FOOTER_SECTIONS = [
 export default function Footer() {
   return (
     <footer
-      className="text-white pt-16 pb-8 px-6 sm:px-12 lg:px-16 w-full select-none border-t border-[#B38E46]/50 relative overflow-hidden bg-[#1A140A]"
+      className="text-white pt-16 pb-8 px-6 sm:px-12 lg:px-16 w-full select-none border-t border-[#B38E46]/30 relative overflow-hidden"
       style={{
         fontFamily: "var(--work-font), sans-serif",
-        backgroundImage:
-          "linear-gradient(to bottom, rgba(18, 14, 7, 0.82), rgba(35, 26, 10, 0.90)), url('/Img/gold-texture.jpg')",
+        backgroundImage: "url('/Img/footer-bg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
