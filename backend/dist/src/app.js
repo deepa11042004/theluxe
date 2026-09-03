@@ -17,7 +17,19 @@ const app = (0, express_1.default)();
 app.use((0, helmet_1.default)({ crossOriginResourcePolicy: false }));
 // CORS setup
 app.use((0, cors_1.default)({
-    origin: ["http://localhost:3000", "http://127.0.0.1:3000"],
+    origin: (origin, callback) => {
+        // Allow requests with no origin, or localhost, or .sslip.io domains, or FRONTEND_URL
+        if (!origin ||
+            origin.includes("localhost") ||
+            origin.includes("127.0.0.1") ||
+            origin.includes("sslip.io") ||
+            (process.env.FRONTEND_URL && origin.includes(process.env.FRONTEND_URL))) {
+            callback(null, true);
+        }
+        else {
+            callback(null, true);
+        }
+    },
     credentials: true,
 }));
 // Rate limiting for API protection
