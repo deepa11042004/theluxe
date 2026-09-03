@@ -265,7 +265,7 @@ export default function DestinationForm({ initialData, isEdit = false }: Destina
                     <img src={img.image_url} alt="" className="w-full h-full object-cover" />
                     <button
                       type="button"
-                      onClick={() => setFormData((p) => ({ ...p, images: p.images.filter((_, i) => i !== idx) }))}
+                      onClick={() => setFormData((p) => ({ ...p, images: p.images.filter((_: any, i: number) => i !== idx) }))}
                       className="absolute top-2 right-2 p-1.5 bg-red-600 text-white rounded-lg opacity-0 group-hover:opacity-100"
                     >
                       <Trash2 className="w-3.5 h-3.5" />

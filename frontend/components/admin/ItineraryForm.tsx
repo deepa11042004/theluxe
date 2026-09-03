@@ -77,7 +77,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
 
   const removeDay = (idx: number) => {
     setFormData((prev) => {
-      const updated = prev.days_list.filter((_, i) => i !== idx).map((d, i) => ({ ...d, day_number: i + 1 }));
+      const updated = prev.days_list.filter((_: any, i: number) => i !== idx).map((d: any, i: number) => ({ ...d, day_number: i + 1 }));
       return { ...prev, days_list: updated, days: updated.length };
     });
   };
@@ -387,7 +387,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
                     />
                     <button
                       type="button"
-                      onClick={() => setFormData((p) => ({ ...p, inclusions: p.inclusions.filter((_, i) => i !== idx) }))}
+                      onClick={() => setFormData((p) => ({ ...p, inclusions: p.inclusions.filter((_: any, i: number) => i !== idx) }))}
                       className="p-1.5 text-red-600"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -419,7 +419,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
                     />
                     <button
                       type="button"
-                      onClick={() => setFormData((p) => ({ ...p, exclusions: p.exclusions.filter((_, i) => i !== idx) }))}
+                      onClick={() => setFormData((p) => ({ ...p, exclusions: p.exclusions.filter((_: any, i: number) => i !== idx) }))}
                       className="p-1.5 text-red-600"
                     >
                       <Trash2 className="w-4 h-4" />

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Upload, Search, Trash2, FolderImage, Check } from "lucide-react";
+import { Upload, Search, Trash2, Image as ImageIcon, Check } from "lucide-react";
 
 export default function AdminMediaPage() {
   const [mediaList, setMediaList] = useState<any[]>([]);
