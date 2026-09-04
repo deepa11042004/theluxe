@@ -8,13 +8,11 @@ RUN apk add --no-cache openssl
 COPY package.json package-lock.json* ./
 COPY prisma ./prisma/
 
-# Ensure default schema.prisma has sqlite configuration
+# Ensure schema.prisma is present
 RUN cp prisma/schema.sqlite.prisma prisma/schema.prisma
 
-# Install all dependencies without running postinstall prematurely
+# Install dependencies and generate Prisma client
 RUN npm ci --ignore-scripts
-
-# Generate Prisma client using SQLite schema
 RUN npx prisma generate --schema=prisma/schema.sqlite.prisma
 
 COPY tsconfig.json ./
@@ -32,19 +30,10 @@ ENV NODE_ENV=production
 ENV PORT=5001
 ENV DATABASE_URL="file:./dev.db"
 
-COPY package.json package-lock.json* ./
-COPY prisma ./prisma/
-RUN cp prisma/schema.sqlite.prisma prisma/schema.prisma
-
-# Install production dependencies only, ignoring scripts since Prisma is pre-generated
-RUN npm ci --omit=dev --ignore-scripts
-
-# Copy pre-generated Prisma client and engines from builder
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
-
-# Copy compiled JavaScript output
+COPY package.json ./
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/prisma ./prisma
 
 EXPOSE 5001
 
