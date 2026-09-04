@@ -1,0 +1,28 @@
+﻿services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - PORT=5001
+      - NODE_ENV=production
+      - DATABASE_URL=file:./dev.db
+      - JWT_SECRET=the_luxe_yatra_super_secret_jwt_key_2026_phase1
+      - JWT_EXPIRES_IN=7d
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - BACKEND_INTERNAL_URL=http://backend:5001
+    depends_on:
+      - backend
+    restart: unless-stopped
