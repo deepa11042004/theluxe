@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -285,9 +286,8 @@ const Carousel = () => {
                   <div className="relative w-full h-full">
                     <Image
                       src={
-                        slide.imageUrl.startsWith("http")
-                          ? slide.imageUrl
-                          : `https://picsum.photos/seed/${slide.id}/1200/900`
+                        slide.imageUrl ||
+                        "https://images.unsplash.com/photo-1627938823193-fd13c1c867dd?q=80&w=1170&auto=format&fit=crop"
                       }
                       alt={slide.title}
                       fill
@@ -363,9 +363,11 @@ const Carousel = () => {
 
         {/* VIEW ALL Button */}
         <div className="flex justify-center mt-6">
-          <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 rounded-sm cursor-pointer">
-            VIEW ALL
-          </button>
+          <Link href="/experiences">
+            <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 rounded-sm cursor-pointer">
+              VIEW ALL
+            </button>
+          </Link>
         </div>
       </div>
     </section>

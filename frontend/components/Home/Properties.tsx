@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Heart, ChevronRight, ChevronLeft } from "lucide-react";
 
@@ -64,7 +65,7 @@ export default function Properties() {
   useEffect(() => {
     async function fetchHotels() {
       try {
-        const res = await fetch("/api/v1/hotels?limit=20");
+        const res = await fetch("/api/v1/hotels?featured=true&limit=20");
         const json = await res.json();
         if (json.success && Array.isArray(json.data) && json.data.length > 0) {
           const dbItems = json.data.map((hotel: any, idx: number) => {
@@ -306,9 +307,11 @@ export default function Properties() {
 
           {/* VIEW ALL Button */}
           <div className="flex justify-center mt-8">
-            <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 rounded-sm cursor-pointer">
-              VIEW ALL
-            </button>
+            <Link href="/resorts">
+              <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 rounded-sm cursor-pointer">
+                VIEW ALL
+              </button>
+            </Link>
           </div>
         </div>
       </section>

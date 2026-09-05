@@ -7,8 +7,16 @@ export async function getPublicHotels(req: Request, res: Response, next: NextFun
     const limit = parseInt(req.query.limit as string) || 20;
     const skip = (page - 1) * limit;
     const search = req.query.search as string;
+    const featured = req.query.featured as string;
+    const popular = req.query.popular as string;
 
     const where: any = { status: "PUBLISHED", deleted_at: null };
+    if (featured === "true") {
+      where.is_featured = true;
+    }
+    if (popular === "true") {
+      where.is_popular = true;
+    }
     if (search) {
       where.OR = [
         { name: { contains: search } },

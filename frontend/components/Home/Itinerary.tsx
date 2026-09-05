@@ -74,12 +74,16 @@ const staggerContainer: Variants = {
 // Card Component
 interface CardProps {
   item: ItineraryItem;
+  index: number;
 }
 
-function ItineraryCard({ item }: CardProps) {
+function ItineraryCard({ item, index }: CardProps) {
   return (
     <motion.article
-      variants={fadeInUp}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
       className="group relative h-[440px] w-full bg-black border-0 rounded-none overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer"
     >
       {/* ── Background Image stretched full card ── */}
@@ -188,20 +192,15 @@ export default function Itinerary() {
         </div>
 
         {/* ── Cards Grid ── */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
-        >
-          {itinerariesList.map((item) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+          {itinerariesList.map((item, index) => (
             <ItineraryCard
               key={item.id}
               item={item}
+              index={index}
             />
           ))}
-        </motion.div>
+        </div>
 
         {/* SEE MORE ITINERARIES Button */}
         <div className="flex justify-center mt-12">
