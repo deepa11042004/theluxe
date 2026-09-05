@@ -140,14 +140,6 @@ export async function createHotel(req: Request, res: Response, next: NextFunctio
         display_order: body.display_order ? parseInt(body.display_order) : 0,
         status: body.status || "DRAFT",
         published_at: body.status === "PUBLISHED" ? new Date() : null,
-        seo_title: body.seo_title,
-        seo_description: body.seo_description,
-        canonical_url: body.canonical_url,
-        og_title: body.og_title,
-        og_description: body.og_description,
-        og_image: body.og_image,
-        robots_index: body.robots_index !== undefined ? body.robots_index : true,
-        robots_follow: body.robots_follow !== undefined ? body.robots_follow : true,
         created_by: req.user?.id,
         images: {
           create: imagesData.map((img: any, idx: number) => ({
@@ -250,14 +242,6 @@ export async function updateHotel(req: Request, res: Response, next: NextFunctio
         display_order: body.display_order ? parseInt(body.display_order) : existing.display_order,
         status: body.status ?? existing.status,
         published_at,
-        seo_title: body.seo_title,
-        seo_description: body.seo_description,
-        canonical_url: body.canonical_url,
-        og_title: body.og_title,
-        og_description: body.og_description,
-        og_image: body.og_image,
-        robots_index: body.robots_index !== undefined ? body.robots_index : existing.robots_index,
-        robots_follow: body.robots_follow !== undefined ? body.robots_follow : existing.robots_follow,
         updated_by: req.user?.id,
         images: body.images
           ? {

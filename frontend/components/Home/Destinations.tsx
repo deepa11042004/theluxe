@@ -110,6 +110,37 @@ const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [slidesData, setSlidesData] = useState<SlideData[]>(slides);
+
+  useEffect(() => {
+    async function fetchDestinations() {
+      try {
+        const res = await fetch("/api/v1/destinations?limit=50");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          const dbSlides: SlideData[] = json.data.map((dest: any, idx: number) => {
+            const primaryImg =
+              dest.images?.find((img: any) => img.is_primary)?.image_url ||
+              dest.images?.[0]?.image_url ||
+              "https://images.unsplash.com/photo-1627938823193-fd13c1c867dd?q=80&w=1170&auto=format&fit=crop";
+
+            return {
+              id: dest.id || idx + 1,
+              country: dest.country || "India",
+              title: dest.name,
+              imageUrl: primaryImg,
+              type: dest.destination_type || "Individual trip",
+            };
+          });
+
+          setSlidesData(dbSlides);
+        }
+      } catch (err) {
+        console.error("Failed to fetch public destinations:", err);
+      }
+    }
+    fetchDestinations();
+  }, []);
 
   // Auto-play timer
   useEffect(() => {
@@ -132,16 +163,16 @@ const Carousel = () => {
   const nextSlide = useCallback(() => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrentIndex((prev) => (prev + 1) % slides.length);
+    setCurrentIndex((prev) => (prev + 1) % slidesData.length);
     setTimeout(() => setIsAnimating(false), 500);
-  }, [isAnimating]);
+  }, [isAnimating, slidesData.length]);
 
   const prevSlide = useCallback(() => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
+    setCurrentIndex((prev) => (prev - 1 + slidesData.length) % slidesData.length);
     setTimeout(() => setIsAnimating(false), 500);
-  }, [isAnimating]);
+  }, [isAnimating, slidesData.length]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -174,11 +205,11 @@ const Carousel = () => {
         <div className="relative w-full h-[380px] md:h-[450px] bg-white overflow-hidden flex items-center justify-center">
           {/* Carousel Track */}
           <div className="relative w-full h-full max-w-400 flex items-center justify-center">
-            {slides.map((slide, index) => {
+            {slidesData.map((slide, index) => {
               // Calculate distance from current index for circular carousel logic
               let distance = index - currentIndex;
-              if (distance < -slides.length / 2) distance += slides.length;
-              if (distance > slides.length / 2) distance -= slides.length;
+              if (distance < -slidesData.length / 2) distance += slidesData.length;
+              if (distance > slidesData.length / 2) distance -= slidesData.length;
 
               // Determine styles based on distance
               // We use 'distance' to determine scale, x-position, and z-index
@@ -312,7 +343,7 @@ const Carousel = () => {
 
         {/* Dot Indicators */}
         <div className="flex items-center justify-center gap-3 mt-6">
-          {slides.map((_, i) => (
+          {slidesData.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentIndex(i)}

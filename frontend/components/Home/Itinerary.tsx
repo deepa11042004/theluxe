@@ -138,6 +138,39 @@ function ItineraryCard({ item }: CardProps) {
 // Main Section
 
 export default function Itinerary() {
+  const [itinerariesList, setItinerariesList] = React.useState<ItineraryItem[]>(itinerariesData);
+
+  React.useEffect(() => {
+    async function fetchItineraries() {
+      try {
+        const res = await fetch("/api/v1/itineraries?limit=6");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          const dbItems: ItineraryItem[] = json.data.map((itin: any, idx: number) => {
+            const primaryImg =
+              itin.images?.find((img: any) => img.is_primary)?.image_url ||
+              itin.images?.[0]?.image_url ||
+              "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop";
+
+            return {
+              id: itin.id || `itin-${idx}`,
+              country: itin.region || "India",
+              title: itin.title,
+              description: itin.short_description || itin.overview || "Exclusive luxury itinerary.",
+              duration: `${itin.days || 1} Days / ${itin.nights || 1} Nights`,
+              image: primaryImg,
+            };
+          });
+
+          setItinerariesList(dbItems);
+        }
+      } catch (err) {
+        console.error("Failed to fetch homepage itineraries:", err);
+      }
+    }
+    fetchItineraries();
+  }, []);
+
   return (
     <section className="bg-white py-24 border-t border-gray-100">
       <div className="container mx-auto px-4 max-w-7xl">
@@ -162,7 +195,7 @@ export default function Itinerary() {
           variants={staggerContainer}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"
         >
-          {itinerariesData.map((item) => (
+          {itinerariesList.map((item) => (
             <ItineraryCard
               key={item.id}
               item={item}

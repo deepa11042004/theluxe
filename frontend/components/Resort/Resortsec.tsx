@@ -102,9 +102,65 @@ const LUXURY_RESORTS = [
 export default function ResortSec() {
   const [activeCategory, setActiveCategory] = useState("ALL RESORTS");
   const [searchQuery, setSearchQuery] = useState("");
+  const [resortsList, setResortsList] = useState<any[]>(LUXURY_RESORTS);
+
+  React.useEffect(() => {
+    async function fetchHotels() {
+      try {
+        const res = await fetch("/api/v1/hotels?limit=50");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          const dbHotels = json.data.map((hotel: any, idx: number) => {
+            const loc = [hotel.city, hotel.state_province, hotel.country].filter(Boolean).join(", ");
+            const primaryImg =
+              hotel.images?.find((img: any) => img.is_primary)?.image_url ||
+              hotel.images?.[0]?.image_url ||
+              "/Img/soneva-fushi.jpg";
+
+            let amenitiesArr: string[] = ["Royal Butler Service", "Private Boat Transfer"];
+            if (hotel.amenities) {
+              if (typeof hotel.amenities === "string") {
+                try {
+                  amenitiesArr = hotel.amenities.startsWith("[")
+                    ? JSON.parse(hotel.amenities)
+                    : hotel.amenities.split(",").map((s: string) => s.trim()).filter(Boolean);
+                } catch (e) {
+                  amenitiesArr = hotel.amenities.split(",").map((s: string) => s.trim()).filter(Boolean);
+                }
+              } else if (Array.isArray(hotel.amenities)) {
+                amenitiesArr = hotel.amenities;
+              }
+            }
+
+            return {
+              id: hotel.id || `db-${idx}`,
+              title: hotel.name,
+              location: loc || "Luxury Destination",
+              description: hotel.short_description || hotel.description || "Handpicked luxury sanctuary.",
+              image: primaryImg,
+              href: hotel.official_website || hotel.booking_url || "#",
+              category: hotel.luxury_category || hotel.hotel_type || "HERITAGE & PALACE",
+              rating: 4.9,
+              price: hotel.why_we_recommend || "₹45,000",
+              amenities: amenitiesArr.slice(0, 3),
+            };
+          });
+
+          const dbTitles = new Set(dbHotels.map((h: any) => h.title.toLowerCase().trim()));
+          const remainingStatic = LUXURY_RESORTS.filter(
+            (r) => !dbTitles.has(r.title.toLowerCase().trim())
+          );
+          setResortsList([...dbHotels, ...remainingStatic]);
+        }
+      } catch (err) {
+        console.error("Failed to fetch public hotels:", err);
+      }
+    }
+    fetchHotels();
+  }, []);
 
   // Filtering Logic
-  const filteredResorts = LUXURY_RESORTS.filter((resort) => {
+  const filteredResorts = resortsList.filter((resort) => {
     let matchesCategory = true;
     if (activeCategory !== "ALL RESORTS") {
       matchesCategory = resort.category === activeCategory;
@@ -270,7 +326,7 @@ export default function ResortSec() {
 
                   {/* Amenities Checklist Tags */}
                   <div className="flex flex-wrap gap-1.5 mb-4">
-                    {resort.amenities.map((amenity, aIdx) => (
+                    {resort.amenities.map((amenity: string, aIdx: number) => (
                       <span
                         key={aIdx}
                         className="inline-flex items-center gap-1 text-[9px] tracking-wider uppercase font-light text-white/90 bg-black/40 backdrop-blur-xs px-2.5 py-0.5 border border-white/15"

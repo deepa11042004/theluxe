@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Save, ArrowLeft, Plus, Trash2 } from "lucide-react";
-import SeoForm, { SeoData } from "./SeoForm";
 import MediaPickerModal from "./MediaPickerModal";
 import StatusBadge from "./StatusBadge";
 
@@ -50,16 +49,6 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
     display_order: initialData?.display_order || 0,
     status: initialData?.status || "DRAFT",
     images: initialData?.images || [],
-    seo: {
-      seo_title: initialData?.seo_title || "",
-      seo_description: initialData?.seo_description || "",
-      canonical_url: initialData?.canonical_url || "",
-      og_title: initialData?.og_title || "",
-      og_description: initialData?.og_description || "",
-      og_image: initialData?.og_image || "",
-      robots_index: initialData?.robots_index !== false,
-      robots_follow: initialData?.robots_follow !== false,
-    } as SeoData,
   });
 
   const handleChange = (field: string, value: any) => {
@@ -103,7 +92,6 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
     const payload = {
       ...formData,
       status: statusOverride || formData.status,
-      ...formData.seo,
     };
 
     try {
@@ -189,7 +177,6 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
             { id: "location", label: "Location & Address" },
             { id: "details", label: "Hotel Details" },
             { id: "images", label: `Images (${formData.images.length})` },
-            { id: "seo", label: "SEO & Social" },
             { id: "publishing", label: "Publishing Controls" },
           ].map((tab) => (
             <button
@@ -408,15 +395,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
             </div>
           )}
 
-          {/* TAB 5: SEO */}
-          {activeTab === "seo" && (
-            <SeoForm
-              data={formData.seo}
-              onChange={(updatedSeo) => handleChange("seo", updatedSeo)}
-            />
-          )}
-
-          {/* TAB 6: PUBLISHING & FEATURED FLAGS */}
+          {/* TAB 5: PUBLISHING & FEATURED FLAGS */}
           {activeTab === "publishing" && (
             <div className="space-y-6">
               <div>

@@ -241,8 +241,56 @@ export default function ItineraryPage() {
   const [selectedDuration, setSelectedDuration] = useState<
     "all" | "short" | "long"
   >("all");
+  const [itinerariesList, setItinerariesList] = useState<ItineraryItem[]>(itineraryData);
 
-  const filteredItineraries = itineraryData.filter((item) => {
+  React.useEffect(() => {
+    async function fetchItineraries() {
+      try {
+        const res = await fetch("/api/v1/itineraries?limit=50");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          const dbItems: ItineraryItem[] = json.data.map((itin: any, idx: number) => {
+            const primaryImg =
+              itin.images?.find((img: any) => img.is_primary)?.image_url ||
+              itin.images?.[0]?.image_url ||
+              "/Img/national resorts/Taj Lake Palace.avif";
+
+            const regionLower = (itin.region || "").toLowerCase();
+            const isIndia = regionLower.includes("india") || regionLower.includes("asia");
+
+            return {
+              id: itin.id || `db-itin-${idx}`,
+              country: itin.region || "India",
+              title: itin.title,
+              description: itin.short_description || itin.overview || "Exclusive luxury itinerary.",
+              duration: `${itin.days || 1} Days / ${itin.nights || 1} Nights`,
+              badge: itin.category || "LUXURY TOUR",
+              image: primaryImg,
+              youtubeId: "",
+              images: [primaryImg],
+              groupSize: `${itin.min_travelers || 1}-${itin.max_travelers || 10} travelers`,
+              flightsIncl: itin.is_flights_included || false,
+              tourType: itin.category || "Private Luxury Tour",
+              days: (itin.days_list || []).map((d: any) => ({
+                day: `Day ${d.day_number}`,
+                title: d.title,
+                text: d.description || "",
+              })),
+            };
+          });
+
+          const dbTitles = new Set(dbItems.map((i: any) => i.title.toLowerCase().trim()));
+          const remainingStatic = itineraryData.filter((i) => !dbTitles.has(i.title.toLowerCase().trim()));
+          setItinerariesList([...dbItems, ...remainingStatic]);
+        }
+      } catch (err) {
+        console.error("Failed to fetch public itineraries:", err);
+      }
+    }
+    fetchItineraries();
+  }, []);
+
+  const filteredItineraries = itinerariesList.filter((item) => {
     const matchesSearch =
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.country.toLowerCase().includes(searchQuery.toLowerCase()) ||

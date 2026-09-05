@@ -33,6 +33,46 @@ const BLOG_POSTS = [
 ];
 
 export default function Blog() {
+  const [blogPosts, setBlogPosts] = React.useState<any[]>(BLOG_POSTS);
+
+  React.useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const res = await fetch("/api/v1/blogs?limit=6");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          const dbBlogs = json.data.map((b: any, idx: number) => {
+            const primaryImg =
+              b.images?.find((img: any) => img.is_featured)?.image_url ||
+              b.images?.[0]?.image_url ||
+              "https://images.unsplash.com/photo-1544085311-11a028465b03?auto=format&fit=crop&w=800&q=80";
+
+            const formattedDate = b.published_at
+              ? new Date(b.published_at).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              : "Recently Published";
+
+            return {
+              id: b.id || idx + 1,
+              title: b.title,
+              date: formattedDate,
+              image: primaryImg,
+              link: `/blogs/${b.slug}`,
+            };
+          });
+
+          setBlogPosts(dbBlogs);
+        }
+      } catch (err) {
+        console.error("Failed to fetch homepage blogs:", err);
+      }
+    }
+    fetchBlogs();
+  }, []);
+
   return (
     <section className="bg-white py-16 md:py-24 px-6 sm:px-12 lg:px-16 w-full overflow-hidden select-none">
       <div className="max-w-7xl mx-auto">
@@ -48,7 +88,7 @@ export default function Blog() {
 
         {/* Blog Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
-          {BLOG_POSTS.map((post, index) => (
+          {blogPosts.map((post, index) => (
             <motion.div
               key={post.id}
               initial={{ opacity: 0, y: 30 }}

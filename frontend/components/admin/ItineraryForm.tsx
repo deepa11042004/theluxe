@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Save, ArrowLeft, Plus, Trash2, ArrowUp, ArrowDown } from "lucide-react";
-import SeoForm, { SeoData } from "./SeoForm";
 import MediaPickerModal from "./MediaPickerModal";
 import StatusBadge from "./StatusBadge";
 
@@ -44,16 +43,6 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
     inclusions: initialData?.inclusions?.map((i: any) => i.title) || ["Private Airport Transfers", "Luxury Accommodation"],
     exclusions: initialData?.exclusions?.map((e: any) => e.title) || ["International Airfare", "Personal Expenses"],
     images: initialData?.images || [],
-    seo: {
-      seo_title: initialData?.seo_title || "",
-      seo_description: initialData?.seo_description || "",
-      canonical_url: initialData?.canonical_url || "",
-      og_title: initialData?.og_title || "",
-      og_description: initialData?.og_description || "",
-      og_image: initialData?.og_image || "",
-      robots_index: initialData?.robots_index !== false,
-      robots_follow: initialData?.robots_follow !== false,
-    } as SeoData,
   });
 
   const handleChange = (field: string, value: any) => {
@@ -133,7 +122,6 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
     const payload = {
       ...formData,
       status: statusOverride || formData.status,
-      ...formData.seo,
     };
 
     try {
@@ -188,7 +176,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
 
       <div className="bg-white rounded-2xl border border-gray-200 shadow-xs overflow-hidden max-w-full">
         <div className="flex border-b border-gray-200 bg-gray-50/50 overflow-x-auto whitespace-nowrap scrollbar-none">
-          {["basic", "days", "inclusions", "images", "seo", "publishing"].map((tab) => (
+          {["basic", "days", "inclusions", "images", "publishing"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -461,9 +449,6 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
               </div>
             </div>
           )}
-
-          {activeTab === "seo" && <SeoForm data={formData.seo} onChange={(updatedSeo) => handleChange("seo", updatedSeo)} />}
-
           {activeTab === "publishing" && (
             <div className="space-y-4">
               <div>

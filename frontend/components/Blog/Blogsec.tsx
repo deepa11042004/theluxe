@@ -93,13 +93,59 @@ const BLOG_POSTS: BlogPost[] = [
 
 export default function Blogsec() {
   const [activeCategory, setActiveCategory] = useState("ALL ARTICLES");
+  const [blogPostsList, setBlogPostsList] = useState<BlogPost[]>(BLOG_POSTS);
+
+  React.useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const res = await fetch("/api/v1/blogs?limit=50");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          const dbBlogs: BlogPost[] = json.data.map((blog: any, idx: number) => {
+            const primaryImg =
+              blog.images?.find((img: any) => img.is_featured)?.image_url ||
+              blog.images?.[0]?.image_url ||
+              "https://images.unsplash.com/photo-1544085311-11a028465b03?auto=format&fit=crop&w=800&q=80";
+
+            const formattedDate = blog.published_at
+              ? new Date(blog.published_at).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              : "Recently Published";
+
+            return {
+              id: blog.id || idx + 100,
+              category: blog.category?.name?.toUpperCase() || "PRIVILEGES",
+              tag: blog.author_name || "The Luxe Yatra Editorial",
+              title: blog.title,
+              date: formattedDate,
+              readTime: `${blog.reading_time || 5} min read`,
+              excerpt: blog.excerpt || "Exclusive luxury travel story.",
+              image: primaryImg,
+              featured: blog.is_featured || idx === 0,
+              link: `/blogs/${blog.slug}`,
+            };
+          });
+
+          const dbTitles = new Set(dbBlogs.map((b) => b.title.toLowerCase().trim()));
+          const remainingStatic = BLOG_POSTS.filter((b) => !dbTitles.has(b.title.toLowerCase().trim()));
+          setBlogPostsList([...dbBlogs, ...remainingStatic]);
+        }
+      } catch (err) {
+        console.error("Failed to fetch public blogs:", err);
+      }
+    }
+    fetchBlogs();
+  }, []);
 
   const filteredPosts =
     activeCategory === "ALL ARTICLES"
-      ? BLOG_POSTS
-      : BLOG_POSTS.filter((post) => post.category === activeCategory);
+      ? blogPostsList
+      : blogPostsList.filter((post) => post.category === activeCategory);
 
-  const featuredPost = BLOG_POSTS.find((p) => p.featured) || BLOG_POSTS[0];
+  const featuredPost = blogPostsList.find((p) => p.featured) || blogPostsList[0];
 
   return (
     <section className="bg-white py-16 md:py-24 px-6 sm:px-12 lg:px-16 w-full overflow-hidden select-none">

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Save, ArrowLeft, Plus, Trash2 } from "lucide-react";
 import RichTextEditor from "./RichTextEditor";
-import SeoForm, { SeoData } from "./SeoForm";
 import MediaPickerModal from "./MediaPickerModal";
 import StatusBadge from "./StatusBadge";
 
@@ -36,16 +35,6 @@ export default function BlogForm({ initialData, isEdit = false }: BlogFormProps)
     status: initialData?.status || "DRAFT",
     scheduled_at: initialData?.scheduled_at ? new Date(initialData.scheduled_at).toISOString().slice(0, 16) : "",
     images: initialData?.images || [],
-    seo: {
-      seo_title: initialData?.seo_title || "",
-      seo_description: initialData?.seo_description || "",
-      canonical_url: initialData?.canonical_url || "",
-      og_title: initialData?.og_title || "",
-      og_description: initialData?.og_description || "",
-      og_image: initialData?.og_image || "",
-      robots_index: initialData?.robots_index !== false,
-      robots_follow: initialData?.robots_follow !== false,
-    } as SeoData,
   });
 
   useEffect(() => {
@@ -104,7 +93,6 @@ export default function BlogForm({ initialData, isEdit = false }: BlogFormProps)
     const payload = {
       ...formData,
       status: statusOverride || formData.status,
-      ...formData.seo,
     };
 
     try {
@@ -159,7 +147,7 @@ export default function BlogForm({ initialData, isEdit = false }: BlogFormProps)
 
       <div className="bg-white rounded-2xl border border-gray-200 shadow-xs overflow-hidden max-w-full">
         <div className="flex border-b border-gray-200 bg-gray-50/50 overflow-x-auto whitespace-nowrap scrollbar-none">
-          {["content", "category", "images", "seo", "publishing"].map((tab) => (
+          {["content", "category", "images", "publishing"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -299,8 +287,6 @@ export default function BlogForm({ initialData, isEdit = false }: BlogFormProps)
               </div>
             </div>
           )}
-
-          {activeTab === "seo" && <SeoForm data={formData.seo} onChange={(updatedSeo) => handleChange("seo", updatedSeo)} />}
 
           {activeTab === "publishing" && (
             <div className="space-y-4">

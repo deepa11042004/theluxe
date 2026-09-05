@@ -102,14 +102,6 @@ export async function createBlog(req: Request, res: Response, next: NextFunction
         status: body.status || "DRAFT",
         published_at: body.status === "PUBLISHED" ? new Date() : null,
         scheduled_at: body.scheduled_at ? new Date(body.scheduled_at) : null,
-        seo_title: body.seo_title,
-        seo_description: body.seo_description,
-        canonical_url: body.canonical_url,
-        og_title: body.og_title,
-        og_description: body.og_description,
-        og_image: body.og_image,
-        robots_index: body.robots_index !== undefined ? body.robots_index : true,
-        robots_follow: body.robots_follow !== undefined ? body.robots_follow : true,
         created_by: req.user?.id,
         images: {
           create: (body.images || []).map((img: any, idx: number) => ({
@@ -182,14 +174,6 @@ export async function updateBlog(req: Request, res: Response, next: NextFunction
         status: body.status ?? existing.status,
         published_at: body.status === "PUBLISHED" && existing.status !== "PUBLISHED" ? new Date() : existing.published_at,
         scheduled_at: body.scheduled_at ? new Date(body.scheduled_at) : existing.scheduled_at,
-        seo_title: body.seo_title,
-        seo_description: body.seo_description,
-        canonical_url: body.canonical_url,
-        og_title: body.og_title,
-        og_description: body.og_description,
-        og_image: body.og_image,
-        robots_index: body.robots_index !== undefined ? body.robots_index : existing.robots_index,
-        robots_follow: body.robots_follow !== undefined ? body.robots_follow : existing.robots_follow,
         updated_by: req.user?.id,
         images: body.images
           ? {

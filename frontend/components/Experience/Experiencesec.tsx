@@ -153,9 +153,48 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
     type === "all" ? "ALL" : type === "national" ? "NATIONAL" : "INTERNATIONAL"
   );
   const [searchQuery, setSearchQuery] = useState("");
+  const [experiencesList, setExperiencesList] = useState<ExperienceItem[]>(EXPERIENCES);
+
+  React.useEffect(() => {
+    async function fetchDestinations() {
+      try {
+        const res = await fetch("/api/v1/destinations?limit=50");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          const dbItems: ExperienceItem[] = json.data.map((dest: any, idx: number) => {
+            const loc = [dest.city, dest.state_region, dest.country].filter(Boolean).join(", ");
+            const primaryImg =
+              dest.images?.find((img: any) => img.is_primary)?.image_url ||
+              dest.images?.[0]?.image_url ||
+              "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&auto=format&fit=crop&q=80";
+
+            const isNational =
+              dest.destination_type?.toLowerCase() === "national" ||
+              dest.is_india_destination ||
+              dest.country?.toLowerCase() === "india";
+
+            return {
+              id: dest.id || idx + 1,
+              location: loc || dest.country || "Luxury Destination",
+              title: dest.name,
+              description: dest.short_description || dest.description || "Unveil exceptional sanctuaries and cultural escapes.",
+              image: primaryImg,
+              link: `/destinations/${dest.slug}`,
+              category: isNational ? "national" : "international",
+            };
+          });
+
+          setExperiencesList(dbItems);
+        }
+      } catch (err) {
+        console.error("Failed to fetch public experiences:", err);
+      }
+    }
+    fetchDestinations();
+  }, []);
 
   // Filtering Logic
-  const filteredExperiences = EXPERIENCES.filter((exp) => {
+  const filteredExperiences = experiencesList.filter((exp) => {
     let matchesCategory = true;
     if (activeCategory === "ALL") matchesCategory = true;
     else if (activeCategory === "NATIONAL") matchesCategory = exp.category === "national";

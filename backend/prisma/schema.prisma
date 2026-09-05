@@ -120,14 +120,6 @@ model Hotel {
   display_order             Int       @default(0)
   status                    String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
   published_at              DateTime?
-  seo_title                 String?
-  seo_description           String?
-  canonical_url             String?
-  og_title                  String?
-  og_description            String?
-  og_image                  String?
-  robots_index              Boolean   @default(true)
-  robots_follow             Boolean   @default(true)
   created_by                String?
   updated_by                String?
   created_at                DateTime  @default(now())
@@ -190,14 +182,6 @@ model Destination {
   display_order                  Int       @default(0)
   status                         String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
   published_at                   DateTime?
-  seo_title                      String?
-  seo_description                String?
-  canonical_url                  String?
-  og_title                       String?
-  og_description                 String?
-  og_image                       String?
-  robots_index                   Boolean   @default(true)
-  robots_follow                  Boolean   @default(true)
   created_by                     String?
   updated_by                     String?
   created_at                     DateTime  @default(now())
@@ -255,14 +239,6 @@ model Itinerary {
   display_order       Int       @default(0)
   status              String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
   published_at        DateTime?
-  seo_title           String?
-  seo_description     String?
-  canonical_url       String?
-  og_title            String?
-  og_description      String?
-  og_image            String?
-  robots_index        Boolean   @default(true)
-  robots_follow       Boolean   @default(true)
   created_by          String?
   updated_by          String?
   created_at          DateTime  @default(now())
@@ -411,14 +387,6 @@ model Blog {
   status          String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED, SCHEDULED
   published_at    DateTime?
   scheduled_at    DateTime?
-  seo_title       String?
-  seo_description String?
-  canonical_url   String?
-  og_title        String?
-  og_description  String?
-  og_image        String?
-  robots_index    Boolean   @default(true)
-  robots_follow   Boolean   @default(true)
   created_by      String?
   updated_by      String?
   created_at      DateTime  @default(now())

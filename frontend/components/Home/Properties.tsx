@@ -58,7 +58,38 @@ const destinations = [
 export default function Properties() {
   const [activeIndex, setActiveIndex] = useState(2);
   const [cardWidth, setCardWidth] = useState(340);
+  const [destinationsList, setDestinationsList] = useState<any[]>(destinations);
   const gap = 24;
+
+  useEffect(() => {
+    async function fetchHotels() {
+      try {
+        const res = await fetch("/api/v1/hotels?limit=20");
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          const dbItems = json.data.map((hotel: any, idx: number) => {
+            const primaryImg =
+              hotel.images?.find((img: any) => img.is_primary)?.image_url ||
+              hotel.images?.[0]?.image_url ||
+              "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=85";
+
+            return {
+              id: hotel.id || idx + 1,
+              name: hotel.name,
+              image: primaryImg,
+              desc: hotel.short_description || hotel.description || "Experience timeless luxury and authentic hospitality.",
+              tags: `${(hotel.luxury_category || "LUXURY").toUpperCase()} • ${(hotel.city || hotel.country || "RESORT").toUpperCase()}`,
+            };
+          });
+
+          setDestinationsList(dbItems);
+        }
+      } catch (err) {
+        console.error("Failed to fetch properties:", err);
+      }
+    }
+    fetchHotels();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -77,8 +108,8 @@ export default function Properties() {
   const next = () => setActiveIndex((i) => i + 1);
 
   const currentRealIndex =
-    ((activeIndex % destinations.length) + destinations.length) %
-    destinations.length;
+    ((activeIndex % destinationsList.length) + destinationsList.length) %
+    destinationsList.length;
 
   return (
     <section className="w-full bg-white flex flex-col items-center py-10 md:py-16 overflow-hidden border-b border-neutral-200">
@@ -103,9 +134,9 @@ export default function Properties() {
             {[-1, 0, 1].map((offset) => {
               const virtualIndex = activeIndex + offset;
               const destIndex =
-                ((virtualIndex % destinations.length) + destinations.length) %
-                destinations.length;
-              const dest = destinations[destIndex];
+                ((virtualIndex % destinationsList.length) + destinationsList.length) %
+                destinationsList.length;
+              const dest = destinationsList[destIndex];
               const isActive = offset === 0;
 
               return (
@@ -252,7 +283,7 @@ export default function Properties() {
 
         {/* Dot Indicators below carousel */}
         <div className="flex items-center justify-center gap-3 mt-8">
-          {destinations.map((_, i) => (
+          {destinationsList.map((_, i) => (
             <button
               key={i}
               onClick={() => {
