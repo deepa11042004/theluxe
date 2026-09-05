@@ -32,16 +32,23 @@ export const upload = multer({
   },
 });
 
+export const getUploadsDir = (): string => {
+  if (process.env.UPLOADS_DIR) {
+    return path.resolve(process.env.UPLOADS_DIR);
+  }
+  const frontendUploads = path.resolve(process.cwd(), "../frontend/public/uploads");
+  if (fs.existsSync(path.resolve(process.cwd(), "../frontend"))) {
+    return frontendUploads;
+  }
+  return path.resolve(process.cwd(), "public/uploads");
+};
+
 export async function processAndOptimizeImage(
   buffer: Buffer,
   originalFilename: string,
   folder: string = "general"
 ) {
-  const uploadDir = path.join(
-    __dirname,
-    "../../../frontend/public/uploads",
-    folder
-  );
+  const uploadDir = path.join(getUploadsDir(), folder);
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
   }

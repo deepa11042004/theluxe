@@ -7,6 +7,7 @@ import path from "path";
 import adminRoutes from "./routes/adminRoutes";
 import publicRoutes from "./routes/publicRoutes";
 import { errorHandler } from "./middleware/errorHandler";
+import { getUploadsDir } from "./middleware/upload";
 
 const app = express();
 
@@ -47,7 +48,7 @@ app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 app.use(cookieParser());
 
 // Static uploads serving
-app.use("/uploads", express.static(path.join(__dirname, "../../frontend/public/uploads")));
+app.use("/uploads", express.static(getUploadsDir()));
 
 // API V1 Routes
 app.use("/api/v1/admin", adminRoutes);
