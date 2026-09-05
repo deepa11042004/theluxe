@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { X, Upload, Check, Image as ImageIcon } from "lucide-react";
+import { X, Upload, Check, Image as ImageIcon, Trash2 } from "lucide-react";
 import Image from "next/image";
 
 interface MediaPickerModalProps {
@@ -17,6 +17,7 @@ export default function MediaPickerModal({
   const [loading, setLoading] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState<any>(null);
   const [uploading, setUploading] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -61,6 +62,32 @@ export default function MediaPickerModal({
       console.error(err);
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleDeleteMedia = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!confirm("Are you sure you want to delete this media image?")) return;
+
+    setDeletingId(id);
+    try {
+      const res = await fetch(`/api/v1/admin/media/${id}`, {
+        method: "DELETE",
+      });
+      const json = await res.json();
+      if (json.success) {
+        setMediaList((prev) => prev.filter((item) => item.id !== id));
+        if (selectedMedia?.id === id) {
+          setSelectedMedia(null);
+        }
+      } else {
+        alert(json.message || "Failed to delete media image.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("An error occurred while deleting the media image.");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -128,6 +155,7 @@ export default function MediaPickerModal({
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {mediaList.map((item) => {
                 const isSelected = selectedMedia?.id === item.id;
+                const isDeleting = deletingId === item.id;
                 return (
                   <div
                     key={item.id}
@@ -136,7 +164,7 @@ export default function MediaPickerModal({
                       isSelected
                         ? "border-[#B38E46] ring-2 ring-[#B38E46]/30 shadow-md"
                         : "border-transparent hover:border-gray-300"
-                    }`}
+                    } ${isDeleting ? "opacity-40 pointer-events-none" : ""}`}
                   >
                     <Image
                       src={item.url}
@@ -144,6 +172,17 @@ export default function MediaPickerModal({
                       fill
                       className="object-cover"
                     />
+
+                    {/* Delete Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => handleDeleteMedia(item.id, e)}
+                      title="Delete Image"
+                      className="absolute top-2 left-2 bg-red-600/90 hover:bg-red-600 text-white p-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+
                     {isSelected && (
                       <div className="absolute top-2 right-2 bg-[#B38E46] text-white p-1 rounded-full shadow">
                         <Check className="w-3.5 h-3.5" />
