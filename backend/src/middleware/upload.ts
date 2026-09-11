@@ -32,6 +32,25 @@ export const upload = multer({
   },
 });
 
+export const uploadBulkFiles = multer({
+  storage,
+  limits: {
+    fileSize: 200 * 1024 * 1024, // 200 MB limit for ZIP + CSV
+  },
+  fileFilter: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (ext === ".csv" || ext === ".zip") {
+      cb(null, true);
+    } else {
+      cb(
+        new Error(
+          `Invalid file type for '${file.originalname}'. Only .csv and .zip files are allowed.`
+        )
+      );
+    }
+  },
+});
+
 export const getUploadsDir = (): string => {
   if (process.env.UPLOADS_DIR) {
     return path.resolve(process.env.UPLOADS_DIR);

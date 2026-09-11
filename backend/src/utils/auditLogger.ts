@@ -18,13 +18,14 @@ export async function logAudit(options: {
     const userAgent = options.req?.headers["user-agent"] || "unknown";
 
     // Sanitize sensitive data before logging
-    const sanitize = (data: any) => {
+    const sanitize = (data: any): string | null => {
       if (!data) return null;
+      if (typeof data === "string") return data;
       const copy = JSON.parse(JSON.stringify(data));
       if (copy.password) delete copy.password;
       if (copy.password_hash) delete copy.password_hash;
       if (copy.token) delete copy.token;
-      return copy;
+      return JSON.stringify(copy);
     };
 
     await prisma.auditLog.create({

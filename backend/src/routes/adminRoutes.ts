@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authenticateToken, requirePermission } from "../middleware/auth";
-import { upload } from "../middleware/upload";
+import { upload, uploadBulkFiles } from "../middleware/upload";
 import * as authCtrl from "../controllers/authController";
 import * as hotelCtrl from "../controllers/hotelController";
 import * as destCtrl from "../controllers/destinationController";
@@ -35,6 +35,22 @@ router.put("/hotels/:id", requirePermission("hotel.update"), hotelCtrl.updateHot
 router.delete("/hotels/:id", requirePermission("hotel.delete"), hotelCtrl.deleteHotel);
 router.patch("/hotels/:id/status", requirePermission("hotel.publish"), hotelCtrl.toggleStatus);
 router.patch("/hotels/:id/featured", requirePermission("hotel.update"), hotelCtrl.toggleFeatured);
+
+// Bulk Hotel Import
+router.post(
+  "/hotels/import/validate",
+  requirePermission("hotel.create"),
+  uploadBulkFiles.fields([
+    { name: "csv", maxCount: 1 },
+    { name: "zip", maxCount: 1 },
+  ]),
+  hotelCtrl.validateBulkImport
+);
+router.post(
+  "/hotels/import/execute",
+  requirePermission("hotel.create"),
+  hotelCtrl.executeBulkImport
+);
 
 // Destinations
 router.get("/destinations", requirePermission("destination.view"), destCtrl.getDestinations);

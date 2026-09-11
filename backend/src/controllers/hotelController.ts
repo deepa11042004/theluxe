@@ -355,3 +355,57 @@ export async function toggleFeatured(req: Request, res: Response, next: NextFunc
     next(err);
   }
 }
+
+export async function validateBulkImport(req: Request, res: Response, next: NextFunction) {
+  try {
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
+    const csvFile = files?.csv?.[0];
+    const zipFile = files?.zip?.[0];
+
+    if (!csvFile) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing Hotel CSV file. Please upload a valid .csv file.",
+      });
+    }
+
+    if (!zipFile) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing Hotel Images ZIP file. Please upload a valid .zip archive.",
+      });
+    }
+
+    const { validateImportFiles } = await import("../utils/hotelImportService");
+    const result = await validateImportFiles(csvFile.buffer, zipFile.buffer);
+
+    return res.status(result.success ? 200 : 400).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function executeBulkImport(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { sessionId, updateExisting } = req.body;
+
+    if (!sessionId) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing import sessionId. Please validate files before executing import.",
+      });
+    }
+
+    const { executeImport } = await import("../utils/hotelImportService");
+    const result = await executeImport(
+      sessionId,
+      { updateExisting: Boolean(updateExisting) },
+      req.user?.id
+    );
+
+    return res.status(result.success ? 200 : 400).json(result);
+  } catch (err) {
+    next(err);
+  }
+}
+

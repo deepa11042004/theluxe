@@ -9,90 +9,124 @@ import { ArrowRight, Search, X, MapPin, Star, Sparkles } from "lucide-react";
 // Resort Filter Categories
 const CATEGORIES = [
   "ALL RESORTS",
+  "NATIONAL",
+  "INTERNATIONAL",
   "HERITAGE & PALACE",
   "BEACH & ISLAND",
   "MOUNTAIN & WELLNESS",
   "WILDLIFE & SAFARI",
+  "LUXURY CITY HOTELS",
+  "BOUTIQUE & EXPERIENTIAL",
 ];
 
 // Curated Luxury Resort Properties Data
 const LUXURY_RESORTS = [
   {
-    id: 1,
+    id: "static-1",
     title: "Taj Lake Palace",
     location: "Udaipur, Rajasthan, India",
+    country: "India",
     description:
       "A floating white-marble palace in the middle of Lake Pichola offering unparalleled royal hospitality and romantic sunset views over the Aravalli hills.",
     image:
       "https://cdn.sanity.io/images/ocl5w36p/ihcl_prod/1c0c270e8d67352d82a51cc9a9c89c994bc882fe-1280x1760.jpg",
     href: "https://www.tajhotels.com/en-in/taj/taj-lake-palace-udaipur/",
     category: "HERITAGE & PALACE",
+    luxuryCategory: "HERITAGE & PALACE",
+    hotelType: "Palace Resort",
+    isNational: true,
+    isInternational: false,
     rating: 4.9,
     price: "₹48,500",
     amenities: ["Royal Butler Service", "Private Boat Transfer", "Jharokha Dining"],
   },
   {
-    id: 2,
+    id: "static-2",
     title: "Ananda in the Himalayas",
     location: "Rishikesh, Uttarakhand, India",
+    country: "India",
     description:
       "A world-renowned luxury wellness sanctuary set on a 100-acre palace estate overlooking the spiritual Ganges River valley.",
     image: "/Img/Untitled design (15).webp",
     href: "https://www.anandaspa.com/",
     category: "MOUNTAIN & WELLNESS",
+    luxuryCategory: "MOUNTAIN & WELLNESS",
+    hotelType: "Wellness Sanctuary",
+    isNational: true,
+    isInternational: false,
     rating: 4.95,
     price: "₹42,000",
     amenities: ["Ayurvedic Spa", "Yoga & Meditation", "Organic Gourmet"],
   },
   {
-    id: 3,
+    id: "static-3",
     title: "The Oberoi Amarvilas",
     location: "Agra, Uttar Pradesh, India",
+    country: "India",
     description:
       "Located just 600 meters from the Taj Mahal, every room and suite offers uninterrupted, breathtaking views of the monument of love.",
     image: "/Img/e3371e9e.avif",
     href: "https://www.oberoihotels.com/hotels-in-agra-amarvilas-resort/",
     category: "HERITAGE & PALACE",
+    luxuryCategory: "HERITAGE & PALACE",
+    hotelType: "Palace Resort",
+    isNational: true,
+    isInternational: false,
     rating: 4.98,
     price: "₹55,000",
     amenities: ["Taj Mahal Views", "Private Balconies", "Terrace Dining"],
   },
   {
-    id: 4,
+    id: "static-4",
     title: "Soneva Fushi",
     location: "Baa Atoll, Maldives",
+    country: "Maldives",
     description:
       "An idyllic island hideaway featuring spacious beachfront and overwater villas with private pools, glassblowing studio, and open-air cinema.",
     image: "/Img/soneva-fushi.jpg",
     href: "https://soneva.com/resorts/soneva-fushi/",
     category: "BEACH & ISLAND",
+    luxuryCategory: "BEACH & ISLAND",
+    hotelType: "Island Resort",
+    isNational: false,
+    isInternational: true,
     rating: 4.92,
     price: "₹1,15,000",
     amenities: ["Private Pool", "Barefoot Luxury", "Observatory"],
   },
   {
-    id: 5,
+    id: "static-5",
     title: "Amanbagh Retreat",
     location: "Alwar, Rajasthan, India",
+    country: "India",
     description:
       "A modern oasis carved out of pink sandstone, surrounded by mature palm groves and ancient ruined temples near Sariska National Park.",
     image:
       "https://www.aman.com/sites/default/files/2023-01/Amanbagh%2C%20India%20-%20Main%20Building%2C%20Pool%20View-3.jpg",
     href: "https://www.aman.com/resorts/amanbagh",
     category: "WILDLIFE & SAFARI",
+    luxuryCategory: "WILDLIFE & SAFARI",
+    hotelType: "Mughal Luxury Resort",
+    isNational: true,
+    isInternational: false,
     rating: 4.88,
     price: "₹62,000",
     amenities: ["Tiger Safaris", "Sandstone Pool Suites", "Heritage Walks"],
   },
   {
-    id: 6,
+    id: "static-6",
     title: "The Leela Palace Kovalam",
     location: "Kovalam, Kerala, India",
+    country: "India",
     description:
       "Perched high on a clifftop overlooking the Arabian Sea, blending authentic Malabar coastal luxury with world-class beach access.",
     image: "/Img/Intro_1035x600_5.webp",
     href: "https://www.theleela.com/the-leela-kovalam-a-raviz-hotel",
     category: "BEACH & ISLAND",
+    luxuryCategory: "BEACH & ISLAND",
+    hotelType: "Coastal Beach Resort",
+    isNational: true,
+    isInternational: false,
     rating: 4.9,
     price: "₹38,000",
     amenities: ["Cliff-Top Infinity Pool", "Ayurvedic Treatments", "Beach Club"],
@@ -107,7 +141,7 @@ export default function ResortSec() {
   React.useEffect(() => {
     async function fetchHotels() {
       try {
-        const res = await fetch("/api/v1/hotels?limit=50");
+        const res = await fetch("/api/v1/hotels?limit=100");
         const json = await res.json();
         if (json.success && Array.isArray(json.data) && json.data.length > 0) {
           const dbHotels = json.data.map((hotel: any, idx: number) => {
@@ -132,14 +166,49 @@ export default function ResortSec() {
               }
             }
 
+            const country = (hotel.country || "").trim().toLowerCase();
+            const locLower = loc.toLowerCase();
+            const isNational =
+              country === "india" ||
+              locLower.includes("india") ||
+              hotel.is_india_top_50 === true ||
+              (!country && !locLower.includes("maldives"));
+            const isInternational =
+              !isNational ||
+              (country !== "" && country !== "india") ||
+              hotel.is_international_top_50 === true ||
+              locLower.includes("maldives");
+
+            // Categorize display tag
+            let displayCat = hotel.luxury_category || hotel.hotel_type || "LUXURY RESORT";
+            const catLower = displayCat.toLowerCase();
+            if (catLower.includes("heritage") || catLower.includes("palace") || catLower.includes("haveli") || catLower.includes("fort")) {
+              displayCat = "HERITAGE & PALACE";
+            } else if (catLower.includes("beach") || catLower.includes("island") || catLower.includes("coast") || locLower.includes("goa") || locLower.includes("kovalam") || locLower.includes("kumarakom") || locLower.includes("maldives")) {
+              displayCat = "BEACH & ISLAND";
+            } else if (catLower.includes("mountain") || catLower.includes("wellness") || catLower.includes("sanctuary") || locLower.includes("shimla") || locLower.includes("rishikesh") || locLower.includes("kumaon") || locLower.includes("gulmarg")) {
+              displayCat = "MOUNTAIN & WELLNESS";
+            } else if (catLower.includes("wildlife") || catLower.includes("safari") || catLower.includes("jungle") || catLower.includes("tented") || locLower.includes("ranthambore") || locLower.includes("jawai") || locLower.includes("kabini") || locLower.includes("gir")) {
+              displayCat = "WILDLIFE & SAFARI";
+            } else if (catLower.includes("city") || locLower.includes("delhi") || locLower.includes("mumbai") || locLower.includes("bengaluru") || locLower.includes("chennai")) {
+              displayCat = "LUXURY CITY";
+            } else if (catLower.includes("boutique") || catLower.includes("experiential")) {
+              displayCat = "BOUTIQUE & WELLNESS";
+            }
+
             return {
               id: hotel.id || `db-${idx}`,
               title: hotel.name,
               location: loc || "Luxury Destination",
+              country: hotel.country || "India",
               description: hotel.short_description || hotel.description || "Handpicked luxury sanctuary.",
               image: primaryImg,
-              href: hotel.official_website || hotel.booking_url || "#",
-              category: hotel.luxury_category || hotel.hotel_type || "HERITAGE & PALACE",
+              href: hotel.official_website || hotel.booking_url || `/resorts/${hotel.slug}`,
+              category: displayCat,
+              luxuryCategory: hotel.luxury_category || "",
+              hotelType: hotel.hotel_type || "",
+              isNational,
+              isInternational,
               rating: 4.9,
               price: hotel.why_we_recommend || "₹45,000",
               amenities: amenitiesArr.slice(0, 3),
@@ -163,7 +232,101 @@ export default function ResortSec() {
   const filteredResorts = resortsList.filter((resort) => {
     let matchesCategory = true;
     if (activeCategory !== "ALL RESORTS") {
-      matchesCategory = resort.category === activeCategory;
+      const country = (resort.country || "").trim().toLowerCase();
+      const loc = (resort.location || "").toLowerCase();
+      const isNational = resort.isNational || country === "india" || loc.includes("india");
+      const isInternational = resort.isInternational || (country !== "" && country !== "india") || loc.includes("maldives");
+
+      if (activeCategory === "NATIONAL") {
+        matchesCategory = isNational;
+      } else if (activeCategory === "INTERNATIONAL") {
+        matchesCategory = isInternational;
+      } else {
+        const catStr = [
+          resort.category,
+          resort.luxuryCategory,
+          resort.hotelType,
+          resort.title,
+          resort.description,
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        if (activeCategory === "HERITAGE & PALACE") {
+          matchesCategory =
+            catStr.includes("heritage") ||
+            catStr.includes("palace") ||
+            catStr.includes("haveli") ||
+            catStr.includes("fort") ||
+            catStr.includes("palatial") ||
+            catStr.includes("royal");
+        } else if (activeCategory === "BEACH & ISLAND") {
+          matchesCategory =
+            catStr.includes("beach") ||
+            catStr.includes("island") ||
+            catStr.includes("coast") ||
+            catStr.includes("backwater") ||
+            catStr.includes("lake") ||
+            catStr.includes("sea") ||
+            catStr.includes("ocean") ||
+            loc.includes("goa") ||
+            loc.includes("kovalam") ||
+            loc.includes("kumarakom") ||
+            loc.includes("maldives");
+        } else if (activeCategory === "MOUNTAIN & WELLNESS") {
+          matchesCategory =
+            catStr.includes("mountain") ||
+            catStr.includes("wellness") ||
+            catStr.includes("spa") ||
+            catStr.includes("ayurvedic") ||
+            catStr.includes("sanctuary") ||
+            catStr.includes("himalayan") ||
+            catStr.includes("himalayas") ||
+            loc.includes("shimla") ||
+            loc.includes("rishikesh") ||
+            loc.includes("dehradun") ||
+            loc.includes("kumaon") ||
+            loc.includes("gulmarg");
+        } else if (activeCategory === "WILDLIFE & SAFARI") {
+          matchesCategory =
+            catStr.includes("wildlife") ||
+            catStr.includes("safari") ||
+            catStr.includes("jungle") ||
+            catStr.includes("wilderness") ||
+            catStr.includes("tented camp") ||
+            catStr.includes("camp") ||
+            catStr.includes("lodge") ||
+            loc.includes("ranthambore") ||
+            loc.includes("jawai") ||
+            loc.includes("kabini") ||
+            loc.includes("gir") ||
+            loc.includes("bandhavgarh");
+        } else if (activeCategory === "LUXURY CITY HOTELS") {
+          matchesCategory =
+            catStr.includes("city") ||
+            catStr.includes("urban") ||
+            catStr.includes("business") ||
+            catStr.includes("high-rise") ||
+            catStr.includes("contemporary") ||
+            loc.includes("delhi") ||
+            loc.includes("mumbai") ||
+            loc.includes("bengaluru") ||
+            loc.includes("chennai") ||
+            loc.includes("hyderabad") ||
+            loc.includes("chandigarh");
+        } else if (activeCategory === "BOUTIQUE & EXPERIENTIAL") {
+          matchesCategory =
+            catStr.includes("boutique") ||
+            catStr.includes("experiential") ||
+            catStr.includes("architectural") ||
+            catStr.includes("plantation") ||
+            catStr.includes("fortress") ||
+            loc.includes("hampi") ||
+            loc.includes("coorg") ||
+            loc.includes("jaisalmer");
+        }
+      }
     }
 
     let matchesSearch = true;
@@ -172,7 +335,8 @@ export default function ResortSec() {
       matchesSearch =
         resort.title.toLowerCase().includes(query) ||
         resort.location.toLowerCase().includes(query) ||
-        resort.description.toLowerCase().includes(query);
+        resort.description.toLowerCase().includes(query) ||
+        (resort.amenities && resort.amenities.some((a: string) => a.toLowerCase().includes(query)));
     }
 
     return matchesCategory && matchesSearch;
@@ -196,7 +360,7 @@ export default function ResortSec() {
         </div>
 
         {/* 1. CATEGORY NAVIGATION FILTER TABS */}
-        <div className="flex flex-wrap gap-3 items-center justify-center mb-10">
+        <div className="flex flex-wrap gap-2.5 sm:gap-3 items-center justify-center mb-10 max-w-5xl mx-auto">
           {CATEGORIES.map((cat) => {
             const isSelected = cat === activeCategory;
             return (
@@ -206,7 +370,7 @@ export default function ResortSec() {
                   setActiveCategory(cat);
                   setSearchQuery("");
                 }}
-                className={`text-xs tracking-[0.25em] font-medium uppercase px-7 py-2.5 rounded-sm border transition-all duration-300 cursor-pointer ${
+                className={`text-[10px] sm:text-xs tracking-[0.2em] font-medium uppercase px-5 sm:px-6 py-2.5 rounded-sm border transition-all duration-300 cursor-pointer whitespace-nowrap ${
                   isSelected
                     ? "bg-[#B38E46] text-white border-[#B38E46] shadow-sm"
                     : "bg-white text-[#B38E46] border-[#B38E46] hover:bg-[#B38E46] hover:text-white"
