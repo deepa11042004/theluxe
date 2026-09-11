@@ -104,8 +104,8 @@ const LUXURY_RESORTS = [
     image:
       "https://www.aman.com/sites/default/files/2023-01/Amanbagh%2C%20India%20-%20Main%20Building%2C%20Pool%20View-3.jpg",
     href: "https://www.aman.com/resorts/amanbagh",
-    category: "WILDLIFE & SAFARI",
-    luxuryCategory: "WILDLIFE & SAFARI",
+    category: "HERITAGE & PALACE",
+    luxuryCategory: "HERITAGE & PALACE",
     hotelType: "Mughal Luxury Resort",
     isNational: true,
     isInternational: false,
@@ -133,8 +133,148 @@ const LUXURY_RESORTS = [
   },
 ];
 
-export default function ResortSec() {
-  const [activeCategory, setActiveCategory] = useState("ALL RESORTS");
+function isResortInIndia(country?: string, location?: string): boolean {
+  const c = (country || "").trim().toLowerCase();
+  const loc = (location || "").trim().toLowerCase();
+
+  if (c === "india" || loc.includes("india")) return true;
+
+  const indianKeywords = [
+    "rajasthan", "kerala", "uttarakhand", "uttar pradesh", "delhi", "new delhi",
+    "maharashtra", "karnataka", "tamil nadu", "telangana", "goa", "gujarat",
+    "madhya pradesh", "himachal pradesh", "jammu", "kashmir", "chandigarh",
+    "udaipur", "jaipur", "jodhpur", "agra", "ranthambore", "rishikesh",
+    "mumbai", "bengaluru", "chennai", "hyderabad", "varanasi", "kovalam",
+    "kumarakom", "alwar", "jaisalmer", "jawai", "kabini", "coorg", "hampi",
+    "shimla", "dehradun", "kumaon", "gulmarg", "gir", "bandhavgarh"
+  ];
+
+  return indianKeywords.some((k) => c.includes(k) || loc.includes(k));
+}
+
+const VALID_THEME_CATEGORIES = [
+  "HERITAGE & PALACE",
+  "BEACH & ISLAND",
+  "MOUNTAIN & WELLNESS",
+  "WILDLIFE & SAFARI",
+  "LUXURY CITY HOTELS",
+  "BOUTIQUE & EXPERIENTIAL",
+];
+
+function determineResortCategory(hotel: any, loc: string): string {
+  const lux = (hotel.luxury_category || "").trim().toUpperCase();
+  if (VALID_THEME_CATEGORIES.includes(lux)) {
+    return lux;
+  }
+
+  const type = (hotel.hotel_type || "").toLowerCase();
+  const name = (hotel.name || hotel.title || "").toLowerCase();
+  const city = (hotel.city || loc || "").toLowerCase();
+
+  // 1. Beach & Island
+  if (
+    type.includes("beach") ||
+    type.includes("coastal") ||
+    type.includes("backwater") ||
+    type.includes("island") ||
+    city.includes("goa") ||
+    city.includes("kovalam") ||
+    city.includes("kumarakom") ||
+    city.includes("cuelim") ||
+    name.includes("maldives") ||
+    name.includes("soneva")
+  ) {
+    return "BEACH & ISLAND";
+  }
+
+  // 2. Wildlife & Safari
+  if (
+    type.includes("tented camp") ||
+    type.includes("safari") ||
+    type.includes("jungle") ||
+    type.includes("wilderness") ||
+    type.includes("lodge") ||
+    name.includes("vanyavilas") ||
+    name.includes("jawai") ||
+    name.includes("kabini") ||
+    name.includes("gir") ||
+    name.includes("bandhavgarh") ||
+    city.includes("ranthambore") ||
+    city.includes("gir")
+  ) {
+    return "WILDLIFE & SAFARI";
+  }
+
+  // 3. Mountain & Wellness
+  if (
+    type.includes("wellness") ||
+    type.includes("mountain") ||
+    type.includes("ski") ||
+    type.includes("plantation") ||
+    name.includes("ananda") ||
+    name.includes("khyber") ||
+    name.includes("tamara") ||
+    name.includes("kumaon") ||
+    city.includes("rishikesh") ||
+    city.includes("dehradun") ||
+    city.includes("shimla") ||
+    city.includes("kumaon") ||
+    city.includes("gulmarg") ||
+    city.includes("coorg")
+  ) {
+    return "MOUNTAIN & WELLNESS";
+  }
+
+  // 4. Heritage & Palace
+  if (
+    type.includes("palace") ||
+    type.includes("fort") ||
+    type.includes("haveli") ||
+    type.includes("heritage") ||
+    type.includes("fortress") ||
+    name.includes("palace") ||
+    name.includes("fort") ||
+    name.includes("haveli") ||
+    name.includes("udaivilas") ||
+    name.includes("amarvilas") ||
+    name.includes("rajvilas") ||
+    name.includes("samode") ||
+    name.includes("devigarh") ||
+    name.includes("maurya") ||
+    name.includes("suryagarh") ||
+    city.includes("udaipur") ||
+    city.includes("jaipur") ||
+    city.includes("jodhpur") ||
+    city.includes("jaisalmer") ||
+    city.includes("agra") ||
+    city.includes("alwar")
+  ) {
+    return "HERITAGE & PALACE";
+  }
+
+  // 5. Luxury City Hotels
+  if (
+    type.includes("city") ||
+    type.includes("urban") ||
+    type.includes("business") ||
+    type.includes("high-rise") ||
+    type.includes("contemporary") ||
+    city.includes("mumbai") ||
+    city.includes("new delhi") ||
+    city.includes("bengaluru") ||
+    city.includes("chennai") ||
+    city.includes("hyderabad") ||
+    city.includes("chandigarh")
+  ) {
+    return "LUXURY CITY HOTELS";
+  }
+
+  // 6. Boutique & Experiential
+  return "BOUTIQUE & EXPERIENTIAL";
+}
+
+export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initialCategory?: string }) {
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [searchQuery, setSearchQuery] = useState("");
   const [resortsList, setResortsList] = useState<any[]>(LUXURY_RESORTS);
 
@@ -166,35 +306,10 @@ export default function ResortSec() {
               }
             }
 
-            const country = (hotel.country || "").trim().toLowerCase();
-            const locLower = loc.toLowerCase();
-            const isNational =
-              country === "india" ||
-              locLower.includes("india") ||
-              hotel.is_india_top_50 === true ||
-              (!country && !locLower.includes("maldives"));
-            const isInternational =
-              !isNational ||
-              (country !== "" && country !== "india") ||
-              hotel.is_international_top_50 === true ||
-              locLower.includes("maldives");
+            const isNational = isResortInIndia(hotel.country, loc);
+            const isInternational = !isNational;
 
-            // Categorize display tag
-            let displayCat = hotel.luxury_category || hotel.hotel_type || "LUXURY RESORT";
-            const catLower = displayCat.toLowerCase();
-            if (catLower.includes("heritage") || catLower.includes("palace") || catLower.includes("haveli") || catLower.includes("fort")) {
-              displayCat = "HERITAGE & PALACE";
-            } else if (catLower.includes("beach") || catLower.includes("island") || catLower.includes("coast") || locLower.includes("goa") || locLower.includes("kovalam") || locLower.includes("kumarakom") || locLower.includes("maldives")) {
-              displayCat = "BEACH & ISLAND";
-            } else if (catLower.includes("mountain") || catLower.includes("wellness") || catLower.includes("sanctuary") || locLower.includes("shimla") || locLower.includes("rishikesh") || locLower.includes("kumaon") || locLower.includes("gulmarg")) {
-              displayCat = "MOUNTAIN & WELLNESS";
-            } else if (catLower.includes("wildlife") || catLower.includes("safari") || catLower.includes("jungle") || catLower.includes("tented") || locLower.includes("ranthambore") || locLower.includes("jawai") || locLower.includes("kabini") || locLower.includes("gir")) {
-              displayCat = "WILDLIFE & SAFARI";
-            } else if (catLower.includes("city") || locLower.includes("delhi") || locLower.includes("mumbai") || locLower.includes("bengaluru") || locLower.includes("chennai")) {
-              displayCat = "LUXURY CITY";
-            } else if (catLower.includes("boutique") || catLower.includes("experiential")) {
-              displayCat = "BOUTIQUE & WELLNESS";
-            }
+            const displayCat = determineResortCategory(hotel, loc);
 
             return {
               id: hotel.id || `db-${idx}`,
@@ -232,100 +347,15 @@ export default function ResortSec() {
   const filteredResorts = resortsList.filter((resort) => {
     let matchesCategory = true;
     if (activeCategory !== "ALL RESORTS") {
-      const country = (resort.country || "").trim().toLowerCase();
-      const loc = (resort.location || "").toLowerCase();
-      const isNational = resort.isNational || country === "india" || loc.includes("india");
-      const isInternational = resort.isInternational || (country !== "" && country !== "india") || loc.includes("maldives");
+      const isNational = isResortInIndia(resort.country, resort.location);
+      const isInternational = !isNational;
 
       if (activeCategory === "NATIONAL") {
         matchesCategory = isNational;
       } else if (activeCategory === "INTERNATIONAL") {
         matchesCategory = isInternational;
       } else {
-        const catStr = [
-          resort.category,
-          resort.luxuryCategory,
-          resort.hotelType,
-          resort.title,
-          resort.description,
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
-
-        if (activeCategory === "HERITAGE & PALACE") {
-          matchesCategory =
-            catStr.includes("heritage") ||
-            catStr.includes("palace") ||
-            catStr.includes("haveli") ||
-            catStr.includes("fort") ||
-            catStr.includes("palatial") ||
-            catStr.includes("royal");
-        } else if (activeCategory === "BEACH & ISLAND") {
-          matchesCategory =
-            catStr.includes("beach") ||
-            catStr.includes("island") ||
-            catStr.includes("coast") ||
-            catStr.includes("backwater") ||
-            catStr.includes("lake") ||
-            catStr.includes("sea") ||
-            catStr.includes("ocean") ||
-            loc.includes("goa") ||
-            loc.includes("kovalam") ||
-            loc.includes("kumarakom") ||
-            loc.includes("maldives");
-        } else if (activeCategory === "MOUNTAIN & WELLNESS") {
-          matchesCategory =
-            catStr.includes("mountain") ||
-            catStr.includes("wellness") ||
-            catStr.includes("spa") ||
-            catStr.includes("ayurvedic") ||
-            catStr.includes("sanctuary") ||
-            catStr.includes("himalayan") ||
-            catStr.includes("himalayas") ||
-            loc.includes("shimla") ||
-            loc.includes("rishikesh") ||
-            loc.includes("dehradun") ||
-            loc.includes("kumaon") ||
-            loc.includes("gulmarg");
-        } else if (activeCategory === "WILDLIFE & SAFARI") {
-          matchesCategory =
-            catStr.includes("wildlife") ||
-            catStr.includes("safari") ||
-            catStr.includes("jungle") ||
-            catStr.includes("wilderness") ||
-            catStr.includes("tented camp") ||
-            catStr.includes("camp") ||
-            catStr.includes("lodge") ||
-            loc.includes("ranthambore") ||
-            loc.includes("jawai") ||
-            loc.includes("kabini") ||
-            loc.includes("gir") ||
-            loc.includes("bandhavgarh");
-        } else if (activeCategory === "LUXURY CITY HOTELS") {
-          matchesCategory =
-            catStr.includes("city") ||
-            catStr.includes("urban") ||
-            catStr.includes("business") ||
-            catStr.includes("high-rise") ||
-            catStr.includes("contemporary") ||
-            loc.includes("delhi") ||
-            loc.includes("mumbai") ||
-            loc.includes("bengaluru") ||
-            loc.includes("chennai") ||
-            loc.includes("hyderabad") ||
-            loc.includes("chandigarh");
-        } else if (activeCategory === "BOUTIQUE & EXPERIENTIAL") {
-          matchesCategory =
-            catStr.includes("boutique") ||
-            catStr.includes("experiential") ||
-            catStr.includes("architectural") ||
-            catStr.includes("plantation") ||
-            catStr.includes("fortress") ||
-            loc.includes("hampi") ||
-            loc.includes("coorg") ||
-            loc.includes("jaisalmer");
-        }
+        matchesCategory = resort.category === activeCategory;
       }
     }
 

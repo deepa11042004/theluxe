@@ -1,23 +1,23 @@
 import React from "react";
-import Experiencesec from "@/components/Experience/Experiencesec";
+import ResortSec from "@/components/Resort/Resortsec";
 import Heading from "@/components/Heading";
 
 export const metadata = {
-  title: "National Experiences - The Luxe Yatra Worldwide Travels",
+  title: "India - Top 50 Luxury Hotels | The Luxe Yatra",
   description:
-    "Discover premium luxury retreats and domestic travel experiences.",
+    "Discover India's Top 50 luxury hotels, palatial sanctuaries, and retreats.",
 };
 
 export default function NationalExperiencesPage() {
   return (
     <>
       <Heading
-        title="National"
-        subtitle="Unveil exceptional domestic sanctuaries and cultural escapes nestled close to home."
+        title="India"
+        subtitle="Top 50 Luxury Hotels & Sanctuaries Nestled Across India."
         align="center"
         bgImage="/Img/abhishek-r-sT9zI42WgAc-unsplash.jpg"
       />
-      <Experiencesec type="national" />
+      <ResortSec initialCategory="NATIONAL" />
     </>
   );
 }

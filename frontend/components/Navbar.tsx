@@ -33,7 +33,7 @@ const itemVariants = {
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isExperiencesOpen, setIsExperiencesOpen] = useState(false);
+  const [isResortsOpen, setIsResortsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
@@ -70,7 +70,7 @@ export default function Navbar() {
         }`}
       >
         <div className="w-full px-2 md:px-4 flex justify-between items-center">
-          {/* LEFT SIDE: Hamburger + Experiences */}
+          {/* LEFT SIDE: Hamburger + Resorts */}
           <div className="flex items-center gap-2.5 sm:gap-3.5 flex-1">
             {/* Hamburger Icon */}
             <button
@@ -82,15 +82,18 @@ export default function Navbar() {
               <span className="w-5 h-[1.5px] bg-white transition-all duration-300 group-hover:w-8 group-hover:bg-[#B38E46]"></span>
             </button>
 
-            {/* Experiences Dropdown (Desktop) */}
-            <div className="relative group/experiences hidden lg:block cursor-pointer py-1">
-              <div className="flex items-center gap-1.5 text-white text-[11px] xl:text-xs tracking-[0.2em] font-medium uppercase group-hover/experiences:text-[#B38E46] transition-colors">
-                <ChevronDown className="w-3.5 h-3.5 group-hover/experiences:rotate-180 transition-transform duration-300" />
-                EXPERIENCES
-              </div>
+            {/* Resorts Dropdown (Desktop) */}
+            <div className="relative group/resorts hidden lg:block cursor-pointer py-1">
+              <Link
+                href="/resorts"
+                className="flex items-center gap-1.5 text-white text-[11px] xl:text-xs tracking-[0.2em] font-medium uppercase group-hover/resorts:text-[#B38E46] transition-colors"
+              >
+                <ChevronDown className="w-3.5 h-3.5 group-hover/resorts:rotate-180 transition-transform duration-300" />
+                RESORTS
+              </Link>
               
               {/* Dropdown Menu matching reference image with golden glassy translucent style */}
-              <div className="absolute top-full left-0 pt-3 opacity-0 pointer-events-none group-hover/experiences:opacity-100 group-hover/experiences:pointer-events-auto transition-all duration-300 ease-out z-50">
+              <div className="absolute top-full left-0 pt-3 opacity-0 pointer-events-none group-hover/resorts:opacity-100 group-hover/resorts:pointer-events-auto transition-all duration-300 ease-out z-50">
                 <div className="bg-[#B38E46]/85 backdrop-blur-md border-0 rounded-none shadow-xl w-64 flex flex-col text-white overflow-hidden">
                   <Link
                     href="/national"
@@ -229,32 +232,31 @@ export default function Navbar() {
                 animate="show"
                 className="flex flex-col gap-6 md:gap-8 text-lg md:text-xl font-light text-white tracking-[0.2em] uppercase text-center"
               >
-                <motion.div variants={itemVariants}>
-                  <Link
-                    href="/resorts"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:text-black transition-colors"
-                  >
-                    Resorts
-                  </Link>
-                </motion.div>
-
-                {/* Experiences Section with Accordion */}
+                {/* Resorts Section with Accordion */}
                 <motion.div variants={itemVariants} className="flex flex-col items-center gap-3">
-                  <button
-                    onClick={() => setIsExperiencesOpen(!isExperiencesOpen)}
-                    className="flex items-center justify-center gap-2 hover:text-black transition-colors cursor-pointer"
-                  >
-                    <span>Experiences</span>
-                    <ChevronDown
-                      className={`w-5 h-5 transition-transform duration-300 ${
-                        isExperiencesOpen ? "rotate-180 text-[#B38E46]" : ""
-                      }`}
-                    />
-                  </button>
+                  <div className="flex items-center justify-center gap-2">
+                    <Link
+                      href="/resorts"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="hover:text-black transition-colors"
+                    >
+                      Resorts
+                    </Link>
+                    <button
+                      onClick={() => setIsResortsOpen(!isResortsOpen)}
+                      className="p-1 hover:text-black transition-colors cursor-pointer"
+                      aria-label="Toggle Resorts sub-menu"
+                    >
+                      <ChevronDown
+                        className={`w-5 h-5 transition-transform duration-300 ${
+                          isResortsOpen ? "rotate-180 text-[#B38E46]" : ""
+                        }`}
+                      />
+                    </button>
+                  </div>
 
                   <AnimatePresence initial={false}>
-                    {isExperiencesOpen && (
+                    {isResortsOpen && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
@@ -281,6 +283,17 @@ export default function Navbar() {
                       </motion.div>
                     )}
                   </AnimatePresence>
+                </motion.div>
+
+                {/* Experiences Section */}
+                <motion.div variants={itemVariants}>
+                  <Link
+                    href="/experiences"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="hover:text-black transition-colors"
+                  >
+                    Experiences
+                  </Link>
                 </motion.div>
 
                 <motion.div variants={itemVariants}>
