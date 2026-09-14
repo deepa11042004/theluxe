@@ -20,9 +20,7 @@ node_modules/
 # production
 /build
 dist/
-uploads/
-
-# misc
+# uploads/
 .DS_Store
 *.pem
 
