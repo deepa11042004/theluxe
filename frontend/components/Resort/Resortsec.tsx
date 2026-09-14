@@ -162,9 +162,28 @@ const VALID_THEME_CATEGORIES = [
 ];
 
 function determineResortCategory(hotel: any, loc: string): string {
-  const lux = (hotel.luxury_category || "").trim().toUpperCase();
+  const lux = (hotel.luxury_category || hotel.category || "").trim().toUpperCase();
   if (VALID_THEME_CATEGORIES.includes(lux)) {
     return lux;
+  }
+
+  if (lux.includes("ISLAND") || lux.includes("BEACH") || lux.includes("PRIVATE ISLAND")) {
+    return "BEACH & ISLAND";
+  }
+  if (lux.includes("PALACE") || lux.includes("HERITAGE") || lux.includes("CULTURAL")) {
+    return "HERITAGE & PALACE";
+  }
+  if (lux.includes("CITY") || lux.includes("ICONIC CITY")) {
+    return "LUXURY CITY HOTELS";
+  }
+  if (lux.includes("WILDERNESS") || lux.includes("SAFARI") || lux.includes("NATURE") || lux.includes("JUNGLE")) {
+    return "WILDLIFE & SAFARI";
+  }
+  if (lux.includes("WELLNESS") || lux.includes("ALPINE") || lux.includes("SKI") || lux.includes("MOUNTAIN")) {
+    return "MOUNTAIN & WELLNESS";
+  }
+  if (lux.includes("ULTRA LUXURY") || lux.includes("BESPOKE") || lux.includes("BOUTIQUE")) {
+    return "BOUTIQUE & EXPERIENTIAL";
   }
 
   const type = (hotel.hotel_type || "").toLowerCase();
@@ -181,6 +200,11 @@ function determineResortCategory(hotel: any, loc: string): string {
     city.includes("kovalam") ||
     city.includes("kumarakom") ||
     city.includes("cuelim") ||
+    city.includes("maldives") ||
+    city.includes("bora bora") ||
+    city.includes("phuket") ||
+    city.includes("los cabos") ||
+    city.includes("riviera maya") ||
     name.includes("maldives") ||
     name.includes("soneva")
   ) {
@@ -199,8 +223,11 @@ function determineResortCategory(hotel: any, loc: string): string {
     name.includes("kabini") ||
     name.includes("gir") ||
     name.includes("bandhavgarh") ||
+    name.includes("singita") ||
     city.includes("ranthambore") ||
-    city.includes("gir")
+    city.includes("gir") ||
+    city.includes("kruger") ||
+    city.includes("sabi sand")
   ) {
     return "WILDLIFE & SAFARI";
   }
@@ -215,12 +242,16 @@ function determineResortCategory(hotel: any, loc: string): string {
     name.includes("khyber") ||
     name.includes("tamara") ||
     name.includes("kumaon") ||
+    name.includes("chedi") ||
+    name.includes("badrutt") ||
     city.includes("rishikesh") ||
     city.includes("dehradun") ||
     city.includes("shimla") ||
     city.includes("kumaon") ||
     city.includes("gulmarg") ||
-    city.includes("coorg")
+    city.includes("coorg") ||
+    city.includes("andermatt") ||
+    city.includes("st. moritz")
   ) {
     return "MOUNTAIN & WELLNESS";
   }
@@ -242,12 +273,25 @@ function determineResortCategory(hotel: any, loc: string): string {
     name.includes("devigarh") ||
     name.includes("maurya") ||
     name.includes("suryagarh") ||
+    name.includes("mansour") ||
+    name.includes("sacher") ||
+    name.includes("savoy") ||
+    name.includes("cipriani") ||
+    name.includes("monasterio") ||
+    name.includes("angkor") ||
+    name.includes("amangalla") ||
     city.includes("udaipur") ||
     city.includes("jaipur") ||
     city.includes("jodhpur") ||
     city.includes("jaisalmer") ||
     city.includes("agra") ||
-    city.includes("alwar")
+    city.includes("alwar") ||
+    city.includes("marrakech") ||
+    city.includes("vienna") ||
+    city.includes("venice") ||
+    city.includes("cusco") ||
+    city.includes("galle") ||
+    city.includes("siem reap")
   ) {
     return "HERITAGE & PALACE";
   }
@@ -264,7 +308,17 @@ function determineResortCategory(hotel: any, loc: string): string {
     city.includes("bengaluru") ||
     city.includes("chennai") ||
     city.includes("hyderabad") ||
-    city.includes("chandigarh")
+    city.includes("chandigarh") ||
+    city.includes("hong kong") ||
+    city.includes("new york") ||
+    city.includes("paris") ||
+    city.includes("singapore") ||
+    city.includes("tokyo") ||
+    city.includes("dubai") ||
+    city.includes("london") ||
+    city.includes("bangkok") ||
+    city.includes("rome") ||
+    city.includes("sydney")
   ) {
     return "LUXURY CITY HOTELS";
   }
@@ -281,7 +335,7 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
   React.useEffect(() => {
     async function fetchHotels() {
       try {
-        const res = await fetch("/api/v1/hotels?limit=100");
+        const res = await fetch("/api/v1/hotels?limit=250&sort=rank");
         const json = await res.json();
         if (json.success && Array.isArray(json.data) && json.data.length > 0) {
           const dbHotels = json.data.map((hotel: any, idx: number) => {
@@ -291,7 +345,7 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
               hotel.images?.[0]?.image_url ||
               "/Img/soneva-fushi.jpg";
 
-            let amenitiesArr: string[] = ["Royal Butler Service", "Private Boat Transfer"];
+            let amenitiesArr: string[] = ["Royal Butler Service", "Private Chauffeur"];
             if (hotel.amenities) {
               if (typeof hotel.amenities === "string") {
                 try {
@@ -306,16 +360,24 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
               }
             }
 
-            const isNational = isResortInIndia(hotel.country, loc);
-            const isInternational = !isNational;
+            const isNational = hotel.is_india_top_50 === true || (hotel.is_international_top_50 !== true && isResortInIndia(hotel.country, loc));
+            const isInternational = hotel.is_international_top_50 === true || !isNational;
 
             const displayCat = determineResortCategory(hotel, loc);
+
+            // Clean price formatting
+            let priceDisplay = "Member Rates";
+            if (hotel.why_we_recommend && typeof hotel.why_we_recommend === "string") {
+              if (hotel.why_we_recommend.length < 20 && (hotel.why_we_recommend.includes("₹") || hotel.why_we_recommend.includes("$") || /\d/.test(hotel.why_we_recommend))) {
+                priceDisplay = hotel.why_we_recommend;
+              }
+            }
 
             return {
               id: hotel.id || `db-${idx}`,
               title: hotel.name,
               location: loc || "Luxury Destination",
-              country: hotel.country || "India",
+              country: hotel.country || "Global Sanctuary",
               description: hotel.short_description || hotel.description || "Handpicked luxury sanctuary.",
               image: primaryImg,
               href: hotel.official_website || hotel.booking_url || `/resorts/${hotel.slug}`,
@@ -324,8 +386,12 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
               hotelType: hotel.hotel_type || "",
               isNational,
               isInternational,
+              isIndiaTop50: hotel.is_india_top_50,
+              isInternationalTop50: hotel.is_international_top_50,
+              rank: hotel.top_hotel_rank || null,
+              displayOrder: hotel.display_order || hotel.top_hotel_rank || idx + 1,
               rating: 4.9,
-              price: hotel.why_we_recommend || "₹45,000",
+              price: priceDisplay,
               amenities: amenitiesArr.slice(0, 3),
             };
           });
@@ -347,8 +413,8 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
   const filteredResorts = resortsList.filter((resort) => {
     let matchesCategory = true;
     if (activeCategory !== "ALL RESORTS") {
-      const isNational = isResortInIndia(resort.country, resort.location);
-      const isInternational = !isNational;
+      const isNational = resort.isNational ?? isResortInIndia(resort.country, resort.location);
+      const isInternational = resort.isInternational ?? !isNational;
 
       if (activeCategory === "NATIONAL") {
         matchesCategory = isNational;
@@ -370,6 +436,17 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
     }
 
     return matchesCategory && matchesSearch;
+  });
+
+  // Sort by rank according to category
+  filteredResorts.sort((a, b) => {
+    if (activeCategory === "INTERNATIONAL") {
+      return (a.rank || 999) - (b.rank || 999);
+    }
+    if (activeCategory === "NATIONAL") {
+      return (a.rank || 999) - (b.rank || 999);
+    }
+    return (a.displayOrder || 999) - (b.displayOrder || 999);
   });
 
   return (
@@ -482,13 +559,20 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
                   }}
                 />
 
-                {/* Category Pill Tag & Rating Tag at Top */}
+                {/* Category Pill Tag & Rank/Rating Tag at Top */}
                 <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-                  <span className="bg-black/50 backdrop-blur-md text-white text-[10px] tracking-[0.2em] uppercase font-light px-3 py-1.5 border border-white/20">
-                    {resort.category.replace("&", "•")}
-                  </span>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="bg-black/60 backdrop-blur-md text-white text-[10px] tracking-[0.2em] uppercase font-light px-3 py-1.5 border border-white/20">
+                      {resort.category.replace("&", "•")}
+                    </span>
+                    {resort.rank && (
+                      <span className="bg-[#B38E46] text-white text-[10px] font-medium tracking-wider px-2.5 py-1.5 shadow-sm">
+                        #{resort.rank} {resort.isInternational ? "INTL" : "INDIA"}
+                      </span>
+                    )}
+                  </div>
 
-                  <div className="bg-black/50 backdrop-blur-md text-white text-xs font-light tracking-wider px-3 py-1 border border-white/20 flex items-center gap-1.5">
+                  <div className="bg-black/60 backdrop-blur-md text-white text-xs font-light tracking-wider px-3 py-1 border border-white/20 flex items-center gap-1.5 shrink-0">
                     <Star className="w-3.5 h-3.5 fill-[#E5C158] text-[#E5C158]" />
                     <span>{resort.rating}</span>
                   </div>

@@ -9,6 +9,9 @@ export async function getPublicHotels(req: Request, res: Response, next: NextFun
     const search = req.query.search as string;
     const featured = req.query.featured as string;
     const popular = req.query.popular as string;
+    const is_india_top_50 = req.query.is_india_top_50 as string;
+    const is_international_top_50 = req.query.is_international_top_50 as string;
+    const sort = req.query.sort as string;
 
     const where: any = { status: "PUBLISHED", deleted_at: null };
     if (featured === "true") {
@@ -16,6 +19,12 @@ export async function getPublicHotels(req: Request, res: Response, next: NextFun
     }
     if (popular === "true") {
       where.is_popular = true;
+    }
+    if (is_india_top_50 !== undefined) {
+      where.is_india_top_50 = is_india_top_50 === "true";
+    }
+    if (is_international_top_50 !== undefined) {
+      where.is_international_top_50 = is_international_top_50 === "true";
     }
     if (search) {
       where.OR = [
@@ -25,12 +34,19 @@ export async function getPublicHotels(req: Request, res: Response, next: NextFun
       ];
     }
 
+    let orderBy: any = [{ display_order: "asc" }, { published_at: "desc" }];
+    if (sort === "rank") {
+      orderBy = [{ top_hotel_rank: "asc" }, { display_order: "asc" }];
+    } else if (sort === "display_order") {
+      orderBy = { display_order: "asc" };
+    }
+
     const [items, total] = await Promise.all([
       prisma.hotel.findMany({
         where,
         skip,
         take: limit,
-        orderBy: [{ display_order: "asc" }, { published_at: "desc" }],
+        orderBy,
         include: { images: { orderBy: { display_order: "asc" } } },
       }),
       prisma.hotel.count({ where }),

@@ -16,6 +16,9 @@ export async function getHotels(req: Request, res: Response, next: NextFunction)
     const hotel_type = req.query.hotel_type as string;
     const status = req.query.status as string;
     const featured = req.query.featured as string;
+    const is_india_top_50 = req.query.is_india_top_50 as string;
+    const is_international_top_50 = req.query.is_international_top_50 as string;
+    const sort = req.query.sort as string;
 
     const where: any = { deleted_at: null };
 
@@ -32,13 +35,22 @@ export async function getHotels(req: Request, res: Response, next: NextFunction)
     if (hotel_type) where.hotel_type = hotel_type;
     if (status) where.status = status;
     if (featured !== undefined) where.is_featured = featured === "true";
+    if (is_india_top_50 !== undefined) where.is_india_top_50 = is_india_top_50 === "true";
+    if (is_international_top_50 !== undefined) where.is_international_top_50 = is_international_top_50 === "true";
+
+    let orderBy: any = { updated_at: "desc" };
+    if (sort === "rank") {
+      orderBy = [{ top_hotel_rank: "asc" }, { display_order: "asc" }];
+    } else if (sort === "display_order") {
+      orderBy = { display_order: "asc" };
+    }
 
     const [items, total] = await Promise.all([
       prisma.hotel.findMany({
         where,
         skip,
         take: limit,
-        orderBy: { updated_at: "desc" },
+        orderBy,
         include: {
           images: {
             orderBy: { display_order: "asc" },
@@ -351,59 +363,6 @@ export async function toggleFeatured(req: Request, res: Response, next: NextFunc
     });
 
     return res.json({ success: true, data: updated });
-  } catch (err) {
-    next(err);
-  }
-}
-
-export async function validateBulkImport(req: Request, res: Response, next: NextFunction) {
-  try {
-    const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
-    const csvFile = files?.csv?.[0];
-    const zipFile = files?.zip?.[0];
-
-    if (!csvFile) {
-      return res.status(400).json({
-        success: false,
-        message: "Missing Hotel CSV file. Please upload a valid .csv file.",
-      });
-    }
-
-    if (!zipFile) {
-      return res.status(400).json({
-        success: false,
-        message: "Missing Hotel Images ZIP file. Please upload a valid .zip archive.",
-      });
-    }
-
-    const { validateImportFiles } = await import("../utils/hotelImportService");
-    const result = await validateImportFiles(csvFile.buffer, zipFile.buffer);
-
-    return res.status(result.success ? 200 : 400).json(result);
-  } catch (err) {
-    next(err);
-  }
-}
-
-export async function executeBulkImport(req: Request, res: Response, next: NextFunction) {
-  try {
-    const { sessionId, updateExisting } = req.body;
-
-    if (!sessionId) {
-      return res.status(400).json({
-        success: false,
-        message: "Missing import sessionId. Please validate files before executing import.",
-      });
-    }
-
-    const { executeImport } = await import("../utils/hotelImportService");
-    const result = await executeImport(
-      sessionId,
-      { updateExisting: Boolean(updateExisting) },
-      req.user?.id
-    );
-
-    return res.status(result.success ? 200 : 400).json(result);
   } catch (err) {
     next(err);
   }

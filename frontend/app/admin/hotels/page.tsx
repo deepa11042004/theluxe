@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, Search, Filter, Edit, Trash2, CheckCircle2, XCircle, Star, Upload } from "lucide-react";
+import { Plus, Search, Filter, Edit, Trash2, CheckCircle2, XCircle, Star } from "lucide-react";
 import StatusBadge from "@/components/admin/StatusBadge";
 
 export default function AdminHotelsListPage() {
@@ -92,12 +92,6 @@ export default function AdminHotelsListPage() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <Link
-            href="/admin/hotels/import"
-            className="border border-[#B38E46] text-[#B38E46] hover:bg-[#B38E46]/10 px-4 py-2.5 rounded-xl text-xs font-semibold transition-colors flex items-center gap-2 shadow-xs"
-          >
-            <Upload className="w-4 h-4" /> Bulk Import
-          </Link>
           <Link
             href="/admin/hotels/new"
             className="bg-[#B38E46] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] transition-colors flex items-center gap-2 shadow-sm"
