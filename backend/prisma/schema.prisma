@@ -222,11 +222,17 @@ model DestinationImage {
 model Itinerary {
   id                  String    @id @default(uuid())
   title               String
+  name                String?
   slug                String    @unique
+  itinerary_code      String?
   short_description   String?
   overview            String?
   region              String?
+  country             String?
   category            String?
+  duration            String?
+  tour_type           String?
+  package_type        String?
   nights              Int       @default(1)
   days                Int       @default(1)
   min_travelers       Int       @default(1)
@@ -234,6 +240,12 @@ model Itinerary {
   price_from          Float?
   price_currency      String?   @default("INR")
   price_unit          String?   @default("per person")
+  best_time           String?
+  recommended_for     String?
+  route               String?
+  hero_image          String?
+  visa_info           String?
+  booking_info        String?
   is_flights_included Boolean   @default(false)
   is_featured         Boolean   @default(false)
   display_order       Int       @default(0)
@@ -251,6 +263,9 @@ model Itinerary {
   inclusions   ItineraryInclusion[]
   exclusions   ItineraryExclusion[]
   images       ItineraryImage[]
+  attractions  ItineraryAttraction[]
+  activities   ItineraryActivity[]
+  faqs         ItineraryFAQ[]
 
   @@index([slug])
   @@index([status])
@@ -275,18 +290,31 @@ model ItineraryDestination {
 }
 
 model ItineraryDay {
-  id            String   @id @default(uuid())
-  itinerary_id  String
-  day_number    Int
-  title         String
-  description   String?
-  image_url     String?
-  media_id      String?
-  display_order Int      @default(0)
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  id                   String   @id @default(uuid())
+  itinerary_id         String
+  day_number           Int
+  title                String
+  location             String?
+  description          String?
+  morning_activities   String?
+  afternoon_activities String?
+  evening_activities   String?
+  activities_text      String?
+  attractions_text     String?
+  meals                String?
+  hotel                String?
+  transport            String?
+  important_notes      String?
+  image_url            String?
+  media_id             String?
+  display_order        Int      @default(0)
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
 
-  itinerary Itinerary @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
+  itinerary   Itinerary             @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
+  attractions ItineraryAttraction[]
+  activities  ItineraryActivity[]
+  images      ItineraryImage[]
 
   @@index([itinerary_id])
   @@map("itinerary_days")
@@ -311,6 +339,7 @@ model ItineraryInclusion {
   id            String   @id @default(uuid())
   itinerary_id  String
   title         String
+  description   String?
   display_order Int      @default(0)
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
@@ -325,6 +354,7 @@ model ItineraryExclusion {
   id            String   @id @default(uuid())
   itinerary_id  String
   title         String
+  description   String?
   display_order Int      @default(0)
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
@@ -335,22 +365,78 @@ model ItineraryExclusion {
   @@map("itinerary_exclusions")
 }
 
-model ItineraryImage {
+model ItineraryAttraction {
+  id            String        @id @default(uuid())
+  itinerary_id  String
+  day_id        String?
+  name          String
+  description   String?
+  image_url     String?
+  display_order Int           @default(0)
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+
+  itinerary Itinerary     @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
+  day       ItineraryDay? @relation(fields: [day_id], references: [id], onDelete: SetNull)
+
+  @@index([itinerary_id])
+  @@index([day_id])
+  @@map("itinerary_attractions")
+}
+
+model ItineraryActivity {
+  id            String        @id @default(uuid())
+  itinerary_id  String
+  day_id        String?
+  name          String
+  description   String?
+  image_url     String?
+  display_order Int           @default(0)
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+
+  itinerary Itinerary     @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
+  day       ItineraryDay? @relation(fields: [day_id], references: [id], onDelete: SetNull)
+
+  @@index([itinerary_id])
+  @@index([day_id])
+  @@map("itinerary_activities")
+}
+
+model ItineraryFAQ {
   id            String   @id @default(uuid())
   itinerary_id  String
-  media_id      String?
-  image_url     String
-  alt_text      String?
-  caption       String?
-  image_type    String   @default("gallery")
+  question      String
+  answer        String
   display_order Int      @default(0)
-  is_primary    Boolean  @default(false)
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
 
   itinerary Itinerary @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
 
   @@index([itinerary_id])
+  @@map("itinerary_faqs")
+}
+
+model ItineraryImage {
+  id            String        @id @default(uuid())
+  itinerary_id  String
+  day_id        String?
+  media_id      String?
+  image_url     String
+  alt_text      String?
+  caption       String?
+  image_type    String        @default("gallery")
+  display_order Int           @default(0)
+  is_primary    Boolean       @default(false)
+  created_at    DateTime      @default(now())
+  updated_at    DateTime      @updatedAt
+
+  itinerary Itinerary     @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
+  day       ItineraryDay? @relation(fields: [day_id], references: [id], onDelete: SetNull)
+
+  @@index([itinerary_id])
+  @@index([day_id])
   @@map("itinerary_images")
 }
 

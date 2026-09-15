@@ -80,6 +80,8 @@ interface CardProps {
 }
 
 function ItineraryCard({ item, onPlay }: CardProps) {
+  const targetId = item.slug || item.id;
+
   return (
     <motion.article
       layout
@@ -88,7 +90,7 @@ function ItineraryCard({ item, onPlay }: CardProps) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="group relative h-[460px] w-full bg-black border-0 rounded-none overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer"
+      className="group relative h-[480px] w-full bg-black border-0 rounded-none overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer"
     >
       {/* ── Background Image stretched full card ── */}
       <Image
@@ -104,16 +106,23 @@ function ItineraryCard({ item, onPlay }: CardProps) {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.65) 40%, rgba(0,0,0,0) 70%)",
+            "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0) 75%)",
         }}
       />
 
-      {/* Top Badge */}
-      {item.badge && (
-        <span className="absolute top-4 left-4 bg-[#B38E46] text-white text-[10px] font-[Vera] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm shadow-md z-20">
-          {item.badge}
-        </span>
-      )}
+      {/* Top Badges */}
+      <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20 pointer-events-none">
+        {item.badge && (
+          <span className="bg-[#B38E46] text-white text-[10px] font-medium uppercase tracking-widest px-3 py-1.5 rounded-sm shadow-md">
+            {item.badge}
+          </span>
+        )}
+        {item.country && (
+          <span className="bg-black/60 backdrop-blur-md text-white text-[10px] uppercase tracking-wider px-2.5 py-1 border border-white/20 rounded-sm">
+            {item.country.split(",")[0]}
+          </span>
+        )}
+      </div>
 
       {/* Video Play Button */}
       {item.youtubeId && (
@@ -121,7 +130,7 @@ function ItineraryCard({ item, onPlay }: CardProps) {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onPlay(item.youtubeId);
+              onPlay(item.youtubeId!);
             }}
             aria-label={`Play video for ${item.title}`}
             className="pointer-events-auto w-12 h-12 rounded-full border border-white/40 bg-white/10 backdrop-blur-md
@@ -136,36 +145,44 @@ function ItineraryCard({ item, onPlay }: CardProps) {
 
       {/* ── Body Overlayed directly on Image ── */}
       <div className="absolute inset-0 p-6 flex flex-col justify-end text-white z-10">
-        {/* Country */}
-        <div className="text-[10px] text-white/80 uppercase tracking-widest font-medium mb-1 font-[Vera]">
-          {item.country}
-        </div>
+        {/* Route if present */}
+        {item.route && (
+          <div className="text-[10px] text-[#E5C158] font-medium tracking-wider mb-1 flex items-center gap-1.5 line-clamp-1">
+            <MapPin className="w-3 h-3 text-[#B38E46] shrink-0" />
+            <span>{item.route}</span>
+          </div>
+        )}
 
         {/* Title */}
         <h3
-          className="text-xl font-medium text-white leading-snug mb-2 group-hover:text-[#B38E46] transition-colors duration-200"
-          style={{ color: "#ffffff", fontFamily: "var(--work-font), sans-serif" }}
+          className="text-lg md:text-xl font-serif font-medium text-white leading-snug mb-2 group-hover:text-[#B38E46] transition-colors duration-200 line-clamp-2"
         >
           {item.title}
         </h3>
 
         {/* Description */}
         <p
-          className="leading-relaxed line-clamp-3 font-light mb-4"
-          style={{ color: "rgba(255,255,255,0.9)", fontSize: "12.5px" }}
+          className="leading-relaxed line-clamp-2 font-light mb-4 text-white/80 text-xs"
         >
           {item.description}
         </p>
 
         {/* Footer */}
-        <div className="pt-4 border-t border-white/20 flex items-center justify-between">
-          <div className="text-[11px] text-white/80 font-medium uppercase tracking-wider font-[Vera]">
-            {item.duration}
+        <div className="pt-3 border-t border-white/20 flex items-center justify-between">
+          <div className="flex flex-col">
+            <span className="text-[10px] text-white/60 uppercase tracking-wider font-light">
+              {item.duration}
+            </span>
+            {item.startingPrice && (
+              <span className="text-xs font-semibold text-white tracking-wide">
+                From {item.startingPrice}
+              </span>
+            )}
           </div>
 
           <Link
-            href={`/itinerary/${item.id}`}
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-[#B38E46] transition-colors duration-200 cursor-pointer uppercase tracking-widest font-[Vera]"
+            href={`/itinerary/${targetId}`}
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-white group-hover:text-[#B38E46] transition-colors duration-200 cursor-pointer uppercase tracking-widest"
           >
             <span>EXPLORE</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -249,39 +266,40 @@ export default function ItineraryPage() {
         const res = await fetch("/api/v1/itineraries?limit=50");
         const json = await res.json();
         if (json.success && Array.isArray(json.data) && json.data.length > 0) {
-          const dbItems: ItineraryItem[] = json.data.map((itin: any, idx: number) => {
+          const dbItems: ItineraryItem[] = json.data.map((itin: any) => {
             const primaryImg =
+              itin.hero_image ||
               itin.images?.find((img: any) => img.is_primary)?.image_url ||
               itin.images?.[0]?.image_url ||
-              "/Img/national resorts/Taj Lake Palace.avif";
+              "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1200&auto=format&fit=crop";
 
-            const regionLower = (itin.region || "").toLowerCase();
-            const isIndia = regionLower.includes("india") || regionLower.includes("asia");
+            const durationStr =
+              itin.duration || `${itin.nights || 1} Nights / ${itin.days || 1} Days`;
+            const badgeStr = itin.duration
+              ? `✈️ ${itin.duration.split("/")[0].trim()}`
+              : `✈️ ${itin.nights || 1} Nights`;
+
+            const priceStr = itin.price_from
+              ? `₹${itin.price_from.toLocaleString("en-IN")}`
+              : "₹1,45,000";
 
             return {
-              id: itin.id || `db-itin-${idx}`,
-              country: itin.region || "India",
-              title: itin.title,
+              id: itin.id,
+              slug: itin.slug,
+              country: itin.country || itin.region || "International",
+              title: itin.title || itin.name,
               description: itin.short_description || itin.overview || "Exclusive luxury itinerary.",
-              duration: `${itin.days || 1} Days / ${itin.nights || 1} Nights`,
-              badge: itin.category || "LUXURY TOUR",
+              duration: durationStr,
+              badge: badgeStr,
               image: primaryImg,
               youtubeId: "",
-              images: [primaryImg],
-              groupSize: `${itin.min_travelers || 1}-${itin.max_travelers || 10} travelers`,
-              flightsIncl: itin.is_flights_included || false,
-              tourType: itin.category || "Private Luxury Tour",
-              days: (itin.days_list || []).map((d: any) => ({
-                day: `Day ${d.day_number}`,
-                title: d.title,
-                text: d.description || "",
-              })),
+              route: itin.route || "",
+              startingPrice: priceStr,
+              tourType: itin.tour_type || itin.category || "Luxury Journey",
             };
           });
 
-          const dbTitles = new Set(dbItems.map((i: any) => i.title.toLowerCase().trim()));
-          const remainingStatic = itineraryData.filter((i) => !dbTitles.has(i.title.toLowerCase().trim()));
-          setItinerariesList([...dbItems, ...remainingStatic]);
+          setItinerariesList(dbItems);
         }
       } catch (err) {
         console.error("Failed to fetch public itineraries:", err);

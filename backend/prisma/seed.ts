@@ -1002,6 +1002,10 @@ async function main() {
     }
   }
 
+  // Seed Itineraries
+  const { seedItineraries } = await import("./seed_itineraries");
+  await seedItineraries();
+
   console.log("Database seeded successfully with all Hotels, Destinations, Itineraries, and Blogs!");
 }
 

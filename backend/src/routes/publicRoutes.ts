@@ -14,6 +14,9 @@ router.get("/destinations/:slug", pubCtrl.getPublicDestinationBySlug);
 // Public Itineraries
 router.get("/itineraries", pubCtrl.getPublicItineraries);
 router.get("/itineraries/:slug", pubCtrl.getPublicItineraryBySlug);
+router.get("/itineraries/:slug/days", pubCtrl.getPublicItineraryDays);
+router.get("/itineraries/:slug/attractions", pubCtrl.getPublicItineraryAttractions);
+router.get("/itineraries/:slug/images", pubCtrl.getPublicItineraryImages);
 
 // Public Blogs
 router.get("/blogs", pubCtrl.getPublicBlogs);

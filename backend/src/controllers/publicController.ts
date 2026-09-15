@@ -140,14 +140,23 @@ export async function getPublicItineraries(req: Request, res: Response, next: Ne
     const limit = parseInt(req.query.limit as string) || 20;
     const skip = (page - 1) * limit;
     const search = req.query.search as string;
+    const region = req.query.region as string;
+    const category = req.query.category as string;
+    const featured = req.query.featured as string;
 
     const where: any = { status: "PUBLISHED", deleted_at: null };
     if (search) {
       where.OR = [
         { title: { contains: search } },
+        { name: { contains: search } },
         { region: { contains: search } },
+        { country: { contains: search } },
+        { route: { contains: search } },
       ];
     }
+    if (region) where.region = region;
+    if (category) where.category = category;
+    if (featured === "true") where.is_featured = true;
 
     const [items, total] = await Promise.all([
       prisma.itinerary.findMany({
@@ -162,14 +171,22 @@ export async function getPublicItineraries(req: Request, res: Response, next: Ne
           inclusions: { orderBy: { display_order: "asc" } },
           exclusions: { orderBy: { display_order: "asc" } },
           images: { orderBy: { display_order: "asc" } },
+          attractions: { orderBy: { display_order: "asc" } },
+          activities: { orderBy: { display_order: "asc" } },
+          faqs: { orderBy: { display_order: "asc" } },
         },
       }),
       prisma.itinerary.count({ where }),
     ]);
 
+    const formattedItems = items.map((itin) => ({
+      ...itin,
+      days: itin.days_list,
+    }));
+
     return res.json({
       success: true,
-      data: items,
+      data: formattedItems,
       meta: { page, limit, total, totalPages: Math.ceil(total / limit) },
     });
   } catch (err) {
@@ -181,14 +198,32 @@ export async function getPublicItineraryBySlug(req: Request, res: Response, next
   try {
     const { slug } = req.params;
     const item = await prisma.itinerary.findFirst({
-      where: { slug, status: "PUBLISHED", deleted_at: null },
+      where: {
+        OR: [
+          { slug: slug },
+          { id: slug },
+          { itinerary_code: slug }
+        ],
+        status: "PUBLISHED",
+        deleted_at: null
+      },
       include: {
         destinations: { include: { destination: true } },
-        days_list: { orderBy: { day_number: "asc" } },
+        days_list: {
+          orderBy: { day_number: "asc" },
+          include: {
+            attractions: true,
+            activities: true,
+            images: true,
+          }
+        },
         features: { orderBy: { display_order: "asc" } },
         inclusions: { orderBy: { display_order: "asc" } },
         exclusions: { orderBy: { display_order: "asc" } },
         images: { orderBy: { display_order: "asc" } },
+        attractions: { orderBy: { display_order: "asc" } },
+        activities: { orderBy: { display_order: "asc" } },
+        faqs: { orderBy: { display_order: "asc" } },
       },
     });
 
@@ -196,7 +231,98 @@ export async function getPublicItineraryBySlug(req: Request, res: Response, next
       return res.status(404).json({ success: false, message: "Itinerary not found." });
     }
 
-    return res.json({ success: true, data: item });
+    const formatted = {
+      ...item,
+      days: item.days_list,
+    };
+
+    return res.json({ success: true, data: formatted });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getPublicItineraryDays(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { slug } = req.params;
+    const itinerary = await prisma.itinerary.findFirst({
+      where: {
+        OR: [{ slug }, { id: slug }, { itinerary_code: slug }],
+        status: "PUBLISHED",
+        deleted_at: null,
+      },
+      select: { id: true, title: true, slug: true },
+    });
+
+    if (!itinerary) {
+      return res.status(404).json({ success: false, message: "Itinerary not found." });
+    }
+
+    const days = await prisma.itineraryDay.findMany({
+      where: { itinerary_id: itinerary.id },
+      orderBy: { day_number: "asc" },
+      include: {
+        attractions: true,
+        activities: true,
+        images: true,
+      },
+    });
+
+    return res.json({ success: true, data: days });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getPublicItineraryAttractions(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { slug } = req.params;
+    const itinerary = await prisma.itinerary.findFirst({
+      where: {
+        OR: [{ slug }, { id: slug }, { itinerary_code: slug }],
+        status: "PUBLISHED",
+        deleted_at: null,
+      },
+      select: { id: true, title: true, slug: true },
+    });
+
+    if (!itinerary) {
+      return res.status(404).json({ success: false, message: "Itinerary not found." });
+    }
+
+    const attractions = await prisma.itineraryAttraction.findMany({
+      where: { itinerary_id: itinerary.id },
+      orderBy: { display_order: "asc" },
+    });
+
+    return res.json({ success: true, data: attractions });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getPublicItineraryImages(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { slug } = req.params;
+    const itinerary = await prisma.itinerary.findFirst({
+      where: {
+        OR: [{ slug }, { id: slug }, { itinerary_code: slug }],
+        status: "PUBLISHED",
+        deleted_at: null,
+      },
+      select: { id: true, title: true, slug: true, hero_image: true },
+    });
+
+    if (!itinerary) {
+      return res.status(404).json({ success: false, message: "Itinerary not found." });
+    }
+
+    const images = await prisma.itineraryImage.findMany({
+      where: { itinerary_id: itinerary.id },
+      orderBy: { display_order: "asc" },
+    });
+
+    return res.json({ success: true, data: images });
   } catch (err) {
     next(err);
   }

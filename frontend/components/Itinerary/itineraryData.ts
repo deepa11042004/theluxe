@@ -1,18 +1,32 @@
 export interface ItineraryItem {
   id: string;
+  slug?: string;
   country: string;
   title: string;
   description: string;
   duration: string;
   badge: string;
   image: string;
-  youtubeId: string;
+  youtubeId?: string;
+  route?: string;
+  startingPrice?: string;
+  tourType?: string;
 }
 
-export interface ItineraryDay {
+export interface ItineraryDayDetail {
   day: string;
+  day_number?: number;
   title: string;
   text: string;
+  location?: string;
+  morning?: string;
+  afternoon?: string;
+  evening?: string;
+  meals?: string;
+  hotel?: string;
+  transport?: string;
+  notes?: string;
+  image?: string;
 }
 
 export interface DetailedItinerary extends ItineraryItem {
@@ -20,7 +34,18 @@ export interface DetailedItinerary extends ItineraryItem {
   groupSize: string;
   flightsIncl: boolean;
   tourType: string;
-  days: ItineraryDay[];
+  overview?: string;
+  route?: string;
+  bestTime?: string;
+  recommendedFor?: string;
+  visaInfo?: string;
+  bookingInfo?: string;
+  days: ItineraryDayDetail[];
+  inclusions?: { title: string; description?: string }[];
+  exclusions?: { title: string; description?: string }[];
+  attractions?: { name: string; description?: string; image_url?: string }[];
+  activities?: { name: string; description?: string; image_url?: string }[];
+  faqs?: { question: string; answer: string }[];
 }
 
 export const itineraryData: DetailedItinerary[] = [
