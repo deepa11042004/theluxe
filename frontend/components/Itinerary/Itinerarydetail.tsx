@@ -57,8 +57,7 @@ const ITINERARY_HERO_CONFIG: Record<
       "AUSTRALIAN HIGHLIGHTS — 7 DAYS / 6 NIGHTS LUXURY VOYAGE ACROSS SYDNEY & MELBOURNE",
   },
   "japan-discovery-tokyo-kyoto-osaka": {
-    heroImage:
-      "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop",
+    heroImage: "/japan-hero.jpg",
     heroTitle: "Japan",
     heroSubtitle:
       "JAPAN DISCOVERY — 7 DAYS / 6 NIGHTS TIMELESS JOURNEY ACROSS TOKYO, KYOTO & OSAKA",
@@ -187,32 +186,37 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
 
           // Process images
           const imageList: string[] = [];
-          if (d.hero_image) imageList.push(d.hero_image);
+          const isValidUrl = (url: any) => typeof url === "string" && url.trim().length > 0 && (url.startsWith("http") || url.startsWith("/"));
+
+          if (isValidUrl(d.hero_image)) imageList.push(d.hero_image);
           if (Array.isArray(d.images)) {
             d.images.forEach((img: any) => {
-              if (img.image_url && !imageList.includes(img.image_url)) {
-                imageList.push(img.image_url);
+              const url = typeof img === "string" ? img : img?.image_url;
+              if (isValidUrl(url) && !imageList.includes(url)) {
+                imageList.push(url);
               }
             });
           }
           if (Array.isArray(d.attractions)) {
             d.attractions.forEach((att: any) => {
-              if (att.image_url && !imageList.includes(att.image_url)) {
+              if (isValidUrl(att?.image_url) && !imageList.includes(att.image_url)) {
                 imageList.push(att.image_url);
               }
             });
           }
 
-          // Fallback fillers if fewer than 5 images
+          // Fallback fillers if fewer than 5 valid images
           const defaultImgs = [
+            "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=1200&auto=format&fit=crop",
+            "https://images.unsplash.com/photo-1528164344705-47542687990d?q=80&w=1200&auto=format&fit=crop",
             "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1513581166391-887a96ddeafd?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1527668752968-14dc70a27c95?q=80&w=1200&auto=format&fit=crop",
           ];
-          while (imageList.length < 5) {
-            imageList.push(defaultImgs[imageList.length % defaultImgs.length]);
+          let fallbackIndex = 0;
+          while (imageList.length < 8) {
+            imageList.push(defaultImgs[fallbackIndex % defaultImgs.length]);
+            fallbackIndex++;
           }
 
           // Process days
@@ -361,10 +365,26 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
       heroSubtitle: `${currentItinerary.title.toUpperCase()} — ${currentItinerary.duration.toUpperCase()}`,
     };
 
-  // 5 distinct Bento gallery images (ensuring hero is not duplicated)
-  const bentoGallery = currentItinerary.images
-    .filter((img) => img !== heroConfig.heroImage)
-    .slice(0, 5);
+  // 5 distinct Bento gallery images (ensuring hero is not duplicated and URL is valid)
+  const defaultBento = [
+    "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1528164344705-47542687990d?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1200&auto=format&fit=crop",
+  ];
+
+  const rawBento = currentItinerary.images
+    .filter((img) => typeof img === "string" && img.trim().length > 0 && img.startsWith("http") && img !== heroConfig.heroImage);
+
+  const bentoGallery = [...rawBento];
+  let bIdx = 0;
+  while (bentoGallery.length < 5) {
+    if (!bentoGallery.includes(defaultBento[bIdx % defaultBento.length])) {
+      bentoGallery.push(defaultBento[bIdx % defaultBento.length]);
+    }
+    bIdx++;
+  }
 
   return (
     <main className="bg-[#FAF9F5] text-neutral-900 min-h-screen w-full font-sans antialiased pb-24 overflow-x-hidden selection:bg-[#B38E46]/20 selection:text-[#B38E46]">
