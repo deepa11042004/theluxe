@@ -95,15 +95,13 @@ const ITINERARY_HERO_CONFIG: Record<
       "SINGAPORE CITY & SENTOSA — 5 DAYS / 4 NIGHTS COSMOPOLITAN & ISLAND LUXURY EXPERIENCE",
   },
   "malaysia-kuala-lumpur-langkawi": {
-    heroImage:
-      "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?q=80&w=2070&auto=format&fit=crop",
+    heroImage: "/malaysia-hero.jpg",
     heroTitle: "Malaysia",
     heroSubtitle:
       "MALAYSIA HIGHLIGHTS — 6 DAYS / 5 NIGHTS GLAMOUR & BEACH SANCTUARY ACROSS KUALA LUMPUR & LANGKAWI",
   },
   "china-highlights-beijing-shanghai": {
-    heroImage:
-      "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?q=80&w=2070&auto=format&fit=crop",
+    heroImage: "/china-hero.jpg",
     heroTitle: "China",
     heroSubtitle:
       "CHINA HIGHLIGHTS — 7 DAYS / 6 NIGHTS IMPERIAL DYNASTIES & MODERN MARVELS IN BEIJING & SHANGHAI",
