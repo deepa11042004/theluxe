@@ -63,15 +63,13 @@ const ITINERARY_HERO_CONFIG: Record<
       "JAPAN DISCOVERY — 7 DAYS / 6 NIGHTS TIMELESS JOURNEY ACROSS TOKYO, KYOTO & OSAKA",
   },
   "vietnam-highlights": {
-    heroImage:
-      "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=2070&auto=format&fit=crop",
+    heroImage: "/vietnam-hero.jpg",
     heroTitle: "Vietnam",
     heroSubtitle:
       "VIETNAM HIGHLIGHTS — 7 DAYS / 6 NIGHTS HERITAGE ADVENTURE ACROSS HANOI, HALONG BAY & HOI AN",
   },
   "new-zealand-scenic-escape": {
-    heroImage:
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2070&auto=format&fit=crop",
+    heroImage: "/new-zealand-hero.jpg",
     heroTitle: "New Zealand",
     heroSubtitle:
       "NEW ZEALAND SCENIC ESCAPE — 8 DAYS / 7 NIGHTS ALPINE EXPEDITION ACROSS NORTH & SOUTH ISLANDS",
@@ -91,8 +89,7 @@ const ITINERARY_HERO_CONFIG: Record<
       "BALI ISLAND ESCAPE — 5 DAYS / 4 NIGHTS TROPICAL SANCTUARY ACROSS SEMINYAK, UBUD & ULUWATU",
   },
   "singapore-city-sentosa": {
-    heroImage:
-      "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?q=80&w=2070&auto=format&fit=crop",
+    heroImage: "/singapore-hero.jpg",
     heroTitle: "Singapore",
     heroSubtitle:
       "SINGAPORE CITY & SENTOSA — 5 DAYS / 4 NIGHTS COSMOPOLITAN & ISLAND LUXURY EXPERIENCE",
