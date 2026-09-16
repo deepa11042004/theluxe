@@ -18,6 +18,7 @@ const ALL_PILLARS = [
       "Access to an extensive collection of 5-star, luxury and premium properties.",
     image:
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+    aspect: "aspect-[4/3]",
   },
   {
     id: 2,
@@ -27,6 +28,7 @@ const ALL_PILLARS = [
       "Exclusive rates, offers and benefits available to eligible members.",
     image:
       "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+    aspect: "aspect-[3/4] sm:aspect-[3/5]",
   },
   {
     id: 3,
@@ -36,6 +38,7 @@ const ALL_PILLARS = [
       "Discover exceptional stays and experiences across India and international destinations.",
     image:
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    aspect: "aspect-[4/3]",
   },
   {
     id: 4,
@@ -45,6 +48,7 @@ const ALL_PILLARS = [
       "Dedicated assistance for hotel bookings, travel planning and special requests.",
     image:
       "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80",
+    aspect: "aspect-[3/4] sm:aspect-[3/5]",
   },
   {
     id: 5,
@@ -54,6 +58,7 @@ const ALL_PILLARS = [
       "Dining, cruises, wellness, lifestyle and handpicked travel experiences.",
     image:
       "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
+    aspect: "aspect-[4/3]",
   },
   {
     id: 6,
@@ -63,6 +68,7 @@ const ALL_PILLARS = [
       "A premium travel membership designed around the way you love to travel.",
     image:
       "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80",
+    aspect: "aspect-[4/3]",
   },
 ];
 
@@ -261,9 +267,9 @@ export default function Activities({ isSlider = false }: ActivitiesProps) {
                     key={pillar.id}
                     variants={itemVariants}
                     whileHover={{ y: -4 }}
-                    className="group flex flex-col bg-white rounded-none border border-neutral-200/80 shadow-xs hover:shadow-xl transition-all duration-400 overflow-hidden cursor-pointer"
+                    className="group flex flex-col bg-white rounded-none border border-neutral-100 shadow-sm hover:shadow-xl transition-all duration-400 overflow-hidden cursor-pointer"
                   >
-                    {/* Top Image Frame */}
+                    {/* Top Image Frame with Heart Icon */}
                     <div className={`relative w-full ${pillar.aspect || "aspect-[4/3]"} overflow-hidden shrink-0 bg-neutral-100`}>
                       <Image
                         src={pillar.image}
@@ -273,22 +279,24 @@ export default function Activities({ isSlider = false }: ActivitiesProps) {
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                         loading="lazy"
                       />
+                      <button
+                        aria-label="Save to favorites"
+                        className="absolute top-4 right-4 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-xs text-neutral-800 hover:text-red-500 flex items-center justify-center shadow-md transition-transform hover:scale-110 cursor-pointer z-10"
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                      </button>
                     </div>
 
                     {/* Bottom Content Box */}
                     <div className="p-5 sm:p-6 bg-white flex flex-col justify-between flex-1">
                       <div>
-                        <h3
-                          className="text-lg sm:text-xl font-medium text-neutral-900 leading-snug mb-1"
-                          style={{ fontFamily: "var(--work-font), sans-serif" }}
-                        >
+                        <h3 className="text-xl sm:text-2xl font-serif text-neutral-900 leading-snug mb-1 tracking-tight">
                           {pillar.title}
                         </h3>
-                        <p className="text-[10px] sm:text-xs font-semibold tracking-widest text-[#B38E46] uppercase mb-2">
+                        <p className="text-[11px] sm:text-xs font-medium tracking-widest text-neutral-400 uppercase">
                           {pillar.tag}
-                        </p>
-                        <p className="text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
-                          {pillar.description}
                         </p>
                       </div>
                     </div>

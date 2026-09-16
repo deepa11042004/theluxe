@@ -74,7 +74,7 @@ export default function Blog() {
   }, []);
 
   return (
-    <section className="bg-white py-16 md:py-24 px-6 sm:px-12 lg:px-16 w-full overflow-hidden select-none">
+    <section className="bg-white py-16 md:py-24 px-6 sm:px-12 lg:px-16 w-full overflow-hidden select-none border-t border-neutral-200/80">
       <div className="max-w-7xl mx-auto">
         {/* Header Block */}
         <div className="text-center flex flex-col items-center mb-12 md:mb-16">
@@ -157,6 +157,11 @@ export default function Blog() {
             VIEW ALL
           </Link>
         </motion.div>
+
+        {/* Indigo Vertical Divider Line before Footer */}
+        <div className="flex justify-center mt-16 md:mt-20">
+          <div className="w-[2px] h-14 md:h-20 bg-indigo-900/80"></div>
+        </div>
       </div>
     </section>
   );
