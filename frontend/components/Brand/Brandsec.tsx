@@ -474,7 +474,7 @@ export default function Brandsec() {
 
                 {/* Right Side: Subtitle Tagline */}
                 <div
-                  className="text-xs sm:text-sm tracking-[0.35em] font-light text-[#B38E46] uppercase text-center sm:text-right"
+                  className="text-xs sm:text-sm tracking-[0.35em] font-bold text-[#B38E46] uppercase text-center sm:text-right"
                   style={{ fontFamily: "var(--work-font), sans-serif" }}
                 >
                   {region.subtitle}
