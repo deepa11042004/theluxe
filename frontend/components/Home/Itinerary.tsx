@@ -102,7 +102,10 @@ function ItineraryCard({ item, index }: CardProps) {
           {item.title}
         </h3>
 
-        <p className="leading-relaxed line-clamp-2 font-light mb-4 text-white/80 text-xs">
+        <p
+          className="leading-relaxed line-clamp-2 font-light mb-4 text-white text-xs"
+          style={{ color: "#ffffff" }}
+        >
           {item.description}
         </p>
 

@@ -14,11 +14,15 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--cormorant-font), serif;
 }
 
-body, p {
+body {
   font-family: var(--work-font), sans-serif;
   font-weight: 400;
   font-size: calc(14px + (47 - 45) * ((100vw - 480px) / (1600 - 480)));
   line-height: 1.7;
   letter-spacing: 0.075em;
   color: #000000;
+}
+
+p {
+  font-family: var(--work-font), sans-serif;
 }
