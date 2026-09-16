@@ -379,8 +379,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
           className="object-cover object-center z-0"
           priority
         />
-        {/* Dark subtle overlay for contrast */}
-        <div className="absolute inset-0 bg-black/35 z-0 pointer-events-none" />
+        {/* Clean crisp background without dark overlay */}
 
         <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center">
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] xl:text-[7.25rem] font-[Vera] tracking-tight text-white leading-tight drop-shadow-[0_4px_25px_rgba(0,0,0,0.85)]">
