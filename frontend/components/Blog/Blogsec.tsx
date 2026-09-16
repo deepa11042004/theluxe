@@ -240,68 +240,70 @@ export default function Blogsec() {
         {/* BLOG CARDS GRID (Homepage Luxury Style) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
           {filteredPosts.map((post, index) => (
-            <motion.div
+            <Link
               key={post.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.7 }}
-              className="group cursor-pointer flex flex-col bg-transparent rounded-none border-0 overflow-hidden"
+              href={post.link}
+              className="group cursor-pointer flex flex-col bg-transparent rounded-none border-0 overflow-hidden text-left"
             >
-              {/* Image Container with Hover Overlay (matching Homepage Blog.tsx) */}
-              <div className="relative aspect-[4/5] w-full overflow-hidden shrink-0 bg-neutral-100 rounded-none border border-neutral-200/60">
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.7 }}
+                className="flex flex-col flex-1"
+              >
+                {/* Image Container with Hover Overlay */}
+                <div className="relative aspect-[4/5] w-full overflow-hidden shrink-0 bg-neutral-100 rounded-none border border-neutral-200/60">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
 
-                {/* Golden Tint Hover Overlay with Centered READ MORE */}
-                <div className="absolute inset-0 bg-[#B38E46]/65 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                  <span className="text-white text-xs tracking-[0.35em] font-medium uppercase border-b border-white pb-1">
-                    READ MORE
+                  {/* Golden Tint Hover Overlay with Centered READ MORE */}
+                  <div className="absolute inset-0 bg-[#B38E46]/65 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="text-white text-xs tracking-[0.35em] font-medium uppercase border-b border-white pb-1">
+                      READ MORE
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content Area below Image */}
+                <div className="pt-6 pb-2 flex flex-col flex-1 gap-2.5">
+                  <span className="text-[10px] md:text-xs font-[Vera] font-bold tracking-widest text-[#B38E46] uppercase">
+                    {post.tag}
                   </span>
-                </div>
-              </div>
 
-              {/* Content Area below Image */}
-              <div className="pt-6 pb-2 flex flex-col flex-1 gap-2.5">
-                <span className="text-[10px] md:text-xs font-[Vera] font-bold tracking-widest text-[#B38E46] uppercase">
-                  {post.tag}
-                </span>
-
-                {/* Title */}
-                <h3
-                  className="text-xl md:text-2xl text-neutral-900 leading-snug font-light group-hover:text-[#B38E46] transition-colors duration-200"
-                  style={{ fontFamily: "var(--work-font), sans-serif", fontWeight: 300 }}
-                >
-                  {post.title}
-                </h3>
-
-                {/* Excerpt */}
-                <p className="font-[Vera] text-xs text-neutral-600 leading-relaxed font-light line-clamp-2">
-                  {post.excerpt}
-                </p>
-
-                {/* Date & Read Time */}
-                <div className="flex items-center justify-between text-xs italic font-light text-neutral-500 tracking-wide pt-1">
-                  <span>{post.date}</span>
-                  <span>{post.readTime}</span>
-                </div>
-
-                {/* READ MORE Link */}
-                <div className="pt-2">
-                  <Link
-                    href={post.link}
-                    className="inline-block text-xs tracking-[0.25em] font-medium text-neutral-600 uppercase group-hover:text-[#B38E46] transition-colors"
+                  {/* Title */}
+                  <h3
+                    className="text-xl md:text-2xl text-neutral-900 leading-snug font-light group-hover:text-[#B38E46] transition-colors duration-200"
+                    style={{ fontFamily: "var(--work-font), sans-serif", fontWeight: 300 }}
                   >
-                    READ MORE &rarr;
-                  </Link>
+                    {post.title}
+                  </h3>
+
+                  {/* Excerpt */}
+                  <p className="font-[Vera] text-xs text-neutral-600 leading-relaxed font-light line-clamp-2">
+                    {post.excerpt}
+                  </p>
+
+                  {/* Date & Read Time */}
+                  <div className="flex items-center justify-between text-xs italic font-light text-neutral-500 tracking-wide pt-1">
+                    <span>{post.date}</span>
+                    <span>{post.readTime}</span>
+                  </div>
+
+                  {/* READ MORE Link Indicator */}
+                  <div className="pt-2">
+                    <span className="inline-block text-xs tracking-[0.25em] font-medium text-neutral-600 uppercase group-hover:text-[#B38E46] transition-colors">
+                      READ MORE &rarr;
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </Link>
           ))}
         </div>
 

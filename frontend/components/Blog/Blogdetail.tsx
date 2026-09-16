@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, Clock, Calendar, Tag, Share2, ArrowRight, User, BookOpen } from "lucide-react";
+import Heading from "@/components/Heading";
 
 interface BlogDetailProps {
   slug: string;
@@ -225,42 +226,39 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
   }
 
   return (
-    <article className="min-h-screen bg-white text-neutral-900 pb-24">
-      {/* 1. Header Navigation Bar */}
-      <div className="w-full bg-neutral-50 border-b border-neutral-200/80 py-4 px-6">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link
-            href="/blogs"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#B38E46] hover:text-[#967536] transition-colors font-medium"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to All Articles</span>
-          </Link>
-          <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-mono">
-            {blog.category}
-          </span>
-        </div>
+    <article className="min-h-screen bg-white text-neutral-900 pb-24 select-none">
+      {/* 1. Standard Blogs Page Header (No dynamic blog items inside header) */}
+      <div className="relative w-full">
+        <Heading
+          title="Blogs"
+          subtitle="Discover the story behind The Luxe Yatra and our mission to redefine luxury travel."
+          align="center"
+          bgImage="/charlotte-noelle-98WPMlTl5xo-unsplash.jpg"
+        />
       </div>
 
-      {/* 2. Hero Section */}
-      <div className="max-w-4xl mx-auto px-6 pt-12 md:pt-16 pb-10 text-center flex flex-col items-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#B38E46]/10 border border-[#B38E46]/30 text-[#B38E46] text-[10px] uppercase tracking-widest font-semibold rounded-sm mb-6">
-          <Tag className="w-3 h-3" />
+      {/* 2. Blog Details Section Below Header */}
+      <div className="max-w-4xl mx-auto px-6 pt-16 pb-10 text-center flex flex-col items-center">
+        {/* Category Tag */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#B38E46]/10 border border-[#B38E46]/30 text-[#B38E46] text-[10px] uppercase tracking-widest font-semibold rounded-sm mb-6">
+          <Tag className="w-3 h-3 text-[#B38E46]" />
           <span>{blog.category}</span>
         </div>
 
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-neutral-900 leading-[1.15] mb-6 max-w-3xl">
+        {/* Main Blog Title */}
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif tracking-tight text-neutral-900 leading-[1.15] mb-6 max-w-3xl">
           {blog.title}
         </h1>
 
+        {/* Sub Heading / Excerpt */}
         {blog.excerpt && (
-          <p className="text-sm md:text-base text-neutral-600 font-light leading-relaxed max-w-2xl mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-neutral-700 font-serif italic leading-relaxed max-w-2xl mb-8 border-l-2 border-[#B38E46] pl-6 py-1 text-left">
             {blog.excerpt}
           </p>
         )}
 
-        {/* Metadata */}
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-neutral-500 font-medium border-y border-neutral-100 py-4 w-full">
+        {/* Metadata Row (Author, Date, Reading Time) */}
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-neutral-500 font-medium border-y border-neutral-200 py-4 w-full max-w-2xl mb-12">
           <div className="flex items-center gap-1.5">
             <User className="w-3.5 h-3.5 text-[#B38E46]" />
             <span>{blog.author}</span>
@@ -276,48 +274,53 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
             <span>{blog.readTime}</span>
           </div>
         </div>
-      </div>
 
-      {/* 3. Main Cover Image */}
-      <div className="max-w-5xl mx-auto px-6 mb-16">
-        <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-none overflow-hidden shadow-xl border border-neutral-200/80">
-          <Image
-            src={blog.image}
-            alt={blog.title}
-            fill
-            priority
-            sizes="(max-width: 1200px) 100vw, 1200px"
-            className="object-cover"
-          />
-        </div>
-      </div>
-
-      {/* 4. Article Content Body */}
-      <div className="max-w-3xl mx-auto px-6">
-        <div
-          className="prose prose-lg prose-neutral max-w-none 
-            prose-headings:font-serif prose-headings:font-medium prose-headings:text-neutral-900 prose-headings:tracking-tight
-            prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mt-10 prose-h2:mb-4
-            prose-p:text-neutral-700 prose-p:leading-relaxed prose-p:text-sm prose-p:sm:text-base prose-p:mb-6 prose-p:font-light
-            prose-a:text-[#B38E46] prose-a:underline hover:prose-a:text-[#967536]
-            prose-blockquote:border-l-[#B38E46] prose-blockquote:italic prose-blockquote:text-neutral-800"
-          dangerouslySetInnerHTML={{ __html: blog.content }}
-        />
-
-        {/* Share & Footer */}
-        <div className="mt-16 pt-8 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-neutral-500 font-medium">
-            <Share2 className="w-4 h-4 text-[#B38E46]" />
-            <span>Share this Editorial</span>
+        {/* Blog Main Image */}
+        <div className="w-full max-w-4xl mx-auto mb-14">
+          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-none overflow-hidden shadow-xl border border-neutral-200/80">
+            <Image
+              src={blog.image}
+              alt={blog.title}
+              fill
+              priority
+              sizes="(max-width: 1200px) 100vw, 1200px"
+              className="object-cover"
+            />
           </div>
+        </div>
 
-          <Link
-            href="/blogs"
-            className="inline-flex items-center gap-2 border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.2em] uppercase font-medium hover:bg-[#B38E46] hover:text-white transition-all rounded-sm"
-          >
-            <span>Explore More Stories</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+        {/* Blog Content Description / Body */}
+        <div className="w-full max-w-3xl mx-auto text-left">
+          <div
+            className="prose prose-lg prose-neutral max-w-none 
+              prose-headings:font-serif prose-headings:font-medium prose-headings:text-neutral-900 prose-headings:tracking-tight
+              prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mt-10 prose-h2:mb-4
+              prose-p:text-neutral-700 prose-p:leading-relaxed prose-p:text-sm prose-p:sm:text-base prose-p:mb-6 prose-p:font-light
+              prose-a:text-[#B38E46] prose-a:underline hover:prose-a:text-[#967536]
+              prose-blockquote:border-l-[#B38E46] prose-blockquote:italic prose-blockquote:text-neutral-800"
+            dangerouslySetInnerHTML={{ __html: blog.content }}
+          />
+
+          {/* Share & Footer */}
+          <div className="mt-16 pt-8 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-neutral-500 font-medium">
+              <Share2 className="w-4 h-4 text-[#B38E46]" />
+              <span>Share this Editorial</span>
+            </div>
+
+            <Link
+              href="/blogs"
+              className="inline-flex items-center gap-2 border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.2em] uppercase font-medium hover:bg-[#B38E46] hover:text-white transition-all rounded-sm cursor-pointer"
+            >
+              <span>Explore More Stories</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Indigo Vertical Line before footer */}
+        <div className="flex justify-center mt-16 md:mt-20 mb-4">
+          <div className="w-[1.5px] h-32 md:h-44 bg-[rgb(25,25,112)]"></div>
         </div>
       </div>
     </article>
