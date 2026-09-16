@@ -72,8 +72,8 @@ const BellIcon = () => (
 
 // Modern Luxury Benefit Card Component
 const BenefitCard = ({ title, icon, items, className = "" }: { title: string, icon: React.ReactNode, items: string[], className?: string }) => (
-  <div className={`bg-white p-8 rounded-none border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-[#B38E46]/60 transition-all duration-300 group flex flex-col text-left ${className}`}>
-    <div className="w-12 h-12 rounded-sm bg-[#B38E46]/10 border border-[#B38E46]/30 flex items-center justify-center text-[#B38E46] mb-6 group-hover:bg-[#B38E46] group-hover:text-white transition-colors duration-300">
+  <div className={`bg-white p-8 md:p-8 rounded-4xl border border-[#B38E46]/60 shadow-[0_4px_24px_rgba(212,175,55,0.06)] hover:shadow-xl hover:border-[#B38E46] transition-all duration-300 group flex flex-col text-left ${className}`}>
+    <div className="w-12 h-12 rounded-2xl bg-[#B38E46]/10 border border-[#B38E46]/30 flex items-center justify-center text-[#B38E46] mb-6 group-hover:bg-[#B38E46] group-hover:text-white transition-colors duration-300">
       {icon}
     </div>
     <h4 className="text-xl font-[Vera] tracking-tight text-neutral-900 mb-5 font-bold">

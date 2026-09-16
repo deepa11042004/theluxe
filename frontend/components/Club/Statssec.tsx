@@ -33,7 +33,7 @@ export default function Statssec() {
       <div className="max-w-7xl mx-auto">
         {/* Section Heading: Centered Serif Font matching your screenshot */}
         <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-black font-normal tracking-wide">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-[Vera] tracking-tight text-black">
             Success stories that inspire
           </h2>
         </div>
