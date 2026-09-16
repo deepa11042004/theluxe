@@ -4,6 +4,7 @@ import React, { useState, useRef } from "react";
 import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
 import { ArrowLeft, ArrowRight, ShieldCheck, Check, X, ChevronLeft, ChevronRight, Hotel, Gift, Plane, Globe, Headphones } from "lucide-react";
 import Image from "next/image";
+import Activities from "@/components/Home/Activities";
 
 const HotelIcon = () => (
   <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -214,44 +215,6 @@ const MEMBERSHIPS = [
 ];
 
 export default function Membersec() {
-  const [carouselIndex, setCarouselIndex] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
-  const [shiftCalc, setShiftCalc] = useState('calc(25% + 6px)');
-
-  React.useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setItemsPerPage(4);
-        setShiftCalc(`calc(25% + 6px)`); // 100/4 + 24/4
-      } else if (window.innerWidth >= 768) {
-        setItemsPerPage(3);
-        setShiftCalc(`calc(33.3333% + 8px)`); // 100/3 + 24/3
-      } else if (window.innerWidth >= 640) {
-        setItemsPerPage(2);
-        setShiftCalc(`calc(50% + 12px)`); // 100/2 + 24/2
-      } else {
-        setItemsPerPage(1);
-        setShiftCalc(`calc(100% + 24px)`); // 100/1 + 24/1
-      }
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const totalItems = CAROUSEL_PRIVILEGES.length;
-  const maxIndex = Math.max(0, totalItems - itemsPerPage);
-
-  const isFirstSlide = carouselIndex === 0;
-  const isLastSlide = carouselIndex >= maxIndex;
-
-  const handleNext = () => {
-    if (!isLastSlide) setCarouselIndex((prev) => prev + 1);
-  };
-
-  const handlePrev = () => {
-    if (!isFirstSlide) setCarouselIndex((prev) => prev - 1);
-  };
 
   return (
     <section className="bg-white w-full overflow-hidden select-none border-t border-neutral-200/60">
@@ -284,110 +247,18 @@ export default function Membersec() {
           <div className="w-[1.5px] h-12 md:h-16 bg-[#B38E46]/80"></div>
         </div>
 
-        <p className="text-black text-sm sm:text-base xl:text-lg leading-relaxed tracking-wide max-w-3xl mx-auto mb-16">
+        <p className="text-black text-sm sm:text-base xl:text-lg leading-relaxed tracking-wide max-w-3xl mx-auto mb-12">
           Luxe Club unlocks privileged access to 140+ premium resorts,
           offering 7 nights/8 days holidays every year — filled with cherished
           family moments and thoughtfully crafted experiences.
         </p>
 
-        {/* HORIZONTAL SLIDING PRIVILEGES CAROUSEL */}
-        <div className="w-full relative flex flex-col items-center mt-4">
-          {/* Small Golden Vertical Divider */}
-          <div className="flex justify-center mb-6">
-            <div className="w-[1.5px] h-12 md:h-16 bg-[#B38E46]/80"></div>
-          </div>
+        {/* Grey Horizontal Line Divider - Edge to Edge */}
+        <div className="w-screen relative left-1/2 -translate-x-1/2 border-t border-neutral-200 my-8"></div>
 
-          <h4 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-black mb-10">
-            Handpicked Privileges
-          </h4>
-
-          {/* Carousel Viewport:  */}
-          <div className="w-full overflow-hidden relative">
-            <motion.div
-              animate={{
-                x: `calc(-${carouselIndex} * ${shiftCalc})`,
-              }}
-              transition={{ type: "spring", stiffness: 140, damping: 20 }}
-              className="flex items-stretch gap-6 w-full"
-            >
-              {CAROUSEL_PRIVILEGES.map((item) => (
-                <div
-                  key={item.id}
-                  className="relative shrink-0 w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] lg:w-[calc(25%-18px)] aspect-3/4 rounded-none overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 bg-black cursor-pointer group"
-                >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-
-                  {/* Overlay Gradient for text readability */}
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0) 75%)",
-                    }}
-                  />
-
-                  <div className="absolute inset-0 p-5 flex flex-col justify-end text-white z-10 text-left">
-                    <span className="text-[10px] text-white/80 uppercase tracking-widest font-medium mb-1 font-[Vera]">
-                      LUXE PRIVILEGE
-                    </span>
-                    <h5
-                      className="text-base md:text-lg font-medium text-white leading-snug group-hover:text-[#B38E46] transition-colors duration-200"
-                      style={{ color: "#ffffff", fontFamily: "var(--work-font), sans-serif" }}
-                    >
-                      {item.title}
-                    </h5>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Carousel Control Arrows & Dots */}
-          <div className="flex items-center justify-center gap-6 mt-10">
-            <button
-              onClick={handlePrev}
-              disabled={isFirstSlide}
-              className="text-[#B38E46] hover:text-[#997734] transition-all hover:scale-110 disabled:opacity-30 cursor-pointer drop-shadow-md"
-              aria-label="Previous Privileges"
-            >
-              <ChevronLeft className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1.2} />
-            </button>
-
-            {/* Standardized Dot Indicators */}
-            <div className="flex items-center justify-center gap-3">
-              {Array.from({ length: maxIndex + 1 }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCarouselIndex(i)}
-                  className="focus:outline-none cursor-pointer p-1"
-                  aria-label={`Go to slide ${i + 1}`}
-                >
-                  <div
-                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                      i === carouselIndex
-                        ? "bg-black scale-125"
-                        : "bg-gray-300 hover:bg-gray-400"
-                    }`}
-                  />
-                </button>
-              ))}
-            </div>
-
-            <button
-              onClick={handleNext}
-              disabled={isLastSlide}
-              className="text-[#B38E46] hover:text-[#997734] transition-all hover:scale-110 disabled:opacity-30 cursor-pointer drop-shadow-md"
-              aria-label="Next Privileges"
-            >
-              <ChevronRight className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1.2} />
-            </button>
-          </div>
+        {/* Good Reasons to Choose Us section (replaces Handpicked Privileges with Slider) */}
+        <div className="w-full mt-4">
+          <Activities isSlider={true} />
         </div>
       </div>
 
