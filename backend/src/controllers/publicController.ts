@@ -371,7 +371,11 @@ export async function getPublicBlogBySlug(req: Request, res: Response, next: Nex
   try {
     const { slug } = req.params;
     const item = await prisma.blog.findFirst({
-      where: { slug, status: "PUBLISHED", deleted_at: null },
+      where: {
+        OR: [{ slug }, { id: slug }],
+        status: "PUBLISHED",
+        deleted_at: null,
+      },
       include: {
         category: true,
         images: { orderBy: { display_order: "asc" } },
