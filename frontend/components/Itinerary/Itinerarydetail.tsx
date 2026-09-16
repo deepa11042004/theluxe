@@ -382,7 +382,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
   }
 
   return (
-    <main className="bg-[#FAF9F5] text-neutral-900 min-h-screen w-full font-sans antialiased pb-24 overflow-x-hidden selection:bg-[#B38E46]/20 selection:text-[#B38E46]">
+    <main className="bg-[#F8F9FA] text-neutral-900 min-h-screen w-full font-sans antialiased pb-24 overflow-x-hidden selection:bg-[#B38E46]/20 selection:text-[#B38E46]">
       
       {/* 1. HERO BANNER SECTION (Preserved exact design matching /national full-screen hero) */}
       <div className="relative w-full h-screen min-h-screen pt-24 sm:pt-28 pb-6 sm:pb-8 px-6 sm:px-12 lg:px-16 overflow-hidden flex flex-col justify-center items-center group">
@@ -416,17 +416,17 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
 
       {/* 2. TOP NAVIGATION & EDITORIAL BREADCRUMBS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-14 mb-8">
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-neutral-200/80">
           <Link
             href="/itinerary"
-            className="inline-flex items-center gap-2.5 text-xs font-semibold tracking-[0.2em] uppercase text-[#B38E46] hover:text-black transition-all duration-300 cursor-pointer group px-5 py-2.5 bg-white/90 border border-[#B38E46]/30 rounded-full shadow-2xs hover:shadow-sm"
+            className="inline-flex items-center gap-2.5 text-xs font-medium tracking-[0.25em] uppercase text-[#B38E46] hover:bg-[#B38E46] hover:text-white transition-all duration-300 cursor-pointer group px-6 py-2.5 bg-white border border-[#B38E46] rounded-md shadow-2xs hover:shadow-sm"
           >
             <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
             <span>All Itineraries</span>
           </Link>
 
           {/* Breadcrumbs */}
-          <div className="hidden sm:flex items-center gap-2 text-[11px] font-medium tracking-wider uppercase text-neutral-400">
+          <div className="hidden sm:flex items-center gap-2 text-[11px] font-medium tracking-[0.2em] uppercase text-neutral-400">
             <Link href="/" className="hover:text-[#B38E46] transition-colors">Home</Link>
             <span>/</span>
             <Link href="/itinerary" className="hover:text-[#B38E46] transition-colors">Itineraries</Link>
@@ -436,12 +436,12 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
         </div>
       </div>
 
-      {/* 3. ULTRA-LUXURY BENTO IMAGE GALLERY */}
+      {/* 3. ULTRA-LUXURY BENTO IMAGE GALLERY (Architectural Sharp Cards) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 h-auto md:h-[520px]">
           
           {/* Bento Tile 1: Primary Signature Feature (Spans 7 columns) */}
-          <div className="md:col-span-7 relative h-80 sm:h-96 md:h-full rounded-2xl overflow-hidden border border-neutral-200/90 group cursor-pointer bg-neutral-950 shadow-sm hover:shadow-2xl transition-all duration-500">
+          <div className="md:col-span-7 relative h-80 sm:h-96 md:h-full rounded-none overflow-hidden border border-neutral-200/90 group cursor-pointer bg-neutral-950 shadow-xs hover:shadow-xl transition-all duration-500">
             <Image
               src={bentoGallery[0] || currentItinerary.image}
               alt={currentItinerary.title}
@@ -454,8 +454,8 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
             
             {/* Top Floating Badge */}
             <div className="absolute top-5 left-5 z-10">
-              <span className="inline-flex items-center gap-1.5 bg-black/60 backdrop-blur-md text-white text-[10px] tracking-[0.25em] uppercase font-medium px-4 py-1.5 border border-white/20 rounded-full shadow-lg">
-                <Crown className="w-3 h-3 text-[#E5C158]" />
+              <span className="inline-flex items-center gap-1.5 bg-black/75 backdrop-blur-md text-white text-[10px] tracking-[0.25em] uppercase font-medium px-4 py-1.5 border border-[#B38E46]/50 rounded-none shadow-md">
+                <Crown className="w-3 h-3 text-[#B38E46]" />
                 Signature Showcase
               </span>
             </div>
@@ -463,15 +463,15 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
             {/* Bottom Content Overlay */}
             <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-wrap items-end justify-between gap-3">
               <div>
-                <span className="text-[10px] tracking-[0.25em] uppercase text-white/80 block mb-1 font-light">
+                <span className="text-[10px] tracking-[0.3em] uppercase text-[#B38E46] block mb-1 font-medium">
                   {currentItinerary.country}
                 </span>
                 <h2 className="text-xl md:text-3xl font-serif text-white font-medium drop-shadow-md leading-snug">
                   {currentItinerary.title}
                 </h2>
               </div>
-              <div className="bg-black/60 backdrop-blur-md text-white text-xs font-light tracking-wider px-3.5 py-1.5 border border-white/20 rounded-full flex items-center gap-1.5 shrink-0 shadow-lg">
-                <Star className="w-3.5 h-3.5 fill-[#E5C158] text-[#E5C158]" />
+              <div className="bg-black/70 backdrop-blur-md text-white text-xs font-light tracking-wider px-3.5 py-1.5 border border-white/20 rounded-none flex items-center gap-1.5 shrink-0 shadow-md">
+                <Star className="w-3.5 h-3.5 fill-[#B38E46] text-[#B38E46]" />
                 <span>4.9 (120+ reviews)</span>
               </div>
             </div>
@@ -481,7 +481,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
           <div className="md:col-span-5 grid grid-cols-2 gap-4 h-full">
             
             {/* Bento Tile 2: Landmark Sight */}
-            <div className="relative h-44 sm:h-52 md:h-full rounded-2xl overflow-hidden border border-neutral-200/90 group cursor-pointer bg-neutral-950 shadow-sm hover:shadow-xl transition-all duration-500">
+            <div className="relative h-44 sm:h-52 md:h-full rounded-none overflow-hidden border border-neutral-200/90 group cursor-pointer bg-neutral-950 shadow-xs hover:shadow-xl transition-all duration-500">
               <Image
                 src={bentoGallery[1] || currentItinerary.image}
                 alt="Landmark sight"
@@ -491,15 +491,15 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent pointer-events-none" />
               <div className="absolute bottom-3.5 left-3.5 right-3.5 z-10">
-                <span className="bg-black/55 backdrop-blur-md text-white text-[9px] tracking-widest uppercase px-3 py-1 border border-white/20 rounded-full inline-flex items-center gap-1 font-medium">
-                  <Gem className="w-2.5 h-2.5 text-[#E5C158]" />
+                <span className="bg-black/75 backdrop-blur-md text-white text-[9px] tracking-[0.2em] uppercase px-3 py-1 border border-[#B38E46]/50 rounded-none inline-flex items-center gap-1 font-medium">
+                  <Gem className="w-2.5 h-2.5 text-[#B38E46]" />
                   Landmark
                 </span>
               </div>
             </div>
 
             {/* Bento Tile 3: Heritage Experience */}
-            <div className="relative h-44 sm:h-52 md:h-full rounded-2xl overflow-hidden border border-neutral-200/90 group cursor-pointer bg-neutral-950 shadow-sm hover:shadow-xl transition-all duration-500">
+            <div className="relative h-44 sm:h-52 md:h-full rounded-none overflow-hidden border border-neutral-200/90 group cursor-pointer bg-neutral-950 shadow-xs hover:shadow-xl transition-all duration-500">
               <Image
                 src={bentoGallery[2] || currentItinerary.image}
                 alt="Heritage experience"
@@ -509,15 +509,15 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent pointer-events-none" />
               <div className="absolute bottom-3.5 left-3.5 right-3.5 z-10">
-                <span className="bg-black/55 backdrop-blur-md text-white text-[9px] tracking-widest uppercase px-3 py-1 border border-white/20 rounded-full inline-flex items-center gap-1 font-medium">
-                  <Sparkles className="w-2.5 h-2.5 text-[#E5C158]" />
+                <span className="bg-black/75 backdrop-blur-md text-white text-[9px] tracking-[0.2em] uppercase px-3 py-1 border border-[#B38E46]/50 rounded-none inline-flex items-center gap-1 font-medium">
+                  <Sparkles className="w-2.5 h-2.5 text-[#B38E46]" />
                   Heritage
                 </span>
               </div>
             </div>
 
             {/* Bento Tile 4: Scenic Panoramic View */}
-            <div className="relative h-44 sm:h-52 md:h-full rounded-2xl overflow-hidden border border-neutral-200/90 group cursor-pointer bg-neutral-950 shadow-sm hover:shadow-xl transition-all duration-500">
+            <div className="relative h-44 sm:h-52 md:h-full rounded-none overflow-hidden border border-neutral-200/90 group cursor-pointer bg-neutral-950 shadow-xs hover:shadow-xl transition-all duration-500">
               <Image
                 src={bentoGallery[3] || currentItinerary.image}
                 alt="Scenic viewpoint"
@@ -527,15 +527,15 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent pointer-events-none" />
               <div className="absolute bottom-3.5 left-3.5 right-3.5 z-10">
-                <span className="bg-black/55 backdrop-blur-md text-white text-[9px] tracking-widest uppercase px-3 py-1 border border-white/20 rounded-full inline-flex items-center gap-1 font-medium">
-                  <Navigation className="w-2.5 h-2.5 text-[#E5C158]" />
+                <span className="bg-black/75 backdrop-blur-md text-white text-[9px] tracking-[0.2em] uppercase px-3 py-1 border border-[#B38E46]/50 rounded-none inline-flex items-center gap-1 font-medium">
+                  <Navigation className="w-2.5 h-2.5 text-[#B38E46]" />
                   Scenic Trail
                 </span>
               </div>
             </div>
 
             {/* Bento Tile 5: Culinary & 5-Star Retreat */}
-            <div className="relative h-44 sm:h-52 md:h-full rounded-2xl overflow-hidden border border-neutral-200/90 group cursor-pointer bg-neutral-950 shadow-sm hover:shadow-xl transition-all duration-500">
+            <div className="relative h-44 sm:h-52 md:h-full rounded-none overflow-hidden border border-neutral-200/90 group cursor-pointer bg-neutral-950 shadow-xs hover:shadow-xl transition-all duration-500">
               <Image
                 src={bentoGallery[4] || currentItinerary.image}
                 alt="Culinary & Retreat"
@@ -545,8 +545,8 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent pointer-events-none" />
               <div className="absolute bottom-3.5 left-3.5 right-3.5 z-10">
-                <span className="bg-black/55 backdrop-blur-md text-white text-[9px] tracking-widest uppercase px-3 py-1 border border-white/20 rounded-full inline-flex items-center gap-1 font-medium">
-                  <Award className="w-2.5 h-2.5 text-[#E5C158]" />
+                <span className="bg-black/75 backdrop-blur-md text-white text-[9px] tracking-[0.2em] uppercase px-3 py-1 border border-[#B38E46]/50 rounded-none inline-flex items-center gap-1 font-medium">
+                  <Award className="w-2.5 h-2.5 text-[#B38E46]" />
                   Fine Living
                 </span>
               </div>
@@ -556,89 +556,89 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
         </div>
       </div>
 
-      {/* 4. LUXURY BENTO PARAMETER METRICS STRIP */}
+      {/* 4. LUXURY BENTO PARAMETER METRICS STRIP (Sharp Clean Cards) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
           
-          <div className="bg-white rounded-xl p-4 border border-neutral-200/80 shadow-2xs hover:border-[#B38E46]/50 transition-all flex flex-col justify-between">
-            <div className="w-8 h-8 rounded-lg bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center mb-3">
+          <div className="bg-white rounded-none p-5 border border-neutral-200/90 shadow-2xs hover:border-[#B38E46] hover:shadow-md transition-all flex flex-col justify-between group">
+            <div className="w-8 h-8 rounded-none bg-[#B38E46]/10 border border-[#B38E46]/25 text-[#B38E46] group-hover:bg-[#B38E46] group-hover:text-white transition-colors flex items-center justify-center mb-3">
               <Clock className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
+              <span className="text-[10px] text-neutral-400 uppercase tracking-[0.25em] block font-medium">
                 DURATION
               </span>
-              <span className="text-xs font-semibold text-neutral-900 mt-0.5 block line-clamp-1">
+              <span className="text-xs sm:text-sm font-serif font-medium text-neutral-900 mt-1 block line-clamp-1">
                 {currentItinerary.duration}
               </span>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-4 border border-neutral-200/80 shadow-2xs hover:border-[#B38E46]/50 transition-all flex flex-col justify-between">
-            <div className="w-8 h-8 rounded-lg bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center mb-3">
+          <div className="bg-white rounded-none p-5 border border-neutral-200/90 shadow-2xs hover:border-[#B38E46] hover:shadow-md transition-all flex flex-col justify-between group">
+            <div className="w-8 h-8 rounded-none bg-[#B38E46]/10 border border-[#B38E46]/25 text-[#B38E46] group-hover:bg-[#B38E46] group-hover:text-white transition-colors flex items-center justify-center mb-3">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
+              <span className="text-[10px] text-neutral-400 uppercase tracking-[0.25em] block font-medium">
                 STYLE
               </span>
-              <span className="text-xs font-semibold text-neutral-900 mt-0.5 block line-clamp-1">
+              <span className="text-xs sm:text-sm font-serif font-medium text-neutral-900 mt-1 block line-clamp-1">
                 {currentItinerary.tourType}
               </span>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-4 border border-neutral-200/80 shadow-2xs hover:border-[#B38E46]/50 transition-all flex flex-col justify-between">
-            <div className="w-8 h-8 rounded-lg bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center mb-3">
+          <div className="bg-white rounded-none p-5 border border-neutral-200/90 shadow-2xs hover:border-[#B38E46] hover:shadow-md transition-all flex flex-col justify-between group">
+            <div className="w-8 h-8 rounded-none bg-[#B38E46]/10 border border-[#B38E46]/25 text-[#B38E46] group-hover:bg-[#B38E46] group-hover:text-white transition-colors flex items-center justify-center mb-3">
               <MapPin className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
+              <span className="text-[10px] text-neutral-400 uppercase tracking-[0.25em] block font-medium">
                 REGION / TRAIL
               </span>
-              <span className="text-xs font-semibold text-neutral-900 mt-0.5 block line-clamp-1">
+              <span className="text-xs sm:text-sm font-serif font-medium text-neutral-900 mt-1 block line-clamp-1">
                 {currentItinerary.route || currentItinerary.country}
               </span>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-4 border border-neutral-200/80 shadow-2xs hover:border-[#B38E46]/50 transition-all flex flex-col justify-between">
-            <div className="w-8 h-8 rounded-lg bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center mb-3">
+          <div className="bg-white rounded-none p-5 border border-neutral-200/90 shadow-2xs hover:border-[#B38E46] hover:shadow-md transition-all flex flex-col justify-between group">
+            <div className="w-8 h-8 rounded-none bg-[#B38E46]/10 border border-[#B38E46]/25 text-[#B38E46] group-hover:bg-[#B38E46] group-hover:text-white transition-colors flex items-center justify-center mb-3">
               <Calendar className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
+              <span className="text-[10px] text-neutral-400 uppercase tracking-[0.25em] block font-medium">
                 BEST SEASON
               </span>
-              <span className="text-xs font-semibold text-neutral-900 mt-0.5 block line-clamp-1">
+              <span className="text-xs sm:text-sm font-serif font-medium text-neutral-900 mt-1 block line-clamp-1">
                 {currentItinerary.bestTime || "All Year"}
               </span>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-4 border border-neutral-200/80 shadow-2xs hover:border-[#B38E46]/50 transition-all flex flex-col justify-between">
-            <div className="w-8 h-8 rounded-lg bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center mb-3">
+          <div className="bg-white rounded-none p-5 border border-neutral-200/90 shadow-2xs hover:border-[#B38E46] hover:shadow-md transition-all flex flex-col justify-between group">
+            <div className="w-8 h-8 rounded-none bg-[#B38E46]/10 border border-[#B38E46]/25 text-[#B38E46] group-hover:bg-[#B38E46] group-hover:text-white transition-colors flex items-center justify-center mb-3">
               <Users className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
+              <span className="text-[10px] text-neutral-400 uppercase tracking-[0.25em] block font-medium">
                 PARTY DYNAMICS
               </span>
-              <span className="text-xs font-semibold text-neutral-900 mt-0.5 block line-clamp-1">
+              <span className="text-xs sm:text-sm font-serif font-medium text-neutral-900 mt-1 block line-clamp-1">
                 {currentItinerary.groupSize}
               </span>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl p-4 border border-neutral-200/80 shadow-2xs hover:border-[#B38E46]/50 transition-all flex flex-col justify-between">
-            <div className="w-8 h-8 rounded-lg bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center mb-3">
+          <div className="bg-white rounded-none p-5 border border-neutral-200/90 shadow-2xs hover:border-[#B38E46] hover:shadow-md transition-all flex flex-col justify-between group">
+            <div className="w-8 h-8 rounded-none bg-[#B38E46]/10 border border-[#B38E46]/25 text-[#B38E46] group-hover:bg-[#B38E46] group-hover:text-white transition-colors flex items-center justify-center mb-3">
               <Plane className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
+              <span className="text-[10px] text-neutral-400 uppercase tracking-[0.25em] block font-medium">
                 FLIGHTS &amp; LOGISTICS
               </span>
-              <span className="text-xs font-semibold text-neutral-900 mt-0.5 block line-clamp-1">
+              <span className="text-xs sm:text-sm font-serif font-medium text-neutral-900 mt-1 block line-clamp-1">
                 {currentItinerary.flightsIncl ? "Flights Included" : "Land Package"}
               </span>
             </div>
@@ -654,8 +654,8 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
           {/* LEFT COLUMN: OVERVIEW, TIMELINE, LANDMARKS, INCLUSIONS, FAQ */}
           <div className="lg:col-span-8 space-y-12">
             
-            {/* 5.1 Journey Overview Bento Card */}
-            <div className="bg-white rounded-2xl p-7 sm:p-9 border border-neutral-200/80 shadow-sm relative overflow-hidden">
+            {/* 5.1 Journey Overview Card */}
+            <div className="bg-white rounded-none p-7 sm:p-9 border border-neutral-200/90 shadow-sm relative overflow-hidden">
               <div className="flex items-center gap-2 text-xs tracking-[0.3em] font-semibold text-[#B38E46] uppercase mb-3">
                 <Crown className="w-4 h-4" />
                 <span>JOURNEY ESSENCE • {currentItinerary.country.toUpperCase()}</span>
@@ -669,7 +669,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
 
               {/* Route Path Highlight Banner */}
               {currentItinerary.route && (
-                <div className="mt-7 p-5 bg-[#FAF9F5] border-l-4 border-[#B38E46] rounded-r-xl">
+                <div className="mt-7 p-5 bg-[#FAFAFA] border-l-2 border-[#B38E46] rounded-none">
                   <div className="flex items-center gap-2 text-[11px] font-semibold text-[#B38E46] uppercase tracking-widest mb-1.5">
                     <Navigation className="w-3.5 h-3.5" />
                     <span>Curated Travel Route</span>
@@ -684,8 +684,8 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
               {(currentItinerary.recommendedFor || currentItinerary.visaInfo) && (
                 <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {currentItinerary.recommendedFor && (
-                    <div className="p-4 bg-neutral-50/80 border border-neutral-200/80 rounded-xl flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="p-4 bg-white border border-neutral-200/90 rounded-none flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-none bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center shrink-0 mt-0.5 border border-[#B38E46]/20">
                         <Compass className="w-4 h-4" />
                       </div>
                       <div>
@@ -699,8 +699,8 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                     </div>
                   )}
                   {currentItinerary.visaInfo && (
-                    <div className="p-4 bg-neutral-50/80 border border-neutral-200/80 rounded-xl flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="p-4 bg-white border border-neutral-200/90 rounded-none flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-none bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center shrink-0 mt-0.5 border border-[#B38E46]/20">
                         <Info className="w-4 h-4" />
                       </div>
                       <div>
@@ -716,7 +716,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                 </div>
               )}
 
-              {/* 4 Luxury Privilege Bento Badges */}
+              {/* 4 Luxury Privilege Badges */}
               <div className="mt-8 pt-6 border-t border-neutral-100 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
                   { title: "5-Star Stays", icon: HotelIcon, desc: "Handpicked Luxury" },
@@ -726,10 +726,10 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                 ].map((item, idx) => (
                   <div
                     key={idx}
-                    className="p-3 bg-neutral-50/70 rounded-xl border border-neutral-200/60 flex flex-col items-center text-center group hover:bg-[#B38E46]/5 hover:border-[#B38E46]/30 transition-all"
+                    className="p-3.5 bg-[#FAFAFA] rounded-none border border-neutral-200/70 flex flex-col items-center text-center group hover:bg-[#B38E46]/5 hover:border-[#B38E46] transition-all"
                   >
                     <item.icon className="w-4 h-4 text-[#B38E46] mb-1.5" />
-                    <span className="text-[11px] font-semibold text-neutral-900 block">
+                    <span className="text-[11px] font-medium text-neutral-900 block tracking-wide">
                       {item.title}
                     </span>
                     <span className="text-[10px] text-neutral-500 font-light">
@@ -740,14 +740,13 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
               </div>
             </div>
 
-            {/* 5.2 Day-by-Day Comprehensive Itinerary Timeline (Bento Style) */}
+            {/* 5.2 Day-by-Day Comprehensive Itinerary Timeline (Matching Brands Page Regional Header Style) */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2 text-xs tracking-[0.25em] font-semibold text-[#B38E46] uppercase">
-                  <Sparkles className="w-4 h-4" />
-                  <span>SCHEDULE TIMELINE</span>
+                <div className="text-xs tracking-[0.35em] font-medium text-[#B38E46] uppercase">
+                  SCHEDULE TIMELINE
                 </div>
-                <div className="text-xs text-neutral-500 font-medium">
+                <div className="text-xs text-neutral-400 font-light tracking-wider uppercase">
                   {currentItinerary.days.length} Days Total
                 </div>
               </div>
@@ -764,36 +763,45 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                     <motion.div
                       key={index}
                       initial={false}
-                      className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-white shadow-2xs hover:shadow-sm transition-all duration-300"
+                      className="border border-neutral-200/90 rounded-none overflow-hidden bg-white shadow-2xs hover:shadow-md transition-all duration-300"
                     >
+                      {/* Accordion Header Banner (Styled like Brands Page Regional Header: rgb(25,25,112)) */}
                       <button
                         onClick={() => setOpenAccordion(isOpen ? null : index)}
-                        className="w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-[#FAF9F5] transition duration-200 focus:outline-none cursor-pointer"
+                        className="w-full flex items-center justify-between p-4 sm:p-5 text-left bg-[rgb(25,25,112)] text-white hover:bg-[rgb(20,20,95)] transition duration-200 focus:outline-none cursor-pointer border-b border-[#B38E46]/30"
                       >
-                        <div className="flex items-center gap-4 sm:gap-6">
-                          {/* Gold Metallic Day Badge */}
-                          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#B38E46] text-white flex flex-col items-center justify-center shrink-0 shadow-sm">
-                            <span className="text-[8px] font-medium uppercase tracking-wider">DAY</span>
-                            <span className="text-sm font-bold font-serif leading-none">{dayNumFormatted}</span>
-                          </div>
+                        <div className="flex items-center gap-3 sm:gap-4">
+                          {/* Gold Day Number */}
+                          <span
+                            className="text-xl sm:text-2xl font-light text-[#B38E46] tracking-[0.2em] shrink-0"
+                            style={{ fontFamily: "var(--work-font), sans-serif" }}
+                          >
+                            {dayNumFormatted}
+                          </span>
+                          <span className="h-5 w-[1px] bg-[#B38E46]/40 hidden sm:block"></span>
                           <div>
-                            <h4 className="text-base sm:text-lg font-serif tracking-tight text-neutral-900">
+                            <h4 className="text-sm sm:text-base font-serif tracking-wide text-white">
                               {item.title}
                             </h4>
-                            {item.location && (
-                              <span className="text-[11px] text-neutral-500 font-light flex items-center gap-1 mt-0.5">
-                                <MapPin className="w-3 h-3 text-[#B38E46]" />
-                                {item.location}
-                              </span>
-                            )}
                           </div>
                         </div>
-                        <div
-                          className={`w-9 h-9 rounded-xl border border-[#B38E46]/30 flex items-center justify-center transition-transform duration-300 shrink-0 ${
-                            isOpen ? "rotate-180 bg-[#B38E46] text-white" : "text-[#B38E46] bg-neutral-50"
-                          }`}
-                        >
-                          <ChevronDown className="w-4 h-4" />
+                        
+                        <div className="flex items-center gap-3">
+                          {item.location && (
+                            <span
+                              className="text-[10px] sm:text-xs tracking-[0.25em] font-medium text-[#B38E46] uppercase hidden md:inline-block"
+                              style={{ fontFamily: "var(--work-font), sans-serif" }}
+                            >
+                              {item.location}
+                            </span>
+                          )}
+                          <div
+                            className={`w-7 h-7 rounded-sm border border-[#B38E46]/40 flex items-center justify-center transition-transform duration-300 shrink-0 ${
+                              isOpen ? "rotate-180 bg-[#B38E46] text-white" : "text-[#B38E46] bg-black/30"
+                            }`}
+                          >
+                            <ChevronDown className="w-3.5 h-3.5" />
+                          </div>
                         </div>
                       </button>
 
@@ -805,9 +813,9 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.3, ease: "easeInOut" }}
                           >
-                            <div className="p-6 pt-0 border-t border-neutral-100 bg-[#FAF9F5]/60 space-y-5">
+                            <div className="p-6 sm:p-7 bg-[#FAFAFA] space-y-5 border-t border-neutral-100">
                               {/* Main Day Text Narrative */}
-                              <p className="text-xs sm:text-sm leading-relaxed text-neutral-700 font-light tracking-wide pt-4">
+                              <p className="text-xs sm:text-sm leading-relaxed text-neutral-700 font-light tracking-wide">
                                 {item.text}
                               </p>
 
@@ -815,8 +823,8 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                               {(item.morning || item.afternoon || item.evening) && (
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
                                   {item.morning && (
-                                    <div className="bg-white p-4 border border-amber-200/70 rounded-xl shadow-2xs">
-                                      <div className="flex items-center gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-amber-700 mb-1.5">
+                                    <div className="bg-white p-4 border border-neutral-200/80 rounded-none shadow-2xs">
+                                      <div className="flex items-center gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-[#B38E46] mb-1.5">
                                         <Sunrise className="w-3.5 h-3.5" />
                                         <span>Morning</span>
                                       </div>
@@ -826,8 +834,8 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                                     </div>
                                   )}
                                   {item.afternoon && (
-                                    <div className="bg-white p-4 border border-sky-200/70 rounded-xl shadow-2xs">
-                                      <div className="flex items-center gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-sky-700 mb-1.5">
+                                    <div className="bg-white p-4 border border-neutral-200/80 rounded-none shadow-2xs">
+                                      <div className="flex items-center gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-[#B38E46] mb-1.5">
                                         <Sun className="w-3.5 h-3.5" />
                                         <span>Afternoon</span>
                                       </div>
@@ -837,8 +845,8 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                                     </div>
                                   )}
                                   {item.evening && (
-                                    <div className="bg-white p-4 border border-indigo-200/70 rounded-xl shadow-2xs">
-                                      <div className="flex items-center gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-indigo-700 mb-1.5">
+                                    <div className="bg-white p-4 border border-neutral-200/80 rounded-none shadow-2xs">
+                                      <div className="flex items-center gap-1.5 text-[10px] font-semibold tracking-wider uppercase text-[#B38E46] mb-1.5">
                                         <Moon className="w-3.5 h-3.5" />
                                         <span>Evening</span>
                                       </div>
@@ -850,24 +858,24 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                                 </div>
                               )}
 
-                              {/* Logistics Bento Strip (Meals, Hotel, Transport) */}
-                              <div className="pt-3 border-t border-neutral-200/60 flex flex-wrap gap-4 text-xs text-neutral-700">
+                              {/* Logistics Strip (Meals, Hotel, Transport) */}
+                              <div className="pt-3 border-t border-neutral-200/60 flex flex-wrap gap-3 text-xs text-neutral-700">
                                 {item.meals && (
-                                  <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-lg border border-neutral-200/60 shadow-2xs">
+                                  <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-none border border-neutral-200/80 shadow-2xs">
                                     <Utensils className="w-3.5 h-3.5 text-[#B38E46]" />
                                     <span className="font-semibold text-neutral-900">Meals:</span>
                                     <span className="font-light">{item.meals}</span>
                                   </div>
                                 )}
                                 {item.hotel && (
-                                  <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-lg border border-neutral-200/60 shadow-2xs">
+                                  <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-none border border-neutral-200/80 shadow-2xs">
                                     <HotelIcon className="w-3.5 h-3.5 text-[#B38E46]" />
                                     <span className="font-semibold text-neutral-900">Stay:</span>
                                     <span className="font-light">{item.hotel}</span>
                                   </div>
                                 )}
                                 {item.transport && (
-                                  <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-lg border border-neutral-200/60 shadow-2xs">
+                                  <div className="flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-none border border-neutral-200/80 shadow-2xs">
                                     <Car className="w-3.5 h-3.5 text-[#B38E46]" />
                                     <span className="font-semibold text-neutral-900">Transfer:</span>
                                     <span className="font-light">{item.transport}</span>
@@ -876,8 +884,8 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                               </div>
 
                               {item.notes && (
-                                <div className="p-3.5 bg-amber-50/80 border border-amber-200/80 rounded-xl text-xs text-amber-900 font-light flex items-start gap-2.5">
-                                  <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                                <div className="p-3.5 bg-white border-l-2 border-[#B38E46] border-y border-r border-neutral-200/80 rounded-none text-xs text-neutral-700 font-light flex items-start gap-2.5">
+                                  <Info className="w-4 h-4 text-[#B38E46] shrink-0 mt-0.5" />
                                   <span>{item.notes}</span>
                                 </div>
                               )}
@@ -891,12 +899,11 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
               </div>
             </div>
 
-            {/* 5.3 Featured Landmarks & Attractions (Bento Cards) */}
+            {/* 5.3 Featured Landmarks & Attractions */}
             {currentItinerary.attractions && currentItinerary.attractions.length > 0 && (
               <div>
-                <div className="flex items-center gap-2 text-xs tracking-[0.25em] font-semibold text-[#B38E46] uppercase mb-2">
-                  <Gem className="w-4 h-4" />
-                  <span>DESTINATION HIGHLIGHTS</span>
+                <div className="text-xs tracking-[0.35em] font-medium text-[#B38E46] uppercase mb-2">
+                  DESTINATION HIGHLIGHTS
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-serif tracking-tight text-neutral-900 mb-6 leading-snug">
                   Must-Visit Sights &amp; Landmarks
@@ -906,7 +913,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                   {currentItinerary.attractions.map((att, idx) => (
                     <div
                       key={idx}
-                      className="bg-white border border-neutral-200/90 rounded-2xl overflow-hidden flex flex-col group shadow-2xs hover:shadow-xl hover:border-[#B38E46]/40 transition-all duration-300"
+                      className="bg-white border border-neutral-200/90 rounded-none overflow-hidden flex flex-col group shadow-2xs hover:shadow-xl hover:border-[#B38E46] transition-all duration-300"
                     >
                       {att.image_url && (
                         <div className="relative h-48 w-full bg-neutral-950 overflow-hidden">
@@ -919,7 +926,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
                           <div className="absolute top-3.5 left-3.5 z-10">
-                            <span className="bg-black/60 backdrop-blur-md text-white text-[9px] tracking-widest uppercase px-3 py-1 border border-white/20 rounded-full font-medium">
+                            <span className="bg-black/75 backdrop-blur-md text-white text-[9px] tracking-widest uppercase px-3 py-1 border border-[#B38E46]/40 rounded-none font-medium">
                               Sight #{idx + 1}
                             </span>
                           </div>
@@ -939,12 +946,11 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
               </div>
             )}
 
-            {/* 5.4 Curated Experiences & Signature Moments (Bento Cards) */}
+            {/* 5.4 Curated Experiences & Signature Moments */}
             {currentItinerary.activities && currentItinerary.activities.length > 0 && (
               <div>
-                <div className="flex items-center gap-2 text-xs tracking-[0.25em] font-semibold text-[#B38E46] uppercase mb-2">
-                  <Award className="w-4 h-4" />
-                  <span>BESPOKE EXPERIENCES</span>
+                <div className="text-xs tracking-[0.35em] font-medium text-[#B38E46] uppercase mb-2">
+                  BESPOKE EXPERIENCES
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-serif tracking-tight text-neutral-900 mb-6 leading-snug">
                   Curated Experiences Included
@@ -954,7 +960,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                   {currentItinerary.activities.map((act, idx) => (
                     <div
                       key={idx}
-                      className="bg-white border border-neutral-200/90 rounded-2xl overflow-hidden flex flex-col group shadow-2xs hover:shadow-xl hover:border-[#B38E46]/40 transition-all duration-300"
+                      className="bg-white border border-neutral-200/90 rounded-none overflow-hidden flex flex-col group shadow-2xs hover:shadow-xl hover:border-[#B38E46] transition-all duration-300"
                     >
                       {act.image_url && (
                         <div className="relative h-48 w-full bg-neutral-950 overflow-hidden">
@@ -967,7 +973,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
                           <div className="absolute top-3.5 left-3.5 z-10">
-                            <span className="bg-black/60 backdrop-blur-md text-white text-[9px] tracking-widest uppercase px-3 py-1 border border-white/20 rounded-full font-medium">
+                            <span className="bg-black/75 backdrop-blur-md text-white text-[9px] tracking-widest uppercase px-3 py-1 border border-[#B38E46]/40 rounded-none font-medium">
                               Experience #{idx + 1}
                             </span>
                           </div>
@@ -987,28 +993,29 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
               </div>
             )}
 
-            {/* 5.5 Inclusions & Exclusions Bento Cards */}
+            {/* 5.5 Inclusions & Exclusions */}
             <div>
-              <div className="flex items-center gap-2 text-xs tracking-[0.25em] font-semibold text-[#B38E46] uppercase mb-2">
-                <ShieldCheck className="w-4 h-4" />
-                <span>TRANSPARENCY &amp; VALUE</span>
+              <div className="text-xs tracking-[0.35em] font-medium text-[#B38E46] uppercase mb-2">
+                TRANSPARENCY &amp; VALUE
               </div>
               <h3 className="text-2xl sm:text-3xl font-serif tracking-tight text-neutral-900 mb-6 leading-snug">
                 What&apos;s Included &amp; Excluded
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Inclusions */}
-                <div className="bg-white p-7 rounded-2xl border border-emerald-200/90 shadow-sm relative overflow-hidden">
-                  <div className="flex items-center gap-2 text-emerald-800 font-semibold text-xs uppercase tracking-widest mb-5 pb-3 border-b border-emerald-100">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    <span>Package Inclusions</span>
+                {/* Inclusions Card */}
+                <div className="bg-white rounded-none border border-neutral-200/90 shadow-sm relative overflow-hidden">
+                  <div className="bg-[rgb(25,25,112)] text-white py-3.5 px-5 flex items-center justify-between border-b border-[#B38E46]/30">
+                    <span className="text-xs font-medium uppercase tracking-[0.25em] text-[#B38E46] flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#B38E46]" />
+                      Package Inclusions
+                    </span>
                   </div>
-                  <ul className="space-y-3.5 text-xs text-neutral-700 font-light">
+                  <ul className="p-6 space-y-3.5 text-xs text-neutral-700 font-light">
                     {currentItinerary.inclusions && currentItinerary.inclusions.length > 0 ? (
                       currentItinerary.inclusions.map((inc, i) => (
                         <li key={i} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0 mt-0.5" />
                           <div>
                             <span className="font-medium text-neutral-900">{inc.title}</span>
                             {inc.description && (
@@ -1020,19 +1027,19 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                     ) : (
                       <>
                         <li className="flex items-start gap-3">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0 mt-0.5" />
                           <span>5-Star Luxury Accommodations with Breakfast</span>
                         </li>
                         <li className="flex items-start gap-3">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0 mt-0.5" />
                           <span>Private Chauffeur Airport &amp; Inter-City Transfers</span>
                         </li>
                         <li className="flex items-start gap-3">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0 mt-0.5" />
                           <span>VIP Fast-Track Entry to Listed Attractions</span>
                         </li>
                         <li className="flex items-start gap-3">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0 mt-0.5" />
                           <span>24/7 Dedicated Member Concierge &amp; Host</span>
                         </li>
                       </>
@@ -1040,13 +1047,15 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                   </ul>
                 </div>
 
-                {/* Exclusions */}
-                <div className="bg-white p-7 rounded-2xl border border-neutral-200/90 shadow-sm relative overflow-hidden">
-                  <div className="flex items-center gap-2 text-neutral-800 font-semibold text-xs uppercase tracking-widest mb-5 pb-3 border-b border-neutral-100">
-                    <XCircle className="w-4 h-4 text-neutral-400" />
-                    <span>Package Exclusions</span>
+                {/* Exclusions Card */}
+                <div className="bg-white rounded-none border border-neutral-200/90 shadow-sm relative overflow-hidden">
+                  <div className="bg-neutral-900 text-white py-3.5 px-5 flex items-center justify-between border-b border-neutral-800">
+                    <span className="text-xs font-medium uppercase tracking-[0.25em] text-neutral-300 flex items-center gap-2">
+                      <XCircle className="w-4 h-4 text-neutral-400" />
+                      Package Exclusions
+                    </span>
                   </div>
-                  <ul className="space-y-3.5 text-xs text-neutral-600 font-light">
+                  <ul className="p-6 space-y-3.5 text-xs text-neutral-600 font-light">
                     {currentItinerary.exclusions && currentItinerary.exclusions.length > 0 ? (
                       currentItinerary.exclusions.map((exc, i) => (
                         <li key={i} className="flex items-start gap-3">
@@ -1083,9 +1092,8 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
             {/* 5.6 Frequently Asked Questions (FAQ) */}
             {currentItinerary.faqs && currentItinerary.faqs.length > 0 && (
               <div>
-                <div className="flex items-center gap-2 text-xs tracking-[0.25em] font-semibold text-[#B38E46] uppercase mb-2">
-                  <HelpCircle className="w-4 h-4" />
-                  <span>ESSENTIAL KNOWLEDGE</span>
+                <div className="text-xs tracking-[0.35em] font-medium text-[#B38E46] uppercase mb-2">
+                  ESSENTIAL KNOWLEDGE
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-serif tracking-tight text-neutral-900 mb-6 leading-snug">
                   Frequently Asked Questions
@@ -1097,11 +1105,11 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                     return (
                       <div
                         key={fIdx}
-                        className="bg-white border border-neutral-200/90 rounded-2xl overflow-hidden shadow-2xs hover:border-[#B38E46]/40 transition-all"
+                        className="bg-white border border-neutral-200/90 rounded-none overflow-hidden shadow-2xs hover:border-[#B38E46]/60 transition-all"
                       >
                         <button
                           onClick={() => setOpenFaq(isFaqOpen ? null : fIdx)}
-                          className="w-full flex items-center justify-between p-5 text-left hover:bg-[#FAF9F5] transition duration-200 cursor-pointer"
+                          className="w-full flex items-center justify-between p-5 text-left hover:bg-[#FAFAFA] transition duration-200 cursor-pointer"
                         >
                           <span className="text-sm font-medium text-neutral-900 flex items-center gap-2.5">
                             <HelpCircle className="w-4 h-4 text-[#B38E46] shrink-0" />
@@ -1121,7 +1129,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.25 }}
                             >
-                              <div className="p-5 pt-0 text-xs text-neutral-600 font-light leading-relaxed border-t border-neutral-100 bg-[#FAF9F5]/40">
+                              <div className="p-5 pt-0 text-xs text-neutral-600 font-light leading-relaxed border-t border-neutral-100 bg-[#FAFAFA]">
                                 {faq.answer}
                               </div>
                             </motion.div>
@@ -1138,121 +1146,121 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
 
           {/* RIGHT SIDEBAR: STICKY LUXURY BOOKING & INQUIRY CARD */}
           <div className="lg:col-span-4 lg:sticky lg:top-28">
-            <div className="bg-white border border-[#B38E46]/40 rounded-2xl p-7 sm:p-9 shadow-xl space-y-6 relative overflow-hidden">
+            <div className="bg-white border border-neutral-200/90 rounded-none shadow-xl overflow-hidden">
               
-              {/* Gold Top Accent Line */}
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#B38E46] via-[#E5C158] to-[#B38E46]" />
-
-              <div className="space-y-2">
-                <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-[#B38E46] block">
+              {/* Luxury Header Banner in Midnight Navy & Gold */}
+              <div className="bg-[rgb(25,25,112)] text-white p-6 sm:p-7 border-b border-[#B38E46]/30">
+                <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-[#B38E46] block mb-2">
                   EXCLUSIVE LUXURY PACKAGE
                 </span>
-                <h3 className="text-2xl font-serif tracking-tight text-neutral-900">
+                <h3 className="text-2xl font-serif tracking-tight text-white">
                   Tailor This Itinerary
                 </h3>
               </div>
 
-              {/* Price Container */}
-              <div className="p-4 bg-[#FAF9F5] border border-[#B38E46]/30 rounded-xl flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] text-neutral-500 uppercase tracking-wider block font-light">
-                    Starting from
+              <div className="p-6 sm:p-7 space-y-6 bg-white">
+                {/* Price Container */}
+                <div className="p-4 sm:p-5 bg-[#FAFAFA] border border-neutral-200/80 rounded-none flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-neutral-400 uppercase tracking-widest block font-medium">
+                      Starting from
+                    </span>
+                    <span className="text-2xl sm:text-3xl font-serif text-neutral-900 font-medium tracking-tight">
+                      {currentItinerary.startingPrice || "₹1,45,000"}
+                    </span>
+                    <span className="text-xs text-neutral-500 font-light"> / person</span>
+                  </div>
+                  <span className="text-[10px] tracking-[0.2em] font-medium uppercase text-[#B38E46] bg-white px-3.5 py-1.5 border border-[#B38E46] rounded-sm">
+                    {currentItinerary.duration.split("/")[0]}
                   </span>
-                  <span className="text-2xl font-bold text-neutral-900 tracking-tight">
-                    {currentItinerary.startingPrice || "₹1,45,000"}
-                  </span>
-                  <span className="text-xs text-neutral-500 font-light"> / person</span>
                 </div>
-                <span className="text-[10px] tracking-[0.2em] font-medium uppercase text-[#B38E46] bg-[#B38E46]/10 px-3.5 py-1.5 border border-[#B38E46]/30 rounded-full">
-                  {currentItinerary.duration.split("/")[0]}
-                </span>
+
+                {/* Inclusions List */}
+                <div className="space-y-3 pt-1">
+                  <h4 className="text-xs font-medium tracking-[0.25em] text-neutral-900 uppercase">
+                    Included In Every Journey
+                  </h4>
+                  <ul className="space-y-2.5 text-xs text-neutral-600 font-light tracking-wide">
+                    <li className="flex items-center gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0" />
+                      <span>5-Star Handpicked Luxury Stays</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0" />
+                      <span>Private Chauffeur &amp; Airport Transfers</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0" />
+                      <span>Dedicated Member Concierge 24/7</span>
+                    </li>
+                    <li className="flex items-center gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0" />
+                      <span>Flexible Departure Dates &amp; Customizations</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="space-y-3 pt-3 border-t border-neutral-100">
+                  <Link
+                    href={`/contact?itinerary=${encodeURIComponent(currentItinerary.title)}`}
+                    className="w-full flex items-center justify-center gap-2 border border-[#B38E46] bg-white text-[#B38E46] hover:bg-[#B38E46] hover:text-white transition-all duration-300 py-3.5 text-xs tracking-[0.25em] uppercase font-medium rounded-md shadow-2xs cursor-pointer active:scale-95 text-center"
+                  >
+                    <PhoneCall className="w-3.5 h-3.5" />
+                    <span>INQUIRE ABOUT THIS TRIP</span>
+                  </Link>
+
+                  <Link
+                    href="/luxeclub"
+                    className="w-full flex items-center justify-center gap-2 border border-[#B38E46] bg-[#B38E46] hover:bg-[#997734] text-white transition-all duration-300 py-3.5 text-xs tracking-[0.25em] uppercase font-medium rounded-md shadow-sm cursor-pointer active:scale-95 text-center"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5 text-white" />
+                    <span>ENROL VIA LUXE CLUB</span>
+                  </Link>
+
+                  <a
+                    href={`https://wa.me/919999999999?text=${encodeURIComponent(
+                      `Hello Luxe Concierge, I would like to inquire about the luxury itinerary: "${currentItinerary.title}" (${currentItinerary.duration})`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full flex items-center justify-center gap-2 border border-[rgb(25,25,112)] bg-[rgb(25,25,112)] hover:bg-neutral-900 text-white transition-all duration-300 py-3.5 text-xs tracking-[0.25em] uppercase font-medium rounded-md shadow-sm cursor-pointer active:scale-95 text-center"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5 text-white" />
+                    <span>WHATSAPP CONCIERGE</span>
+                  </a>
+                </div>
+
+                <p className="text-[10px] text-center text-neutral-400 font-light pt-1 leading-relaxed">
+                  No immediate deposit required. Our private luxury travel designers will connect with you within 2 business hours.
+                </p>
               </div>
-
-              {/* Inclusions List */}
-              <div className="space-y-3 pt-1">
-                <h4 className="text-xs font-semibold tracking-widest text-neutral-900 uppercase">
-                  Included In Every Journey
-                </h4>
-                <ul className="space-y-2.5 text-xs text-neutral-700 font-light tracking-wide">
-                  <li className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0" />
-                    <span>5-Star Handpicked Luxury Stays</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0" />
-                    <span>Private Chauffeur &amp; Airport Transfers</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0" />
-                    <span>Dedicated Member Concierge 24/7</span>
-                  </li>
-                  <li className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0" />
-                    <span>Flexible Departure Dates &amp; Customizations</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="space-y-3 pt-3 border-t border-neutral-100">
-                <Link
-                  href={`/contact?itinerary=${encodeURIComponent(currentItinerary.title)}`}
-                  className="w-full flex items-center justify-center gap-2 border border-[#B38E46] bg-white text-[#B38E46] hover:bg-[#B38E46] hover:text-white transition-all duration-300 py-3.5 text-xs tracking-[0.25em] uppercase font-medium rounded-xl shadow-2xs cursor-pointer active:scale-95 text-center"
-                >
-                  <PhoneCall className="w-3.5 h-3.5" />
-                  <span>INQUIRE ABOUT THIS TRIP</span>
-                </Link>
-
-                <Link
-                  href="/luxeclub"
-                  className="w-full flex items-center justify-center gap-2 border border-[#B38E46] bg-[#B38E46] hover:bg-[#997734] text-white transition-all duration-300 py-3.5 text-xs tracking-[0.25em] uppercase font-medium rounded-xl shadow-sm cursor-pointer active:scale-95 text-center"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5 text-white" />
-                  <span>ENROL VIA LUXE CLUB</span>
-                </Link>
-
-                <a
-                  href={`https://wa.me/919999999999?text=${encodeURIComponent(
-                    `Hello Luxe Concierge, I would like to inquire about the luxury itinerary: "${currentItinerary.title}" (${currentItinerary.duration})`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 border border-emerald-600 bg-emerald-600 hover:bg-emerald-700 text-white transition-all duration-300 py-3.5 text-xs tracking-[0.25em] uppercase font-medium rounded-xl shadow-sm cursor-pointer active:scale-95 text-center"
-                >
-                  <MessageSquare className="w-3.5 h-3.5 text-white" />
-                  <span>WHATSAPP CONCIERGE</span>
-                </a>
-              </div>
-
-              <p className="text-[10px] text-center text-neutral-400 font-light pt-1 leading-relaxed">
-                No immediate deposit required. Our private luxury travel designers will connect with you within 2 business hours.
-              </p>
             </div>
           </div>
 
         </div>
       </div>
 
-      {/* 6. RECOMMENDED TRIPS SECTION */}
-      <div className="bg-white border-t border-neutral-200/60 py-16 md:py-24 w-full">
+      {/* 6. RECOMMENDED TRIPS SECTION (Matching Homepage Itinerary Cards) */}
+      <div className="bg-white border-t border-neutral-200/80 py-16 md:py-24 w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="text-center mb-14 flex flex-col items-center">
-            <div className="text-xs tracking-[0.4em] text-[#B38E46] uppercase font-medium mb-3">
+            <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-4">
               CURATED SELECTION
             </div>
-            <h3 className="text-3xl md:text-5xl font-serif tracking-tight text-neutral-900 leading-[1.1]">
+            <h3 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black">
               Recommended Luxury Itineraries
             </h3>
           </div>
 
-          {/* Cards Grid Container */}
+          {/* Cards Grid Container matching Homepage Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch mb-14">
             {recommendations.map((rec) => (
               <Link
                 href={`/itinerary/${rec.id}`}
                 key={rec.id}
-                className="group relative h-[440px] w-full bg-black rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                className="group relative h-[460px] w-full bg-black rounded-none overflow-hidden hover:shadow-2xl transition-all duration-500 cursor-pointer"
               >
                 {/* Background Image */}
                 <Image
@@ -1268,24 +1276,24 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
                   className="absolute inset-0 pointer-events-none"
                   style={{
                     background:
-                      "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.65) 35%, rgba(0,0,0,0) 65%)",
+                      "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.65) 40%, rgba(0,0,0,0) 75%)",
                   }}
                 />
 
-                {/* Category Pill Tag at Top */}
+                {/* Country Badge at Top */}
                 <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-                  <span className="bg-black/50 backdrop-blur-md text-white text-[10px] tracking-[0.2em] uppercase font-light px-3.5 py-1.5 border border-white/20 rounded-full">
+                  <span className="bg-black/60 backdrop-blur-md text-white text-[10px] uppercase tracking-wider px-3 py-1.5 border border-white/20 rounded-none">
                     {rec.country}
                   </span>
-                  <div className="bg-black/50 backdrop-blur-md text-white text-xs font-light tracking-wider px-3.5 py-1.5 border border-white/20 flex items-center gap-1.5 rounded-full">
-                    <Star className="w-3.5 h-3.5 fill-[#E5C158] text-[#E5C158]" />
+                  <div className="bg-black/60 backdrop-blur-md text-white text-xs font-light tracking-wider px-3.5 py-1.5 border border-white/20 flex items-center gap-1.5 rounded-none">
+                    <Star className="w-3.5 h-3.5 fill-[#B38E46] text-[#B38E46]" />
                     <span>4.9</span>
                   </div>
                 </div>
 
                 {/* Content Overlay */}
                 <div className="absolute inset-0 p-6 flex flex-col justify-end text-white z-10">
-                  <div className="text-[10px] text-white/80 uppercase tracking-[0.25em] font-medium mb-1.5 flex items-center gap-1.5">
+                  <div className="text-[10px] text-[#B38E46] uppercase tracking-widest font-medium mb-1.5 flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5 text-[#B38E46]" />
                     <span>{rec.duration}</span>
                   </div>
@@ -1317,7 +1325,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
           <div className="text-center">
             <Link
               href="/itinerary"
-              className="inline-flex items-center gap-2 border border-[#B38E46] bg-white text-[#B38E46] hover:bg-[#B38E46] hover:text-white font-medium text-xs uppercase tracking-[0.25em] px-8 py-3.5 rounded-full transition-all duration-300 shadow-2xs cursor-pointer active:scale-95"
+              className="inline-flex items-center gap-2 border border-[#B38E46] bg-white text-[#B38E46] hover:bg-[#B38E46] hover:text-white font-medium text-xs uppercase tracking-[0.25em] px-8 py-3.5 rounded-md transition-all duration-300 shadow-2xs cursor-pointer active:scale-95"
             >
               <span>VIEW ALL ITINERARIES</span>
               <ArrowRight className="w-4 h-4" />
@@ -1327,9 +1335,9 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
         </div>
       </div>
 
-      {/* Indigo Vertical Line Accent at Bottom */}
+      {/* Indigo Vertical Line Accent before footer (matching Brands Page) */}
       <div className="flex justify-center mt-16 md:mt-20">
-        <div className="w-[1.5px] h-32 md:h-48 bg-[rgb(25,25,112)]"></div>
+        <div className="w-[1.5px] h-28 md:h-36 bg-[rgb(25,25,112)]"></div>
       </div>
 
     </main>
