@@ -99,7 +99,10 @@ export default function Footer() {
               </div>
               <div className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-                <p>100 Luxury Avenue, Suite 500, New York, NY 10022</p>
+                <div>
+                  <p className="font-semibold uppercase tracking-wider text-[10px]">Corporate Office</p>
+                  <p>293, Lane 2, Westend Marg, Saket, New Delhi – 110030</p>
+                </div>
               </div>
             </div>
 
