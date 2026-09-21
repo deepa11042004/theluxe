@@ -6,24 +6,24 @@ import { motion } from "framer-motion";
 
 const STATS = [
   {
-    value: "30+",
-    description: "Years of Luxe Club, delivering timeless family holidays",
-    isAccent: false,
+    value: "10,000+",
+    title: "FIVE-STAR HOTELS",
+    description: "A world of exceptional stays across India and worldwide.",
   },
   {
-    value: "3 lakh+",
-    description: "Member Community ensuring one crore+ happy holidays",
-    isAccent: true, // Triggers the solid orange circle icon badge from your screenshot
+    value: "100+",
+    title: "LUXURY HOTEL BRANDS",
+    description: "Renowned hospitality, thoughtfully curated.",
   },
   {
-    value: "5,000+",
-    description: "Resorts globally, providing access to premium destinations",
-    isAccent: false,
+    value: "UP TO 40%",
+    title: "MEMBER RATES",
+    description: "Exclusive savings on eligible stays.",
   },
   {
-    value: "1 Cr+",
-    description: "Happy holidays and premium memories created worldwide",
-    isAccent: false,
+    value: "24/7",
+    title: "CONCIERGE SERVICE",
+    description: "Personalised assistance, whenever you travel.",
   },
 ];
 
@@ -31,11 +31,14 @@ export default function Statssec() {
   return (
     <section className="bg-white pb-24 px-6 sm:px-12 w-full overflow-hidden select-none">
       <div className="max-w-7xl mx-auto">
-        {/* Section Heading: Centered Serif Font matching your screenshot */}
+        {/* Section Heading & Sub-headline */}
         <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-[Vera] tracking-tight text-black">
-            Success stories that inspire
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-[Vera] tracking-tight text-black mb-4 uppercase">
+            A MORE PRIVILEGED WAY TO TRAVEL
           </h2>
+          <p className="text-xs sm:text-sm md:text-base font-semibold tracking-[0.25em] text-[#B38E46] uppercase">
+            EXCEPTIONAL STAYS. EXTRAORDINARY EXPERIENCES.
+          </p>
         </div>
 
         {/* Stats Grid: Matches the 4-column wide minimal footprint layout */}
@@ -47,15 +50,20 @@ export default function Statssec() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.6 }}
-              className="relative bg-white rounded-4xl p-8 md:p-8 min-h-70 border border-[#B38E46]/60 shadow-[0_4px_24px_rgba(212,175,55,0.06)] group flex flex-col justify-between items-start text-left"
+              className="relative bg-white rounded-3xl p-8 min-h-[260px] border border-[#B38E46]/60 shadow-[0_4px_24px_rgba(212,175,55,0.06)] group flex flex-col justify-between items-start text-left hover:border-[#B38E46] hover:shadow-lg transition-all"
             >
-              {/* High Contrast Structural Number Display */}
-              <div className="text-5xl sm:text-6xl lg:text-7xl font-serif font-normal text-black leading-none mt-4 tracking-tight">
-                {stat.value}
+              {/* High Contrast Value + Title */}
+              <div className="flex flex-col gap-2 mt-2">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal text-black leading-none tracking-tight">
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm font-bold tracking-[0.15em] text-[#B38E46] uppercase font-sans mt-2">
+                  {stat.title}
+                </div>
               </div>
 
-              {/* Lower Minimal Description block sitting at bottom of card */}
-              <div className="text-black font-sans text-xs sm:text-sm font-medium leading-relaxed tracking-wide max-w-[90%] mt-8">
+              {/* Lower Description block sitting at bottom of card */}
+              <div className="text-neutral-700 font-sans text-xs sm:text-sm font-normal leading-relaxed tracking-wide mt-6">
                 {stat.description}
               </div>
             </motion.div>
