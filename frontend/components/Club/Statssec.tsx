@@ -31,13 +31,16 @@ export default function Statssec() {
   return (
     <section className="bg-white pb-24 px-6 sm:px-12 w-full overflow-hidden select-none">
       <div className="max-w-7xl mx-auto">
-        {/* Section Heading & Sub-headline */}
-        <div className="text-center mb-16 md:mb-20">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-[Vera] tracking-tight text-black mb-4 uppercase">
-            A MORE PRIVILEGED WAY TO TRAVEL
-          </h2>
-          <p className="text-xs sm:text-sm md:text-base font-semibold tracking-[0.25em] text-[#B38E46] uppercase">
+        {/* Section Heading & Sub-headline styled exactly like Image 2 */}
+        <div className="text-center mb-14 md:mb-16 flex flex-col items-center">
+          <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
             EXCEPTIONAL STAYS. EXTRAORDINARY EXPERIENCES.
+          </div>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
+            A More Privileged Way to Travel
+          </h2>
+          <p className="text-xs md:text-sm max-w-xl leading-relaxed text-neutral-600">
+            A world of exceptional stays, luxury hotel brands, and exclusive member savings across India and worldwide.
           </p>
         </div>
 
