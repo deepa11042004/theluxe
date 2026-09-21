@@ -187,7 +187,7 @@ export default function AboutPage() {
 
             {/* Small Golden Vertical Divider */}
             <div className="flex justify-center my-6">
-              <div className="w-[1.5px] h-12 md:h-16 bg-[#B38E46]/80"></div>
+              <div className="w-[1.5px] h-12 md:h-16 bg-[#E39F25]/80"></div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center text-left w-full mt-4">
@@ -381,7 +381,7 @@ export default function AboutPage() {
                           >
                             {item.title}
                           </h3>
-                          <p className="text-[10px] sm:text-xs font-semibold tracking-widest text-[#B38E46] uppercase mb-2">
+                          <p className="text-[10px] sm:text-xs font-semibold tracking-widest text-[#E39F25] uppercase mb-2">
                             {item.tag}
                           </p>
                           <p className="font-[Vera] text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
@@ -422,13 +422,13 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1, duration: 0.5 }}
-                    className="bg-white rounded-none p-6 md:p-8 border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-[#B38E46]/60 transition-all duration-300 flex flex-col justify-start space-y-5 group"
+                    className="bg-white rounded-none p-6 md:p-8 border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-[#E39F25]/60 transition-all duration-300 flex flex-col justify-start space-y-5 group"
                   >
-                    <div className="w-12 h-12 rounded-none bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center border border-[#B38E46]/30 group-hover:scale-110 transition-transform">
+                    <div className="w-12 h-12 rounded-none bg-[#E39F25]/10 text-[#E39F25] flex items-center justify-center border border-[#E39F25]/30 group-hover:scale-110 transition-transform">
                       <PillarIcon className="w-6 h-6" />
                     </div>
                     <div className="flex flex-col gap-2.5">
-                      <h3 className="text-base font-bold text-neutral-900 tracking-tight group-hover:text-[#B38E46] transition-colors">
+                      <h3 className="text-base font-bold text-neutral-900 tracking-tight group-hover:text-[#E39F25] transition-colors">
                         {pillar.title}
                       </h3>
                       <p className="text-xs font-[Vera] leading-relaxed text-neutral-600 font-medium">
@@ -448,8 +448,8 @@ export default function AboutPage() {
             <div className="bg-[rgb(25,25,112)] text-white rounded-none p-8 md:p-12 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between shadow-xl">
               <div className="space-y-4 max-w-3xl">
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-[#B38E46]/20 border border-[#B38E46]/40 flex items-center justify-center">
-                    <ShieldCheck className="w-6 h-6 text-[#B38E46]" />
+                  <div className="p-3 bg-[#E39F25]/20 border border-[#E39F25]/40 flex items-center justify-center">
+                    <ShieldCheck className="w-6 h-6 text-[#E39F25]" />
                   </div>
                   <h3 className="text-2xl md:text-3xl font-serif text-white tracking-tight" style={{ color: "#ffffff" }}>Trust &amp; Transparency</h3>
                 </div>
@@ -461,7 +461,7 @@ export default function AboutPage() {
               <div className="shrink-0 mt-4 md:mt-0">
                 <Link
                   href="/luxeclub"
-                  className="inline-flex items-center gap-2 border border-[#B38E46] text-white bg-[#B38E46] hover:bg-[#997734] font-medium text-xs tracking-[0.25em] uppercase px-8 py-3.5 rounded-sm transition-all duration-300 shadow-md cursor-pointer whitespace-nowrap"
+                  className="inline-flex items-center gap-2 border border-[#E39F25] text-white bg-[#E39F25] hover:bg-[#997734] font-medium text-xs tracking-[0.25em] uppercase px-8 py-3.5 rounded-sm transition-all duration-300 shadow-md cursor-pointer whitespace-nowrap"
                 >
                   <span>Review Terms &amp; Join</span>
                   <ArrowRight className="w-4 h-4" />

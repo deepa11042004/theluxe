@@ -141,7 +141,7 @@ export default function RichTextEditor({
             className="p-1.5 rounded hover:bg-gray-200 text-gray-700 ml-auto flex items-center gap-1 text-xs font-medium"
             title="Insert Image from Media Library"
           >
-            <ImageIcon className="w-4 h-4 text-[#B38E46]" /> Insert Image
+            <ImageIcon className="w-4 h-4 text-[#E39F25]" /> Insert Image
           </button>
         )}
       </div>

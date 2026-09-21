@@ -379,7 +379,7 @@ const BrandCard = ({ brand, regionId }: { brand: BrandItem; regionId?: string })
       whileTap={{ scale: 0.98 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative bg-white rounded-none border border-neutral-200/90 shadow-2xs hover:shadow-lg hover:border-[#B38E46] transition-all duration-300 flex flex-col items-center justify-center p-4 min-h-[110px] text-center overflow-hidden"
+      className="group relative bg-white rounded-none border border-neutral-200/90 shadow-2xs hover:shadow-lg hover:border-[#E39F25] transition-all duration-300 flex flex-col items-center justify-center p-4 min-h-[110px] text-center overflow-hidden"
     >
       {brand.logoImg ? (
         <div className="relative w-full h-14 flex items-center justify-center">
@@ -412,7 +412,7 @@ const BrandCard = ({ brand, regionId }: { brand: BrandItem; regionId?: string })
       ) : (
         <div className="flex flex-col items-center justify-center">
           <span
-            className="text-lg sm:text-xl font-serif tracking-widest text-neutral-900 group-hover:text-[#B38E46] transition-colors"
+            className="text-lg sm:text-xl font-serif tracking-widest text-neutral-900 group-hover:text-[#E39F25] transition-colors"
             style={{ fontFamily: "var(--work-font), sans-serif" }}
           >
             {brand.name}
@@ -454,16 +454,16 @@ export default function Brandsec() {
               className="bg-white rounded-none border border-neutral-200/90 shadow-sm overflow-hidden"
             >
               {/* Horizontal Header Banner (using exact review card color rgb(25,25,112)) */}
-              <div className="bg-[rgb(25,25,112)] text-white py-4 sm:py-5 px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-[#B38E46]/30">
+              <div className="bg-[rgb(25,25,112)] text-white py-4 sm:py-5 px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-[#E39F25]/30">
                 {/* Left Side: Number & Region Name */}
                 <div className="flex items-center gap-4">
                   <span
-                    className="text-2xl sm:text-3xl font-light text-[#B38E46] tracking-[0.2em]"
+                    className="text-2xl sm:text-3xl font-light text-[#E39F25] tracking-[0.2em]"
                     style={{ fontFamily: "var(--work-font), sans-serif" }}
                   >
                     {region.number}
                   </span>
-                  <span className="h-5 w-[1px] bg-[#B38E46]/40 hidden sm:block"></span>
+                  <span className="h-5 w-[1px] bg-[#E39F25]/40 hidden sm:block"></span>
                   <h3
                     className="text-lg sm:text-xl text-white uppercase font-light tracking-[0.35em]"
                     style={{ fontFamily: "var(--work-font), sans-serif" }}
@@ -474,7 +474,7 @@ export default function Brandsec() {
 
                 {/* Right Side: Subtitle Tagline */}
                 <div
-                  className="text-xs sm:text-sm tracking-[0.35em] font-bold text-[#B38E46] uppercase text-center sm:text-right"
+                  className="text-xs sm:text-sm tracking-[0.35em] font-bold text-[#E39F25] uppercase text-center sm:text-right"
                   style={{ fontFamily: "var(--work-font), sans-serif" }}
                 >
                   {region.subtitle}

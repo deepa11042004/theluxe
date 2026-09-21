@@ -246,7 +246,7 @@ export default function BannerForm() {
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full border border-[#B38E46] bg-transparent text-[#B38E46] hover:bg-[#B38E46] hover:text-white font-medium text-xs sm:text-sm uppercase tracking-[0.25em] py-3.5 rounded-sm transition-all duration-300 shadow-xs cursor-pointer active:scale-[0.99]"
+                      className="w-full border border-[#E39F25] bg-transparent text-[#E39F25] hover:bg-[#E39F25] hover:text-white font-medium text-xs sm:text-sm uppercase tracking-[0.25em] py-3.5 rounded-sm transition-all duration-300 shadow-xs cursor-pointer active:scale-[0.99]"
                     >
                       Submit Information
                     </button>

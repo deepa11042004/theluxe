@@ -233,7 +233,7 @@ export default function Membersec() {
 
         {/* Small Golden Vertical Divider */}
         <div className="flex justify-center my-6">
-          <div className="w-[1.5px] h-12 md:h-16 bg-[#B38E46]/80"></div>
+          <div className="w-[1.5px] h-12 md:h-16 bg-[#E39F25]/80"></div>
         </div>
 
         <p className="text-black text-sm sm:text-base xl:text-lg max-w-3xl mx-auto leading-relaxed mb-16">
@@ -245,8 +245,8 @@ export default function Membersec() {
 
         {/* Open Grid Layout for Key Benefits */}
         <div className="max-w-6xl mx-auto mt-12 w-full">
-          <h4 className="text-base tracking-[0.15em] text-[#B38E46] uppercase text-center mb-8 flex items-center justify-center gap-2">
-            <Star className="w-4 h-4 fill-[#B38E46] text-[#B38E46]" /> Key Privileged Benefits
+          <h4 className="text-base tracking-[0.15em] text-[#E39F25] uppercase text-center mb-8 flex items-center justify-center gap-2">
+            <Star className="w-4 h-4 fill-[#E39F25] text-[#E39F25]" /> Key Privileged Benefits
           </h4>
           <div className="columns-1 sm:columns-2 lg:columns-4 gap-6 text-left w-full space-y-6">
             {BENEFITS_CARDS.map((card, i) => {
@@ -323,7 +323,7 @@ export default function Membersec() {
                 {/* CORNER RIBBON FOR MOST POPULAR */}
                 {card.isPopular && (
                   <div className="absolute top-0 right-0 w-28 h-28 overflow-hidden pointer-events-none z-20">
-                    <div className="bg-gradient-to-r from-[#B38E46] via-[#F3E5AB] to-[#AA7C11] text-black font-black text-[9px] leading-tight uppercase tracking-wider py-1.5 w-[140px] text-center absolute top-[18px] -right-[36px] rotate-45 shadow-md border-y border-[#997734]/40 flex flex-col justify-center items-center">
+                    <div className="bg-gradient-to-r from-[#E39F25] via-[#F3E5AB] to-[#AA7C11] text-black font-black text-[9px] leading-tight uppercase tracking-wider py-1.5 w-[140px] text-center absolute top-[18px] -right-[36px] rotate-45 shadow-md border-y border-[#997734]/40 flex flex-col justify-center items-center">
                       <span>MOST</span>
                       <span>POPULAR</span>
                     </div>
@@ -347,17 +347,17 @@ export default function Membersec() {
 
                   {/* Content (z-10 layer above texture) */}
                   <div className="relative z-10 flex flex-col items-center w-full">
-                    <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#B38E46] tracking-[0.2em] uppercase font-[Vera]">
+                    <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#E39F25] tracking-[0.2em] uppercase font-[Vera]">
                       {card.cardHeaderTitle}
                     </h3>
 
                     {/* Golden Line with Icon Ornament */}
                     <div className="flex items-center justify-center gap-3 my-2 w-full max-w-[160px]">
-                      <div className="h-[1px] bg-gradient-to-r from-transparent to-[#B38E46] flex-1"></div>
-                      {card.id === "signature" && <Sparkles className="w-3.5 h-3.5 text-[#B38E46]" />}
-                      {card.id === "diamond" && <Gem className="w-3.5 h-3.5 text-[#B38E46]" />}
-                      {card.id === "imperial" && <Crown className="w-3.5 h-3.5 text-[#B38E46]" />}
-                      <div className="h-[1px] bg-gradient-to-l from-transparent to-[#B38E46] flex-1"></div>
+                      <div className="h-[1px] bg-gradient-to-r from-transparent to-[#E39F25] flex-1"></div>
+                      {card.id === "signature" && <Sparkles className="w-3.5 h-3.5 text-[#E39F25]" />}
+                      {card.id === "diamond" && <Gem className="w-3.5 h-3.5 text-[#E39F25]" />}
+                      {card.id === "imperial" && <Crown className="w-3.5 h-3.5 text-[#E39F25]" />}
+                      <div className="h-[1px] bg-gradient-to-l from-transparent to-[#E39F25] flex-1"></div>
                     </div>
 
                     <p 
@@ -373,7 +373,7 @@ export default function Membersec() {
 
                 {/* 2. PRICE DETAILS (CENTERED WITH BORDER) */}
                 <div className="mt-6 flex flex-col items-center w-full">
-                  <div className="flex flex-col items-center justify-center text-center border border-[#B38E46]/60 rounded-none py-4 w-full mx-4 shadow-sm bg-[#B38E46]/[0.03]">
+                  <div className="flex flex-col items-center justify-center text-center border border-[#E39F25]/60 rounded-none py-4 w-full mx-4 shadow-sm bg-[#E39F25]/[0.03]">
                     <span className="text-3xl font-extrabold font-[Vera] text-neutral-900">
                       {card.price}
                     </span>
@@ -381,7 +381,7 @@ export default function Membersec() {
                   <span className="mt-3 text-[11px] text-neutral-500 font-medium uppercase tracking-widest text-center">
                     {card.taxText}
                   </span>
-                  <div className="mt-4 w-3/4 max-w-[150px] h-[1px] bg-gradient-to-r from-transparent via-[#B38E46] to-transparent opacity-70"></div>
+                  <div className="mt-4 w-3/4 max-w-[150px] h-[1px] bg-gradient-to-r from-transparent via-[#E39F25] to-transparent opacity-70"></div>
                 </div>
 
                 {/* 3. INCLUDED BENEFITS LIST INSIDE CARD */}
@@ -389,7 +389,7 @@ export default function Membersec() {
                   <ul className="space-y-3">
                     {card.benefits.map((b, bIdx) => (
                       <li key={bIdx} className="flex items-start gap-2.5 text-xs md:text-sm font-[Vera] text-neutral-800 tracking-wide leading-snug">
-                        <CheckCircle2 className="w-4 h-4 text-[#B38E46] shrink-0 mt-[2px]" />
+                        <CheckCircle2 className="w-4 h-4 text-[#E39F25] shrink-0 mt-[2px]" />
                         <span className="font-[Vera]">{b}</span>
                       </li>
                     ))}
@@ -400,7 +400,7 @@ export default function Membersec() {
                 <div className="mt-6 w-full pt-4 border-t border-neutral-100/50">
                   <a
                     href="/luxeclub"
-                    className="block w-full text-center border border-[#B38E46] bg-transparent hover:bg-[#B38E46] text-[#B38E46] hover:text-white active:scale-95 font-medium text-xs sm:text-sm uppercase tracking-[0.25em] px-4 py-3.5 rounded-sm transition-all duration-300 shadow-xs cursor-pointer"
+                    className="block w-full text-center border border-[#E39F25] bg-transparent hover:bg-[#E39F25] text-[#E39F25] hover:text-white active:scale-95 font-medium text-xs sm:text-sm uppercase tracking-[0.25em] px-4 py-3.5 rounded-sm transition-all duration-300 shadow-xs cursor-pointer"
                   >
                     ENROL NOW
                   </a>
@@ -411,10 +411,10 @@ export default function Membersec() {
 
           {/* Mobile Scroll Controls */}
           <div className="flex md:hidden justify-center items-center gap-4 mt-2 z-20 relative">
-            <button onClick={() => scroll('left')} className="p-2 text-[#B38E46] active:scale-95 transition-transform" aria-label="Scroll left">
+            <button onClick={() => scroll('left')} className="p-2 text-[#E39F25] active:scale-95 transition-transform" aria-label="Scroll left">
               <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" strokeWidth={1.5} />
             </button>
-            <button onClick={() => scroll('right')} className="p-2 text-[#B38E46] active:scale-95 transition-transform" aria-label="Scroll right">
+            <button onClick={() => scroll('right')} className="p-2 text-[#E39F25] active:scale-95 transition-transform" aria-label="Scroll right">
               <ChevronRight className="w-8 h-8 md:w-10 md:h-10" strokeWidth={1.5} />
             </button>
           </div>

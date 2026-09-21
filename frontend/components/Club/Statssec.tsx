@@ -1,26 +1,30 @@
 "use client";
 
 import React from "react";
-import { ArrowUpRight } from "lucide-react";
+import { Hotel, Award, Percent, Headphones } from "lucide-react";
 import { motion } from "framer-motion";
 
 const STATS = [
   {
+    icon: Hotel,
     value: "10,000+",
     title: "FIVE-STAR HOTELS",
     description: "A world of exceptional stays across India and worldwide.",
   },
   {
+    icon: Award,
     value: "100+",
     title: "LUXURY HOTEL BRANDS",
     description: "Renowned hospitality, thoughtfully curated.",
   },
   {
+    icon: Percent,
     value: "UP TO 40%",
     title: "MEMBER RATES",
     description: "Exclusive savings on eligible stays.",
   },
   {
+    icon: Headphones,
     value: "24/7",
     title: "CONCIERGE SERVICE",
     description: "Personalised assistance, whenever you travel.",
@@ -53,20 +57,25 @@ export default function Statssec() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.6 }}
-              className="relative bg-white rounded-3xl p-8 min-h-[260px] border border-[#B38E46]/60 shadow-[0_4px_24px_rgba(212,175,55,0.06)] group flex flex-col justify-between items-start text-left hover:border-[#B38E46] hover:shadow-lg transition-all"
+              className="relative bg-white rounded-3xl p-8 min-h-[280px] border border-[#E39F25]/60 shadow-[0_4px_24px_rgba(227,159,37,0.06)] group flex flex-col justify-between items-start text-left hover:border-[#E39F25] hover:shadow-lg transition-all"
             >
+              {/* Icon Container */}
+              <div className="w-12 h-12 rounded-2xl bg-[#E39F25]/10 text-[#E39F25] flex items-center justify-center group-hover:bg-[#E39F25] group-hover:text-white transition-colors duration-300">
+                <stat.icon className="w-6 h-6" />
+              </div>
+
               {/* High Contrast Value + Title */}
-              <div className="flex flex-col gap-2 mt-2">
+              <div className="flex flex-col gap-1.5 mt-4">
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-serif font-normal text-black leading-none tracking-tight">
                   {stat.value}
                 </div>
-                <div className="text-xs sm:text-sm font-bold tracking-[0.15em] text-[#B38E46] uppercase font-sans mt-2">
+                <div className="text-xs sm:text-sm font-bold tracking-[0.15em] text-[#E39F25] uppercase font-sans mt-2">
                   {stat.title}
                 </div>
               </div>
 
               {/* Lower Description block sitting at bottom of card */}
-              <div className="text-neutral-700 font-sans text-xs sm:text-sm font-normal leading-relaxed tracking-wide mt-6">
+              <div className="text-neutral-700 font-sans text-xs sm:text-sm font-normal leading-relaxed tracking-wide mt-4">
                 {stat.description}
               </div>
             </motion.div>

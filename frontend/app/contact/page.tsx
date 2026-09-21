@@ -52,7 +52,7 @@ export default function ContactPage() {
             />
           </div>
 
-          <div className="text-xs sm:text-sm tracking-[0.4em] text-[#B38E46] uppercase font-bold mb-3">
+          <div className="text-xs sm:text-sm tracking-[0.4em] text-[#E39F25] uppercase font-bold mb-3">
             TRAVEL • LIFESTYLE • PRIVILEGES
           </div>
 
@@ -60,7 +60,7 @@ export default function ContactPage() {
             Your journey, elevated.
           </h2>
 
-          <div className="w-24 h-[2px] bg-[#B38E46] mt-6"></div>
+          <div className="w-24 h-[2px] bg-[#E39F25] mt-6"></div>
         </motion.div>
 
         {/* 3 LUXURY CONTACT CARDS - BRANDS PAGE STYLE */}
@@ -72,21 +72,21 @@ export default function ContactPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-white border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-[#B38E46] transition-all duration-300 flex flex-col overflow-hidden group"
+            className="bg-white border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-[#E39F25] transition-all duration-300 flex flex-col overflow-hidden group"
           >
-            <div className="bg-[rgb(25,25,112)] text-white py-4 px-6 flex items-center justify-between border-b border-[#B38E46]/30">
-              <span className="text-sm font-light text-[#B38E46] tracking-[0.2em]">01</span>
+            <div className="bg-[rgb(25,25,112)] text-white py-4 px-6 flex items-center justify-between border-b border-[#E39F25]/30">
+              <span className="text-sm font-light text-[#E39F25] tracking-[0.2em]">01</span>
               <h3 className="text-sm sm:text-base text-white uppercase font-medium tracking-[0.25em]">
                 Corporate Office
               </h3>
-              <MapPin className="w-4 h-4 text-[#B38E46]" />
+              <MapPin className="w-4 h-4 text-[#E39F25]" />
             </div>
             
             <div className="p-8 flex flex-col justify-between flex-grow bg-[#FAFAFA] text-center items-center">
-              <div className="p-4 bg-[#B38E46]/15 rounded-full text-[#B38E46] mb-6 group-hover:scale-110 transition-transform">
+              <div className="p-4 bg-[#E39F25]/15 rounded-full text-[#E39F25] mb-6 group-hover:scale-110 transition-transform">
                 <MapPin className="w-6 h-6" />
               </div>
-              <p className="text-xs tracking-[0.2em] font-semibold uppercase text-[#B38E46] mb-2">Location</p>
+              <p className="text-xs tracking-[0.2em] font-semibold uppercase text-[#E39F25] mb-2">Location</p>
               <h4 className="font-serif text-lg font-bold text-neutral-900 mb-3">THE LUXE YATRA</h4>
               <p className="text-sm text-neutral-600 leading-relaxed font-normal max-w-xs">
                 293, Lane 2, Westend Marg<br />
@@ -101,27 +101,27 @@ export default function ContactPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-[#B38E46] transition-all duration-300 flex flex-col overflow-hidden group"
+            className="bg-white border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-[#E39F25] transition-all duration-300 flex flex-col overflow-hidden group"
           >
-            <div className="bg-[rgb(25,25,112)] text-white py-4 px-6 flex items-center justify-between border-b border-[#B38E46]/30">
-              <span className="text-sm font-light text-[#B38E46] tracking-[0.2em]">02</span>
+            <div className="bg-[rgb(25,25,112)] text-white py-4 px-6 flex items-center justify-between border-b border-[#E39F25]/30">
+              <span className="text-sm font-light text-[#E39F25] tracking-[0.2em]">02</span>
               <h3 className="text-sm sm:text-base text-white uppercase font-medium tracking-[0.25em]">
                 Corporate Enquiries
               </h3>
-              <Briefcase className="w-4 h-4 text-[#B38E46]" />
+              <Briefcase className="w-4 h-4 text-[#E39F25]" />
             </div>
 
             <div className="p-8 flex flex-col justify-between flex-grow bg-[#FAFAFA] text-center items-center">
-              <div className="p-4 bg-[#B38E46]/15 rounded-full text-[#B38E46] mb-6 group-hover:scale-110 transition-transform">
+              <div className="p-4 bg-[#E39F25]/15 rounded-full text-[#E39F25] mb-6 group-hover:scale-110 transition-transform">
                 <Mail className="w-6 h-6" />
               </div>
-              <p className="text-xs tracking-[0.2em] font-semibold uppercase text-[#B38E46] mb-2">Partnerships</p>
+              <p className="text-xs tracking-[0.2em] font-semibold uppercase text-[#E39F25] mb-2">Partnerships</p>
               <p className="text-xs text-neutral-500 leading-relaxed mb-4 min-h-[36px]">
                 For business partnerships, corporate communication and general enquiries
               </p>
               <a
                 href="mailto:sales@theluxeyatra.com"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 hover:text-[#B38E46] transition-colors border-b border-neutral-300 hover:border-[#B38E46] pb-1"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 hover:text-[#E39F25] transition-colors border-b border-neutral-300 hover:border-[#E39F25] pb-1"
               >
                 sales@theluxeyatra.com
               </a>
@@ -134,27 +134,27 @@ export default function ContactPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-white border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-[#B38E46] transition-all duration-300 flex flex-col overflow-hidden group"
+            className="bg-white border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-[#E39F25] transition-all duration-300 flex flex-col overflow-hidden group"
           >
-            <div className="bg-[rgb(25,25,112)] text-white py-4 px-6 flex items-center justify-between border-b border-[#B38E46]/30">
-              <span className="text-sm font-light text-[#B38E46] tracking-[0.2em]">03</span>
+            <div className="bg-[rgb(25,25,112)] text-white py-4 px-6 flex items-center justify-between border-b border-[#E39F25]/30">
+              <span className="text-sm font-light text-[#E39F25] tracking-[0.2em]">03</span>
               <h3 className="text-sm sm:text-base text-white uppercase font-medium tracking-[0.25em]">
                 Membership Desk
               </h3>
-              <Headphones className="w-4 h-4 text-[#B38E46]" />
+              <Headphones className="w-4 h-4 text-[#E39F25]" />
             </div>
 
             <div className="p-8 flex flex-col justify-between flex-grow bg-[#FAFAFA] text-center items-center">
-              <div className="p-4 bg-[#B38E46]/15 rounded-full text-[#B38E46] mb-6 group-hover:scale-110 transition-transform">
+              <div className="p-4 bg-[#E39F25]/15 rounded-full text-[#E39F25] mb-6 group-hover:scale-110 transition-transform">
                 <Headphones className="w-6 h-6" />
               </div>
-              <p className="text-xs tracking-[0.2em] font-semibold uppercase text-[#B38E46] mb-2">24/7 Concierge</p>
+              <p className="text-xs tracking-[0.2em] font-semibold uppercase text-[#E39F25] mb-2">24/7 Concierge</p>
               <p className="text-xs text-neutral-500 leading-relaxed mb-4 min-h-[36px]">
                 For membership assistance, hotel bookings, travel privileges and member support
               </p>
               <a
                 href="mailto:info@theluxeyatra.com"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 hover:text-[#B38E46] transition-colors border-b border-neutral-300 hover:border-[#B38E46] pb-1"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 hover:text-[#E39F25] transition-colors border-b border-neutral-300 hover:border-[#E39F25] pb-1"
               >
                 info@theluxeyatra.com
               </a>
@@ -165,9 +165,9 @@ export default function ContactPage() {
 
         {/* WEBSITE LINK & MESSAGE FORM CONTAINER */}
         <div className="bg-white border border-neutral-200/90 shadow-sm overflow-hidden mb-16">
-          <div className="bg-[rgb(25,25,112)] text-white py-5 px-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#B38E46]/30">
+          <div className="bg-[rgb(25,25,112)] text-white py-5 px-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#E39F25]/30">
             <div className="flex items-center gap-3">
-              <Globe className="w-5 h-5 text-[#B38E46]" />
+              <Globe className="w-5 h-5 text-[#E39F25]" />
               <h3 className="text-lg text-white font-serif tracking-wider">
                 OFFICIAL PORTAL
               </h3>
@@ -176,7 +176,7 @@ export default function ContactPage() {
               href="https://www.theluxeyatra.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs sm:text-sm font-bold tracking-[0.25em] text-[#B38E46] uppercase hover:underline"
+              className="text-xs sm:text-sm font-bold tracking-[0.25em] text-[#E39F25] uppercase hover:underline"
             >
               www.theluxeyatra.com
             </a>
@@ -214,7 +214,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Enter your name"
-                        className="w-full px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#B38E46]"
+                        className="w-full px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#E39F25]"
                       />
                     </div>
                     <div>
@@ -227,7 +227,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="yourname@domain.com"
-                        className="w-full px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#B38E46]"
+                        className="w-full px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#E39F25]"
                       />
                     </div>
                   </div>
@@ -242,7 +242,7 @@ export default function ContactPage() {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+91 98765 43210"
-                        className="w-full px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#B38E46]"
+                        className="w-full px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#E39F25]"
                       />
                     </div>
                     <div>
@@ -252,7 +252,7 @@ export default function ContactPage() {
                       <select
                         value={formData.type}
                         onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                        className="w-full px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#B38E46]"
+                        className="w-full px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#E39F25]"
                       >
                         <option value="General Enquiry">Corporate & General Enquiry (sales@theluxeyatra.com)</option>
                         <option value="Membership & Concierge">Membership & Concierge (info@theluxeyatra.com)</option>
@@ -271,13 +271,13 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Specify your travel requirements, membership questions, or corporate inquiry..."
-                      className="w-full px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#B38E46]"
+                      className="w-full px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-[#E39F25]"
                     ></textarea>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-4 bg-[#B38E46] hover:bg-[#967536] text-white font-semibold text-sm uppercase tracking-[0.2em] transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-[#E39F25] hover:bg-[#967536] text-white font-semibold text-sm uppercase tracking-[0.2em] transition-colors flex items-center justify-center gap-2"
                   >
                     <Send className="w-4 h-4" /> Send Inquiry
                   </button>

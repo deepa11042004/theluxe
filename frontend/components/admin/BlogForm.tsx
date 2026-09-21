@@ -137,7 +137,7 @@ export default function BlogForm({ initialData, isEdit = false }: BlogFormProps)
           <button type="button" onClick={() => handleSubmit("DRAFT")} disabled={loading} className="px-3.5 sm:px-4 py-2 border border-gray-300 rounded-xl text-xs font-semibold">
             Save Draft
           </button>
-          <button type="button" onClick={() => handleSubmit("PUBLISHED")} disabled={loading} className="px-4 sm:px-5 py-2 bg-[#B38E46] text-white rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5 sm:gap-2">
+          <button type="button" onClick={() => handleSubmit("PUBLISHED")} disabled={loading} className="px-4 sm:px-5 py-2 bg-[#E39F25] text-white rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5 sm:gap-2">
             <Save className="w-4 h-4" /> Publish Story
           </button>
         </div>
@@ -152,7 +152,7 @@ export default function BlogForm({ initialData, isEdit = false }: BlogFormProps)
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`px-4 sm:px-6 py-3 text-xs font-bold uppercase tracking-wider border-b-2 capitalize shrink-0 ${
-                activeTab === tab ? "border-[#B38E46] text-[#B38E46] bg-white" : "border-transparent text-gray-500"
+                activeTab === tab ? "border-[#E39F25] text-[#E39F25] bg-white" : "border-transparent text-gray-500"
               }`}
             >
               {tab === "content" ? "Article Body" : tab === "category" ? "Category & Author" : tab}
@@ -172,7 +172,7 @@ export default function BlogForm({ initialData, isEdit = false }: BlogFormProps)
                   value={formData.title}
                   onChange={(e) => handleChange("title", e.target.value)}
                   placeholder="e.g. The World's Most Exclusive Private Island Resorts"
-                  className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm sm:text-base font-bold outline-none focus:border-[#B38E46]"
+                  className="w-full px-3.5 py-2.5 border border-gray-300 rounded-xl text-sm sm:text-base font-bold outline-none focus:border-[#E39F25]"
                 />
               </div>
 
@@ -183,7 +183,7 @@ export default function BlogForm({ initialData, isEdit = false }: BlogFormProps)
                   value={formData.excerpt}
                   onChange={(e) => handleChange("excerpt", e.target.value)}
                   placeholder="Short introductory hook for article preview cards..."
-                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#B38E46]"
+                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#E39F25]"
                 />
               </div>
 
@@ -265,7 +265,7 @@ export default function BlogForm({ initialData, isEdit = false }: BlogFormProps)
                     setIsInsertingIntoEditor(false);
                     setMediaPickerOpen(true);
                   }}
-                  className="bg-[#B38E46] text-white px-4 py-2 rounded-xl text-xs font-semibold"
+                  className="bg-[#E39F25] text-white px-4 py-2 rounded-xl text-xs font-semibold"
                 >
                   Add Featured Image
                 </button>
@@ -321,7 +321,7 @@ export default function BlogForm({ initialData, isEdit = false }: BlogFormProps)
                   type="checkbox"
                   checked={formData.is_featured}
                   onChange={(e) => handleChange("is_featured", e.target.checked)}
-                  className="w-4 h-4 text-[#B38E46] rounded"
+                  className="w-4 h-4 text-[#E39F25] rounded"
                 />
                 Featured Story on Blog Home
               </label>

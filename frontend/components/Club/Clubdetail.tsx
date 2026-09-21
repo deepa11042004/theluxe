@@ -72,8 +72,8 @@ const BellIcon = () => (
 
 // Modern Luxury Benefit Card Component
 const BenefitCard = ({ title, icon, items, className = "" }: { title: string, icon: React.ReactNode, items: string[], className?: string }) => (
-  <div className={`bg-white p-8 md:p-8 rounded-4xl border border-[#B38E46]/60 shadow-[0_4px_24px_rgba(212,175,55,0.06)] hover:shadow-xl hover:border-[#B38E46] transition-all duration-300 group flex flex-col text-left ${className}`}>
-    <div className="w-12 h-12 rounded-2xl bg-[#B38E46]/10 border border-[#B38E46]/30 flex items-center justify-center text-[#B38E46] mb-6 group-hover:bg-[#B38E46] group-hover:text-white transition-colors duration-300">
+  <div className={`bg-white p-8 md:p-8 rounded-4xl border border-[#E39F25]/60 shadow-[0_4px_24px_rgba(227,159,37,0.06)] hover:shadow-xl hover:border-[#E39F25] transition-all duration-300 group flex flex-col text-left ${className}`}>
+    <div className="w-12 h-12 rounded-2xl bg-[#E39F25]/10 border border-[#E39F25]/30 flex items-center justify-center text-[#E39F25] mb-6 group-hover:bg-[#E39F25] group-hover:text-white transition-colors duration-300">
       {icon}
     </div>
     <h4 className="text-xl font-[Vera] tracking-tight text-neutral-900 mb-5 font-bold">
@@ -82,7 +82,7 @@ const BenefitCard = ({ title, icon, items, className = "" }: { title: string, ic
     <ul className="space-y-3 font-sans">
       {items.map((item, idx) => (
         <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-neutral-700 font-medium leading-relaxed">
-          <Check className="w-4 h-4 text-[#B38E46] mt-0.5 shrink-0" strokeWidth={2.5} />
+          <Check className="w-4 h-4 text-[#E39F25] mt-0.5 shrink-0" strokeWidth={2.5} />
           <span>{item}</span>
         </li>
       ))}
@@ -155,7 +155,7 @@ const MEMBERSHIPS = [
     price: "₹ 12,999",
     duration: "ONE YEAR • DOMESTIC",
     subtitle: "One full year of premium hotel privileges, exclusive rates and travel benefits across India.",
-    bgClass: "bg-gradient-to-b from-[#141414] via-[#0d0d0d] to-[#050505] text-white border-neutral-800 hover:border-[#B38E46]/60",
+    bgClass: "bg-gradient-to-b from-[#141414] via-[#0d0d0d] to-[#050505] text-white border-neutral-800 hover:border-[#E39F25]/60",
     badge: null,
     benefits: [
       "5-Star & Premium Hotel Access",
@@ -175,7 +175,7 @@ const MEMBERSHIPS = [
     price: "₹ 19,999",
     duration: "ONE YEAR • WORLDWIDE",
     subtitle: "Your gateway to 5-star hotel privileges and premium travel benefits across India and worldwide.",
-    bgClass: "bg-gradient-to-b from-[#0e1d35] via-[#091426] to-[#040914] text-white border-[#B38E46]/50 hover:border-[#B38E46] shadow-xl shadow-[#B38E46]/10",
+    bgClass: "bg-gradient-to-b from-[#0e1d35] via-[#091426] to-[#040914] text-white border-[#E39F25]/50 hover:border-[#E39F25] shadow-xl shadow-[#E39F25]/10",
     badge: "MOST POPULAR",
     benefits: [
       "Everything in Luxe Signature",
@@ -196,7 +196,7 @@ const MEMBERSHIPS = [
     price: "₹ 49,999",
     duration: "LIFETIME • WORLDWIDE",
     subtitle: "Pay once and enjoy The Luxe Yatra lifestyle and worldwide privileges for a lifetime.",
-    bgClass: "bg-gradient-to-b from-[#0a2e29] via-[#061d19] to-[#020d0b] text-white border-emerald-900/60 hover:border-[#B38E46]/60",
+    bgClass: "bg-gradient-to-b from-[#0a2e29] via-[#061d19] to-[#020d0b] text-white border-emerald-900/60 hover:border-[#E39F25]/60",
     badge: "LIFETIME ACCESS",
     benefits: [
       "Lifetime Membership",
@@ -244,7 +244,7 @@ export default function Membersec() {
 
         {/* Small Golden Vertical Divider */}
         <div className="flex justify-center my-6">
-          <div className="w-[1.5px] h-12 md:h-16 bg-[#B38E46]/80"></div>
+          <div className="w-[1.5px] h-12 md:h-16 bg-[#E39F25]/80"></div>
         </div>
 
         <p className="text-black text-sm sm:text-base xl:text-lg leading-relaxed tracking-wide max-w-3xl mx-auto mb-12">
@@ -358,7 +358,7 @@ export default function Membersec() {
               />
             </div>
             
-            <div className="mt-16 text-center bg-gradient-to-br from-[#B38E46] to-[#B38E46] p-12 rounded-none relative overflow-hidden">
+            <div className="mt-16 text-center bg-gradient-to-br from-[#E39F25] to-[#E39F25] p-12 rounded-none relative overflow-hidden">
               <div 
                 className="absolute inset-0 opacity-20 pointer-events-none" 
                 style={{ 
@@ -396,7 +396,7 @@ export default function Membersec() {
                     <th className="p-6 font-semibold w-1/4">Benefit</th>
                     <th className="p-6 text-center font-semibold w-1/4">Luxe Signature <span className="block text-xs text-indigo-200/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Domestic</span></th>
                     <th className="p-6 text-center font-semibold w-1/4">Diamond <span className="block text-xs text-indigo-200/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Worldwide</span></th>
-                    <th className="p-6 text-center font-semibold w-1/4 text-[#B38E46]">Imperial <span className="block text-xs text-[#B38E46]/80 mt-1 capitalize font-[Vera] font-medium tracking-normal">Lifetime</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4 text-[#E39F25]">Imperial <span className="block text-xs text-[#E39F25]/80 mt-1 capitalize font-[Vera] font-medium tracking-normal">Lifetime</span></th>
                   </tr>
                 </thead>
                 <tbody className="text-sm text-neutral-800 font-[Vera]">
@@ -404,103 +404,103 @@ export default function Membersec() {
                     <td className="p-6 font-semibold text-neutral-900">Membership Fee</td>
                     <td className="p-6 text-center text-black font-medium">₹12,999</td>
                     <td className="p-6 text-center text-black font-medium">₹19,999</td>
-                    <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">₹49,999</td>
+                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">₹49,999</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Validity</td>
                     <td className="p-6 text-center text-black font-medium">1 Year</td>
                     <td className="p-6 text-center text-black font-medium">1 Year</td>
-                    <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Lifetime</td>
+                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Lifetime</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Luxury Hotel Discounts</td>
                     <td className="p-6 text-center text-black font-medium">India</td>
                     <td className="p-6 text-center text-black font-medium">Worldwide</td>
-                    <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Worldwide</td>
+                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Worldwide</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">5-Star & Luxury Hotels</td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
-                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#B38E46]" strokeWidth={3} /></td>
+                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#E39F25]" strokeWidth={3} /></td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Unlimited Discount Nights</td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
-                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#B38E46]" strokeWidth={3} /></td>
+                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#E39F25]" strokeWidth={3} /></td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Hotel Booking Assistance</td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
-                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#B38E46]" strokeWidth={3} /></td>
+                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#E39F25]" strokeWidth={3} /></td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Domestic Holidays</td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
-                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#B38E46]" strokeWidth={3} /></td>
+                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#E39F25]" strokeWidth={3} /></td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">International Holidays</td>
                     <td className="p-6"><X className="w-5 h-5 mx-auto text-neutral-300" /></td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
-                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#B38E46]" strokeWidth={3} /></td>
+                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#E39F25]" strokeWidth={3} /></td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Flights & Travel Assistance</td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
-                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#B38E46]" strokeWidth={3} /></td>
+                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors"><Check className="w-5 h-5 mx-auto text-[#E39F25]" strokeWidth={3} /></td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Airport Transfers</td>
                     <td className="p-6 text-center text-black font-medium">Available</td>
                     <td className="p-6 text-center text-black font-medium">Available</td>
-                    <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
+                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Visa Assistance</td>
                     <td className="p-6 text-center text-black font-medium">Available</td>
                     <td className="p-6 text-center text-black font-medium">Available</td>
-                    <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
+                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Travel Insurance</td>
                     <td className="p-6 text-center text-black font-medium">Available</td>
                     <td className="p-6 text-center text-black font-medium">Available</td>
-                    <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
+                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Cruises & Experiences</td>
                     <td className="p-6 text-center text-black font-medium">Available</td>
                     <td className="p-6 text-center text-black font-medium">Available</td>
-                    <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
+                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Available</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Dining & Lifestyle Offers</td>
                     <td className="p-6 text-center text-black font-medium">Selected offers</td>
                     <td className="p-6 text-center text-black font-medium">More offers</td>
-                    <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Premium offers</td>
+                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Premium offers</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Exclusive Member Offers</td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
                     <td className="p-6"><Check className="w-5 h-5 mx-auto text-emerald-500" /></td>
-                    <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">⭐ Priority</td>
+                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">⭐ Priority</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Membership Renewal</td>
                     <td className="p-6 text-center text-black font-medium">After 1 Year</td>
                     <td className="p-6 text-center text-black font-medium">After 1 Year</td>
-                    <td className="p-6 text-center font-bold text-[#B38E46] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">No annual renewal</td>
+                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">No annual renewal</td>
                   </tr>
                   <tr className="hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Lifetime Member Privileges</td>
                     <td className="p-6"><X className="w-5 h-5 mx-auto text-neutral-300" /></td>
                     <td className="p-6"><X className="w-5 h-5 mx-auto text-neutral-300" /></td>
-                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors flex justify-center"><Check className="w-6 h-6 mx-auto text-[#B38E46]" strokeWidth={3} /></td>
+                    <td className="p-6 bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors flex justify-center"><Check className="w-6 h-6 mx-auto text-[#E39F25]" strokeWidth={3} /></td>
                   </tr>
                 </tbody>
               </table>
@@ -546,7 +546,7 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
       {/* Top Badge */}
       {card.badge && (
         <div className="absolute top-0 right-0 z-20">
-          <span className="inline-block bg-[#B38E46] text-white text-[9px] font-[Vera] font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-bl-sm shadow-md">
+          <span className="inline-block bg-[#E39F25] text-white text-[9px] font-[Vera] font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-bl-sm shadow-md">
             {card.badge}
           </span>
         </div>
@@ -560,7 +560,7 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
 
         {/* Price & Duration */}
         <div className="my-4 flex flex-col gap-1">
-          <div className="text-3xl sm:text-4xl font-serif text-[#B38E46] font-medium tracking-tight">
+          <div className="text-3xl sm:text-4xl font-serif text-[#E39F25] font-medium tracking-tight">
             {card.price}
           </div>
           <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-white/80" style={{ color: "rgba(255, 255, 255, 0.8)" }}>
@@ -572,8 +572,8 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
           {card.subtitle}
         </p>
 
-        <h5 className="text-[10px] font-bold tracking-[0.25em] text-[#B38E46] uppercase mb-4 flex items-center gap-1.5 font-[Vera]">
-          <ShieldCheck className="w-3.5 h-3.5 text-[#B38E46]" /> Included Benefits:
+        <h5 className="text-[10px] font-bold tracking-[0.25em] text-[#E39F25] uppercase mb-4 flex items-center gap-1.5 font-[Vera]">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#E39F25]" /> Included Benefits:
         </h5>
 
         <ul className="space-y-3">
@@ -582,7 +582,7 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
               key={i}
               className="flex items-start gap-3 text-xs leading-relaxed text-white/90"
             >
-              <Check className="w-3.5 h-3.5 text-[#B38E46] mt-0.5 shrink-0" strokeWidth={2.5} />
+              <Check className="w-3.5 h-3.5 text-[#E39F25] mt-0.5 shrink-0" strokeWidth={2.5} />
               <span className="font-light tracking-wide">{benefit}</span>
             </li>
           ))}
@@ -593,7 +593,7 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
       <div className="relative z-10 mt-8 pt-6 border-t border-white/10">
         <a
           href="/join"
-          className="w-full py-3.5 inline-flex items-center justify-center border border-[#B38E46] text-[#B38E46] hover:bg-[#B38E46] hover:text-white transition-all duration-300 text-xs tracking-[0.25em] uppercase font-medium rounded-sm shadow-sm cursor-pointer"
+          className="w-full py-3.5 inline-flex items-center justify-center border border-[#E39F25] text-[#E39F25] hover:bg-[#E39F25] hover:text-white transition-all duration-300 text-xs tracking-[0.25em] uppercase font-medium rounded-sm shadow-sm cursor-pointer"
         >
           SELECT PLAN
         </a>

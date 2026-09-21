@@ -79,7 +79,7 @@ export default function Getstarted() {
             }}
           >
             Get Started with{" "}
-            <span className="text-[#B38E46] italic">
+            <span className="text-[#E39F25] italic">
               The Luxe Yatra
             </span>
             <br />
@@ -107,8 +107,8 @@ export default function Getstarted() {
           {features.map(({ num, icon: Icon, title }, i) => (
             <FadeUp key={num} delay={0.35 + i * 0.1}>
               <div className="flex flex-col items-center gap-4 text-center cursor-default group">
-                <div className="w-14 h-14 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110 bg-neutral-100 border border-neutral-200 group-hover:border-[#B38E46] group-hover:text-[#B38E46] shadow-xs">
-                  <Icon size={20} className="text-neutral-900 group-hover:text-[#B38E46] transition-colors" strokeWidth={1.5} />
+                <div className="w-14 h-14 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110 bg-neutral-100 border border-neutral-200 group-hover:border-[#E39F25] group-hover:text-[#E39F25] shadow-xs">
+                  <Icon size={20} className="text-neutral-900 group-hover:text-[#E39F25] transition-colors" strokeWidth={1.5} />
                 </div>
                 <div>
                   <p className="text-sm font-semibold tracking-wide leading-snug">
@@ -129,7 +129,7 @@ export default function Getstarted() {
                   scale: 1.04,
                 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-2.5 px-8 py-3.5 rounded-sm border border-[#B38E46] bg-transparent text-neutral-900 font-medium text-xs uppercase tracking-[0.25em] hover:bg-[#B38E46] hover:text-white transition-all duration-300 shadow-sm cursor-pointer"
+                className="flex items-center gap-2.5 px-8 py-3.5 rounded-sm border border-[#E39F25] bg-transparent text-neutral-900 font-medium text-xs uppercase tracking-[0.25em] hover:bg-[#E39F25] hover:text-white transition-all duration-300 shadow-sm cursor-pointer"
               >
                 Explore
                 <ArrowRight size={15} strokeWidth={2} />

@@ -164,7 +164,7 @@ export default function Blogsec() {
 
           {/* Small Golden Vertical Divider */}
           <div className="flex justify-center my-8">
-            <div className="w-[1.5px] h-12 md:h-16 bg-[#B38E46]/80"></div>
+            <div className="w-[1.5px] h-12 md:h-16 bg-[#E39F25]/80"></div>
           </div>
         </div>
 
@@ -176,8 +176,8 @@ export default function Blogsec() {
               onClick={() => setActiveCategory(cat)}
               className={`px-5 py-2.5 text-xs tracking-[0.2em] font-medium uppercase transition-all duration-300 rounded-sm cursor-pointer ${
                 activeCategory === cat
-                  ? "bg-[#B38E46] text-white shadow-md"
-                  : "bg-white border border-neutral-300 text-neutral-600 hover:border-[#B38E46] hover:text-[#B38E46]"
+                  ? "bg-[#E39F25] text-white shadow-md"
+                  : "bg-white border border-neutral-300 text-neutral-600 hover:border-[#E39F25] hover:text-[#E39F25]"
               }`}
             >
               {cat}
@@ -202,7 +202,7 @@ export default function Blogsec() {
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
-              <div className="absolute top-6 left-6 bg-[#B38E46] text-white text-[10px] tracking-[0.3em] uppercase px-3.5 py-1.5 font-medium flex items-center gap-1.5 shadow-md rounded-sm">
+              <div className="absolute top-6 left-6 bg-[#E39F25] text-white text-[10px] tracking-[0.3em] uppercase px-3.5 py-1.5 font-medium flex items-center gap-1.5 shadow-md rounded-sm">
                 <Sparkles className="w-3 h-3" /> FEATURED STORY
               </div>
             </div>
@@ -210,10 +210,10 @@ export default function Blogsec() {
             {/* Content Side */}
             <div className="lg:col-span-5 p-8 md:p-12 flex flex-col justify-between text-neutral-900 bg-white">
               <div>
-                <span className="text-xs font-[Vera] font-bold tracking-widest text-[#B38E46] uppercase block mb-3">
+                <span className="text-xs font-[Vera] font-bold tracking-widest text-[#E39F25] uppercase block mb-3">
                   {featuredPost.tag}
                 </span>
-                <h3 className="text-2xl md:text-3xl font-serif leading-snug text-neutral-900 group-hover:text-[#B38E46] transition-colors mb-4">
+                <h3 className="text-2xl md:text-3xl font-serif leading-snug text-neutral-900 group-hover:text-[#E39F25] transition-colors mb-4">
                   {featuredPost.title}
                 </h3>
                 <p className="font-[Vera] text-xs md:text-sm text-neutral-600 leading-relaxed font-light mb-6">
@@ -228,7 +228,7 @@ export default function Blogsec() {
                 </div>
                 <Link
                   href={featuredPost.link}
-                  className="inline-flex items-center gap-2 border border-[#B38E46] text-[#B38E46] px-6 py-3 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 rounded-sm cursor-pointer"
+                  className="inline-flex items-center gap-2 border border-[#E39F25] text-[#E39F25] px-6 py-3 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#E39F25] hover:text-white transition-all duration-300 rounded-sm cursor-pointer"
                 >
                   READ FEATURED ARTICLE <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -263,7 +263,7 @@ export default function Blogsec() {
                   />
 
                   {/* Golden Tint Hover Overlay with Centered READ MORE */}
-                  <div className="absolute inset-0 bg-[#B38E46]/65 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-[#E39F25]/65 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <span className="text-white text-xs tracking-[0.35em] font-medium uppercase border-b border-white pb-1">
                       READ MORE
                     </span>
@@ -272,13 +272,13 @@ export default function Blogsec() {
 
                 {/* Content Area below Image */}
                 <div className="pt-6 pb-2 flex flex-col flex-1 gap-2.5">
-                  <span className="text-[10px] md:text-xs font-[Vera] font-bold tracking-widest text-[#B38E46] uppercase">
+                  <span className="text-[10px] md:text-xs font-[Vera] font-bold tracking-widest text-[#E39F25] uppercase">
                     {post.tag}
                   </span>
 
                   {/* Title */}
                   <h3
-                    className="text-xl md:text-2xl text-neutral-900 leading-snug font-light group-hover:text-[#B38E46] transition-colors duration-200"
+                    className="text-xl md:text-2xl text-neutral-900 leading-snug font-light group-hover:text-[#E39F25] transition-colors duration-200"
                     style={{ fontFamily: "var(--work-font), sans-serif", fontWeight: 300 }}
                   >
                     {post.title}
@@ -297,7 +297,7 @@ export default function Blogsec() {
 
                   {/* READ MORE Link Indicator */}
                   <div className="pt-2">
-                    <span className="inline-block text-xs tracking-[0.25em] font-medium text-neutral-600 uppercase group-hover:text-[#B38E46] transition-colors">
+                    <span className="inline-block text-xs tracking-[0.25em] font-medium text-neutral-600 uppercase group-hover:text-[#E39F25] transition-colors">
                       READ MORE &rarr;
                     </span>
                   </div>
@@ -327,12 +327,12 @@ export default function Blogsec() {
               <input
                 type="email"
                 placeholder="Enter your email address"
-                className="w-full px-5 py-3 text-xs bg-white text-black placeholder-neutral-500 border border-transparent focus:outline-none focus:border-[#B38E46] rounded-sm"
+                className="w-full px-5 py-3 text-xs bg-white text-black placeholder-neutral-500 border border-transparent focus:outline-none focus:border-[#E39F25] rounded-sm"
                 required
               />
               <button
                 type="submit"
-                className="w-full sm:w-auto px-7 py-3 bg-[#B38E46] hover:bg-[#997734] text-white text-xs tracking-[0.2em] uppercase font-medium transition-colors shrink-0 cursor-pointer rounded-sm"
+                className="w-full sm:w-auto px-7 py-3 bg-[#E39F25] hover:bg-[#997734] text-white text-xs tracking-[0.2em] uppercase font-medium transition-colors shrink-0 cursor-pointer rounded-sm"
               >
                 SUBSCRIBE
               </button>

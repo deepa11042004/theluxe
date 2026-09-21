@@ -11,7 +11,7 @@ import { FaInstagram, FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/f
 export default function Footer() {
   return (
     <footer
-      className="text-white pt-10 pb-6 px-6 sm:px-12 lg:px-16 w-full select-none relative overflow-hidden bg-[#B38E46]"
+      className="text-white pt-10 pb-6 px-6 sm:px-12 lg:px-16 w-full select-none relative overflow-hidden bg-[#E39F25]"
       style={{
         fontFamily: "var(--work-font), sans-serif",
       }}

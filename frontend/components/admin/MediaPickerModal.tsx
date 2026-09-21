@@ -110,7 +110,7 @@ export default function MediaPickerModal({
         {/* HEADER */}
         <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
           <div className="flex items-center gap-2">
-            <ImageIcon className="w-5 h-5 text-[#B38E46]" />
+            <ImageIcon className="w-5 h-5 text-[#E39F25]" />
             <h3 className="font-bold text-gray-900 text-base">Select Media Image</h3>
           </div>
           <button
@@ -123,7 +123,7 @@ export default function MediaPickerModal({
 
         {/* UPLOAD & CONTROLS */}
         <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-white">
-          <label className="cursor-pointer inline-flex items-center gap-2 bg-[#B38E46] text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#967536] transition-colors shadow-sm">
+          <label className="cursor-pointer inline-flex items-center gap-2 bg-[#E39F25] text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#967536] transition-colors shadow-sm">
             <Upload className="w-4 h-4" />
             {uploading ? "Uploading & Optimizing..." : "Upload New Image"}
             <input
@@ -162,7 +162,7 @@ export default function MediaPickerModal({
                     onClick={() => setSelectedMedia(item)}
                     className={`group relative aspect-square rounded-xl overflow-hidden cursor-pointer border-2 transition-all ${
                       isSelected
-                        ? "border-[#B38E46] ring-2 ring-[#B38E46]/30 shadow-md"
+                        ? "border-[#E39F25] ring-2 ring-[#E39F25]/30 shadow-md"
                         : "border-transparent hover:border-gray-300"
                     } ${isDeleting ? "opacity-40 pointer-events-none" : ""}`}
                   >
@@ -184,7 +184,7 @@ export default function MediaPickerModal({
                     </button>
 
                     {isSelected && (
-                      <div className="absolute top-2 right-2 bg-[#B38E46] text-white p-1 rounded-full shadow">
+                      <div className="absolute top-2 right-2 bg-[#E39F25] text-white p-1 rounded-full shadow">
                         <Check className="w-3.5 h-3.5" />
                       </div>
                     )}
@@ -209,7 +209,7 @@ export default function MediaPickerModal({
           <button
             onClick={handleConfirm}
             disabled={!selectedMedia}
-            className="px-6 py-2 text-xs font-semibold bg-[#B38E46] text-white rounded-xl hover:bg-[#967536] disabled:opacity-50 transition-colors shadow-sm"
+            className="px-6 py-2 text-xs font-semibold bg-[#E39F25] text-white rounded-xl hover:bg-[#967536] disabled:opacity-50 transition-colors shadow-sm"
           >
             Select Image
           </button>

@@ -29,7 +29,7 @@ const STATIC_FALLBACK_BLOGS: Record<string, any> = {
       <h2>The Highlands & Speyside: Legends in Wood & Malt</h2>
       <p>In Scotland's historic Speyside region, private doors open to vaulted barrel houses where single malts age silently in rare Oloroso sherry casks. Guided by master blenders, members enjoy unblended cask-strength drams drawn directly from vintage hogsheads that date back to the 1970s.</p>
 
-      <blockquote className="my-8 pl-6 border-l-2 border-[#B38E46] italic font-serif text-xl text-neutral-800">
+      <blockquote className="my-8 pl-6 border-l-2 border-[#E39F25] italic font-serif text-xl text-neutral-800">
         "True luxury in spirits lies not in the age printed on the label, but in the intimacy of discovering a cask that will never be replicated."
       </blockquote>
 
@@ -201,8 +201,8 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center py-32">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 border-2 border-[#B38E46] border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-xs uppercase tracking-[0.25em] text-[#B38E46]">Loading Story...</p>
+          <div className="w-10 h-10 border-2 border-[#E39F25] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-xs uppercase tracking-[0.25em] text-[#E39F25]">Loading Story...</p>
         </div>
       </div>
     );
@@ -217,7 +217,7 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
         </p>
         <Link
           href="/blogs"
-          className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] uppercase font-medium hover:bg-[#B38E46] hover:text-white transition-all rounded-sm"
+          className="border border-[#E39F25] text-[#E39F25] px-6 py-2.5 text-xs tracking-[0.25em] uppercase font-medium hover:bg-[#E39F25] hover:text-white transition-all rounded-sm"
         >
           Return to All Blogs
         </Link>
@@ -240,8 +240,8 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
       {/* 2. Blog Details Section Below Header */}
       <div className="max-w-4xl mx-auto px-6 pt-16 pb-10 text-center flex flex-col items-center">
         {/* Category Tag */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#B38E46]/10 border border-[#B38E46]/30 text-[#B38E46] text-[10px] uppercase tracking-widest font-semibold rounded-sm mb-6">
-          <Tag className="w-3 h-3 text-[#B38E46]" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#E39F25]/10 border border-[#E39F25]/30 text-[#E39F25] text-[10px] uppercase tracking-widest font-semibold rounded-sm mb-6">
+          <Tag className="w-3 h-3 text-[#E39F25]" />
           <span>{blog.category}</span>
         </div>
 
@@ -252,7 +252,7 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
 
         {/* Sub Heading / Excerpt */}
         {blog.excerpt && (
-          <p className="text-base sm:text-lg md:text-xl text-neutral-700 font-serif italic leading-relaxed max-w-2xl mb-8 border-l-2 border-[#B38E46] pl-6 py-1 text-left">
+          <p className="text-base sm:text-lg md:text-xl text-neutral-700 font-serif italic leading-relaxed max-w-2xl mb-8 border-l-2 border-[#E39F25] pl-6 py-1 text-left">
             {blog.excerpt}
           </p>
         )}
@@ -260,17 +260,17 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
         {/* Metadata Row (Author, Date, Reading Time) */}
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-neutral-500 font-medium border-y border-neutral-200 py-4 w-full max-w-2xl mb-12">
           <div className="flex items-center gap-1.5">
-            <User className="w-3.5 h-3.5 text-[#B38E46]" />
+            <User className="w-3.5 h-3.5 text-[#E39F25]" />
             <span>{blog.author}</span>
           </div>
           <span className="text-neutral-300">•</span>
           <div className="flex items-center gap-1.5">
-            <Calendar className="w-3.5 h-3.5 text-[#B38E46]" />
+            <Calendar className="w-3.5 h-3.5 text-[#E39F25]" />
             <span>{blog.date}</span>
           </div>
           <span className="text-neutral-300">•</span>
           <div className="flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-[#B38E46]" />
+            <Clock className="w-3.5 h-3.5 text-[#E39F25]" />
             <span>{blog.readTime}</span>
           </div>
         </div>
@@ -296,21 +296,21 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
               prose-headings:font-serif prose-headings:font-medium prose-headings:text-neutral-900 prose-headings:tracking-tight
               prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mt-10 prose-h2:mb-4
               prose-p:text-neutral-700 prose-p:leading-relaxed prose-p:text-sm prose-p:sm:text-base prose-p:mb-6 prose-p:font-light
-              prose-a:text-[#B38E46] prose-a:underline hover:prose-a:text-[#967536]
-              prose-blockquote:border-l-[#B38E46] prose-blockquote:italic prose-blockquote:text-neutral-800"
+              prose-a:text-[#E39F25] prose-a:underline hover:prose-a:text-[#967536]
+              prose-blockquote:border-l-[#E39F25] prose-blockquote:italic prose-blockquote:text-neutral-800"
             dangerouslySetInnerHTML={{ __html: blog.content }}
           />
 
           {/* Share & Footer */}
           <div className="mt-16 pt-8 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-neutral-500 font-medium">
-              <Share2 className="w-4 h-4 text-[#B38E46]" />
+              <Share2 className="w-4 h-4 text-[#E39F25]" />
               <span>Share this Editorial</span>
             </div>
 
             <Link
               href="/blogs"
-              className="inline-flex items-center gap-2 border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.2em] uppercase font-medium hover:bg-[#B38E46] hover:text-white transition-all rounded-sm cursor-pointer"
+              className="inline-flex items-center gap-2 border border-[#E39F25] text-[#E39F25] px-6 py-2.5 text-xs tracking-[0.2em] uppercase font-medium hover:bg-[#E39F25] hover:text-white transition-all rounded-sm cursor-pointer"
             >
               <span>Explore More Stories</span>
               <ArrowRight className="w-3.5 h-3.5" />

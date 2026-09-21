@@ -82,7 +82,7 @@ export default function AdminDestinationsListPage() {
         </div>
         <Link
           href="/admin/destinations/new"
-          className="bg-[#B38E46] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2"
+          className="bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2"
         >
           <Plus className="w-4 h-4" /> Add Destination
         </Link>
@@ -96,7 +96,7 @@ export default function AdminDestinationsListPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by destination name, country, or region..."
-            className="w-full pl-10 pr-4 py-2 text-xs border border-gray-300 rounded-xl outline-none focus:border-[#B38E46]"
+            className="w-full pl-10 pr-4 py-2 text-xs border border-gray-300 rounded-xl outline-none focus:border-[#E39F25]"
           />
         </form>
 

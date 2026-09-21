@@ -75,7 +75,7 @@ export default function Imagesec() {
       >
         <div className="relative z-10 w-full max-w-6xl px-8 flex flex-col items-center pt-32 pb-12">
           <div className="text-center mb-16 flex flex-col items-center gap-2 z-10 relative">
-            <span className="text-base md:text-xl font-serif italic text-[#B38E46] tracking-[0.3em] lowercase">
+            <span className="text-base md:text-xl font-serif italic text-[#E39F25] tracking-[0.3em] lowercase">
               launching
             </span>
             <h1 className="text-4xl sm:text-5xl md:text-[5rem] md:leading-tight tracking-[0.1em] sm:tracking-[0.2em] text-neutral-900 uppercase drop-shadow-sm my-1 text-center">
@@ -84,7 +84,7 @@ export default function Imagesec() {
             <span className="text-[10px] sm:text-xs md:text-base font-[Vera] tracking-[0.2em] sm:tracking-[0.4em] text-black uppercase mt-1 text-center">
               privileged access
             </span>
-            <div className="w-20 md:w-28 h-[2px] bg-[#B38E46]/60 mt-5"></div>
+            <div className="w-20 md:w-28 h-[2px] bg-[#E39F25]/60 mt-5"></div>
           </div>
           <div className="relative flex justify-center items-center w-full max-w-6xl mx-auto drop-shadow-xl z-20 pb-12 md:pb-8 md:grid md:grid-cols-3 md:gap-6 md:px-4">
             {MEMBERSHIPS.map((card, idx) => {
@@ -111,7 +111,7 @@ export default function Imagesec() {
                   }}
                   className={`flex flex-col text-left group w-[65vw] sm:w-[350px] md:w-auto shrink-0 md:static transition-all duration-700 ${mobileClasses}`}
                 >
-                  <div className="relative w-full aspect-[1.55/1] rounded-[1rem] md:rounded-[1.75rem] overflow-hidden shadow-2xl border border-[#B38E46]/30 md:border-white/10 group-hover:scale-[1.02] transition-transform duration-300 select-none">
+                  <div className="relative w-full aspect-[1.55/1] rounded-[1rem] md:rounded-[1.75rem] overflow-hidden shadow-2xl border border-[#E39F25]/30 md:border-white/10 group-hover:scale-[1.02] transition-transform duration-300 select-none">
                     <Image
                       src={card.image}
                       alt={`${card.title} Membership Card`}
@@ -126,10 +126,10 @@ export default function Imagesec() {
           
           {/* Mobile Scroll Controls */}
           <div className="flex md:hidden justify-center items-center gap-4 mt-8 z-20 relative">
-            <button onClick={() => setActiveIndex((activeIndex - 1 + MEMBERSHIPS.length) % MEMBERSHIPS.length)} className="p-3 rounded-full bg-white border border-[#B38E46]/30 shadow-sm text-[#B38E46] active:scale-95 transition-transform" aria-label="Scroll left">
+            <button onClick={() => setActiveIndex((activeIndex - 1 + MEMBERSHIPS.length) % MEMBERSHIPS.length)} className="p-3 rounded-full bg-white border border-[#E39F25]/30 shadow-sm text-[#E39F25] active:scale-95 transition-transform" aria-label="Scroll left">
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <button onClick={() => setActiveIndex((activeIndex + 1) % MEMBERSHIPS.length)} className="p-3 rounded-full bg-white border border-[#B38E46]/30 shadow-sm text-[#B38E46] active:scale-95 transition-transform" aria-label="Scroll right">
+            <button onClick={() => setActiveIndex((activeIndex + 1) % MEMBERSHIPS.length)} className="p-3 rounded-full bg-white border border-[#E39F25]/30 shadow-sm text-[#E39F25] active:scale-95 transition-transform" aria-label="Scroll right">
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>

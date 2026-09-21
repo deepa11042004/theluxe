@@ -479,8 +479,8 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
                 }}
                 className={`text-[10px] sm:text-xs tracking-[0.2em] font-medium uppercase px-5 sm:px-6 py-2.5 rounded-sm border transition-all duration-300 cursor-pointer whitespace-nowrap ${
                   isSelected
-                    ? "bg-[#B38E46] text-white border-[#B38E46] shadow-sm"
-                    : "bg-white text-[#B38E46] border-[#B38E46] hover:bg-[#B38E46] hover:text-white"
+                    ? "bg-[#E39F25] text-white border-[#E39F25] shadow-sm"
+                    : "bg-white text-[#E39F25] border-[#E39F25] hover:bg-[#E39F25] hover:text-white"
                 }`}
               >
                 {cat}
@@ -491,8 +491,8 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
 
         {/* 2. SEARCH BAR */}
         <div className="max-w-lg mx-auto mb-16 relative">
-          <div className="relative flex items-center bg-white border border-[#B38E46] rounded-sm px-6 py-3 transition-all duration-300 shadow-2xs">
-            <Search className="w-4 h-4 text-[#B38E46] mr-3 shrink-0" />
+          <div className="relative flex items-center bg-white border border-[#E39F25] rounded-sm px-6 py-3 transition-all duration-300 shadow-2xs">
+            <Search className="w-4 h-4 text-[#E39F25] mr-3 shrink-0" />
             <input
               type="text"
               value={searchQuery}
@@ -525,7 +525,7 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
                 exit={{ opacity: 0, y: -10 }}
                 className="col-span-full py-20 text-center flex flex-col items-center justify-center text-black"
               >
-                <Search className="w-10 h-10 text-[#B38E46] mb-4 opacity-60" />
+                <Search className="w-10 h-10 text-[#E39F25] mb-4 opacity-60" />
                 <p className="text-2xl font-serif mb-2">No resorts match your search</p>
                 <p className="text-xs text-neutral-500 max-w-sm mx-auto leading-relaxed font-light">
                   We couldn&apos;t find any properties matching &ldquo;{searchQuery}&rdquo;. Try checking for typos or clear your search filter.
@@ -566,7 +566,7 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
                       {resort.category.replace("&", "•")}
                     </span>
                     {resort.rank && (
-                      <span className="bg-[#B38E46] text-white text-[10px] font-medium tracking-wider px-2.5 py-1.5 shadow-sm">
+                      <span className="bg-[#E39F25] text-white text-[10px] font-medium tracking-wider px-2.5 py-1.5 shadow-sm">
                         #{resort.rank} {resort.isInternational ? "INTL" : "INDIA"}
                       </span>
                     )}
@@ -582,7 +582,7 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
                 <div className="absolute inset-0 p-6 sm:p-7 flex flex-col justify-end text-white z-10">
                   {/* Location Badge */}
                   <div className="text-[10px] text-white/80 uppercase tracking-[0.25em] font-medium mb-1.5 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#B38E46] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-[#E39F25] shrink-0" />
                     <span>{resort.location}</span>
                   </div>
 
@@ -609,7 +609,7 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
                         key={aIdx}
                         className="inline-flex items-center gap-1 text-[9px] tracking-wider uppercase font-light text-white/90 bg-black/40 backdrop-blur-xs px-2.5 py-0.5 border border-white/15"
                       >
-                        <Sparkles className="w-2.5 h-2.5 text-[#B38E46]" />
+                        <Sparkles className="w-2.5 h-2.5 text-[#E39F25]" />
                         {amenity}
                       </span>
                     ))}
@@ -626,7 +626,7 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
                       href={resort.href || "/contact"}
                       target={resort.href ? "_blank" : undefined}
                       rel={resort.href ? "noopener noreferrer" : undefined}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-[#B38E46] transition-colors duration-200 cursor-pointer uppercase tracking-widest"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-[#E39F25] transition-colors duration-200 cursor-pointer uppercase tracking-widest"
                     >
                       <span>EXPLORE</span>
                       <ArrowRight className="w-3.5 h-3.5" />

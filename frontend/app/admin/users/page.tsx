@@ -85,7 +85,7 @@ export default function AdminUsersPage() {
         </div>
         <button
           onClick={() => setModalOpen(true)}
-          className="bg-[#B38E46] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2"
+          className="bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2"
         >
           <UserPlus className="w-4 h-4" /> Add Admin User
         </button>
@@ -116,7 +116,7 @@ export default function AdminUsersPage() {
                       <div className="text-[10px] text-gray-400">{u.email}</div>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="inline-flex items-center gap-1 font-bold text-[10px] uppercase text-[#B38E46] bg-[#B38E46]/10 px-2 py-0.5 rounded">
+                      <span className="inline-flex items-center gap-1 font-bold text-[10px] uppercase text-[#E39F25] bg-[#E39F25]/10 px-2 py-0.5 rounded">
                         <ShieldCheck className="w-3 h-3" /> {u.role?.name}
                       </span>
                     </td>
@@ -193,7 +193,7 @@ export default function AdminUsersPage() {
 
               <div className="pt-3 flex justify-end gap-2">
                 <button type="button" onClick={() => setModalOpen(false)} className="px-4 py-2 text-gray-600">Cancel</button>
-                <button type="submit" className="px-5 py-2 bg-[#B38E46] text-white rounded-xl font-semibold">Create Account</button>
+                <button type="submit" className="px-5 py-2 bg-[#E39F25] text-white rounded-xl font-semibold">Create Account</button>
               </div>
             </form>
           </div>

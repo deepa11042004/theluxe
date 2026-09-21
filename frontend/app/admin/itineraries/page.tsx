@@ -71,7 +71,7 @@ export default function AdminItinerariesListPage() {
           <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Itineraries Management</h2>
           <p className="text-xs text-gray-500 mt-1">Manage multi-day curated travel itineraries, day-by-day schedules, and inclusions.</p>
         </div>
-        <Link href="/admin/itineraries/new" className="bg-[#B38E46] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2">
+        <Link href="/admin/itineraries/new" className="bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2">
           <Plus className="w-4 h-4" /> Add Itinerary
         </Link>
       </div>
@@ -84,7 +84,7 @@ export default function AdminItinerariesListPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search itineraries by title or region..."
-            className="w-full pl-10 pr-4 py-2 text-xs border border-gray-300 rounded-xl outline-none focus:border-[#B38E46]"
+            className="w-full pl-10 pr-4 py-2 text-xs border border-gray-300 rounded-xl outline-none focus:border-[#E39F25]"
           />
         </form>
 
@@ -139,7 +139,7 @@ export default function AdminItinerariesListPage() {
                         </div>
                       </td>
                       <td className="py-3 px-4 font-medium text-gray-800 flex items-center gap-1.5 pt-4">
-                        <Calendar className="w-3.5 h-3.5 text-[#B38E46]" />
+                        <Calendar className="w-3.5 h-3.5 text-[#E39F25]" />
                         {item.days} Days / {item.nights} Nights
                       </td>
                       <td className="py-3 px-4 font-semibold text-gray-900">

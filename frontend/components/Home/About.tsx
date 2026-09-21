@@ -62,7 +62,7 @@ export default function About() {
 
           {/* Small Golden Vertical Divider */}
           <div className="flex justify-center my-6">
-            <div className="w-[1.5px] h-12 md:h-16 bg-[#B38E46]/80"></div>
+            <div className="w-[1.5px] h-12 md:h-16 bg-[#E39F25]/80"></div>
           </div>
 
           {/* Multi-Paragraph Content Block */}

@@ -166,7 +166,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
           <button type="button" onClick={() => handleSubmit("DRAFT")} disabled={loading} className="px-3.5 sm:px-4 py-2 border border-gray-300 rounded-xl text-xs font-semibold">
             Save Draft
           </button>
-          <button type="button" onClick={() => handleSubmit("PUBLISHED")} disabled={loading} className="px-4 sm:px-5 py-2 bg-[#B38E46] text-white rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5 sm:gap-2">
+          <button type="button" onClick={() => handleSubmit("PUBLISHED")} disabled={loading} className="px-4 sm:px-5 py-2 bg-[#E39F25] text-white rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5 sm:gap-2">
             <Save className="w-4 h-4" /> Publish Itinerary
           </button>
         </div>
@@ -181,7 +181,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`px-4 sm:px-6 py-3 text-xs font-bold uppercase tracking-wider border-b-2 capitalize shrink-0 ${
-                activeTab === tab ? "border-[#B38E46] text-[#B38E46] bg-white" : "border-transparent text-gray-500"
+                activeTab === tab ? "border-[#E39F25] text-[#E39F25] bg-white" : "border-transparent text-gray-500"
               }`}
             >
               {tab === "days" ? `Day-by-Day (${formData.days_list.length})` : tab}
@@ -269,7 +269,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
                 <button
                   type="button"
                   onClick={addDay}
-                  className="bg-[#B38E46] text-white px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5"
+                  className="bg-[#E39F25] text-white px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5"
                 >
                   <Plus className="w-4 h-4" /> Add Day
                 </button>
@@ -279,7 +279,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
                 {formData.days_list.map((day: any, idx: number) => (
                   <div key={idx} className="p-4 bg-gray-50 border border-gray-200 rounded-2xl space-y-3">
                     <div className="flex justify-between items-center">
-                      <span className="font-bold text-xs text-[#B38E46] uppercase tracking-wider">
+                      <span className="font-bold text-xs text-[#E39F25] uppercase tracking-wider">
                         Day {day.day_number}
                       </span>
                       <div className="flex items-center gap-1">
@@ -344,7 +344,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
                             setActiveDayImageIndex(idx);
                             setMediaPickerOpen(true);
                           }}
-                          className="text-xs text-[#B38E46] font-semibold hover:underline"
+                          className="text-xs text-[#E39F25] font-semibold hover:underline"
                         >
                           + Attach Day Image
                         </button>
@@ -385,7 +385,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
                 <button
                   type="button"
                   onClick={() => setFormData((p) => ({ ...p, inclusions: [...p.inclusions, ""] }))}
-                  className="text-xs text-[#B38E46] font-semibold"
+                  className="text-xs text-[#E39F25] font-semibold"
                 >
                   + Add Inclusion
                 </button>
@@ -417,7 +417,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
                 <button
                   type="button"
                   onClick={() => setFormData((p) => ({ ...p, exclusions: [...p.exclusions, ""] }))}
-                  className="text-xs text-[#B38E46] font-semibold"
+                  className="text-xs text-[#E39F25] font-semibold"
                 >
                   + Add Exclusion
                 </button>
@@ -435,7 +435,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
                     setActiveDayImageIndex(null);
                     setMediaPickerOpen(true);
                   }}
-                  className="bg-[#B38E46] text-white px-4 py-2 rounded-xl text-xs font-semibold"
+                  className="bg-[#E39F25] text-white px-4 py-2 rounded-xl text-xs font-semibold"
                 >
                   Add Image
                 </button>
@@ -468,7 +468,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
                   type="checkbox"
                   checked={formData.is_featured}
                   onChange={(e) => handleChange("is_featured", e.target.checked)}
-                  className="w-4 h-4 text-[#B38E46] rounded"
+                  className="w-4 h-4 text-[#E39F25] rounded"
                 />
                 Featured Itinerary
               </label>

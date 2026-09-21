@@ -9,101 +9,68 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 // --- Types ---
 interface SlideData {
   id: number;
-  country: string;
+  number: string;
   title: string;
+  subtitle: string;
+  description: string;
   imageUrl: string;
-  type: string;
 }
 
-// --- Mock Data ---
+// --- Mock Data: 6-Slide Benefit Cards ---
 const slides: SlideData[] = [
   {
     id: 1,
-    country: "Japan",
-    title: "In the heart of Honshu",
+    number: "01",
+    title: "UNLIMITED DISCOUNTED NIGHTS",
+    subtitle: "Stay More. Save More.",
+    description: "Enjoy member rates on eligible hotel stays without a fixed number of discounted nights.",
     imageUrl:
       "https://plus.unsplash.com/premium_photo-1661964177687-57387c2cbd14?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    type: "Individual trip",
   },
   {
     id: 2,
-    country: "Tibet & China",
-    title: "The roof of the world with the Sky Train",
+    number: "02",
+    title: "EXCLUSIVE HOTEL RATES",
+    subtitle: "Exceptional Stays. Privileged Rates.",
+    description: "Access special pricing across a curated collection of luxury and five-star hotels.",
     imageUrl:
       "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=1200&q=80",
-    type: "Individual trip",
   },
   {
     id: 3,
-    country: "Costa Rica",
-    title: "The wild south of Costa Rica",
+    number: "03",
+    title: "10,000+ FIVE-STAR HOTELS",
+    subtitle: "A World of Luxury Awaits.",
+    description: "Explore premium hotels and resorts across India and worldwide.",
     imageUrl:
       "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1200&q=80",
-    type: "Individual trip",
   },
   {
     id: 4,
-    country: "Mexico",
-    title: "Treasures of Mexico",
+    number: "04",
+    title: "100+ LUXURY HOTEL BRANDS",
+    subtitle: "Renowned Hospitality, Curated for You.",
+    description: "Discover a collection of recognised luxury and five-star hospitality brands.",
     imageUrl:
       "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    type: "Individual trip",
   },
   {
     id: 5,
-    country: "Egypt",
-    title: "Eternity along the Nile",
+    number: "05",
+    title: "CONCIERGE ASSISTANCE",
+    subtitle: "Personalised Travel, Effortlessly Arranged.",
+    description: "Receive assistance with hotel bookings, travel arrangements and membership services.",
     imageUrl:
       "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=1200&q=80",
-    type: "Group trip",
   },
   {
     id: 6,
-    country: "Morocco",
-    title: "From Atlas to Sahara",
+    number: "06",
+    title: "MEMBERS' FLIGHT BENEFITS",
+    subtitle: "Privileges Beyond the Stay.",
+    description: "Enjoy exclusive flight-related benefits and travel privileges available to members.",
     imageUrl:
       "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?auto=format&fit=crop&w=1200&q=80",
-    type: "Individual trip",
-  },
-  {
-    id: 7,
-    country: "Cape Verde",
-    title: "Fogo & Santiago",
-    imageUrl:
-      "https://images.unsplash.com/photo-1542856391-010fb87dcfed?auto=format&fit=crop&w=1200&q=80",
-    type: "Individual trip",
-  },
-  {
-    id: 8,
-    country: "India",
-    title: "Taj Mahal & the Golden Temple",
-    imageUrl:
-      "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80",
-    type: "Individual trip",
-  },
-  {
-    id: 9,
-    country: "India",
-    title: "Royal Rajasthan & Palaces",
-    imageUrl:
-      "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=1200&q=80",
-    type: "Individual trip",
-  },
-  {
-    id: 10,
-    country: "India",
-    title: "Green hills & backwaters of Kerala",
-    imageUrl:
-      "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=80",
-    type: "Individual trip",
-  },
-  {
-    id: 11,
-    country: "India",
-    title: "Along the holy Ganges in Varanasi",
-    imageUrl:
-      "https://images.unsplash.com/photo-1627938823193-fd13c1c867dd?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    type: "Group trip",
   },
 ];
 
@@ -111,37 +78,7 @@ const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [slidesData, setSlidesData] = useState<SlideData[]>(slides);
-
-  useEffect(() => {
-    async function fetchDestinations() {
-      try {
-        const res = await fetch("/api/v1/destinations?limit=50");
-        const json = await res.json();
-        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
-          const dbSlides: SlideData[] = json.data.map((dest: any, idx: number) => {
-            const primaryImg =
-              dest.images?.find((img: any) => img.is_primary)?.image_url ||
-              dest.images?.[0]?.image_url ||
-              "https://images.unsplash.com/photo-1627938823193-fd13c1c867dd?q=80&w=1170&auto=format&fit=crop";
-
-            return {
-              id: dest.id || idx + 1,
-              country: dest.country || "India",
-              title: dest.name,
-              imageUrl: primaryImg,
-              type: dest.destination_type || "Individual trip",
-            };
-          });
-
-          setSlidesData(dbSlides);
-        }
-      } catch (err) {
-        console.error("Failed to fetch public destinations:", err);
-      }
-    }
-    fetchDestinations();
-  }, []);
+  const [slidesData] = useState<SlideData[]>(slides);
 
   // Auto-play timer
   useEffect(() => {
@@ -189,16 +126,15 @@ const Carousel = () => {
     <section className="bg-white text-black py-10 md:py-24 px-4 overflow-hidden w-full select-none">
       <div className="max-w-7xl mx-auto">
         {/* 1. Header Block */}
-        <div className="text-center flex flex-col items-center mb-4 md:mb-8">
+        <div className="text-center flex flex-col items-center mb-10 md:mb-12">
           <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
-            Explore 200+ Destinations
+            MEMBER PRIVILEGES
           </div>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-2 md:mb-4">
-            Popular Destinations
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
+            The Luxe Yatra Benefits
           </h2>
-          <p className="text-sm md:text-lg max-w-xl leading-relaxed">
-            From pristine beaches to snow-capped mountains, find your perfect
-            getaway.
+          <p className="text-xs md:text-sm max-w-xl leading-relaxed text-neutral-600">
+            Unlock exclusive rates, bespoke concierge support, and elevated travel privileges across the globe.
           </p>
         </div>
 
@@ -213,7 +149,6 @@ const Carousel = () => {
               if (distance > slidesData.length / 2) distance -= slidesData.length;
 
               // Determine styles based on distance
-              // We use 'distance' to determine scale, x-position, and z-index
               const isActive = distance === 0;
 
               // Visual configuration
@@ -223,7 +158,6 @@ const Carousel = () => {
               let opacity = 0.5;
 
               // Config for responsive look
-              const cardWidth = isMobile ? 300 : 500;
               const baseOffset = isMobile ? 180 : 320;
               const stepOffset = isMobile ? 100 : 240;
 
@@ -257,7 +191,7 @@ const Carousel = () => {
               return (
                 <motion.div
                   key={slide.id}
-                  className="absolute top-1/2 left-1/2 rounded-sm overflow-hidden cursor-pointer shadow-xl bg-white"
+                  className="absolute top-1/2 left-1/2 rounded-sm overflow-hidden cursor-pointer shadow-2xl bg-black"
                   style={{
                     zIndex,
                     width: isMobile ? "280px" : "500px",
@@ -282,35 +216,36 @@ const Carousel = () => {
                     if (distance === -1) prevSlide();
                   }}
                 >
-                  {/* Image Container - Clean, no brightness filter */}
+                  {/* Image Container */}
                   <div className="relative w-full h-full">
                     <Image
-                      src={
-                        slide.imageUrl ||
-                        "https://images.unsplash.com/photo-1627938823193-fd13c1c867dd?q=80&w=1170&auto=format&fit=crop"
-                      }
+                      src={slide.imageUrl}
                       alt={slide.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover brightness-[0.55]"
                     />
                   </div>
 
-                  {/* Content Overlay - Only fully visible on active slide */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-8 text-center bg-black/10">
-                    {/* Text Content */}
+                  {/* Content Overlay */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 sm:p-8 text-center bg-black/20">
                     <div
                       className={`transition-all duration-500 transform ${isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                     >
-                      <p className="font-[Vera] italic text-lg mb-2 drop-shadow-md">
-                        {slide.country}
-                      </p>
+                      <span className="inline-block text-[11px] sm:text-xs font-bold tracking-[0.3em] text-[#E39F25] uppercase mb-2 bg-black/40 px-3 py-1 rounded-sm border border-[#E39F25]/30">
+                        BENEFIT {slide.number}
+                      </span>
                       <h2
-                        className="text-3xl md:text-4xl leading-tight uppercase max-w-[80%] mx-auto drop-shadow-md font-light tracking-wide"
-                        style={{ fontFamily: "var(--work-font), sans-serif" }}
+                        className="text-xl sm:text-2xl md:text-3xl leading-snug uppercase max-w-[95%] mx-auto drop-shadow-md font-serif tracking-wide text-white mb-2"
                       >
                         {slide.title}
                       </h2>
+                      <p className="text-xs sm:text-sm font-semibold tracking-wider text-amber-200/95 uppercase mb-3">
+                        {slide.subtitle}
+                      </p>
+                      <p className="text-[11px] sm:text-xs text-neutral-200 leading-relaxed max-w-xs mx-auto font-normal">
+                        {slide.description}
+                      </p>
                     </div>
                   </div>
                 </motion.div>
@@ -319,13 +254,13 @@ const Carousel = () => {
           </div>
         </div>
 
-        {/* Navigation Controls - Placed cleanly below the carousel */}
+        {/* Navigation Controls */}
         <div className="flex justify-center gap-3 mt-4 md:mt-6 z-10">
           <motion.button
             onClick={prevSlide}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="text-[#B38E46] hover:text-[#997734] transition-colors cursor-pointer drop-shadow-sm"
+            className="text-[#E39F25] hover:text-[#997734] transition-colors cursor-pointer drop-shadow-sm"
             aria-label="Previous slide"
           >
             <ChevronLeft size={40} strokeWidth={1.5} />
@@ -334,7 +269,7 @@ const Carousel = () => {
             onClick={nextSlide}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="text-[#B38E46] hover:text-[#997734] transition-colors cursor-pointer drop-shadow-sm"
+            className="text-[#E39F25] hover:text-[#997734] transition-colors cursor-pointer drop-shadow-sm"
             aria-label="Next slide"
           >
             <ChevronRight size={40} strokeWidth={1.5} />
@@ -348,12 +283,12 @@ const Carousel = () => {
               key={i}
               onClick={() => setCurrentIndex(i)}
               className="focus:outline-none cursor-pointer p-1"
-              aria-label={`Go to destination ${i + 1}`}
+              aria-label={`Go to benefit slide ${i + 1}`}
             >
               <div
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                   currentIndex === i
-                    ? "bg-black scale-125"
+                    ? "bg-[#E39F25] scale-125"
                     : "bg-gray-300 hover:bg-gray-400"
                 }`}
               />
@@ -361,11 +296,11 @@ const Carousel = () => {
           ))}
         </div>
 
-        {/* VIEW ALL Button */}
+        {/* VIEW ALL / EXPLORE CLUB Button */}
         <div className="flex justify-center mt-6">
-          <Link href="/experiences">
-            <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 rounded-sm cursor-pointer">
-              VIEW ALL
+          <Link href="/luxeclub">
+            <button className="border border-[#E39F25] text-[#E39F25] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#E39F25] hover:text-white transition-all duration-300 rounded-sm cursor-pointer">
+              EXPLORE LUXE CLUB
             </button>
           </Link>
         </div>

@@ -47,7 +47,7 @@ export default function AdminHeader({ user, onToggleSidebar }: AdminHeaderProps)
       <div className="flex items-center gap-3 sm:gap-6">
         {user && (
           <div className="flex items-center gap-2 sm:gap-3 pr-2 sm:pr-4 border-r border-gray-200">
-            <div className="w-8 h-8 rounded-full bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center font-bold text-xs border border-[#B38E46]/30 shrink-0">
+            <div className="w-8 h-8 rounded-full bg-[#E39F25]/10 text-[#E39F25] flex items-center justify-center font-bold text-xs border border-[#E39F25]/30 shrink-0">
               {user.name ? user.name.charAt(0).toUpperCase() : "A"}
             </div>
             <div className="hidden sm:flex flex-col text-left">
@@ -55,8 +55,8 @@ export default function AdminHeader({ user, onToggleSidebar }: AdminHeaderProps)
                 {user.name}
               </span>
               <div className="flex items-center gap-1">
-                <ShieldCheck className="w-3 h-3 text-[#B38E46]" />
-                <span className="text-[10px] font-bold tracking-wider text-[#B38E46] uppercase">
+                <ShieldCheck className="w-3 h-3 text-[#E39F25]" />
+                <span className="text-[10px] font-bold tracking-wider text-[#E39F25] uppercase">
                   {user.role}
                 </span>
               </div>

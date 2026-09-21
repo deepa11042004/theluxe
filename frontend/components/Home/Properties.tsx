@@ -269,14 +269,14 @@ export default function Properties() {
           <button
             onClick={prev}
             aria-label="Previous resort"
-            className="absolute left-0 md:left-[calc(50%-560px)] lg:left-[calc(50%-600px)] top-1/2 -translate-y-1/2 text-[#B38E46] hover:text-[#997734] transition-all hover:scale-110 cursor-pointer z-30 drop-shadow-md"
+            className="absolute left-0 md:left-[calc(50%-560px)] lg:left-[calc(50%-600px)] top-1/2 -translate-y-1/2 text-[#E39F25] hover:text-[#997734] transition-all hover:scale-110 cursor-pointer z-30 drop-shadow-md"
           >
             <ChevronLeft className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20" strokeWidth={1.2} />
           </button>
           <button
             onClick={next}
             aria-label="Next resort"
-            className="absolute right-0 md:right-[calc(50%-560px)] lg:right-[calc(50%-600px)] top-1/2 -translate-y-1/2 text-[#B38E46] hover:text-[#997734] transition-all hover:scale-110 cursor-pointer z-30 drop-shadow-md"
+            className="absolute right-0 md:right-[calc(50%-560px)] lg:right-[calc(50%-600px)] top-1/2 -translate-y-1/2 text-[#E39F25] hover:text-[#997734] transition-all hover:scale-110 cursor-pointer z-30 drop-shadow-md"
           >
             <ChevronRight className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20" strokeWidth={1.2} />
           </button>
@@ -308,7 +308,7 @@ export default function Properties() {
           {/* VIEW ALL Button */}
           <div className="flex justify-center mt-8">
             <Link href="/resorts">
-              <button className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 rounded-sm cursor-pointer">
+              <button className="border border-[#E39F25] text-[#E39F25] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#E39F25] hover:text-white transition-all duration-300 rounded-sm cursor-pointer">
                 VIEW ALL
               </button>
             </Link>

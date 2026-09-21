@@ -230,8 +230,8 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                   className={`text-xs tracking-[0.25em] font-medium uppercase px-7 py-2.5 rounded-sm border transition-all duration-300 active:scale-95 cursor-pointer
                     ${
                       isSelected
-                        ? "bg-[#B38E46] text-white border-[#B38E46] shadow-sm"
-                        : "bg-white text-[#B38E46] border-[#B38E46] hover:bg-[#B38E46] hover:text-white"
+                        ? "bg-[#E39F25] text-white border-[#E39F25] shadow-sm"
+                        : "bg-white text-[#E39F25] border-[#E39F25] hover:bg-[#E39F25] hover:text-white"
                     }`}
                 >
                   {cat}
@@ -243,8 +243,8 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
 
         {/* 2. SEARCH BAR */}
         <div className="max-w-md mx-auto mb-12 relative">
-          <div className="relative flex items-center bg-white border border-[#B38E46] rounded-sm px-5 py-3.5 transition-all duration-300 shadow-2xs">
-            <Search className="w-4 h-4 text-[#B38E46] mr-3 shrink-0" />
+          <div className="relative flex items-center bg-white border border-[#E39F25] rounded-sm px-5 py-3.5 transition-all duration-300 shadow-2xs">
+            <Search className="w-4 h-4 text-[#E39F25] mr-3 shrink-0" />
             <input
               type="text"
               value={searchQuery}
@@ -277,7 +277,7 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                 exit={{ opacity: 0, y: -10 }}
                 className="col-span-full py-20 text-center flex flex-col items-center justify-center text-black"
               >
-                <Search className="w-10 h-10 text-[#B38E46] mb-4 opacity-60" />
+                <Search className="w-10 h-10 text-[#E39F25] mb-4 opacity-60" />
                 <p className="text-xl font-[Vera] font-bold mb-2">No destinations found</p>
                 <p className="text-sm max-w-sm mx-auto leading-relaxed">
                   We couldn&apos;t find any results matching &ldquo;{searchQuery}&rdquo;. Try checking for typos or searching for a different keyword.
@@ -324,7 +324,7 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                 <div className="absolute inset-0 p-6 sm:p-7 flex flex-col justify-end text-white z-10">
                   {/* Location Badge */}
                   <div className="text-[10px] text-white/80 uppercase tracking-[0.25em] font-medium mb-1.5 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#B38E46] shrink-0" />
+                    <MapPin className="w-3.5 h-3.5 text-[#E39F25] shrink-0" />
                     <span>{exp.location}</span>
                   </div>
 
@@ -350,7 +350,7 @@ export default function Experiencesec({ type = "all" }: ExperiencesecProps) {
                       href={exp.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-[#B38E46] transition-colors duration-200 cursor-pointer uppercase tracking-widest"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-[#E39F25] transition-colors duration-200 cursor-pointer uppercase tracking-widest"
                     >
                       <span>EXPLORE NOW</span>
                       <ArrowRight className="w-3.5 h-3.5" />

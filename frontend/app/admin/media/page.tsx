@@ -79,7 +79,7 @@ export default function AdminMediaPage() {
           <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Media Library</h2>
           <p className="text-xs text-gray-500 mt-1">Upload, optimize (auto WebP conversion), and manage high-resolution assets.</p>
         </div>
-        <label className="cursor-pointer bg-[#B38E46] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2 shadow-sm">
+        <label className="cursor-pointer bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2 shadow-sm">
           <Upload className="w-4 h-4" />
           {uploading ? "Uploading & Optimizing..." : "Upload New Image"}
           <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} disabled={uploading} />
@@ -111,7 +111,7 @@ export default function AdminMediaPage() {
                   key={item.id}
                   onClick={() => setSelectedMedia(item)}
                   className={`group relative aspect-square rounded-xl overflow-hidden cursor-pointer border-2 transition-all ${
-                    selectedMedia?.id === item.id ? "border-[#B38E46] ring-2 ring-[#B38E46]/30 shadow-md" : "border-transparent hover:border-gray-300"
+                    selectedMedia?.id === item.id ? "border-[#E39F25] ring-2 ring-[#E39F25]/30 shadow-md" : "border-transparent hover:border-gray-300"
                   }`}
                 >
                   <Image src={item.url} alt={item.filename} fill className="object-cover" />

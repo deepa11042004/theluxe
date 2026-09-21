@@ -155,7 +155,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
             type="button"
             onClick={() => handleSubmit("PUBLISHED")}
             disabled={loading}
-            className="px-4 sm:px-5 py-2 bg-[#B38E46] text-white rounded-xl text-xs font-semibold hover:bg-[#967536] transition-colors flex items-center gap-1.5 sm:gap-2 shadow-sm"
+            className="px-4 sm:px-5 py-2 bg-[#E39F25] text-white rounded-xl text-xs font-semibold hover:bg-[#967536] transition-colors flex items-center gap-1.5 sm:gap-2 shadow-sm"
           >
             <Save className="w-4 h-4" />
             <span>{isEdit ? "Update & Publish" : "Publish Hotel"}</span>
@@ -184,7 +184,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 sm:px-6 py-3 text-xs font-bold uppercase tracking-wider transition-colors border-b-2 whitespace-nowrap shrink-0 ${
                 activeTab === tab.id
-                  ? "border-[#B38E46] text-[#B38E46] bg-white"
+                  ? "border-[#E39F25] text-[#E39F25] bg-white"
                   : "border-transparent text-gray-500 hover:text-gray-900"
               }`}
             >
@@ -207,7 +207,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                   value={formData.name}
                   onChange={(e) => handleChange("name", e.target.value)}
                   placeholder="e.g. Taj Lake Palace"
-                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#B38E46]"
+                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#E39F25]"
                 />
               </div>
 
@@ -220,7 +220,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                   value={formData.slug}
                   onChange={(e) => handleChange("slug", e.target.value)}
                   placeholder="e.g. taj-lake-palace (leave blank for auto-generation)"
-                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#B38E46]"
+                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#E39F25]"
                 />
               </div>
 
@@ -233,7 +233,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                   value={formData.short_description}
                   onChange={(e) => handleChange("short_description", e.target.value)}
                   placeholder="Brief 1-2 sentence overview for cards and search"
-                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#B38E46]"
+                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#E39F25]"
                 />
               </div>
 
@@ -246,7 +246,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                   value={formData.description}
                   onChange={(e) => handleChange("description", e.target.value)}
                   placeholder="Comprehensive description of the hotel's heritage, atmosphere, and experience..."
-                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#B38E46]"
+                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#E39F25]"
                 />
               </div>
             </div>
@@ -262,7 +262,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                   value={formData.region}
                   onChange={(e) => handleChange("region", e.target.value)}
                   placeholder="e.g. Asia, Europe, Middle East"
-                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#B38E46]"
+                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#E39F25]"
                 />
               </div>
               <div>
@@ -272,7 +272,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                   value={formData.country}
                   onChange={(e) => handleChange("country", e.target.value)}
                   placeholder="e.g. India, Maldives, France"
-                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#B38E46]"
+                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#E39F25]"
                 />
               </div>
               <div>
@@ -282,7 +282,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                   value={formData.state_province}
                   onChange={(e) => handleChange("state_province", e.target.value)}
                   placeholder="e.g. Rajasthan"
-                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#B38E46]"
+                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#E39F25]"
                 />
               </div>
               <div>
@@ -292,7 +292,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                   value={formData.city}
                   onChange={(e) => handleChange("city", e.target.value)}
                   placeholder="e.g. Udaipur"
-                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#B38E46]"
+                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#E39F25]"
                 />
               </div>
               <div className="sm:col-span-2">
@@ -302,7 +302,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                   value={formData.address}
                   onChange={(e) => handleChange("address", e.target.value)}
                   placeholder="Full physical street address"
-                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#B38E46]"
+                  className="w-full px-3.5 py-2 border border-gray-300 rounded-xl text-sm outline-none focus:border-[#E39F25]"
                 />
               </div>
             </div>
@@ -366,7 +366,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                 <button
                   type="button"
                   onClick={() => setMediaPickerOpen(true)}
-                  className="bg-[#B38E46] text-white px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5"
+                  className="bg-[#E39F25] text-white px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5"
                 >
                   <Plus className="w-4 h-4" /> Add Image
                 </button>
@@ -423,7 +423,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                       type="checkbox"
                       checked={formData.is_featured}
                       onChange={(e) => handleChange("is_featured", e.target.checked)}
-                      className="w-4 h-4 text-[#B38E46] rounded"
+                      className="w-4 h-4 text-[#E39F25] rounded"
                     />
                     Featured Hotel
                   </label>
@@ -432,7 +432,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                       type="checkbox"
                       checked={formData.is_popular}
                       onChange={(e) => handleChange("is_popular", e.target.checked)}
-                      className="w-4 h-4 text-[#B38E46] rounded"
+                      className="w-4 h-4 text-[#E39F25] rounded"
                     />
                     Popular Pick
                   </label>
@@ -441,7 +441,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                       type="checkbox"
                       checked={formData.is_india_top_50}
                       onChange={(e) => handleChange("is_india_top_50", e.target.checked)}
-                      className="w-4 h-4 text-[#B38E46] rounded"
+                      className="w-4 h-4 text-[#E39F25] rounded"
                     />
                     India Top 50 Luxury Hotels
                   </label>
@@ -450,7 +450,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                       type="checkbox"
                       checked={formData.is_international_top_50}
                       onChange={(e) => handleChange("is_international_top_50", e.target.checked)}
-                      className="w-4 h-4 text-[#B38E46] rounded"
+                      className="w-4 h-4 text-[#E39F25] rounded"
                     />
                     International Top 50 Luxury Hotels
                   </label>

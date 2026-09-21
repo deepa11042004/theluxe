@@ -39,7 +39,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="min-h-screen bg-[#111111] flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-[#191919] border border-[#B38E46]/30 rounded-2xl p-8 shadow-2xl space-y-6">
+      <div className="w-full max-w-md bg-[#191919] border border-[#E39F25]/30 rounded-2xl p-8 shadow-2xl space-y-6">
         {/* LOGO & TITLE */}
         <div className="flex flex-col items-center text-center space-y-3">
           <div className="relative h-16 w-16">
@@ -81,7 +81,7 @@ export default function AdminLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@theluxeyatra.com"
-                className="w-full bg-black/40 border border-gray-700 text-white text-sm rounded-xl pl-10 pr-4 py-2.5 outline-none focus:border-[#B38E46] transition-colors"
+                className="w-full bg-black/40 border border-gray-700 text-white text-sm rounded-xl pl-10 pr-4 py-2.5 outline-none focus:border-[#E39F25] transition-colors"
               />
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-black/40 border border-gray-700 text-white text-sm rounded-xl pl-10 pr-4 py-2.5 outline-none focus:border-[#B38E46] transition-colors"
+                className="w-full bg-black/40 border border-gray-700 text-white text-sm rounded-xl pl-10 pr-4 py-2.5 outline-none focus:border-[#E39F25] transition-colors"
               />
             </div>
           </div>
@@ -106,7 +106,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#B38E46] hover:bg-[#967536] text-white font-semibold py-3 rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50 shadow-lg shadow-[#B38E46]/20 cursor-pointer"
+            className="w-full bg-[#E39F25] hover:bg-[#967536] text-white font-semibold py-3 rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50 shadow-lg shadow-[#E39F25]/20 cursor-pointer"
           >
             {loading ? "Authenticating..." : "Sign In to Admin Portal"}
             <ArrowRight className="w-4 h-4" />

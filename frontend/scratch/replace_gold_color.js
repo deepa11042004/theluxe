@@ -15,7 +15,7 @@ function processDir(dir) {
       let updated = false;
 
       if (/EFBF04/i.test(content) || /d6ab03/i.test(content)) {
-        content = content.replace(/#EFBF04/gi, '#B38E46');
+        content = content.replace(/#EFBF04/gi, '#E39F25');
         content = content.replace(/#d6ab03/gi, '#997734');
         fs.writeFileSync(fullPath, content, 'utf8');
         console.log(`Updated: ${fullPath}`);
@@ -28,4 +28,4 @@ const rootDir = path.resolve(__dirname, '..');
 console.log(`Scanning in ${rootDir}...`);
 processDir(path.join(rootDir, 'components'));
 processDir(path.join(rootDir, 'app'));
-console.log('Finished replacing #EFBF04 with #B38E46!');
+console.log('Finished replacing #EFBF04 with #E39F25!');

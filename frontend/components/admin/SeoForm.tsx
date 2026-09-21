@@ -51,7 +51,7 @@ export default function SeoForm({ data, onChange }: SeoFormProps) {
           value={data.seo_title || ""}
           onChange={(e) => handleChange("seo_title", e.target.value)}
           placeholder="Enter meta title for search engines"
-          className="w-full px-3.5 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#B38E46] focus:border-transparent outline-none"
+          className="w-full px-3.5 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#E39F25] focus:border-transparent outline-none"
         />
       </div>
 
@@ -76,7 +76,7 @@ export default function SeoForm({ data, onChange }: SeoFormProps) {
           value={data.seo_description || ""}
           onChange={(e) => handleChange("seo_description", e.target.value)}
           placeholder="Provide a compelling summary for search result snippets"
-          className="w-full px-3.5 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#B38E46] focus:border-transparent outline-none resize-y"
+          className="w-full px-3.5 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#E39F25] focus:border-transparent outline-none resize-y"
         />
       </div>
 
@@ -90,7 +90,7 @@ export default function SeoForm({ data, onChange }: SeoFormProps) {
           value={data.canonical_url || ""}
           onChange={(e) => handleChange("canonical_url", e.target.value)}
           placeholder="https://theluxeyatra.com/custom-canonical-path"
-          className="w-full px-3.5 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#B38E46] focus:border-transparent outline-none"
+          className="w-full px-3.5 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#E39F25] focus:border-transparent outline-none"
         />
       </div>
 
@@ -110,7 +110,7 @@ export default function SeoForm({ data, onChange }: SeoFormProps) {
               value={data.og_title || ""}
               onChange={(e) => handleChange("og_title", e.target.value)}
               placeholder="Title for Facebook/LinkedIn previews"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-1 focus:ring-[#B38E46]"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-1 focus:ring-[#E39F25]"
             />
           </div>
           <div>
@@ -122,7 +122,7 @@ export default function SeoForm({ data, onChange }: SeoFormProps) {
               value={data.og_image || ""}
               onChange={(e) => handleChange("og_image", e.target.value)}
               placeholder="URL of social preview image"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-1 focus:ring-[#B38E46]"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-1 focus:ring-[#E39F25]"
             />
           </div>
         </div>
@@ -136,7 +136,7 @@ export default function SeoForm({ data, onChange }: SeoFormProps) {
             value={data.og_description || ""}
             onChange={(e) => handleChange("og_description", e.target.value)}
             placeholder="Short description for social cards"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-1 focus:ring-[#B38E46]"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-1 focus:ring-[#E39F25]"
           />
         </div>
       </div>
@@ -148,7 +148,7 @@ export default function SeoForm({ data, onChange }: SeoFormProps) {
             type="checkbox"
             checked={data.robots_index !== false}
             onChange={(e) => handleChange("robots_index", e.target.checked)}
-            className="w-4 h-4 text-[#B38E46] rounded focus:ring-[#B38E46]"
+            className="w-4 h-4 text-[#E39F25] rounded focus:ring-[#E39F25]"
           />
           Allow Search Engines to Index (Robots Index)
         </label>
@@ -157,7 +157,7 @@ export default function SeoForm({ data, onChange }: SeoFormProps) {
             type="checkbox"
             checked={data.robots_follow !== false}
             onChange={(e) => handleChange("robots_follow", e.target.checked)}
-            className="w-4 h-4 text-[#B38E46] rounded focus:ring-[#B38E46]"
+            className="w-4 h-4 text-[#E39F25] rounded focus:ring-[#E39F25]"
           />
           Allow Links Following (Robots Follow)
         </label>

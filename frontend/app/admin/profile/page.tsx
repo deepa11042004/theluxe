@@ -63,13 +63,13 @@ export default function AdminProfilePage() {
       {user && (
         <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-xs space-y-4">
           <div className="flex items-center gap-4 border-b pb-4">
-            <div className="w-12 h-12 rounded-full bg-[#B38E46]/10 text-[#B38E46] flex items-center justify-center font-bold text-lg border border-[#B38E46]/30">
+            <div className="w-12 h-12 rounded-full bg-[#E39F25]/10 text-[#E39F25] flex items-center justify-center font-bold text-lg border border-[#E39F25]/30">
               {user.name.charAt(0)}
             </div>
             <div>
               <h3 className="font-bold text-gray-900 text-base">{user.name}</h3>
               <p className="text-xs text-gray-500">{user.email}</p>
-              <span className="inline-block mt-1 text-[10px] font-bold tracking-wider text-[#B38E46] uppercase bg-[#B38E46]/10 px-2 py-0.5 rounded">
+              <span className="inline-block mt-1 text-[10px] font-bold tracking-wider text-[#E39F25] uppercase bg-[#E39F25]/10 px-2 py-0.5 rounded">
                 Role: {user.role}
               </span>
             </div>
@@ -80,7 +80,7 @@ export default function AdminProfilePage() {
       {/* CHANGE PASSWORD */}
       <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-xs space-y-4">
         <h3 className="text-sm font-bold text-gray-800 uppercase flex items-center gap-2">
-          <Lock className="w-4 h-4 text-[#B38E46]" /> Update Password
+          <Lock className="w-4 h-4 text-[#E39F25]" /> Update Password
         </h3>
 
         {msg && <div className="p-3 bg-emerald-50 text-emerald-600 text-xs rounded-xl flex items-center gap-2"><CheckCircle className="w-4 h-4" />{msg}</div>}
@@ -121,7 +121,7 @@ export default function AdminProfilePage() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#B38E46] text-white px-5 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] disabled:opacity-50"
+            className="bg-[#E39F25] text-white px-5 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] disabled:opacity-50"
           >
             {loading ? "Updating..." : "Update Password"}
           </button>

@@ -326,7 +326,7 @@ export default function Overview() {
                 <div className="pt-6">
                   <a
                     href={section.ctaLink || "/experiences"}
-                    className="inline-flex items-center justify-center bg-transparent border border-[#B38E46] text-[#B38E46] hover:bg-[#B38E46] hover:text-white active:scale-95 font-medium text-xs md:text-sm uppercase tracking-[0.25em] px-8 py-3.5 rounded-sm transition-all duration-300 shadow-xs cursor-pointer"
+                    className="inline-flex items-center justify-center bg-transparent border border-[#E39F25] text-[#E39F25] hover:bg-[#E39F25] hover:text-white active:scale-95 font-medium text-xs md:text-sm uppercase tracking-[0.25em] px-8 py-3.5 rounded-sm transition-all duration-300 shadow-xs cursor-pointer"
                   >
                     <span>{section.ctaText}</span>
                   </a>

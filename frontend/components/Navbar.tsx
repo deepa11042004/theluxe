@@ -65,7 +65,7 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-[99] w-full transition-all duration-500 ease-in-out ${
           isScrolled
-            ? "bg-[#B38E46]/85 backdrop-blur-md shadow-md py-1.5 lg:py-2"
+            ? "bg-[#E39F25]/85 backdrop-blur-md shadow-md py-1.5 lg:py-2"
             : "bg-gradient-to-b from-black/80 via-black/40 to-transparent pt-3 pb-4 lg:pt-3 lg:pb-6"
         }`}
       >
@@ -78,15 +78,15 @@ export default function Navbar() {
               className="flex flex-col justify-center gap-[5px] group cursor-pointer p-1"
               aria-label="Open Menu"
             >
-              <span className="w-6 h-[1.5px] bg-white transition-all duration-300 group-hover:w-8 group-hover:bg-[#B38E46]"></span>
-              <span className="w-5 h-[1.5px] bg-white transition-all duration-300 group-hover:w-8 group-hover:bg-[#B38E46]"></span>
+              <span className="w-6 h-[1.5px] bg-white transition-all duration-300 group-hover:w-8 group-hover:bg-[#E39F25]"></span>
+              <span className="w-5 h-[1.5px] bg-white transition-all duration-300 group-hover:w-8 group-hover:bg-[#E39F25]"></span>
             </button>
 
             {/* Resorts Dropdown (Desktop) */}
             <div className="relative group/resorts hidden lg:block cursor-pointer py-1">
               <Link
                 href="/resorts"
-                className="flex items-center gap-1.5 text-white text-[11px] xl:text-xs tracking-[0.2em] font-medium uppercase group-hover/resorts:text-[#B38E46] transition-colors"
+                className="flex items-center gap-1.5 text-white text-[11px] xl:text-xs tracking-[0.2em] font-medium uppercase group-hover/resorts:text-[#E39F25] transition-colors"
               >
                 <ChevronDown className="w-3.5 h-3.5 group-hover/resorts:rotate-180 transition-transform duration-300" />
                 RESORTS
@@ -94,7 +94,7 @@ export default function Navbar() {
               
               {/* Dropdown Menu matching reference image with golden glassy translucent style */}
               <div className="absolute top-full left-0 pt-3 opacity-0 pointer-events-none group-hover/resorts:opacity-100 group-hover/resorts:pointer-events-auto transition-all duration-300 ease-out z-50">
-                <div className="bg-[#B38E46]/85 backdrop-blur-md border-0 rounded-none shadow-xl w-64 flex flex-col text-white overflow-hidden">
+                <div className="bg-[#E39F25]/85 backdrop-blur-md border-0 rounded-none shadow-xl w-64 flex flex-col text-white overflow-hidden">
                   <Link
                     href="/national"
                     className="px-6 py-4 hover:bg-white/15 transition-colors duration-200 text-left flex flex-col gap-1 border-b border-white/20"
@@ -186,7 +186,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-[#B38E46]/90 backdrop-blur-xl z-[100] flex flex-col justify-between p-6 md:p-12 pointer-events-auto overflow-y-auto"
+            className="fixed inset-0 bg-[#E39F25]/90 backdrop-blur-xl z-[100] flex flex-col justify-between p-6 md:p-12 pointer-events-auto overflow-y-auto"
           >
             {/* Top row (Logo & Close button) */}
             <div className="flex items-center justify-between w-full max-w-[1800px] mx-auto">
@@ -249,7 +249,7 @@ export default function Navbar() {
                     >
                       <ChevronDown
                         className={`w-5 h-5 transition-transform duration-300 ${
-                          isResortsOpen ? "rotate-180 text-[#B38E46]" : ""
+                          isResortsOpen ? "rotate-180 text-[#E39F25]" : ""
                         }`}
                       />
                     </button>
@@ -322,7 +322,7 @@ export default function Navbar() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="hover:text-black transition-colors flex items-center justify-center gap-3"
                   >
-                    <span className="bg-white text-[#B38E46] h-6 w-6 flex justify-center items-center rounded-full text-[10px] font-bold font-sans tracking-wider">
+                    <span className="bg-white text-[#E39F25] h-6 w-6 flex justify-center items-center rounded-full text-[10px] font-bold font-sans tracking-wider">
                       LC
                     </span>
                     Luxe Club
@@ -371,7 +371,7 @@ export default function Navbar() {
               <Link
                 href="/join"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="border border-white/80 hover:bg-white hover:text-[#B38E46] transition-all duration-300 px-10 py-3 text-xs md:text-sm font-medium tracking-[0.25em] uppercase text-white rounded-sm"
+                className="border border-white/80 hover:bg-white hover:text-[#E39F25] transition-all duration-300 px-10 py-3 text-xs md:text-sm font-medium tracking-[0.25em] uppercase text-white rounded-sm"
               >
                 JOIN LUXE CLUB
               </Link>

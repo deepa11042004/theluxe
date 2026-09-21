@@ -93,12 +93,12 @@ function ItineraryCard({ item, index }: CardProps) {
 
       {/* Body Overlayed */}
       <div className="absolute inset-0 p-6 flex flex-col justify-end text-white z-10">
-        <div className="text-[10px] text-[#B38E46] uppercase tracking-widest font-medium mb-1.5 flex items-center gap-1.5">
-          <MapPin className="w-3.5 h-3.5 text-[#B38E46]" />
+        <div className="text-[10px] text-[#E39F25] uppercase tracking-widest font-medium mb-1.5 flex items-center gap-1.5">
+          <MapPin className="w-3.5 h-3.5 text-[#E39F25]" />
           <span>{item.duration}</span>
         </div>
 
-        <h3 className="text-xl font-serif font-medium text-white leading-snug mb-2 group-hover:text-[#B38E46] transition-colors duration-200">
+        <h3 className="text-xl font-serif font-medium text-white leading-snug mb-2 group-hover:text-[#E39F25] transition-colors duration-200">
           {item.title}
         </h3>
 
@@ -116,7 +116,7 @@ function ItineraryCard({ item, index }: CardProps) {
 
           <Link
             href={`/itinerary/${targetId}`}
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-[#B38E46] transition-colors duration-200 cursor-pointer uppercase tracking-widest"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-[#E39F25] transition-colors duration-200 cursor-pointer uppercase tracking-widest"
           >
             <span>EXPLORE</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -168,7 +168,7 @@ export default function Itinerary() {
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header */}
         <div className="text-center flex flex-col items-center mb-10 md:mb-14">
-          <div className="text-xs tracking-[0.4em] text-[#B38E46] uppercase font-semibold mb-3">
+          <div className="text-xs tracking-[0.4em] text-[#E39F25] uppercase font-semibold mb-3">
             EXPERIENCE LUXURY, ADVENTURE &amp; CULTURE
           </div>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
@@ -194,7 +194,7 @@ export default function Itinerary() {
         <div className="flex justify-center mt-12">
           <Link
             href="/itinerary"
-            className="border border-[#B38E46] text-[#B38E46] px-8 py-3 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 rounded-sm cursor-pointer shadow-2xs"
+            className="border border-[#E39F25] text-[#E39F25] px-8 py-3 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#E39F25] hover:text-white transition-all duration-300 rounded-sm cursor-pointer shadow-2xs"
           >
             SEE ALL ITINERARIES
           </Link>

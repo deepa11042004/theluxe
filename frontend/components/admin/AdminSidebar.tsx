@@ -71,7 +71,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
               <span className="font-bold text-xs tracking-[0.2em] uppercase text-white">
                 LUXE CMS
               </span>
-              <span className="text-[10px] text-[#B38E46] font-medium tracking-widest uppercase">
+              <span className="text-[10px] text-[#E39F25] font-medium tracking-widest uppercase">
                 Admin Portal
               </span>
             </div>
@@ -94,7 +94,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
             onClick={onClose}
             className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
               pathname === "/admin"
-                ? "bg-[#B38E46] text-white shadow-md shadow-[#B38E46]/20"
+                ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
                 : "text-gray-400 hover:text-white hover:bg-white/5"
             }`}
           >
@@ -109,7 +109,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
               className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
             >
               <div className="flex items-center gap-3">
-                <Building2 className="w-4 h-4 text-[#B38E46]" />
+                <Building2 className="w-4 h-4 text-[#E39F25]" />
                 <span>Hotels</span>
               </div>
               <ChevronDown
@@ -125,7 +125,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                   onClick={onClose}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
                     pathname === "/admin/hotels"
-                      ? "text-[#B38E46] bg-[#B38E46]/10 font-semibold"
+                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
                       : "text-gray-400 hover:text-white"
                   }`}
                 >
@@ -136,7 +136,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                   onClick={onClose}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
                     pathname === "/admin/hotels/new"
-                      ? "text-[#B38E46] bg-[#B38E46]/10 font-semibold"
+                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
                       : "text-gray-400 hover:text-white"
                   }`}
                 >
@@ -153,7 +153,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
               className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
             >
               <div className="flex items-center gap-3">
-                <MapPin className="w-4 h-4 text-[#B38E46]" />
+                <MapPin className="w-4 h-4 text-[#E39F25]" />
                 <span>Destinations</span>
               </div>
               <ChevronDown
@@ -169,7 +169,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                   onClick={onClose}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
                     pathname === "/admin/destinations"
-                      ? "text-[#B38E46] bg-[#B38E46]/10 font-semibold"
+                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
                       : "text-gray-400 hover:text-white"
                   }`}
                 >
@@ -180,7 +180,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                   onClick={onClose}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
                     pathname === "/admin/destinations/new"
-                      ? "text-[#B38E46] bg-[#B38E46]/10 font-semibold"
+                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
                       : "text-gray-400 hover:text-white"
                   }`}
                 >
@@ -197,7 +197,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
               className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
             >
               <div className="flex items-center gap-3">
-                <Compass className="w-4 h-4 text-[#B38E46]" />
+                <Compass className="w-4 h-4 text-[#E39F25]" />
                 <span>Itineraries</span>
               </div>
               <ChevronDown
@@ -213,7 +213,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                   onClick={onClose}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
                     pathname === "/admin/itineraries"
-                      ? "text-[#B38E46] bg-[#B38E46]/10 font-semibold"
+                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
                       : "text-gray-400 hover:text-white"
                   }`}
                 >
@@ -224,7 +224,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                   onClick={onClose}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
                     pathname === "/admin/itineraries/new"
-                      ? "text-[#B38E46] bg-[#B38E46]/10 font-semibold"
+                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
                       : "text-gray-400 hover:text-white"
                   }`}
                 >
@@ -241,7 +241,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
               className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
             >
               <div className="flex items-center gap-3">
-                <FileText className="w-4 h-4 text-[#B38E46]" />
+                <FileText className="w-4 h-4 text-[#E39F25]" />
                 <span>Blogs</span>
               </div>
               <ChevronDown
@@ -257,7 +257,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                   onClick={onClose}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
                     pathname === "/admin/blogs"
-                      ? "text-[#B38E46] bg-[#B38E46]/10 font-semibold"
+                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
                       : "text-gray-400 hover:text-white"
                   }`}
                 >
@@ -268,7 +268,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                   onClick={onClose}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
                     pathname === "/admin/blogs/new"
-                      ? "text-[#B38E46] bg-[#B38E46]/10 font-semibold"
+                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
                       : "text-gray-400 hover:text-white"
                   }`}
                 >
@@ -285,11 +285,11 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
               onClick={onClose}
               className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
                 pathname === "/admin/media"
-                  ? "bg-[#B38E46] text-white shadow-md shadow-[#B38E46]/20"
+                  ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
                   : "text-gray-400 hover:text-white hover:bg-white/5"
               }`}
             >
-              <ImageIcon className="w-4 h-4 text-[#B38E46]" />
+              <ImageIcon className="w-4 h-4 text-[#E39F25]" />
               <span>Media Library</span>
             </Link>
           </div>
@@ -302,11 +302,11 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                 onClick={onClose}
                 className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
                   pathname === "/admin/users"
-                    ? "bg-[#B38E46] text-white shadow-md shadow-[#B38E46]/20"
+                    ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
                     : "text-gray-400 hover:text-white hover:bg-white/5"
                 }`}
               >
-                <Users className="w-4 h-4 text-[#B38E46]" />
+                <Users className="w-4 h-4 text-[#E39F25]" />
                 <span>Admin Users</span>
               </Link>
             </div>
@@ -319,11 +319,11 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
               onClick={onClose}
               className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
                 pathname === "/admin/profile"
-                  ? "bg-[#B38E46] text-white shadow-md shadow-[#B38E46]/20"
+                  ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
                   : "text-gray-400 hover:text-white hover:bg-white/5"
               }`}
             >
-              <UserCheck className="w-4 h-4 text-[#B38E46]" />
+              <UserCheck className="w-4 h-4 text-[#E39F25]" />
               <span>Profile</span>
             </Link>
           </div>

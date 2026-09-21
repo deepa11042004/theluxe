@@ -113,7 +113,7 @@ function ItineraryCard({ item, onPlay }: CardProps) {
       {/* Top Badges */}
       <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20 pointer-events-none">
         {item.badge && (
-          <span className="bg-[#B38E46] text-white text-[10px] font-medium uppercase tracking-widest px-3 py-1.5 rounded-sm shadow-md">
+          <span className="bg-[#E39F25] text-white text-[10px] font-medium uppercase tracking-widest px-3 py-1.5 rounded-sm shadow-md">
             {item.badge}
           </span>
         )}
@@ -148,14 +148,14 @@ function ItineraryCard({ item, onPlay }: CardProps) {
         {/* Route if present */}
         {item.route && (
           <div className="text-[10px] text-[#E5C158] font-medium tracking-wider mb-1 flex items-center gap-1.5 line-clamp-1">
-            <MapPin className="w-3 h-3 text-[#B38E46] shrink-0" />
+            <MapPin className="w-3 h-3 text-[#E39F25] shrink-0" />
             <span>{item.route}</span>
           </div>
         )}
 
         {/* Title */}
         <h3
-          className="text-lg md:text-xl font-serif font-medium text-white leading-snug mb-2 group-hover:text-[#B38E46] transition-colors duration-200 line-clamp-2"
+          className="text-lg md:text-xl font-serif font-medium text-white leading-snug mb-2 group-hover:text-[#E39F25] transition-colors duration-200 line-clamp-2"
         >
           {item.title}
         </h3>
@@ -183,7 +183,7 @@ function ItineraryCard({ item, onPlay }: CardProps) {
 
           <Link
             href={`/itinerary/${targetId}`}
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-white group-hover:text-[#B38E46] transition-colors duration-200 cursor-pointer uppercase tracking-widest"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-white group-hover:text-[#E39F25] transition-colors duration-200 cursor-pointer uppercase tracking-widest"
           >
             <span>EXPLORE</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
@@ -356,8 +356,8 @@ export default function ItineraryPage() {
                 className={`text-xs tracking-[0.25em] font-medium uppercase px-6 py-2.5 rounded-sm border transition-all duration-300 active:scale-95 cursor-pointer
                   ${
                     isSelected
-                      ? "bg-[#B38E46] text-white border-[#B38E46] shadow-sm"
-                      : "bg-white text-[#B38E46] border-[#B38E46] hover:bg-[#B38E46] hover:text-white"
+                      ? "bg-[#E39F25] text-white border-[#E39F25] shadow-sm"
+                      : "bg-white text-[#E39F25] border-[#E39F25] hover:bg-[#E39F25] hover:text-white"
                   }`}
               >
                 {region.label}
@@ -381,8 +381,8 @@ export default function ItineraryPage() {
                 className={`text-xs tracking-[0.25em] font-medium uppercase px-6 py-2.5 rounded-sm border transition-all duration-300 active:scale-95 cursor-pointer
                   ${
                     isSelected
-                      ? "bg-[#B38E46] text-white border-[#B38E46] shadow-sm"
-                      : "bg-white text-[#B38E46] border-[#B38E46] hover:bg-[#B38E46] hover:text-white"
+                      ? "bg-[#E39F25] text-white border-[#E39F25] shadow-sm"
+                      : "bg-white text-[#E39F25] border-[#E39F25] hover:bg-[#E39F25] hover:text-white"
                   }`}
               >
                 {dur.label}
@@ -393,8 +393,8 @@ export default function ItineraryPage() {
 
         {/* 3. SEARCH BAR */}
         <div className="max-w-md mx-auto mb-10 relative">
-          <div className="relative flex items-center bg-white border border-[#B38E46] rounded-sm px-5 py-3.5 transition-all duration-300 shadow-2xs">
-            <Search className="w-4 h-4 text-[#B38E46] mr-3 shrink-0" />
+          <div className="relative flex items-center bg-white border border-[#E39F25] rounded-sm px-5 py-3.5 transition-all duration-300 shadow-2xs">
+            <Search className="w-4 h-4 text-[#E39F25] mr-3 shrink-0" />
             <input
               type="text"
               value={searchQuery}
@@ -419,7 +419,7 @@ export default function ItineraryPage() {
           <div className="flex justify-center mb-8">
             <button
               onClick={handleReset}
-              className="inline-flex items-center gap-2 px-6 py-2.5 border border-[#B38E46] bg-transparent text-[#B38E46] hover:bg-[#B38E46] hover:text-white rounded-sm text-xs font-medium tracking-[0.25em] uppercase transition-all duration-300 active:scale-95 shadow-xs cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-2.5 border border-[#E39F25] bg-transparent text-[#E39F25] hover:bg-[#E39F25] hover:text-white rounded-sm text-xs font-medium tracking-[0.25em] uppercase transition-all duration-300 active:scale-95 shadow-xs cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               Reset Filters
@@ -466,7 +466,7 @@ export default function ItineraryPage() {
               exit={{ opacity: 0, y: 16, transition: { duration: 0.2 } }}
               className="flex flex-col items-center justify-center text-center py-20 px-4 bg-white border border-neutral-200 rounded-3xl"
             >
-              <Compass className="w-12 h-12 text-[#B38E46] mb-4 animate-bounce" />
+              <Compass className="w-12 h-12 text-[#E39F25] mb-4 animate-bounce" />
               <h3 className="text-lg font-bold text-neutral-900 mb-1">
                 No Itineraries Found
               </h3>
@@ -476,7 +476,7 @@ export default function ItineraryPage() {
               </p>
               <button
                 onClick={handleReset}
-                className="border border-[#B38E46] bg-transparent text-[#B38E46] hover:bg-[#B38E46] hover:text-white font-medium tracking-[0.25em] uppercase px-6 py-2.5 rounded-sm text-xs transition-all duration-300 shadow-xs cursor-pointer"
+                className="border border-[#E39F25] bg-transparent text-[#E39F25] hover:bg-[#E39F25] hover:text-white font-medium tracking-[0.25em] uppercase px-6 py-2.5 rounded-sm text-xs transition-all duration-300 shadow-xs cursor-pointer"
               >
                 Clear All Filters
               </button>

@@ -71,7 +71,7 @@ export default function AdminBlogsListPage() {
           <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Blogs & Articles Management</h2>
           <p className="text-xs text-gray-500 mt-1">Manage luxury travel insights, editorial stories, categories, and rich-text content.</p>
         </div>
-        <Link href="/admin/blogs/new" className="bg-[#B38E46] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2">
+        <Link href="/admin/blogs/new" className="bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2">
           <Plus className="w-4 h-4" /> Write Blog
         </Link>
       </div>
@@ -84,7 +84,7 @@ export default function AdminBlogsListPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search blogs by title, excerpt, or author..."
-            className="w-full pl-10 pr-4 py-2 text-xs border border-gray-300 rounded-xl outline-none focus:border-[#B38E46]"
+            className="w-full pl-10 pr-4 py-2 text-xs border border-gray-300 rounded-xl outline-none focus:border-[#E39F25]"
           />
         </form>
 

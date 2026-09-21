@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
       />
       <section className="py-16 px-6 sm:px-12 lg:px-16 max-w-5xl mx-auto text-neutral-800 leading-relaxed space-y-8">
         <div className="p-6 bg-neutral-50 rounded-xl border border-neutral-200 space-y-3">
-          <p className="text-xs uppercase tracking-widest text-[#B38E46] font-semibold">
+          <p className="text-xs uppercase tracking-widest text-[#E39F25] font-semibold">
             Effective Date: September 2026
           </p>
           <p className="text-sm sm:text-base text-neutral-700 leading-relaxed font-medium">
@@ -30,7 +30,7 @@ export default function PrivacyPolicyPage() {
 
         <div className="space-y-8 pt-4">
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">1. Information We Collect</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">1. Information We Collect</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-3">
               We may collect information that you provide to us, including:
             </p>
@@ -50,7 +50,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">2. How We Use Your Information</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">2. How We Use Your Information</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-3">
               We may use your information to:
             </p>
@@ -67,7 +67,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">3. Communications</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">3. Communications</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               By providing your contact details, you may receive communications relating to your membership, bookings, transactions, customer service, offers, and other services.
             </p>
@@ -77,7 +77,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">4. Cookies</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">4. Cookies</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               Our website may use cookies and similar technologies to improve website functionality, understand website usage, remember preferences, and support marketing or analytics activities.
             </p>
@@ -87,7 +87,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">5. Sharing of Information</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">5. Sharing of Information</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-3">
               We may share relevant information with trusted third parties where necessary to provide our services, including:
             </p>
@@ -105,7 +105,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">6. Third-Party Services</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">6. Third-Party Services</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               Our website or services may contain links to third-party websites, booking platforms, hotels, or other service providers.
             </p>
@@ -115,7 +115,7 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">7. Data Security</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">7. Data Security</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               We take reasonable technical and organisational measures to protect personal information against unauthorised access, misuse, alteration, disclosure, or loss.
             </p>
@@ -125,14 +125,14 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">8. Data Retention</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">8. Data Retention</h2>
             <p className="text-sm text-neutral-600 leading-relaxed">
               We retain personal information for as long as reasonably necessary to provide our services, maintain membership and transaction records, resolve disputes, comply with legal obligations, and fulfil legitimate business requirements.
             </p>
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">9. Your Rights</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">9. Your Rights</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               Subject to applicable law, you may have rights relating to your personal information, including the right to request access, correction, updating, or deletion of certain information.
             </p>
@@ -142,14 +142,14 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">10. Children's Privacy</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">10. Children's Privacy</h2>
             <p className="text-sm text-neutral-600 leading-relaxed">
               Our website and membership services are not intended for children. We do not knowingly collect personal information from children where prohibited by applicable law.
             </p>
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">11. Changes to This Privacy Policy</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">11. Changes to This Privacy Policy</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               We may update this Privacy Policy from time to time to reflect changes in our services, technology, or applicable laws.
             </p>
@@ -159,14 +159,14 @@ export default function PrivacyPolicyPage() {
           </div>
 
           <div className="pt-6 border-t border-neutral-200">
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">12. Contact Us</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">12. Contact Us</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-3">
               For questions, requests, or concerns regarding this Privacy Policy, please contact:
             </p>
             <div className="text-sm text-neutral-700 leading-relaxed space-y-1">
               <p className="font-semibold text-neutral-900">The Luxe Yatra</p>
-              <p>Email: <a href="mailto:info@theluxeyatra.com" className="text-[#B38E46] underline">info@theluxeyatra.com</a></p>
-              <p>Website: <a href="https://www.theluxeyatra.com" target="_blank" rel="noopener noreferrer" className="text-[#B38E46] underline">www.theluxeyatra.com</a></p>
+              <p>Email: <a href="mailto:info@theluxeyatra.com" className="text-[#E39F25] underline">info@theluxeyatra.com</a></p>
+              <p>Website: <a href="https://www.theluxeyatra.com" target="_blank" rel="noopener noreferrer" className="text-[#E39F25] underline">www.theluxeyatra.com</a></p>
             </div>
           </div>
         </div>

@@ -81,7 +81,7 @@ export default function AdminDashboardPage() {
               {stats.hotels.published} Published
             </span>
           </div>
-          <div className="p-3 bg-[#B38E46]/10 text-[#B38E46] rounded-xl">
+          <div className="p-3 bg-[#E39F25]/10 text-[#E39F25] rounded-xl">
             <Building2 className="w-6 h-6" />
           </div>
         </div>
@@ -99,7 +99,7 @@ export default function AdminDashboardPage() {
               {stats.destinations.published} Published
             </span>
           </div>
-          <div className="p-3 bg-[#B38E46]/10 text-[#B38E46] rounded-xl">
+          <div className="p-3 bg-[#E39F25]/10 text-[#E39F25] rounded-xl">
             <MapPin className="w-6 h-6" />
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function AdminDashboardPage() {
               {stats.itineraries.published} Published
             </span>
           </div>
-          <div className="p-3 bg-[#B38E46]/10 text-[#B38E46] rounded-xl">
+          <div className="p-3 bg-[#E39F25]/10 text-[#E39F25] rounded-xl">
             <Compass className="w-6 h-6" />
           </div>
         </div>
@@ -135,7 +135,7 @@ export default function AdminDashboardPage() {
               {stats.blogs.published} Published
             </span>
           </div>
-          <div className="p-3 bg-[#B38E46]/10 text-[#B38E46] rounded-xl">
+          <div className="p-3 bg-[#E39F25]/10 text-[#E39F25] rounded-xl">
             <FileText className="w-6 h-6" />
           </div>
         </div>
@@ -144,7 +144,7 @@ export default function AdminDashboardPage() {
       {/* QUICK ACTIONS */}
       <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-xs space-y-4">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-[#B38E46]" />
+          <Sparkles className="w-4 h-4 text-[#E39F25]" />
           <h3 className="text-sm font-bold uppercase tracking-wider text-gray-800">
             Quick Actions
           </h3>
@@ -152,39 +152,39 @@ export default function AdminDashboardPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <Link
             href="/admin/hotels/new"
-            className="flex items-center justify-between p-4 bg-gray-50 hover:bg-[#B38E46]/10 hover:border-[#B38E46]/40 border border-gray-200 rounded-xl transition-all group"
+            className="flex items-center justify-between p-4 bg-gray-50 hover:bg-[#E39F25]/10 hover:border-[#E39F25]/40 border border-gray-200 rounded-xl transition-all group"
           >
-            <span className="text-xs font-bold text-gray-800 group-hover:text-[#B38E46]">
+            <span className="text-xs font-bold text-gray-800 group-hover:text-[#E39F25]">
               Add Hotel
             </span>
-            <Plus className="w-4 h-4 text-gray-400 group-hover:text-[#B38E46]" />
+            <Plus className="w-4 h-4 text-gray-400 group-hover:text-[#E39F25]" />
           </Link>
           <Link
             href="/admin/destinations/new"
-            className="flex items-center justify-between p-4 bg-gray-50 hover:bg-[#B38E46]/10 hover:border-[#B38E46]/40 border border-gray-200 rounded-xl transition-all group"
+            className="flex items-center justify-between p-4 bg-gray-50 hover:bg-[#E39F25]/10 hover:border-[#E39F25]/40 border border-gray-200 rounded-xl transition-all group"
           >
-            <span className="text-xs font-bold text-gray-800 group-hover:text-[#B38E46]">
+            <span className="text-xs font-bold text-gray-800 group-hover:text-[#E39F25]">
               Add Destination
             </span>
-            <Plus className="w-4 h-4 text-gray-400 group-hover:text-[#B38E46]" />
+            <Plus className="w-4 h-4 text-gray-400 group-hover:text-[#E39F25]" />
           </Link>
           <Link
             href="/admin/itineraries/new"
-            className="flex items-center justify-between p-4 bg-gray-50 hover:bg-[#B38E46]/10 hover:border-[#B38E46]/40 border border-gray-200 rounded-xl transition-all group"
+            className="flex items-center justify-between p-4 bg-gray-50 hover:bg-[#E39F25]/10 hover:border-[#E39F25]/40 border border-gray-200 rounded-xl transition-all group"
           >
-            <span className="text-xs font-bold text-gray-800 group-hover:text-[#B38E46]">
+            <span className="text-xs font-bold text-gray-800 group-hover:text-[#E39F25]">
               Add Itinerary
             </span>
-            <Plus className="w-4 h-4 text-gray-400 group-hover:text-[#B38E46]" />
+            <Plus className="w-4 h-4 text-gray-400 group-hover:text-[#E39F25]" />
           </Link>
           <Link
             href="/admin/blogs/new"
-            className="flex items-center justify-between p-4 bg-gray-50 hover:bg-[#B38E46]/10 hover:border-[#B38E46]/40 border border-gray-200 rounded-xl transition-all group"
+            className="flex items-center justify-between p-4 bg-gray-50 hover:bg-[#E39F25]/10 hover:border-[#E39F25]/40 border border-gray-200 rounded-xl transition-all group"
           >
-            <span className="text-xs font-bold text-gray-800 group-hover:text-[#B38E46]">
+            <span className="text-xs font-bold text-gray-800 group-hover:text-[#E39F25]">
               Write Blog
             </span>
-            <Plus className="w-4 h-4 text-gray-400 group-hover:text-[#B38E46]" />
+            <Plus className="w-4 h-4 text-gray-400 group-hover:text-[#E39F25]" />
           </Link>
         </div>
       </div>
@@ -199,7 +199,7 @@ export default function AdminDashboardPage() {
             </h4>
             <Link
               href="/admin/hotels"
-              className="text-xs text-[#B38E46] font-semibold hover:underline flex items-center gap-1"
+              className="text-xs text-[#E39F25] font-semibold hover:underline flex items-center gap-1"
             >
               View All <ArrowRight className="w-3 h-3" />
             </Link>
@@ -230,7 +230,7 @@ export default function AdminDashboardPage() {
             </h4>
             <Link
               href="/admin/destinations"
-              className="text-xs text-[#B38E46] font-semibold hover:underline flex items-center gap-1"
+              className="text-xs text-[#E39F25] font-semibold hover:underline flex items-center gap-1"
             >
               View All <ArrowRight className="w-3 h-3" />
             </Link>

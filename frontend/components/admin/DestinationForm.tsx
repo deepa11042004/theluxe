@@ -118,7 +118,7 @@ export default function DestinationForm({ initialData, isEdit = false }: Destina
           <button type="button" onClick={() => handleSubmit("DRAFT")} disabled={loading} className="px-3.5 sm:px-4 py-2 border border-gray-300 rounded-xl text-xs font-semibold">
             Save Draft
           </button>
-          <button type="button" onClick={() => handleSubmit("PUBLISHED")} disabled={loading} className="px-4 sm:px-5 py-2 bg-[#B38E46] text-white rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5 sm:gap-2">
+          <button type="button" onClick={() => handleSubmit("PUBLISHED")} disabled={loading} className="px-4 sm:px-5 py-2 bg-[#E39F25] text-white rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5 sm:gap-2">
             <Save className="w-4 h-4" /> Publish Destination
           </button>
         </div>
@@ -133,7 +133,7 @@ export default function DestinationForm({ initialData, isEdit = false }: Destina
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`px-4 sm:px-6 py-3 text-xs font-bold uppercase tracking-wider border-b-2 capitalize shrink-0 ${
-                activeTab === tab ? "border-[#B38E46] text-[#B38E46] bg-white" : "border-transparent text-gray-500"
+                activeTab === tab ? "border-[#E39F25] text-[#E39F25] bg-white" : "border-transparent text-gray-500"
               }`}
             >
               {tab === "basic" ? "Basic Info" : tab === "travel" ? "Travel Details" : tab}
@@ -242,7 +242,7 @@ export default function DestinationForm({ initialData, isEdit = false }: Destina
                 <button
                   type="button"
                   onClick={() => setMediaPickerOpen(true)}
-                  className="bg-[#B38E46] text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#967536]"
+                  className="bg-[#E39F25] text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#967536]"
                 >
                   Add Image
                 </button>
@@ -284,7 +284,7 @@ export default function DestinationForm({ initialData, isEdit = false }: Destina
                     type="checkbox"
                     checked={formData.is_featured}
                     onChange={(e) => handleChange("is_featured", e.target.checked)}
-                    className="w-4 h-4 text-[#B38E46] rounded"
+                    className="w-4 h-4 text-[#E39F25] rounded"
                   />
                   Featured Destination
                 </label>

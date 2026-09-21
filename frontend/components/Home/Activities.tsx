@@ -197,7 +197,7 @@ export default function Activities({ isSlider = false }: ActivitiesProps) {
                         >
                           {pillar.title}
                         </h3>
-                        <p className="text-[10px] sm:text-xs font-semibold tracking-widest text-[#B38E46] uppercase mb-2">
+                        <p className="text-[10px] sm:text-xs font-semibold tracking-widest text-[#E39F25] uppercase mb-2">
                           {pillar.tag}
                         </p>
                         <p className="text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
@@ -215,7 +215,7 @@ export default function Activities({ isSlider = false }: ActivitiesProps) {
               <button
                 onClick={handlePrev}
                 disabled={isFirst}
-                className="text-[#B38E46] hover:text-[#997734] transition-all hover:scale-110 disabled:opacity-30 cursor-pointer drop-shadow-md"
+                className="text-[#E39F25] hover:text-[#997734] transition-all hover:scale-110 disabled:opacity-30 cursor-pointer drop-shadow-md"
                 aria-label="Previous cards"
               >
                 <ChevronLeft className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1.2} />
@@ -244,7 +244,7 @@ export default function Activities({ isSlider = false }: ActivitiesProps) {
               <button
                 onClick={handleNext}
                 disabled={isLast}
-                className="text-[#B38E46] hover:text-[#997734] transition-all hover:scale-110 disabled:opacity-30 cursor-pointer drop-shadow-md"
+                className="text-[#E39F25] hover:text-[#997734] transition-all hover:scale-110 disabled:opacity-30 cursor-pointer drop-shadow-md"
                 aria-label="Next cards"
               >
                 <ChevronRight className="w-10 h-10 md:w-12 md:h-12" strokeWidth={1.2} />

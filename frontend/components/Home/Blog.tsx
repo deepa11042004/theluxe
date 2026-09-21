@@ -112,7 +112,7 @@ export default function Blog() {
                   />
 
                   {/* Golden Tint Hover Overlay with Centered READ MORE */}
-                  <div className="absolute inset-0 bg-[#B38E46]/65 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-[#E39F25]/65 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <span className="text-white text-xs tracking-[0.35em] font-medium uppercase border-b border-white pb-1">
                       READ MORE
                     </span>
@@ -122,7 +122,7 @@ export default function Blog() {
                 {/* Content Area below Image */}
                 <div className="pt-6 pb-2 flex flex-col flex-1 gap-2.5">
                   {/* Title */}
-                  <h3 className="text-xl md:text-2xl text-neutral-900 leading-snug font-light group-hover:text-[#B38E46] transition-colors duration-200" style={{ fontFamily: "var(--work-font), sans-serif", fontWeight: 300 }}>
+                  <h3 className="text-xl md:text-2xl text-neutral-900 leading-snug font-light group-hover:text-[#E39F25] transition-colors duration-200" style={{ fontFamily: "var(--work-font), sans-serif", fontWeight: 300 }}>
                     {post.title}
                   </h3>
 
@@ -133,7 +133,7 @@ export default function Blog() {
 
                   {/* READ MORE Link Indicator */}
                   <div className="pt-2">
-                    <span className="inline-block text-xs tracking-[0.25em] font-medium text-neutral-600 uppercase group-hover:text-[#B38E46] transition-colors">
+                    <span className="inline-block text-xs tracking-[0.25em] font-medium text-neutral-600 uppercase group-hover:text-[#E39F25] transition-colors">
                       READ MORE &rarr;
                     </span>
                   </div>
@@ -152,7 +152,7 @@ export default function Blog() {
         >
           <Link
             href="/blogs"
-            className="border border-[#B38E46] text-[#B38E46] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#B38E46] hover:text-white transition-all duration-300 cursor-pointer rounded-sm"
+            className="border border-[#E39F25] text-[#E39F25] px-6 py-2.5 text-xs tracking-[0.25em] font-medium uppercase hover:bg-[#E39F25] hover:text-white transition-all duration-300 cursor-pointer rounded-sm"
           >
             VIEW ALL
           </Link>

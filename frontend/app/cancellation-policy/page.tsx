@@ -17,7 +17,7 @@ export default function CancellationPolicyPage() {
       />
       <section className="py-16 px-6 sm:px-12 lg:px-16 max-w-5xl mx-auto text-neutral-800 leading-relaxed space-y-8">
         <div className="p-6 bg-neutral-50 rounded-xl border border-neutral-200 space-y-2">
-          <p className="text-xs uppercase tracking-widest text-[#B38E46] font-semibold">
+          <p className="text-xs uppercase tracking-widest text-[#E39F25] font-semibold">
             Effective Date: September 2026
           </p>
           <p className="text-sm sm:text-base text-neutral-700 leading-relaxed font-medium">
@@ -27,7 +27,7 @@ export default function CancellationPolicyPage() {
 
         <div className="space-y-8 pt-4">
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">1. Membership Cancellation</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">1. Membership Cancellation</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               Membership cancellation requests may be submitted through the official customer support channels of The Luxe Yatra.
             </p>
@@ -37,7 +37,7 @@ export default function CancellationPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">2. Membership Refunds</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">2. Membership Refunds</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               Membership fees are generally non-refundable and non-cancellable for personal reasons, except where a refund is specifically approved under the applicable policy or required by applicable law.
             </p>
@@ -47,7 +47,7 @@ export default function CancellationPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">3. Refund Processing</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">3. Refund Processing</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               Where a refund is approved, the refund will normally be processed to the original payment method, subject to verification and payment-provider processing.
             </p>
@@ -57,7 +57,7 @@ export default function CancellationPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">4. Hotel and Travel Booking Cancellation</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">4. Hotel and Travel Booking Cancellation</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               Hotel and travel bookings are subject to the cancellation, modification, and no-show policies applicable to the specific booking, hotel, rate plan, travel provider, or service.
             </p>
@@ -67,7 +67,7 @@ export default function CancellationPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">5. Voucher and Certificate Cancellation</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">5. Voucher and Certificate Cancellation</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-3">
               Stay privilege certificates, gift certificates, promotional vouchers, or other benefits provided as part of a Membership generally:
             </p>
@@ -80,7 +80,7 @@ export default function CancellationPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">6. Refund Eligibility</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">6. Refund Eligibility</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-3">
               Refund eligibility will be determined based on:
             </p>
@@ -96,12 +96,12 @@ export default function CancellationPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">7. Cancellation Request</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">7. Cancellation Request</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               To request cancellation or a refund, Members should contact:
             </p>
             <p className="text-sm text-neutral-800 font-semibold mb-2">
-              Email: <a href="mailto:info@theluxeyatra.com" className="text-[#B38E46] underline">info@theluxeyatra.com</a>
+              Email: <a href="mailto:info@theluxeyatra.com" className="text-[#E39F25] underline">info@theluxeyatra.com</a>
             </p>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               The request should include the Member's name, registered contact details, Membership information, transaction details, and reason for the request.
@@ -112,7 +112,7 @@ export default function CancellationPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">8. Chargebacks and Payment Disputes</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">8. Chargebacks and Payment Disputes</h2>
             <p className="text-sm text-neutral-600 leading-relaxed mb-2">
               Members are requested to contact The Luxe Yatra customer support before initiating a payment dispute or chargeback.
             </p>
@@ -122,25 +122,25 @@ export default function CancellationPolicyPage() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">9. Changes to This Policy</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">9. Changes to This Policy</h2>
             <p className="text-sm text-neutral-600 leading-relaxed">
               The Luxe Yatra may update this Cancellation & Refund Policy from time to time. The updated version will be published on this website and will apply from the stated effective date, subject to applicable law.
             </p>
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">10. Governing Law</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">10. Governing Law</h2>
             <p className="text-sm text-neutral-600 leading-relaxed">
               This Policy shall be governed by the laws of India. Subject to applicable law, disputes shall be subject to the jurisdiction of the competent courts in Delhi, India.
             </p>
           </div>
 
           <div className="pt-6 border-t border-neutral-200">
-            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#B38E46] mb-3">11. Contact Us</h2>
+            <h2 className="text-xl sm:text-2xl font-[Vera] text-[#E39F25] mb-3">11. Contact Us</h2>
             <div className="text-sm text-neutral-700 leading-relaxed space-y-1">
               <p className="font-semibold text-neutral-900">The Luxe Yatra</p>
-              <p>Email: <a href="mailto:info@theluxeyatra.com" className="text-[#B38E46] underline">info@theluxeyatra.com</a></p>
-              <p>Website: <a href="https://www.theluxeyatra.com" target="_blank" rel="noopener noreferrer" className="text-[#B38E46] underline">www.theluxeyatra.com</a></p>
+              <p>Email: <a href="mailto:info@theluxeyatra.com" className="text-[#E39F25] underline">info@theluxeyatra.com</a></p>
+              <p>Website: <a href="https://www.theluxeyatra.com" target="_blank" rel="noopener noreferrer" className="text-[#E39F25] underline">www.theluxeyatra.com</a></p>
             </div>
           </div>
         </div>
