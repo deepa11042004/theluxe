@@ -82,7 +82,7 @@ export default function AdminDestinationsListPage() {
         </div>
         <Link
           href="/admin/destinations/new"
-          className="bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2"
+          className="bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#430021] flex items-center gap-2"
         >
           <Plus className="w-4 h-4" /> Add Destination
         </Link>

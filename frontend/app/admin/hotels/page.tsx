@@ -94,7 +94,7 @@ export default function AdminHotelsListPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/admin/hotels/new"
-            className="bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] transition-colors flex items-center gap-2 shadow-sm"
+            className="bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#430021] transition-colors flex items-center gap-2 shadow-sm"
           >
             <Plus className="w-4 h-4" /> Add New Hotel
           </Link>

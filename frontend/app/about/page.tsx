@@ -461,7 +461,7 @@ export default function AboutPage() {
               <div className="shrink-0 mt-4 md:mt-0">
                 <Link
                   href="/luxeclub"
-                  className="inline-flex items-center gap-2 border border-[#E39F25] text-white bg-[#E39F25] hover:bg-[#997734] font-medium text-xs tracking-[0.25em] uppercase px-8 py-3.5 rounded-sm transition-all duration-300 shadow-md cursor-pointer whitespace-nowrap"
+                  className="inline-flex items-center gap-2 border border-[#E39F25] text-white bg-[#E39F25] hover:bg-[#430021] font-medium text-xs tracking-[0.25em] uppercase px-8 py-3.5 rounded-sm transition-all duration-300 shadow-md cursor-pointer whitespace-nowrap"
                 >
                   <span>Review Terms &amp; Join</span>
                   <ArrowRight className="w-4 h-4" />

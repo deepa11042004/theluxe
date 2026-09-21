@@ -123,7 +123,7 @@ export default function MediaPickerModal({
 
         {/* UPLOAD & CONTROLS */}
         <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-white">
-          <label className="cursor-pointer inline-flex items-center gap-2 bg-[#E39F25] text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#967536] transition-colors shadow-sm">
+          <label className="cursor-pointer inline-flex items-center gap-2 bg-[#E39F25] text-white px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#430021] transition-colors shadow-sm">
             <Upload className="w-4 h-4" />
             {uploading ? "Uploading & Optimizing..." : "Upload New Image"}
             <input
@@ -209,7 +209,7 @@ export default function MediaPickerModal({
           <button
             onClick={handleConfirm}
             disabled={!selectedMedia}
-            className="px-6 py-2 text-xs font-semibold bg-[#E39F25] text-white rounded-xl hover:bg-[#967536] disabled:opacity-50 transition-colors shadow-sm"
+            className="px-6 py-2 text-xs font-semibold bg-[#E39F25] text-white rounded-xl hover:bg-[#430021] disabled:opacity-50 transition-colors shadow-sm"
           >
             Select Image
           </button>

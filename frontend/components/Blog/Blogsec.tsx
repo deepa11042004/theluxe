@@ -332,7 +332,7 @@ export default function Blogsec() {
               />
               <button
                 type="submit"
-                className="w-full sm:w-auto px-7 py-3 bg-[#E39F25] hover:bg-[#997734] text-white text-xs tracking-[0.2em] uppercase font-medium transition-colors shrink-0 cursor-pointer rounded-sm"
+                className="w-full sm:w-auto px-7 py-3 bg-[#E39F25] hover:bg-[#430021] text-white text-xs tracking-[0.2em] uppercase font-medium transition-colors shrink-0 cursor-pointer rounded-sm"
               >
                 SUBSCRIBE
               </button>

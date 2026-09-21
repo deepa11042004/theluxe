@@ -71,7 +71,7 @@ export default function AdminItinerariesListPage() {
           <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Itineraries Management</h2>
           <p className="text-xs text-gray-500 mt-1">Manage multi-day curated travel itineraries, day-by-day schedules, and inclusions.</p>
         </div>
-        <Link href="/admin/itineraries/new" className="bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2">
+        <Link href="/admin/itineraries/new" className="bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#430021] flex items-center gap-2">
           <Plus className="w-4 h-4" /> Add Itinerary
         </Link>
       </div>

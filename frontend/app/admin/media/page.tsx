@@ -79,7 +79,7 @@ export default function AdminMediaPage() {
           <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Media Library</h2>
           <p className="text-xs text-gray-500 mt-1">Upload, optimize (auto WebP conversion), and manage high-resolution assets.</p>
         </div>
-        <label className="cursor-pointer bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-2 shadow-sm">
+        <label className="cursor-pointer bg-[#E39F25] text-white px-4 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#430021] flex items-center gap-2 shadow-sm">
           <Upload className="w-4 h-4" />
           {uploading ? "Uploading & Optimizing..." : "Upload New Image"}
           <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} disabled={uploading} />

@@ -260,7 +260,7 @@ const Carousel = () => {
             onClick={prevSlide}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="text-[#E39F25] hover:text-[#997734] transition-colors cursor-pointer drop-shadow-sm"
+            className="text-[#E39F25] hover:text-[#c9891c] transition-colors cursor-pointer drop-shadow-sm"
             aria-label="Previous slide"
           >
             <ChevronLeft size={40} strokeWidth={1.5} />
@@ -269,7 +269,7 @@ const Carousel = () => {
             onClick={nextSlide}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="text-[#E39F25] hover:text-[#997734] transition-colors cursor-pointer drop-shadow-sm"
+            className="text-[#E39F25] hover:text-[#c9891c] transition-colors cursor-pointer drop-shadow-sm"
             aria-label="Next slide"
           >
             <ChevronRight size={40} strokeWidth={1.5} />

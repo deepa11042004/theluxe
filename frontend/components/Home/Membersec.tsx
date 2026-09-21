@@ -323,7 +323,7 @@ export default function Membersec() {
                 {/* CORNER RIBBON FOR MOST POPULAR */}
                 {card.isPopular && (
                   <div className="absolute top-0 right-0 w-28 h-28 overflow-hidden pointer-events-none z-20">
-                    <div className="bg-gradient-to-r from-[#E39F25] via-[#F3E5AB] to-[#AA7C11] text-black font-black text-[9px] leading-tight uppercase tracking-wider py-1.5 w-[140px] text-center absolute top-[18px] -right-[36px] rotate-45 shadow-md border-y border-[#997734]/40 flex flex-col justify-center items-center">
+                    <div className="bg-gradient-to-r from-[#E39F25] via-[#F3E5AB] to-[#AA7C11] text-black font-black text-[9px] leading-tight uppercase tracking-wider py-1.5 w-[140px] text-center absolute top-[18px] -right-[36px] rotate-45 shadow-md border-y border-[#c9891c]/40 flex flex-col justify-center items-center">
                       <span>MOST</span>
                       <span>POPULAR</span>
                     </div>

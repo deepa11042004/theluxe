@@ -1212,7 +1212,7 @@ export default function ItineraryDetail({ id }: ItineraryDetailProps) {
 
                   <Link
                     href="/luxeclub"
-                    className="w-full flex items-center justify-center gap-2 border border-[#E39F25] bg-[#E39F25] hover:bg-[#997734] text-white transition-all duration-300 py-3.5 text-xs tracking-[0.25em] uppercase font-medium rounded-md shadow-sm cursor-pointer active:scale-95 text-center"
+                    className="w-full flex items-center justify-center gap-2 border border-[#E39F25] bg-[#E39F25] hover:bg-[#430021] text-white transition-all duration-300 py-3.5 text-xs tracking-[0.25em] uppercase font-medium rounded-md shadow-sm cursor-pointer active:scale-95 text-center"
                   >
                     <ShieldCheck className="w-3.5 h-3.5 text-white" />
                     <span>ENROL VIA LUXE CLUB</span>

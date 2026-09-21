@@ -106,7 +106,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#E39F25] hover:bg-[#967536] text-white font-semibold py-3 rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50 shadow-lg shadow-[#E39F25]/20 cursor-pointer"
+            className="w-full bg-[#E39F25] hover:bg-[#430021] text-white font-semibold py-3 rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all disabled:opacity-50 shadow-lg shadow-[#E39F25]/20 cursor-pointer"
           >
             {loading ? "Authenticating..." : "Sign In to Admin Portal"}
             <ArrowRight className="w-4 h-4" />

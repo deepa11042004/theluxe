@@ -16,7 +16,7 @@ function processDir(dir) {
 
       if (/EFBF04/i.test(content) || /d6ab03/i.test(content)) {
         content = content.replace(/#EFBF04/gi, '#E39F25');
-        content = content.replace(/#d6ab03/gi, '#997734');
+        content = content.replace(/#d6ab03/gi, '#c9891c');
         fs.writeFileSync(fullPath, content, 'utf8');
         console.log(`Updated: ${fullPath}`);
       }

@@ -277,7 +277,7 @@ export default function ContactPage() {
 
                   <button
                     type="submit"
-                    className="w-full py-4 bg-[#E39F25] hover:bg-[#967536] text-white font-semibold text-sm uppercase tracking-[0.2em] transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-[#E39F25] hover:bg-[#430021] text-white font-semibold text-sm uppercase tracking-[0.2em] transition-colors flex items-center justify-center gap-2"
                   >
                     <Send className="w-4 h-4" /> Send Inquiry
                   </button>

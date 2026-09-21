@@ -121,7 +121,7 @@ export default function AdminProfilePage() {
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#E39F25] text-white px-5 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#967536] disabled:opacity-50"
+            className="bg-[#E39F25] text-white px-5 py-2.5 rounded-xl text-xs font-semibold hover:bg-[#430021] disabled:opacity-50"
           >
             {loading ? "Updating..." : "Update Password"}
           </button>

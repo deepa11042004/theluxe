@@ -296,7 +296,7 @@ export default function BlogDetail({ slug }: BlogDetailProps) {
               prose-headings:font-serif prose-headings:font-medium prose-headings:text-neutral-900 prose-headings:tracking-tight
               prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mt-10 prose-h2:mb-4
               prose-p:text-neutral-700 prose-p:leading-relaxed prose-p:text-sm prose-p:sm:text-base prose-p:mb-6 prose-p:font-light
-              prose-a:text-[#E39F25] prose-a:underline hover:prose-a:text-[#967536]
+              prose-a:text-[#E39F25] prose-a:underline hover:prose-a:text-[#c9891c]
               prose-blockquote:border-l-[#E39F25] prose-blockquote:italic prose-blockquote:text-neutral-800"
             dangerouslySetInnerHTML={{ __html: blog.content }}
           />

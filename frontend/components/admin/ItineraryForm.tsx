@@ -166,7 +166,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
           <button type="button" onClick={() => handleSubmit("DRAFT")} disabled={loading} className="px-3.5 sm:px-4 py-2 border border-gray-300 rounded-xl text-xs font-semibold">
             Save Draft
           </button>
-          <button type="button" onClick={() => handleSubmit("PUBLISHED")} disabled={loading} className="px-4 sm:px-5 py-2 bg-[#E39F25] text-white rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5 sm:gap-2">
+          <button type="button" onClick={() => handleSubmit("PUBLISHED")} disabled={loading} className="px-4 sm:px-5 py-2 bg-[#E39F25] text-white rounded-xl text-xs font-semibold hover:bg-[#430021] flex items-center gap-1.5 sm:gap-2">
             <Save className="w-4 h-4" /> Publish Itinerary
           </button>
         </div>
@@ -269,7 +269,7 @@ export default function ItineraryForm({ initialData, isEdit = false }: Itinerary
                 <button
                   type="button"
                   onClick={addDay}
-                  className="bg-[#E39F25] text-white px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5"
+                  className="bg-[#E39F25] text-white px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#430021] flex items-center gap-1.5"
                 >
                   <Plus className="w-4 h-4" /> Add Day
                 </button>

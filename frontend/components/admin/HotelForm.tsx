@@ -155,7 +155,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
             type="button"
             onClick={() => handleSubmit("PUBLISHED")}
             disabled={loading}
-            className="px-4 sm:px-5 py-2 bg-[#E39F25] text-white rounded-xl text-xs font-semibold hover:bg-[#967536] transition-colors flex items-center gap-1.5 sm:gap-2 shadow-sm"
+            className="px-4 sm:px-5 py-2 bg-[#E39F25] text-white rounded-xl text-xs font-semibold hover:bg-[#430021] transition-colors flex items-center gap-1.5 sm:gap-2 shadow-sm"
           >
             <Save className="w-4 h-4" />
             <span>{isEdit ? "Update & Publish" : "Publish Hotel"}</span>
@@ -366,7 +366,7 @@ export default function HotelForm({ initialData, isEdit = false }: HotelFormProp
                 <button
                   type="button"
                   onClick={() => setMediaPickerOpen(true)}
-                  className="bg-[#E39F25] text-white px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#967536] flex items-center gap-1.5"
+                  className="bg-[#E39F25] text-white px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold hover:bg-[#430021] flex items-center gap-1.5"
                 >
                   <Plus className="w-4 h-4" /> Add Image
                 </button>
