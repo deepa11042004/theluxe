@@ -6,36 +6,7 @@ import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { FaInstagram, FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 
-// DUMMY CONTENT DATA FOR FUTURE CUSTOMIZATION
-const DUMMY_FOOTER_SECTIONS = [
-  {
-    title: "Discover",
-    links: [
-      { label: "Destinations", href: "#" },
-      { label: "Signature Itineraries", href: "#" },
-      { label: "Luxe Club Membership", href: "#" },
-      { label: "Curated Experiences", href: "#" },
-    ],
-  },
-  {
-    title: "Our Services",
-    links: [
-      { label: "Bespoke Journey Planning", href: "#" },
-      { label: "Private Jet Charters", href: "#" },
-      { label: "Exclusive Villa Rentals", href: "#" },
-      { label: "24/7 Global Concierge", href: "#" },
-    ],
-  },
-  {
-    title: "About Us",
-    links: [
-      { label: "Our Story", href: "#" },
-      { label: "Sustainability", href: "#" },
-      { label: "Press & Media", href: "#" },
-      { label: "Careers", href: "#" },
-    ],
-  },
-];
+
 
 export default function Footer() {
   return (
@@ -106,44 +77,58 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* SOCIAL MEDIA */}
-            <div className="flex items-center gap-4 pt-4">
-              <a href="#" className="hover:opacity-80 transition-opacity"><FaInstagram className="w-4 h-4" /></a>
-              <a href="#" className="hover:opacity-80 transition-opacity"><FaFacebookF className="w-4 h-4" /></a>
-              <a href="#" className="hover:opacity-80 transition-opacity"><FaTwitter className="w-4 h-4" /></a>
-              <a href="#" className="hover:opacity-80 transition-opacity"><FaLinkedinIn className="w-4 h-4" /></a>
-            </div>
+
           </div>
 
-          {/* DUMMY NAVIGATION SECTIONS */}
-          {DUMMY_FOOTER_SECTIONS.map((section, idx) => (
-            <div key={idx} className="flex flex-col gap-2">
-              <h4 className="text-base sm:text-lg font-bold tracking-wider uppercase text-white mb-2">
-                {section.title}
-              </h4>
-              <ul className="space-y-1.5">
-                {section.links.map((link, lIdx) => (
-                  <li key={lIdx}>
-                    <a
-                      href={link.href}
-                      className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          {/* NAVIGATION SECTIONS */}
+          <div className="flex flex-col gap-2">
+            <h4 className="text-base sm:text-lg font-bold tracking-wider uppercase text-white mb-2">
+              Quick Links
+            </h4>
+            <ul className="space-y-1.5">
+              <li><Link href="/" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">Home</Link></li>
+              <li><Link href="/about" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">Why The Luxe Yatra</Link></li>
+              <li><Link href="/luxeclub" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">Luxe Club</Link></li>
+              <li><Link href="/brands" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">Luxury Hotels Brand</Link></li>
+              <li><Link href="/join" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">How Membership Work</Link></li>
+              <li><Link href="/faqs" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">FAQs</Link></li>
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <h4 className="text-base sm:text-lg font-bold tracking-wider uppercase text-white mb-2">
+              Support
+            </h4>
+            <ul className="space-y-1.5">
+              <li><Link href="/contact" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">Customer Care</Link></li>
+              <li><Link href="/experiences" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">Book A Holiday</Link></li>
+              <li><Link href="/privacy-policy" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">Privacy Policy</Link></li>
+              <li><Link href="/terms-and-conditions" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">Term & Conditions</Link></li>
+              <li><Link href="/cancellation-policy" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">Cancellation & Refund Policy</Link></li>
+              <li><Link href="/contact" className="text-[11px] text-white hover:underline transition-colors font-normal opacity-95 hover:opacity-100">Contact us</Link></li>
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <h4 className="text-base sm:text-lg font-bold tracking-wider uppercase text-white mb-2">
+              Follow us
+            </h4>
+            <div className="flex items-center gap-4 pt-1">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity"><FaInstagram className="w-5 h-5" /></a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity"><FaFacebookF className="w-5 h-5" /></a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity"><FaTwitter className="w-5 h-5" /></a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity"><FaLinkedinIn className="w-5 h-5" /></a>
             </div>
-          ))}
+          </div>
         </div>
 
         {/* BOTTOM COPYRIGHT & DUMMY LEGAL LINKS */}
         <div className="border-t border-white/25 pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] text-white font-normal">
           <p>© {new Date().getFullYear()} The Luxe Yatra. All rights reserved.</p>
           <div className="flex gap-5">
-            <a href="#" className="hover:underline transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:underline transition-colors">Terms of Service</a>
-            <a href="#" className="hover:underline transition-colors">Cookie Settings</a>
+            <Link href="/privacy-policy" className="hover:underline transition-colors">Privacy Policy</Link>
+            <Link href="/terms-and-conditions" className="hover:underline transition-colors">Terms of Service</Link>
+            <Link href="/privacy-policy" className="hover:underline transition-colors">Cookie Settings</Link>
           </div>
         </div>
       </div>
