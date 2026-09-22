@@ -2,57 +2,24 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Heading from "@/components/Heading";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-function MandalaPattern() {
-  return (
-    <svg
-      viewBox="0 0 200 200"
-      className="w-72 h-72 stroke-[#E5C158]/70 fill-none stroke-[1.2] pointer-events-none"
-    >
-      <circle cx="100" cy="100" r="85" />
-      <circle cx="100" cy="100" r="65" />
-      <circle cx="100" cy="100" r="45" />
-      {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
-        <g key={deg} transform={`rotate(${deg} 100 100)`}>
-          <ellipse cx="100" cy="55" rx="14" ry="32" />
-          <polygon points="100,15 108,35 100,55 92,35" />
-        </g>
-      ))}
-    </svg>
-  );
-}
-
-function LuxeLogoEmblem() {
-  return (
-    <div className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-3 relative flex items-center justify-center rounded-full bg-white p-1 shadow-md border border-[#E5C158]/50">
-      <Image
-        src="/Img/logo-emblem-v3.png"
-        alt="Luxe Yatra Emblem"
-        fill
-        className="object-contain p-0.5"
-      />
-    </div>
-  );
-}
 
 const MEMBERSHIPS = [
   {
     title: "LUXE SIGNATURE",
     tagline: "domestic",
-    image: "/Img/card-domestic.jpg",
+    image: "/Img/card-signature.png",
   },
   {
-    title: "LUXE DIAMOND",
+    title: "LUXE PRESTIGE",
     tagline: "worldwide",
-    image: "/Img/card-worldwide.jpg",
+    image: "/Img/card-prestige.png",
   },
   {
-    title: "LUXE IMPERIAL",
+    title: "LUXE BLACK",
     tagline: "lifetime",
-    image: "/Img/card-lifetime.jpg",
+    image: "/Img/card-black.png",
   }
 ];
 
@@ -111,12 +78,13 @@ export default function Imagesec() {
                   }}
                   className={`flex flex-col text-left group w-[65vw] sm:w-[350px] md:w-auto shrink-0 md:static transition-all duration-700 ${mobileClasses}`}
                 >
-                  <div className="relative w-full aspect-[1.55/1] rounded-[1rem] md:rounded-[1.75rem] overflow-hidden shadow-lg border border-[#E39F25]/30 md:border-white/10 group-hover:scale-[1.02] transition-transform duration-300 select-none">
+                  <div className="relative w-full aspect-[1.685/1] drop-shadow-2xl group-hover:scale-[1.02] transition-transform duration-300 select-none">
                     <Image
                       src={card.image}
                       alt={`${card.title} Membership Card`}
                       fill
-                      className="object-cover"
+                      className="object-contain"
+                      priority
                     />
                   </div>
                 </motion.div>
