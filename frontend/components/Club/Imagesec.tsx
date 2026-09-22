@@ -73,7 +73,7 @@ export default function Imagesec() {
           backgroundImage: 'repeating-linear-gradient(45deg, #ffffff, #ffffff 20px, #f9f9f9 20px, #f9f9f9 40px)'
         }}
       >
-        <div className="relative z-10 w-full max-w-6xl px-8 flex flex-col items-center pt-32 pb-12">
+        <div className="relative z-10 w-full max-w-6xl px-8 flex flex-col items-center pt-16 md:pt-20 pb-12">
           <div className="text-center mb-16 flex flex-col items-center gap-2 z-10 relative">
             <span className="text-base md:text-xl font-serif italic text-[#E39F25] tracking-[0.3em] lowercase">
               launching
@@ -86,14 +86,14 @@ export default function Imagesec() {
             </span>
             <div className="w-20 md:w-28 h-[2px] bg-[#E39F25]/60 mt-5"></div>
           </div>
-          <div className="relative flex justify-center items-center w-full max-w-6xl mx-auto drop-shadow-xl z-20 pb-12 md:pb-8 md:grid md:grid-cols-3 md:gap-6 md:px-4">
+          <div className="relative flex justify-center items-center w-full max-w-6xl mx-auto z-20 pb-12 md:pb-8 md:grid md:grid-cols-3 md:gap-6 md:px-4">
             {MEMBERSHIPS.map((card, idx) => {
               const position = getPosition(idx);
               let mobileClasses = "";
               if (position === 'left') {
                 mobileClasses = "absolute left-[-2%] sm:left-[5%] md:left-auto z-0 scale-[0.9] md:scale-100 opacity-100 origin-left md:origin-center cursor-pointer md:cursor-default";
               } else if (position === 'center') {
-                mobileClasses = "relative z-10 scale-[1.05] md:scale-100 shadow-[0_20px_50px_rgba(0,0,0,0.5)] md:shadow-none";
+                mobileClasses = "relative z-10 scale-[1.05] md:scale-100 shadow-[0_15px_30px_rgba(0,0,0,0.25)] md:shadow-none";
               } else if (position === 'right') {
                 mobileClasses = "absolute right-[-2%] sm:right-[5%] md:right-auto z-0 scale-[0.9] md:scale-100 opacity-100 origin-right md:origin-center cursor-pointer md:cursor-default";
               }
@@ -111,7 +111,7 @@ export default function Imagesec() {
                   }}
                   className={`flex flex-col text-left group w-[65vw] sm:w-[350px] md:w-auto shrink-0 md:static transition-all duration-700 ${mobileClasses}`}
                 >
-                  <div className="relative w-full aspect-[1.55/1] rounded-[1rem] md:rounded-[1.75rem] overflow-hidden shadow-2xl border border-[#E39F25]/30 md:border-white/10 group-hover:scale-[1.02] transition-transform duration-300 select-none">
+                  <div className="relative w-full aspect-[1.55/1] rounded-[1rem] md:rounded-[1.75rem] overflow-hidden shadow-lg border border-[#E39F25]/30 md:border-white/10 group-hover:scale-[1.02] transition-transform duration-300 select-none">
                     <Image
                       src={card.image}
                       alt={`${card.title} Membership Card`}
@@ -134,9 +134,6 @@ export default function Imagesec() {
             </button>
           </div>
         </div>
-        
-        {/* Subtle overlay gradient */}
-        <div className="absolute inset-0 pointer-events-none bg-linear-to-b from-white/40 via-transparent to-neutral-100/80" />
       </main>
     </>
   );

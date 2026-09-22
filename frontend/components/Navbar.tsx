@@ -351,6 +351,16 @@ export default function Navbar() {
 
                 <motion.div variants={itemVariants}>
                   <Link
+                    href="/contact"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="hover:text-black transition-colors"
+                  >
+                    Contact
+                  </Link>
+                </motion.div>
+
+                <motion.div variants={itemVariants}>
+                  <Link
                     href="/login"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="hover:text-black transition-colors text-sm mt-4 text-white/60"
