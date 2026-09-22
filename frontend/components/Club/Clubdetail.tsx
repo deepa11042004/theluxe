@@ -5,7 +5,6 @@ import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
 import { ArrowLeft, ArrowRight, ShieldCheck, Check, X, ChevronLeft, ChevronRight, Hotel, Gift, Plane, Globe, Headphones } from "lucide-react";
 import Image from "next/image";
 import Activities from "@/components/Home/Activities";
-import CardOrbitCarousel from "./CardOrbitCarousel";
 
 const HotelIcon = () => (
   <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -254,11 +253,6 @@ export default function Membersec() {
           family moments and thoughtfully crafted experiences.
         </p>
 
-        {/* Rotating Circular Arc Carousel with the 3 Membership Cards */}
-        <div className="w-full my-6">
-          <CardOrbitCarousel />
-        </div>
-
         {/* Grey Horizontal Line Divider - Edge to Edge */}
         <div className="w-screen relative left-1/2 -translate-x-1/2 border-t border-neutral-200 my-8"></div>
 
@@ -390,7 +384,7 @@ export default function Membersec() {
           </div>
 
           {/* NEW SECTION: COMPARISON TABLE */}
-          <div className="mt-24 max-w-6xl mx-auto pb-10 px-4 sm:px-6 w-full">
+          <div id="membership-comparison" className="mt-24 max-w-6xl mx-auto pb-10 px-4 sm:px-6 w-full scroll-mt-24">
             <h3 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-center text-black mb-12">
               Membership Comparison
             </h3>
