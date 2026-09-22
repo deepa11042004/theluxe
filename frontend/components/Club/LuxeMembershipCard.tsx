@@ -37,28 +37,28 @@ const TIER_CONFIG: Record<
     glowStyle: "rgba(227, 63, 85, 0.12)",
   },
   diamond: {
-    title: "LUXE DIAMOND",
+    title: "LUXE PRESTIGE",
     membershipNo: "LY100002",
     bgStyle:
       "radial-gradient(ellipse 95% 75% at 50% 35%, #08224d 0%, #04132e 55%, #010714 100%)",
     glowStyle: "rgba(59, 130, 246, 0.12)",
   },
   worldwide: {
-    title: "LUXE DIAMOND",
+    title: "LUXE PRESTIGE",
     membershipNo: "LY100002",
     bgStyle:
       "radial-gradient(ellipse 95% 75% at 50% 35%, #08224d 0%, #04132e 55%, #010714 100%)",
     glowStyle: "rgba(59, 130, 246, 0.12)",
   },
   imperial: {
-    title: "LUXE IMPERIAL",
+    title: "LUXE BLACK - LIMITED EDITION",
     membershipNo: "LY100003",
     bgStyle:
       "radial-gradient(ellipse 95% 75% at 50% 35%, #06311d 0%, #031b10 55%, #010d07 100%)",
     glowStyle: "rgba(16, 185, 129, 0.12)",
   },
   lifetime: {
-    title: "LUXE IMPERIAL",
+    title: "LUXE BLACK - LIMITED EDITION",
     membershipNo: "LY100003",
     bgStyle:
       "radial-gradient(ellipse 95% 75% at 50% 35%, #06311d 0%, #031b10 55%, #010d07 100%)",

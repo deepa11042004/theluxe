@@ -59,7 +59,7 @@ export default function AboutPage() {
   const membershipPlans = [
     {
       name: "domestic",
-      price: "₹12,999",
+      price: "₹14,999",
       period: "per year",
       badge: "Signature",
       popular: false,
@@ -78,9 +78,9 @@ export default function AboutPage() {
     },
     {
       name: "worldwide",
-      price: "₹19,999",
+      price: "₹24,999",
       period: "per year",
-      badge: "Luxe Diamond",
+      badge: "Luxe Prestige",
       popular: true,
       image: "/Img/card-worldwide.jpg",
       features: [
@@ -98,9 +98,9 @@ export default function AboutPage() {
     },
     {
       name: "lifetime",
-      price: "₹49,999",
+      price: "Limited Edition",
       period: "one-time payment",
-      badge: "Luxe Imperial",
+      badge: "Luxe Black - Limited Edition",
       popular: false,
       image: "/Img/card-lifetime.jpg",
       features: [

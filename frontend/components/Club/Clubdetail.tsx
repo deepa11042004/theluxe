@@ -152,7 +152,7 @@ const MEMBERSHIPS = [
   {
     id: "signature",
     title: "LUXE SIGNATURE",
-    price: "₹ 12,999",
+    price: "₹ 14,999",
     duration: "ONE YEAR • DOMESTIC",
     subtitle: "One full year of premium hotel privileges, exclusive rates and travel benefits across India.",
     bgClass: "bg-gradient-to-b from-[#141414] via-[#0d0d0d] to-[#050505] text-white border-neutral-800 hover:border-[#E39F25]/60",
@@ -171,8 +171,8 @@ const MEMBERSHIPS = [
   },
   {
     id: "diamond",
-    title: "LUXE DIAMOND",
-    price: "₹ 19,999",
+    title: "LUXE PRESTIGE",
+    price: "₹ 24,999",
     duration: "ONE YEAR • WORLDWIDE",
     subtitle: "Your gateway to 5-star hotel privileges and premium travel benefits across India and worldwide.",
     bgClass: "bg-gradient-to-b from-[#0e1d35] via-[#091426] to-[#040914] text-white border-[#E39F25]/50 hover:border-[#E39F25] shadow-xl shadow-[#E39F25]/10",
@@ -192,8 +192,8 @@ const MEMBERSHIPS = [
   },
   {
     id: "imperial",
-    title: "LUXE IMPERIAL",
-    price: "₹ 49,999",
+    title: "LUXE BLACK - LIMITED EDITION",
+    price: "Limited Edition",
     duration: "LIFETIME • WORLDWIDE",
     subtitle: "Pay once and enjoy The Luxe Yatra lifestyle and worldwide privileges for a lifetime.",
     bgClass: "bg-gradient-to-b from-[#0a2e29] via-[#061d19] to-[#020d0b] text-white border-emerald-900/60 hover:border-[#E39F25]/60",
@@ -371,7 +371,7 @@ export default function Membersec() {
                   “One Membership. A World of Luxury Travel Privileges.”
                 </h4>
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 text-sm md:text-base font-semibold text-neutral-900">
-                  <span>Membership ₹12,999/year</span>
+                  <span>Membership ₹14,999/year</span>
                   <span className="hidden sm:block opacity-40 text-neutral-900">•</span>
                   <span>Regular Value ₹29,999</span>
                   <span className="hidden sm:block opacity-40 text-neutral-900">•</span>
@@ -395,16 +395,16 @@ export default function Membersec() {
                   <tr className="bg-[rgb(25,25,112)] text-white text-sm uppercase tracking-wider font-[Vera]">
                     <th className="p-6 font-semibold w-1/4">Benefit</th>
                     <th className="p-6 text-center font-semibold w-1/4">Luxe Signature <span className="block text-xs text-indigo-200/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Domestic</span></th>
-                    <th className="p-6 text-center font-semibold w-1/4">Diamond <span className="block text-xs text-indigo-200/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Worldwide</span></th>
-                    <th className="p-6 text-center font-semibold w-1/4 text-[#E39F25]">Imperial <span className="block text-xs text-[#E39F25]/80 mt-1 capitalize font-[Vera] font-medium tracking-normal">Lifetime</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4">Prestige <span className="block text-xs text-indigo-200/70 mt-1 capitalize font-[Vera] font-medium tracking-normal">Worldwide</span></th>
+                    <th className="p-6 text-center font-semibold w-1/4 text-[#E39F25]">Black - Limited Edition <span className="block text-xs text-[#E39F25]/80 mt-1 capitalize font-[Vera] font-medium tracking-normal">Lifetime</span></th>
                   </tr>
                 </thead>
                 <tbody className="text-sm text-neutral-800 font-[Vera]">
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Membership Fee</td>
-                    <td className="p-6 text-center text-black font-medium">₹12,999</td>
-                    <td className="p-6 text-center text-black font-medium">₹19,999</td>
-                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">₹49,999</td>
+                    <td className="p-6 text-center text-black font-medium">₹14,999</td>
+                    <td className="p-6 text-center text-black font-medium">₹24,999</td>
+                    <td className="p-6 text-center font-bold text-[#E39F25] bg-amber-50/30 group-hover:bg-amber-50/60 transition-colors">Limited Edition</td>
                   </tr>
                   <tr className="border-b border-neutral-100 hover:bg-neutral-50/50 transition-colors group">
                     <td className="p-6 font-semibold text-neutral-900">Validity</td>

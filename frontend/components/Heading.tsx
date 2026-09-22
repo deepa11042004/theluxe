@@ -8,6 +8,7 @@ type HeadingProps = {
   align?: "left" | "center" | "right";
   className?: string; // Optional: for additional custom styling
   bgImage?: string; // Optional: background image URL
+  bgVideo?: string; // Optional: background video URL
   bgClassName?: string; // Optional: to override bg-white
 };
 
@@ -17,6 +18,7 @@ const Heading: React.FC<HeadingProps> = ({
   align = "center",
   className = "",
   bgImage,
+  bgVideo,
   bgClassName,
 }) => {
   const alignmentClass = {
@@ -25,17 +27,29 @@ const Heading: React.FC<HeadingProps> = ({
     right: "text-right items-end",
   }[align];
 
-  if (bgImage) {
+  if (bgImage || bgVideo) {
     return (
       <div className="relative w-full h-screen min-h-screen pt-24 sm:pt-28 pb-6 sm:pb-8 px-6 sm:px-12 lg:px-16 overflow-hidden flex flex-col justify-center items-center group">
-        <Image
-          src={bgImage}
-          alt={title}
-          fill
-          unoptimized
-          className="object-cover object-center z-0"
-          priority
-        />
+        {bgVideo ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          >
+            <source src={bgVideo} type="video/mp4" />
+          </video>
+        ) : (
+          <Image
+            src={bgImage!}
+            alt={title}
+            fill
+            unoptimized
+            className="object-cover object-center z-0"
+            priority
+          />
+        )}
 
         <div className={`relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center ${className}`}>
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] xl:text-[7.25rem] font-[Vera] tracking-tight text-white leading-tight drop-shadow-[0_4px_25px_rgba(0,0,0,0.85)]">

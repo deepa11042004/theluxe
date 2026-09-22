@@ -19,7 +19,7 @@ function clubelevate() {
         title="The Luxe Club"
         subtitle="Privileged Access • Elite Hospitality • Bespoke Worldwide Privileges"
         align="center"
-        bgImage="/Img/header 2/5c716b4078feb1e772b398f47f86da64ae5c54a3-3840x1860.avif"
+        bgVideo="/club video.mp4"
       />
       <Imagesec />
       <Clubdetail />
