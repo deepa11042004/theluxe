@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { motion, useMotionValue, useMotionTemplate } from "framer-motion";
+import { motion, useMotionValue, useMotionTemplate, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, ShieldCheck, Check, X, ChevronLeft, ChevronRight, Hotel, Gift, Plane, Globe, Headphones } from "lucide-react";
 import Image from "next/image";
 import Activities from "@/components/Home/Activities";
@@ -214,25 +214,12 @@ const MEMBERSHIPS = [
   },
 ];
 
-export default function Membersec() {
+export default function Membersec({ activeIndex = 1 }: { activeIndex?: number }) {
 
   return (
     <section className="bg-white w-full overflow-hidden select-none border-t border-neutral-200/60">
-      {/* SECTION 1: Luxe Club INFO */}
-      <div className="relative pt-24 pb-16 px-6 max-w-7xl mx-auto text-center z-10">
-
-
-        {/* Grey Horizontal Line Divider - Edge to Edge */}
-        <div className="w-screen relative left-1/2 -translate-x-1/2 border-t border-neutral-200 my-8"></div>
-
-        {/* Good Reasons to Choose Us section (replaces Handpicked Privileges with Slider) */}
-        <div className="w-full mt-4">
-          <Activities isSlider={true} />
-        </div>
-      </div>
-
       {/* SECTION 2: MEMBERSHIP PLANS */}
-      <div className="bg-white text-black border-t border-neutral-200 py-20 md:py-24 px-6 w-full">
+      <div className="bg-white text-black py-20 md:py-24 px-6 w-full">
         <div className="max-w-7xl mx-auto text-center flex flex-col items-center">
           <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
             EXPLORE MEMBERSHIPS
@@ -244,10 +231,21 @@ export default function Membersec() {
             Select from Signature, Diamond, and Imperial cards and enter a world of seamless vacations.
           </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-14">
-            {MEMBERSHIPS.map((card, idx) => (
-              <TiltCard key={idx} card={card} />
-            ))}
+          <div className="flex justify-center mb-14 w-full">
+            <div className="relative w-full max-w-[400px] h-[650px] sm:h-[600px] md:h-[650px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="absolute inset-0 w-full h-full"
+                >
+                  <TiltCard card={MEMBERSHIPS[activeIndex]} />
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
 
 
@@ -475,6 +473,14 @@ export default function Membersec() {
               </table>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* SECTION 1: Luxe Club INFO (Moved to bottom) */}
+      <div className="relative pt-20 pb-24 px-6 max-w-7xl mx-auto text-center z-10 border-t border-neutral-200/60 mt-12 w-full">
+        {/* Good Reasons to Choose Us section */}
+        <div className="w-full mt-4">
+          <Activities isSlider={true} />
         </div>
       </div>
     </section>

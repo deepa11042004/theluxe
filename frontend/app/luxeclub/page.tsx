@@ -1,7 +1,6 @@
 import React from "react";
 import Heading from "@/components/Heading";
-import Imagesec from "@/components/Club/Imagesec";
-import Clubdetail from "@/components/Club/Clubdetail";
+import ClubSectionWrapper from "@/components/Club/ClubSectionWrapper";
 import Statssec from "@/components/Club/Statssec";
 import BannerForm from "@/components/Club/BannerForm";
 import FAQsec from "@/components/Club/FAQsec";
@@ -23,8 +22,7 @@ function clubelevate() {
         bgVideo="/club video.mp4"
       />
       <ClubIntro />
-      <Imagesec />
-      <Clubdetail />
+      <ClubSectionWrapper />
       <Statssec />
       <FAQsec />
       <BannerForm />

@@ -61,9 +61,17 @@ function HyattArrow({ color = "white", className = "w-5 h-4" }: { color?: string
   );
 }
 
-export default function Imagesec() {
-  // Default to index 1 (SILVER) matching the reference image exactly
-  const [activeIndex, setActiveIndex] = useState(1);
+export default function Imagesec({ 
+  activeIndex: externalActiveIndex, 
+  setActiveIndex: externalSetActiveIndex 
+}: { 
+  activeIndex?: number, 
+  setActiveIndex?: (index: number) => void 
+} = {}) {
+  // Use controlled state if provided, otherwise fallback to internal state
+  const [internalIndex, setInternalIndex] = useState(1);
+  const activeIndex = externalActiveIndex !== undefined ? externalActiveIndex : internalIndex;
+  const setActiveIndex = externalSetActiveIndex || setInternalIndex;
 
   const prevIndex = (activeIndex - 1 + MEMBERSHIP_TIERS.length) % MEMBERSHIP_TIERS.length;
   const nextIndex = (activeIndex + 1) % MEMBERSHIP_TIERS.length;
