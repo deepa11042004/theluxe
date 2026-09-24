@@ -156,6 +156,7 @@ export const MEMBERSHIPS = [
     duration: "ONE YEAR • DOMESTIC",
     subtitle: "One full year of premium hotel privileges, exclusive rates and travel benefits across India.",
     bgClass: "bg-gradient-to-b from-[#141414] via-[#0d0d0d] to-[#050505] text-white border-neutral-800 hover:border-[#E39F25]/60",
+    bgImage: "/images/signature_bg.jpg",
     badge: null,
     benefits: [
       "5-Star & Premium Hotel Access",
@@ -175,7 +176,8 @@ export const MEMBERSHIPS = [
     price: "₹ 24,999",
     duration: "ONE YEAR • WORLDWIDE",
     subtitle: "Your gateway to 5-star hotel privileges and premium travel benefits across India and worldwide.",
-    bgClass: "bg-gradient-to-b from-[#0e1d35] via-[#091426] to-[#040914] text-white border-[#E39F25]/50 hover:border-[#E39F25] shadow-xl shadow-[#E39F25]/10",
+    bgClass: "bg-gradient-to-b from-[#0e1d35]/80 via-[#091426]/80 to-[#040914]/90 backdrop-blur-xl text-white border-[#E39F25]/50 hover:border-[#E39F25] shadow-xl shadow-[#E39F25]/10",
+    bgImage: "/images/1.jpg",
     badge: "MOST POPULAR",
     benefits: [
       "Everything in Luxe Signature",
@@ -197,6 +199,7 @@ export const MEMBERSHIPS = [
     duration: "LIFETIME • WORLDWIDE",
     subtitle: "Pay once and enjoy The Luxe Yatra lifestyle and worldwide privileges for a lifetime.",
     bgClass: "bg-gradient-to-b from-[#0a2e29] via-[#061d19] to-[#020d0b] text-white border-emerald-900/60 hover:border-[#E39F25]/60",
+    bgImage: "/images/black_bg.jpg",
     badge: "LIFETIME ACCESS",
     benefits: [
       "Lifetime Membership",
@@ -500,10 +503,15 @@ export default function Membersec({ activeIndex = 1, isCompareOpen = false }: { 
 }
 
 // SUB-COMPONENT: REUSABLE MOUSE CARD
-export function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
+export function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] & { bgImage?: string } }) {
   return (
     <div
       className={`relative rounded-none p-8 sm:p-9 border flex flex-col justify-between text-left transition-all duration-300 ease-out shadow-xl select-none overflow-hidden h-full min-h-[580px] group ${card.bgClass}`}
+      style={card.bgImage ? {
+        backgroundImage: `url(${card.bgImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      } : undefined}
     >
       {/* Top Badge */}
       {card.badge && (
