@@ -155,7 +155,7 @@ export default function Imagesec({
         {/* Right Typography (SILVER MEMBERSHIP) */}
         <div className="absolute left-[70%] md:left-[73%] top-[65%] -translate-y-1/2 text-left z-10 pointer-events-none">
           <h2 className="flex flex-col text-[#004564]">
-            <span className="text-lg sm:text-xl md:text-[22px] font-sans font-normal tracking-[0.15em] uppercase leading-none">
+            <span className="text-lg sm:text-xl md:text-[22px] font-[Vera] tracking-[0.15em] uppercase leading-none">
               {currentTier.title}
             </span>
             <span className="text-lg sm:text-xl md:text-[22px] font-serif italic tracking-[0.05em] uppercase mt-2.5 leading-none">
@@ -216,7 +216,7 @@ export default function Imagesec({
 
         {/* White Price Bubble / Disc (Behind Center Card, Sits Above & Inside Bottom Bar) */}
         <div className="absolute left-1/2 top-[88%] -translate-x-1/2 -translate-y-1/2 w-[120px] h-[120px] sm:w-[135px] sm:h-[135px] md:w-[155px] md:h-[155px] bg-[#f8f8f8] md:bg-white rounded-full z-15 shadow-[0px_0px_40px_rgba(0,0,0,0.15)] flex items-center justify-center pointer-events-none">
-          <span className="text-[#004564] font-semibold text-sm sm:text-base md:text-[17px] text-center px-2 tracking-tight leading-tight">
+          <span className="text-[#004564] font-serif font-medium text-base sm:text-lg md:text-[20px] text-center px-2 tracking-tight leading-tight">
             {currentTier.price}
           </span>
         </div>
@@ -229,7 +229,7 @@ export default function Imagesec({
             <div className="w-12 h-6 md:w-13 md:h-7 bg-[#E5E5E5] rounded-full p-1 flex items-center shrink-0">
               <div className="w-4 h-4 md:w-5 md:h-5 bg-[#7E8B93] rounded-full shadow-sm"></div>
             </div>
-            <span className="font-semibold text-xs sm:text-sm md:text-[14px] tracking-wider uppercase whitespace-nowrap">
+            <span className="font-[Vera] text-[10px] sm:text-xs md:text-[13px] tracking-widest uppercase whitespace-nowrap">
               COMPARE ALL TIERS
             </span>
           </div>
@@ -239,7 +239,7 @@ export default function Imagesec({
             className="w-1/2 flex items-center justify-end pr-4 sm:pr-7 md:pr-10 text-white gap-2.5 sm:gap-3 cursor-pointer transition-colors duration-500"
             style={{ backgroundColor: currentTier.themeColor }}
           >
-            <span className="font-semibold text-xs sm:text-sm md:text-[14px] tracking-wider uppercase whitespace-nowrap">
+            <span className="font-[Vera] text-[10px] sm:text-xs md:text-[13px] tracking-widest uppercase whitespace-nowrap">
               BUY {currentTier.title} MEMBERSHIP
             </span>
             <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">
