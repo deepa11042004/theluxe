@@ -93,10 +93,10 @@ export default function Imagesec({
   return (
     <section className="relative w-full bg-white flex flex-col items-center justify-center overflow-hidden pt-12 sm:pt-16 md:pt-20 pb-16 md:pb-24 select-none">
       {/* Main Stage Container with Exact Proportions */}
-      <div className="relative w-full max-w-[1040px] h-[500px] sm:h-[530px] md:h-[560px] mx-auto px-4">
+      <div className="relative w-full max-w-[1040px] h-[600px] sm:h-[530px] md:h-[560px] mx-auto px-4">
         
         {/* SVG Continuous Path: Top Vertical Lines + Smooth Deep Circular Arc */}
-        <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="hidden sm:block absolute inset-0 pointer-events-none z-0">
           <svg
             viewBox="0 0 1000 500"
             className="w-full h-full"
@@ -136,7 +136,7 @@ export default function Imagesec({
         <button
           onClick={handlePrev}
           aria-label="Previous Membership Tier"
-          className="absolute z-30 left-[23.3%] top-[43.5%] -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-[#cb5e51] hover:bg-[#b84d41] shadow-md flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+          className="hidden sm:flex absolute z-30 left-[23.3%] top-[43.5%] -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-[#cb5e51] hover:bg-[#b84d41] shadow-md items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
         >
           {/* Arrow pointing up-left along arc trajectory (-125deg) */}
           <div className="-rotate-[125deg] flex items-center justify-center">
@@ -148,7 +148,7 @@ export default function Imagesec({
         <button
           onClick={handleNext}
           aria-label="Next Membership Tier"
-          className="absolute z-30 left-[76.7%] top-[43.5%] -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-[#cb5e51] hover:bg-[#b84d41] shadow-md flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+          className="hidden sm:flex absolute z-30 left-[76.7%] top-[43.5%] -translate-x-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-[#cb5e51] hover:bg-[#b84d41] shadow-md items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
         >
           {/* Arrow pointing up-right along arc trajectory (-45deg) */}
           <div className="-rotate-[45deg] flex items-center justify-center">
@@ -156,22 +156,10 @@ export default function Imagesec({
           </div>
         </button>
 
-        {/* Right Typography (SILVER MEMBERSHIP) */}
-        <div className="absolute left-[70%] md:left-[73%] top-[65%] -translate-y-1/2 text-left z-10 pointer-events-none">
-          <h2 className="flex flex-col text-[#004564]">
-            <span className="text-lg sm:text-xl md:text-[22px] font-[Vera] tracking-[0.15em] uppercase leading-none">
-              {currentTier.title}
-            </span>
-            <span className="text-lg sm:text-xl md:text-[22px] font-serif italic tracking-[0.05em] uppercase mt-2.5 leading-none">
-              MEMBERSHIP
-            </span>
-          </h2>
-        </div>
-
         {/* Left Side Card */}
         <div
           onClick={handlePrev}
-          className="absolute left-[18.1%] top-[22%] -translate-x-1/2 -translate-y-1/2 w-[170px] sm:w-[200px] md:w-[230px] aspect-[1.65/1] z-10 cursor-pointer transition-all duration-700 ease-out hover:opacity-95"
+          className="absolute left-[0%] sm:left-[18.1%] top-[20%] sm:top-[22%] -translate-x-1/2 -translate-y-1/2 w-[160px] sm:w-[200px] md:w-[230px] aspect-[1.65/1] z-10 cursor-pointer transition-all duration-700 ease-out hover:opacity-95 opacity-80 sm:opacity-100"
           title={`Switch to ${MEMBERSHIP_TIERS[prevIndex].title}`}
         >
           <div className="relative w-full h-full">
@@ -179,7 +167,7 @@ export default function Imagesec({
               src={MEMBERSHIP_TIERS[prevIndex].image}
               alt={`${MEMBERSHIP_TIERS[prevIndex].title} Membership Card`}
               fill
-              sizes="(max-width: 768px) 225px, 255px"
+              sizes="(max-width: 640px) 110px, (max-width: 768px) 200px, 230px"
               className="object-contain"
               priority
             />
@@ -189,7 +177,7 @@ export default function Imagesec({
         {/* Right Side Card */}
         <div
           onClick={handleNext}
-          className="absolute left-[81.9%] top-[22%] -translate-x-1/2 -translate-y-1/2 w-[170px] sm:w-[200px] md:w-[230px] aspect-[1.65/1] z-10 cursor-pointer transition-all duration-700 ease-out hover:opacity-95"
+          className="absolute left-[100%] sm:left-[81.9%] top-[20%] sm:top-[22%] -translate-x-1/2 -translate-y-1/2 w-[160px] sm:w-[200px] md:w-[230px] aspect-[1.65/1] z-10 cursor-pointer transition-all duration-700 ease-out hover:opacity-95 opacity-80 sm:opacity-100"
           title={`Switch to ${MEMBERSHIP_TIERS[nextIndex].title}`}
         >
           <div className="relative w-full h-full">
@@ -197,7 +185,7 @@ export default function Imagesec({
               src={MEMBERSHIP_TIERS[nextIndex].image}
               alt={`${MEMBERSHIP_TIERS[nextIndex].title} Membership Card`}
               fill
-              sizes="(max-width: 768px) 225px, 255px"
+              sizes="(max-width: 640px) 110px, (max-width: 768px) 200px, 230px"
               className="object-contain"
               priority
             />
@@ -205,52 +193,90 @@ export default function Imagesec({
         </div>
 
         {/* Center Active Card (Front & Center, z-20) */}
-        <div className="absolute left-1/2 top-[53%] -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[320px] md:w-[380px] aspect-[1.65/1] z-20 transition-all duration-700 ease-out pointer-events-auto">
+        <div className="absolute left-1/2 top-[20%] sm:top-[53%] -translate-x-1/2 -translate-y-1/2 w-[270px] sm:w-[320px] md:w-[380px] aspect-[1.65/1] z-20 transition-all duration-700 ease-out pointer-events-auto">
           <div className="relative w-full h-full drop-shadow-[0px_15px_30px_rgba(0,0,0,0.3)]">
             <Image
               src={currentTier.image}
               alt={`${currentTier.title} Membership Card`}
               fill
-              sizes="(max-width: 768px) 380px, 435px"
+              sizes="(max-width: 640px) 240px, (max-width: 768px) 320px, 380px"
               className="object-contain"
               priority
             />
           </div>
         </div>
 
-        {/* White Price Bubble / Disc (Behind Center Card, Sits Above & Inside Bottom Bar) */}
-        <div className="absolute left-1/2 top-[88%] -translate-x-1/2 -translate-y-1/2 w-[120px] h-[120px] sm:w-[135px] sm:h-[135px] md:w-[155px] md:h-[155px] bg-[#f8f8f8] md:bg-white rounded-full z-15 shadow-[0px_0px_40px_rgba(0,0,0,0.15)] flex items-center justify-center pointer-events-none">
-          <span className="text-[#004564] font-serif font-medium text-base sm:text-lg md:text-[20px] text-center px-2 tracking-tight leading-tight">
+        {/* Typography (Title) */}
+        <div className="absolute left-1/2 top-[62%] sm:left-[70%] md:left-[73%] sm:top-[65%] -translate-x-1/2 sm:-translate-x-0 -translate-y-1/2 text-center sm:text-left z-10 pointer-events-none w-[90%] sm:w-auto">
+          <h2 className="flex flex-col items-center sm:items-start text-[#004564]">
+            <span className="text-[17px] sm:text-xl md:text-[22px] font-[Vera] tracking-[0.1em] sm:tracking-[0.15em] uppercase leading-tight">
+              {currentTier.title}
+            </span>
+            <span className="text-[16px] sm:text-xl md:text-[22px] font-serif italic tracking-[0.05em] uppercase mt-1 sm:mt-2.5 leading-none">
+              MEMBERSHIP
+            </span>
+          </h2>
+        </div>
+
+        {/* White Price Bubble / Disc */}
+        <div className="absolute left-1/2 top-[47%] sm:top-[88%] -translate-x-1/2 -translate-y-1/2 w-[110px] h-[110px] sm:w-[135px] sm:h-[135px] md:w-[155px] md:h-[155px] bg-[#f8f8f8] md:bg-white rounded-full z-25 shadow-[0px_8px_20px_rgba(0,0,0,0.15)] flex items-center justify-center pointer-events-none">
+          <span className="text-[#004564] font-serif font-medium text-[16px] sm:text-lg md:text-[20px] text-center px-1 sm:px-2 tracking-tight leading-tight">
             {currentTier.price}
           </span>
         </div>
 
-        {/* Bottom Pill Bar */}
-        <div className="absolute left-1/2 top-[88%] -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-[860px] h-[54px] md:h-[58px] z-10 flex rounded-l-[20px] rounded-r-[20px] overflow-hidden shadow-md">
+        {/* Mobile-only Compare Toggle */}
+        <div 
+          onClick={() => onToggleCompare && onToggleCompare()}
+          className="sm:hidden absolute left-1/2 top-[90%] -translate-x-1/2 flex items-center bg-[#E39F25] text-white rounded-full pl-3 pr-5 py-2.5 gap-3 z-30 cursor-pointer shadow-lg w-fit"
+        >
+          <div className={`w-10 h-5 rounded-full p-1 flex items-center shrink-0 transition-colors duration-300 ${isCompareOpen ? 'bg-white/90' : 'bg-white/40'}`}>
+            <div className={`w-3.5 h-3.5 rounded-full shadow-sm transition-transform duration-300 ${isCompareOpen ? 'translate-x-4 bg-[#E39F25]' : 'translate-x-0 bg-white'}`}></div>
+          </div>
+          <span className="font-[Vera] text-[10px] tracking-widest uppercase whitespace-nowrap">
+            COMPARE ALL TIERS
+          </span>
+        </div>
+
+        {/* Mobile-only Buy Button */}
+        <div
+          className="sm:hidden absolute left-1/2 top-[76%] -translate-x-1/2 -translate-y-1/2 w-[85%] max-w-[320px] h-[48px] flex items-center justify-between px-5 text-white cursor-pointer rounded-[4px] shadow-lg z-30 transition-colors duration-500"
+          style={{ backgroundColor: currentTier.themeColor }}
+        >
+          <span className="font-[Vera] text-[10px] tracking-[0.1em] uppercase whitespace-nowrap pt-0.5">
+            BUY {currentTier.title} MEMBERSHIP
+          </span>
+          <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">
+            <HyattArrow color={currentTier.themeColor} className="w-3.5 h-3" />
+          </div>
+        </div>
+
+        {/* Desktop Bottom Pill Bar */}
+        <div className="hidden sm:flex absolute left-1/2 top-[88%] -translate-x-1/2 -translate-y-1/2 w-[96%] max-w-[860px] h-[54px] md:h-[58px] z-10 rounded-l-[20px] rounded-r-[20px] overflow-hidden shadow-md">
           {/* Left Half: Compare All Tiers */}
           <div 
             onClick={() => onToggleCompare && onToggleCompare()}
-            className="w-1/2 bg-[#E39F25] flex items-center justify-start pl-4 sm:pl-7 md:pl-10 text-white gap-3 cursor-pointer"
+            className="w-1/2 bg-[#E39F25] flex items-center justify-start pl-7 md:pl-10 text-white gap-3 cursor-pointer"
           >
             {/* Toggle Switch */}
-            <div className={`w-12 h-6 md:w-13 md:h-7 rounded-full p-1 flex items-center shrink-0 transition-colors duration-300 ${isCompareOpen ? 'bg-white/90' : 'bg-[#E5E5E5]'}`}>
-              <div className={`w-4 h-4 md:w-5 md:h-5 rounded-full shadow-sm transition-transform duration-300 ${isCompareOpen ? 'translate-x-6 md:translate-x-6 bg-[#E39F25]' : 'translate-x-0 bg-[#7E8B93]'}`}></div>
+            <div className={`w-12 md:w-13 h-6 md:h-7 rounded-full p-1 flex items-center shrink-0 transition-colors duration-300 ${isCompareOpen ? 'bg-white/90' : 'bg-[#E5E5E5]'}`}>
+              <div className={`w-4 md:w-5 h-4 md:h-5 rounded-full shadow-sm transition-transform duration-300 ${isCompareOpen ? 'translate-x-6 md:translate-x-6 bg-[#E39F25]' : 'translate-x-0 bg-[#7E8B93]'}`}></div>
             </div>
-            <span className="font-[Vera] text-[10px] sm:text-xs md:text-[13px] tracking-widest uppercase whitespace-nowrap">
+            <span className="font-[Vera] text-xs md:text-[13px] tracking-widest uppercase whitespace-nowrap">
               COMPARE ALL TIERS
             </span>
           </div>
 
           {/* Right Half: Buy Plan */}
           <div
-            className="w-1/2 flex items-center justify-end pr-4 sm:pr-7 md:pr-10 text-white gap-2.5 sm:gap-3 cursor-pointer transition-colors duration-500"
+            className="w-1/2 flex items-center justify-end pr-7 md:pr-10 text-white gap-3 cursor-pointer transition-colors duration-500"
             style={{ backgroundColor: currentTier.themeColor }}
           >
-            <span className="font-[Vera] text-[10px] sm:text-xs md:text-[13px] tracking-widest uppercase whitespace-nowrap">
+            <span className="font-[Vera] text-xs md:text-[13px] tracking-widest uppercase whitespace-nowrap">
               BUY {currentTier.title} MEMBERSHIP
             </span>
-            <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">
-              <HyattArrow color={currentTier.themeColor} className="w-3.5 h-3 md:w-4 md:h-3.5" />
+            <div className="w-6 md:w-7 h-6 md:h-7 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">
+              <HyattArrow color={currentTier.themeColor} className="w-3.5 md:w-4 h-3 md:h-3.5" />
             </div>
           </div>
         </div>
