@@ -63,10 +63,14 @@ function HyattArrow({ color = "white", className = "w-5 h-4" }: { color?: string
 
 export default function Imagesec({ 
   activeIndex: externalActiveIndex, 
-  setActiveIndex: externalSetActiveIndex 
+  setActiveIndex: externalSetActiveIndex,
+  isCompareOpen = false,
+  onToggleCompare
 }: { 
   activeIndex?: number, 
-  setActiveIndex?: (index: number) => void 
+  setActiveIndex?: (index: number) => void,
+  isCompareOpen?: boolean,
+  onToggleCompare?: () => void
 } = {}) {
   // Use controlled state if provided, otherwise fallback to internal state
   const [internalIndex, setInternalIndex] = useState(1);
@@ -224,10 +228,13 @@ export default function Imagesec({
         {/* Bottom Pill Bar */}
         <div className="absolute left-1/2 top-[88%] -translate-x-1/2 -translate-y-1/2 w-[94%] max-w-[860px] h-[54px] md:h-[58px] z-10 flex rounded-l-[20px] rounded-r-[20px] overflow-hidden shadow-md">
           {/* Left Half: Compare All Tiers */}
-          <div className="w-1/2 bg-[#004564] flex items-center justify-start pl-4 sm:pl-7 md:pl-10 text-white gap-3 cursor-pointer">
+          <div 
+            onClick={() => onToggleCompare && onToggleCompare()}
+            className="w-1/2 bg-[#E39F25] flex items-center justify-start pl-4 sm:pl-7 md:pl-10 text-white gap-3 cursor-pointer"
+          >
             {/* Toggle Switch */}
-            <div className="w-12 h-6 md:w-13 md:h-7 bg-[#E5E5E5] rounded-full p-1 flex items-center shrink-0">
-              <div className="w-4 h-4 md:w-5 md:h-5 bg-[#7E8B93] rounded-full shadow-sm"></div>
+            <div className={`w-12 h-6 md:w-13 md:h-7 rounded-full p-1 flex items-center shrink-0 transition-colors duration-300 ${isCompareOpen ? 'bg-white/90' : 'bg-[#E5E5E5]'}`}>
+              <div className={`w-4 h-4 md:w-5 md:h-5 rounded-full shadow-sm transition-transform duration-300 ${isCompareOpen ? 'translate-x-6 md:translate-x-6 bg-[#E39F25]' : 'translate-x-0 bg-[#7E8B93]'}`}></div>
             </div>
             <span className="font-[Vera] text-[10px] sm:text-xs md:text-[13px] tracking-widest uppercase whitespace-nowrap">
               COMPARE ALL TIERS

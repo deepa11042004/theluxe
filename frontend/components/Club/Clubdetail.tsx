@@ -148,7 +148,7 @@ const CAROUSEL_PRIVILEGES = [
   },
 ];
 
-const MEMBERSHIPS = [
+export const MEMBERSHIPS = [
   {
     id: "signature",
     title: "LUXE SIGNATURE",
@@ -214,39 +214,51 @@ const MEMBERSHIPS = [
   },
 ];
 
-export default function Membersec({ activeIndex = 1 }: { activeIndex?: number }) {
+export default function Membersec({ activeIndex = 1, isCompareOpen = false }: { activeIndex?: number, isCompareOpen?: boolean }) {
 
   return (
-    <section className="bg-white w-full overflow-hidden select-none border-t border-neutral-200/60">
+    <section className="bg-white w-full overflow-hidden select-none">
       {/* SECTION 2: MEMBERSHIP PLANS */}
-      <div className="bg-white text-black py-20 md:py-24 px-6 w-full">
+      <div className="bg-white text-black pt-0 pb-20 md:pt-0 md:pb-24 px-6 w-full">
         <div className="max-w-7xl mx-auto text-center flex flex-col items-center">
-          <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
-            EXPLORE MEMBERSHIPS
+          <div className={`text-sm tracking-[0.4em] text-black uppercase font-light ${isCompareOpen ? 'mb-6' : 'mb-14'}`}>
+            EXPLORE MEMBERSHIP
           </div>
-          <h3 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
-            Your Key to Unlock Privileged Experiences
-          </h3>
-          <p className="text-xs md:text-sm max-w-xl leading-relaxed text-neutral-600 mb-14">
-            Select from Signature, Diamond, and Imperial cards and enter a world of seamless vacations.
-          </p>
+          {isCompareOpen && (
+            <>
+              <h3 className="text-3xl md:text-5xl lg:text-6xl font-serif tracking-tight text-black mb-4">
+                Your Key to Unlock Privileged Experiences
+              </h3>
+              <p className="text-xs md:text-sm max-w-xl leading-relaxed text-neutral-600 mb-14">
+                Select from Signature, Diamond, and Imperial cards and enter a world of seamless vacations.
+              </p>
+            </>
+          )}
 
-          <div className="flex justify-center mb-14 w-full">
-            <div className="relative w-full max-w-[400px] h-[650px] sm:h-[600px] md:h-[650px]">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeIndex}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="absolute inset-0 w-full h-full"
-                >
-                  <TiltCard card={MEMBERSHIPS[activeIndex]} />
-                </motion.div>
-              </AnimatePresence>
+          {isCompareOpen ? (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-14 w-full">
+              {MEMBERSHIPS.map((card, idx) => (
+                <TiltCard key={idx} card={card} />
+              ))}
             </div>
-          </div>
+          ) : (
+            <div className="flex justify-center mb-14 w-full">
+              <div className="w-full">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="w-full"
+                  >
+                    <TiltCard card={MEMBERSHIPS[activeIndex]} />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+          )}
 
 
           {/* NEW SECTION: GENERAL BENEFITS */}
@@ -487,35 +499,10 @@ export default function Membersec({ activeIndex = 1 }: { activeIndex?: number })
   );
 }
 
-// SUB-COMPONENT: REUSABLE 3D MOUSE TILT CARD
-function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const rotateX = useMotionValue(0);
-  const rotateY = useMotionValue(0);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const element = cardRef.current;
-    if (!element) return;
-    const rect = element.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left - rect.width / 2;
-    const mouseY = e.clientY - rect.top - rect.height / 2;
-    rotateX.set(-(mouseY / rect.height) * 10);
-    rotateY.set((mouseX / rect.width) * 10);
-  };
-
-  const handleMouseLeave = () => {
-    rotateX.set(0);
-    rotateY.set(0);
-  };
-
-  const transform = useMotionTemplate`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
+// SUB-COMPONENT: REUSABLE MOUSE CARD
+export function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
   return (
-    <motion.div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ transform }}
+    <div
       className={`relative rounded-none p-8 sm:p-9 border flex flex-col justify-between text-left transition-all duration-300 ease-out shadow-xl select-none overflow-hidden h-full min-h-[580px] group ${card.bgClass}`}
     >
       {/* Top Badge */}
@@ -528,13 +515,13 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
       )}
 
       {/* Card Content Top */}
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col items-center text-center">
         <h4 className="text-2xl sm:text-3xl font-[Vera] tracking-wider text-white mb-2">
           {card.title}
         </h4>
 
         {/* Price & Duration */}
-        <div className="my-4 flex flex-col gap-1">
+        <div className="my-4 flex flex-col gap-1 items-center">
           <div className="text-3xl sm:text-4xl font-serif text-[#E39F25] font-medium tracking-tight">
             {card.price}
           </div>
@@ -543,19 +530,22 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
           </div>
         </div>
 
-        <p className="text-xs sm:text-sm leading-relaxed font-light mb-6 border-b border-white/15 pb-6 text-white" style={{ color: "#ffffff" }}>
+        <p className="text-xs sm:text-sm leading-relaxed font-light mb-6 text-white max-w-sm mx-auto" style={{ color: "#ffffff" }}>
           {card.subtitle}
         </p>
 
-        <h5 className="text-[10px] font-bold tracking-[0.25em] text-[#E39F25] uppercase mb-4 flex items-center gap-1.5 font-[Vera]">
+        {/* Golden Vertical Line */}
+        <div className="w-[1.5px] h-10 bg-[#E39F25] mb-6 mx-auto"></div>
+
+        <h5 className="text-[10px] font-bold tracking-[0.25em] text-[#E39F25] uppercase mb-6 flex items-center justify-center gap-1.5 font-[Vera]">
           <ShieldCheck className="w-3.5 h-3.5 text-[#E39F25]" /> Included Benefits:
         </h5>
 
-        <ul className="space-y-3">
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-4 w-full text-left">
           {card.benefits.map((benefit, i) => (
             <li
               key={i}
-              className="flex items-start gap-3 text-xs leading-relaxed text-white/90"
+              className="flex items-start gap-2 text-xs leading-relaxed text-white/90 w-full max-w-[280px] mx-auto"
             >
               <Check className="w-3.5 h-3.5 text-[#E39F25] mt-0.5 shrink-0" strokeWidth={2.5} />
               <span className="font-light tracking-wide">{benefit}</span>
@@ -565,7 +555,7 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
       </div>
 
       {/* CTA Button Bottom */}
-      <div className="relative z-10 mt-8 pt-6 border-t border-white/10">
+      <div className="relative z-10 mt-10 pt-0">
         <a
           href="/join"
           className="w-full py-3.5 inline-flex items-center justify-center border border-[#E39F25] text-[#E39F25] hover:bg-[#E39F25] hover:text-white transition-all duration-300 text-xs tracking-[0.25em] uppercase font-medium rounded-sm shadow-sm cursor-pointer"
@@ -573,6 +563,6 @@ function TiltCard({ card }: { card: (typeof MEMBERSHIPS)[0] }) {
           SELECT PLAN
         </a>
       </div>
-    </motion.div>
+    </div>
   );
 }
