@@ -5,6 +5,7 @@ import Clubdetail from "@/components/Club/Clubdetail";
 import Statssec from "@/components/Club/Statssec";
 import BannerForm from "@/components/Club/BannerForm";
 import FAQsec from "@/components/Club/FAQsec";
+import ClubIntro from "@/components/Club/ClubIntro";
 
 export const metadata = {
   title: "The Luxe Club - Privileged Access | The Luxe Yatra",
@@ -21,6 +22,7 @@ function clubelevate() {
         align="center"
         bgVideo="/club video.mp4"
       />
+      <ClubIntro />
       <Imagesec />
       <Clubdetail />
       <Statssec />
