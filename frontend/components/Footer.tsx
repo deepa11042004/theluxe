@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
-import { FaInstagram, FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import { FaInstagram, FaFacebookF, FaWhatsapp } from "react-icons/fa";
 
 
 
@@ -62,7 +62,7 @@ export default function Footer() {
             <div className="space-y-2 text-[11px] text-white pt-2 font-normal">
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5" />
-                <p>+1 (888) 555-LUXE</p>
+                <p>+91 8796605843</p>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5" />
@@ -114,10 +114,9 @@ export default function Footer() {
               Follow us
             </h4>
             <div className="flex items-center gap-4 pt-1">
+              <a href="https://wa.me/918796605843" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity"><FaWhatsapp className="w-5 h-5" /></a>
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity"><FaInstagram className="w-5 h-5" /></a>
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity"><FaFacebookF className="w-5 h-5" /></a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity"><FaTwitter className="w-5 h-5" /></a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity"><FaLinkedinIn className="w-5 h-5" /></a>
             </div>
           </div>
         </div>
