@@ -1,6 +1,7 @@
 import React from "react";
 import Experiencesec from "@/components/Experience/Experiencesec";
 import Heading from "@/components/Heading";
+import { notFound } from "next/navigation";
 
 export const metadata = {
   title: "Experiences - The Luxe Yatra Worldwide Travels",
@@ -9,6 +10,7 @@ export const metadata = {
 };
 
 export default function ExperiencesPage() {
+  notFound();
   return (
     <>
       <Heading

@@ -222,7 +222,7 @@ export default function Membersec({ activeIndex = 1, isCompareOpen = false }: { 
   return (
     <section className="bg-white w-full overflow-hidden select-none">
       {/* SECTION 2: MEMBERSHIP PLANS */}
-      <div className="bg-white text-black pt-0 pb-20 md:pt-0 md:pb-24 px-6 w-full">
+      <div className="bg-white text-black pt-0 pb-8 md:pt-0 md:pb-10 px-6 w-full">
         <div className="max-w-7xl mx-auto text-center flex flex-col items-center">
           <div className={`text-sm tracking-[0.4em] text-black uppercase font-light ${isCompareOpen ? 'mb-6' : 'mb-14'}`}>
             EXPLORE MEMBERSHIP
@@ -265,7 +265,7 @@ export default function Membersec({ activeIndex = 1, isCompareOpen = false }: { 
 
 
           {/* NEW SECTION: GENERAL BENEFITS */}
-          <div className="text-center mt-20 pt-20 border-t border-neutral-200 max-w-5xl mx-auto flex flex-col items-center w-full">
+          <div className="hidden text-center mt-20 pt-20 border-t border-neutral-200 max-w-5xl mx-auto flex flex-col items-center w-full">
             <div className="text-sm tracking-[0.4em] text-black uppercase font-light mb-6">
               EXCLUSIVE PRIVILEGES
             </div>
@@ -366,7 +366,7 @@ export default function Membersec({ activeIndex = 1, isCompareOpen = false }: { 
           </div>
 
           {/* NEW SECTION: COMPARISON TABLE */}
-          <div id="membership-comparison" className="mt-24 max-w-6xl mx-auto pb-10 px-4 sm:px-6 w-full scroll-mt-24">
+          <div id="membership-comparison" className="hidden mt-24 max-w-6xl mx-auto pb-10 px-4 sm:px-6 w-full scroll-mt-24">
             <h3 className="text-3xl md:text-5xl font-[Vera] tracking-tight text-center text-black mb-12">
               Membership Comparison
             </h3>
@@ -492,7 +492,7 @@ export default function Membersec({ activeIndex = 1, isCompareOpen = false }: { 
       </div>
 
       {/* SECTION 1: Luxe Club INFO (Moved to bottom) */}
-      <div className="relative pt-20 pb-24 px-6 max-w-7xl mx-auto text-center z-10 border-t border-neutral-200/60 mt-12 w-full">
+      <div className="relative px-6 max-w-7xl mx-auto text-center z-10 border-t border-neutral-200/60 mt-8 w-full">
         {/* Good Reasons to Choose Us section */}
         <div className="w-full mt-4">
           <Activities isSlider={true} />

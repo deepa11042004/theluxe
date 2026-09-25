@@ -285,8 +285,8 @@ export default function Navbar() {
                   </AnimatePresence>
                 </motion.div>
 
-                {/* Experiences Section */}
-                <motion.div variants={itemVariants}>
+                {/* Experiences Section - hidden */}
+                {/* <motion.div variants={itemVariants}>
                   <Link
                     href="/experiences"
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -294,7 +294,7 @@ export default function Navbar() {
                   >
                     Experiences
                   </Link>
-                </motion.div>
+                </motion.div> */}
 
                 <motion.div variants={itemVariants}>
                   <Link
