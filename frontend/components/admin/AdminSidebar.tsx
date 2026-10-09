@@ -17,6 +17,7 @@ import {
   Plus,
   List,
   X,
+  Receipt,
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -131,17 +132,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                 >
                   <List className="w-3.5 h-3.5" /> All Hotels
                 </Link>
-                <Link
-                  href="/admin/hotels/new"
-                  onClick={onClose}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
-                    pathname === "/admin/hotels/new"
-                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  <Plus className="w-3.5 h-3.5" /> Add Hotel
-                </Link>
+
               </div>
             )}
           </div>
@@ -175,17 +166,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                 >
                   <List className="w-3.5 h-3.5" /> All Destinations
                 </Link>
-                <Link
-                  href="/admin/destinations/new"
-                  onClick={onClose}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
-                    pathname === "/admin/destinations/new"
-                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  <Plus className="w-3.5 h-3.5" /> Add Destination
-                </Link>
+
               </div>
             )}
           </div>
@@ -219,17 +200,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                 >
                   <List className="w-3.5 h-3.5" /> All Itineraries
                 </Link>
-                <Link
-                  href="/admin/itineraries/new"
-                  onClick={onClose}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
-                    pathname === "/admin/itineraries/new"
-                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  <Plus className="w-3.5 h-3.5" /> Add Itinerary
-                </Link>
+
               </div>
             )}
           </div>
@@ -263,17 +234,7 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
                 >
                   <List className="w-3.5 h-3.5" /> All Blogs
                 </Link>
-                <Link
-                  href="/admin/blogs/new"
-                  onClick={onClose}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
-                    pathname === "/admin/blogs/new"
-                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  <Plus className="w-3.5 h-3.5" /> Add Blog
-                </Link>
+
               </div>
             )}
           </div>
@@ -291,6 +252,38 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
             >
               <ImageIcon className="w-4 h-4 text-[#E39F25]" />
               <span>Media Library</span>
+            </Link>
+          </div>
+
+          {/* INVOICES */}
+          <div className="pt-2">
+            <Link
+              href="/admin/invoices"
+              onClick={onClose}
+              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+                pathname.startsWith("/admin/invoices")
+                  ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              <Receipt className="w-4 h-4 text-[#E39F25]" />
+              <span>Invoices</span>
+            </Link>
+          </div>
+
+          {/* CLIENTS */}
+          <div className="pt-2">
+            <Link
+              href="/admin/clients"
+              onClick={onClose}
+              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+                pathname.startsWith("/admin/clients")
+                  ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
+                  : "text-gray-400 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              <UserCheck className="w-4 h-4 text-[#E39F25]" />
+              <span>Clients</span>
             </Link>
           </div>
 

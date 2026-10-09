@@ -1,424 +1,676 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  User,
-  Users,
-  Mail,
-  Calendar,
-  Heart,
-  Phone,
-  MapPin,
-  Hash,
-  ChevronRight,
-  ChevronLeft,
-  CheckCircle2,
-  Landmark,
-  Navigation,
-  Compass,
-} from "lucide-react";
+import { ChevronDown, ArrowRight, Check, X, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 
-// ─── Types
 interface FormData {
-  membershipNumber: string;
-  clientName: string;
-  spouseName: string;
+  salutation: string;
+  firstName: string;
+  lastName: string;
+  mobile: string;
   email: string;
-  dob: string;
-  anniversary: string;
-  primaryContact: string;
-  secondaryContact: string;
-  primaryAddress: string;
-  primaryState: string;
-  primaryPin: string;
-  secondaryAddress: string;
-  secondaryState: string;
-  secondaryPin: string;
+  city: string;
+  plan: string;
+  acceptTerms: boolean;
+  needGst: boolean;
+  companyName: string;
+  gstin: string;
 }
 
-const STEPS = ["Identity", "Personal", "Contact", "Address"];
+const CITIES = [
+  "Delhi NCR",
+  "Mumbai",
+  "Bengaluru",
+  "Hyderabad",
+  "Chennai",
+  "Kolkata",
+  "Pune",
+  "Ahmedabad",
+  "Jaipur",
+  "Goa",
+  "Chandigarh",
+  "Kochi",
+  "Lucknow",
+  "International / Other",
+];
 
-// ─── Premium Field Component
-function Field({
-  label,
-  icon,
-  children,
-}: {
-  label: string;
-  icon: React.ReactNode;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="group flex flex-col gap-2 w-full">
-      <label className="flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-black group-focus-within:text-cyan-600 transition-colors">
-        <span className="text-neutral-400 group-focus-within:text-cyan-600 transition-colors">
-          {icon}
-        </span>
-        {label}
-      </label>
-      {children}
-    </div>
-  );
-}
+const PLANS = [
+  "Luxe Signature Membership",
+  "Luxe Prestige Membership",
+  "Luxe Black Membership (Limited Edition)",
+];
 
-const inputClass =
-  "w-full bg-neutral-50 border border-neutral-200 rounded-2xl px-5 py-4 text-black placeholder:text-neutral-400 text-base focus:outline-none focus:border-cyan-500/50 focus:bg-white transition-all duration-300 hover:border-neutral-300 shadow-inner";
+const loadRazorpayScript = () => {
+  return new Promise<boolean>((resolve) => {
+    if (typeof window === "undefined") return resolve(false);
+    if ((window as any).Razorpay) return resolve(true);
 
-function Divider({ label }: { label: string }) {
-  return (
-    <div className="flex items-center gap-4 my-4 w-full">
-      <span className="text-xs tracking-[0.2em] uppercase text-cyan-600 font-bold whitespace-nowrap">
-        {label}
-      </span>
-      <div className="h-px flex-1 bg-linear-to-r from-neutral-200 to-transparent" />
-    </div>
-  );
-}
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
 
-// ─── Main Component
+const getPlanPriceInPaise = (planName: string) => {
+  if (planName.includes("Signature")) return 17700000; // ₹1,77,000 (incl 18% GST)
+  if (planName.includes("Prestige")) return 29500000;  // ₹2,95,000 (incl 18% GST)
+  if (planName.includes("Black")) return 59000000;     // ₹5,90,000 (incl 18% GST)
+  return 17700000;
+};
+
 export default function Joinsec() {
-  const [step, setStep] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
-  const [direction, setDirection] = useState(1);
-
-  const [form, setForm] = useState<FormData>({
-    membershipNumber: "",
-    clientName: "",
-    spouseName: "",
+  const [formData, setFormData] = useState<FormData>({
+    salutation: "Mr.",
+    firstName: "",
+    lastName: "",
+    mobile: "",
     email: "",
-    dob: "",
-    anniversary: "",
-    primaryContact: "",
-    secondaryContact: "",
-    primaryAddress: "",
-    primaryState: "",
-    primaryPin: "",
-    secondaryAddress: "",
-    secondaryState: "",
-    secondaryPin: "",
+    city: "",
+    plan: "",
+    acceptTerms: false,
+    needGst: false,
+    companyName: "",
+    gstin: "",
   });
 
-  const set =
-    (key: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) =>
-      setForm((f) => ({ ...f, [key]: e.target.value }));
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submittedType, setSubmittedType] = useState<"pay" | "contact" | null>(null);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [loadingPayment, setLoadingPayment] = useState(false);
+  const [paymentResult, setPaymentResult] = useState<{ paymentId?: string } | null>(null);
 
-  const next = () => {
-    setDirection(1);
-    setStep((s) => Math.min(s + 1, STEPS.length - 1));
-  };
-  const prev = () => {
-    setDirection(-1);
-    setStep((s) => Math.max(s - 1, 0));
-  };
-  const submit = () => setSubmitted(true);
-
-  const slideVariants = {
-    enter: (d: number) => ({
-      x: d > 0 ? 30 : -30,
-      opacity: 0,
-    }),
-    center: { x: 0, opacity: 1 },
-    exit: (d: number) => ({
-      x: d > 0 ? -30 : 30,
-      opacity: 0,
-    }),
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
   };
 
-  // ── Step panels
-  const panels = [
-    <div key="identity" className="flex flex-col gap-6">
-      <Field label="Membership Number" icon={<Hash size={14} />}>
-        <input
-          className={inputClass}
-          placeholder="MEM-00001"
-          value={form.membershipNumber}
-          onChange={set("membershipNumber")}
-        />
-      </Field>
-      <Field label="Client's Full Name" icon={<User size={14} />}>
-        <input
-          className={inputClass}
-          placeholder="John Alexander"
-          value={form.clientName}
-          onChange={set("clientName")}
-        />
-      </Field>
-      <Field label="Spouse's Full Name" icon={<Users size={14} />}>
-        <input
-          className={inputClass}
-          placeholder="Jane Alexander"
-          value={form.spouseName}
-          onChange={set("spouseName")}
-        />
-      </Field>
-      <Field label="Email Address" icon={<Mail size={14} />}>
-        <input
-          type="email"
-          className={inputClass}
-          placeholder="john@example.com"
-          value={form.email}
-          onChange={set("email")}
-        />
-      </Field>
-    </div>,
+  const validate = (action: "pay" | "contact") => {
+    const newErrors: Record<string, string> = {};
 
-    <div key="personal" className="flex flex-col gap-6">
-      <Field label="Date of Birth" icon={<Calendar size={14} />}>
-        <input
-          type="date"
-          className={`${inputClass} scheme-light`}
-          value={form.dob}
-          onChange={set("dob")}
-        />
-      </Field>
-      <Field label="Marriage Anniversary" icon={<Heart size={14} />}>
-        <input
-          type="date"
-          className={`${inputClass} scheme-light`}
-          value={form.anniversary}
-          onChange={set("anniversary")}
-        />
-      </Field>
-    </div>,
+    if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
+    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
 
-    <div key="contact" className="flex flex-col gap-6">
-      <Field label="Primary Contact" icon={<Phone size={14} />}>
-        <input
-          type="tel"
-          className={inputClass}
-          placeholder="+91 98765 43210"
-          value={form.primaryContact}
-          onChange={set("primaryContact")}
-        />
-      </Field>
-      <Field label="Secondary Contact" icon={<Phone size={14} />}>
-        <input
-          type="tel"
-          className={inputClass}
-          placeholder="+91 91234 56789"
-          value={form.secondaryContact}
-          onChange={set("secondaryContact")}
-        />
-      </Field>
-    </div>,
+    if (!formData.mobile.trim()) {
+      newErrors.mobile = "Mobile number is required";
+    } else if (!/^\d{10}$/.test(formData.mobile.replace(/\D/g, ""))) {
+      newErrors.mobile = "Enter a valid 10-digit mobile number";
+    }
 
-    <div key="address" className="flex flex-col gap-6">
-      <Divider label="Primary Location" />
-      <Field label="Street / Locality" icon={<MapPin size={14} />}>
-        <input
-          className={inputClass}
-          placeholder="123, Park Street"
-          value={form.primaryAddress}
-          onChange={set("primaryAddress")}
-        />
-      </Field>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field label="State" icon={<Landmark size={14} />}>
-          <input
-            className={inputClass}
-            placeholder="Uttar Pradesh"
-            value={form.primaryState}
-            onChange={set("primaryState")}
-          />
-        </Field>
-        <Field label="Pin Code" icon={<Navigation size={14} />}>
-          <input
-            className={inputClass}
-            placeholder="201001"
-            maxLength={6}
-            value={form.primaryPin}
-            onChange={set("primaryPin")}
-          />
-        </Field>
-      </div>
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Enter a valid email address";
+    }
 
-      <Divider label="Secondary Location" />
-      <Field label="Street / Locality" icon={<MapPin size={14} />}>
-        <input
-          className={inputClass}
-          placeholder="456, Lake Avenue"
-          value={form.secondaryAddress}
-          onChange={set("secondaryAddress")}
-        />
-      </Field>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field label="State" icon={<Landmark size={14} />}>
-          <input
-            className={inputClass}
-            placeholder="Maharashtra"
-            value={form.secondaryState}
-            onChange={set("secondaryState")}
-          />
-        </Field>
-        <Field label="Pin Code" icon={<Navigation size={14} />}>
-          <input
-            className={inputClass}
-            placeholder="400001"
-            maxLength={6}
-            value={form.secondaryPin}
-            onChange={set("secondaryPin")}
-          />
-        </Field>
-      </div>
-    </div>,
-  ];
+    if (action === "pay") {
+      if (!formData.city) newErrors.city = "Please select a city";
+      if (!formData.plan) newErrors.plan = "Please select a membership plan";
+      if (!formData.acceptTerms)
+        newErrors.acceptTerms = "You must accept the Terms & Conditions";
 
-  if (submitted) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center p-6">
-        <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 200, damping: 25 }}
-          className="text-center flex flex-col items-center gap-6 max-w-sm"
-        >
-          <div className="w-20 h-20 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shadow-[0_0_40px_rgba(6,182,212,0.15)]">
-            <CheckCircle2 size={36} className="text-cyan-600" />
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold text-black mb-2">
-              Welcome, {form.clientName || "Member"}!
-            </h2>
-            <p className="text-sm leading-relaxed">
-              Your registration application has been processed into the secure
-              ecosystem.
-            </p>
-          </div>
-          <button
-            onClick={() => {
-              setSubmitted(false);
-              setStep(0);
-              setForm({
-                membershipNumber: "",
-                clientName: "",
-                spouseName: "",
-                email: "",
-                dob: "",
-                anniversary: "",
-                primaryContact: "",
-                secondaryContact: "",
-                primaryAddress: "",
-                primaryState: "",
-                primaryPin: "",
-                secondaryAddress: "",
-                secondaryState: "",
-                secondaryPin: "",
-              });
-            }}
-            className="text-xs text-black hover:text-neutral-300 transition-colors underline underline-offset-4 cursor-pointer"
-          >
-            Submit another profile
-          </button>
-        </motion.div>
-      </div>
-    );
-  }
+      if (formData.needGst) {
+        if (!formData.companyName.trim())
+          newErrors.companyName = "Company name is required for GST invoice";
+        if (!formData.gstin.trim())
+          newErrors.gstin = "GSTIN is required for GST invoice";
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handlePayNow = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate("pay")) return;
+
+    setLoadingPayment(true);
+    const scriptLoaded = await loadRazorpayScript();
+    if (!scriptLoaded) {
+      alert("Razorpay Payment Gateway SDK failed to load. Please check your connection.");
+      setLoadingPayment(false);
+      return;
+    }
+
+    const keyId = (process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "").trim();
+
+    // Check if key_id is placeholder or incomplete
+    if (!keyId || keyId.length < 15 || keyId.includes("...")) {
+      setLoadingPayment(false);
+      alert(
+        "Invalid or truncated Razorpay Key ID!\n\nPlease check your Razorpay Dashboard and provide your complete Key ID (starts with rzp_test_...)."
+      );
+      return;
+    }
+
+    const amount = getPlanPriceInPaise(formData.plan);
+
+    const options = {
+      key: keyId,
+      amount: amount,
+      currency: "INR",
+      name: "The Luxe Yatra",
+      description: `Membership Payment - ${formData.plan}`,
+      image: "/Img/logo-emblem-v3.png",
+      prefill: {
+        name: `${formData.salutation} ${formData.firstName} ${formData.lastName}`.trim(),
+        email: formData.email,
+        contact: formData.mobile,
+      },
+      notes: {
+        city: formData.city,
+        plan: formData.plan,
+        needGst: formData.needGst ? "Yes" : "No",
+        companyName: formData.companyName || "",
+        gstin: formData.gstin || "",
+      },
+      theme: {
+        color: "#E39F25",
+      },
+      handler: function (response: any) {
+        setLoadingPayment(false);
+        setPaymentResult({ paymentId: response.razorpay_payment_id });
+        setSubmittedType("pay");
+      },
+      modal: {
+        ondismiss: function () {
+          setLoadingPayment(false);
+        },
+      },
+    };
+
+    try {
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on("payment.failed", function (response: any) {
+        console.error("Razorpay Payment Failed:", response.error);
+        setLoadingPayment(false);
+        alert(`Payment Failed: ${response.error.description || response.error.reason || "Something went wrong"}`);
+      });
+      rzp.open();
+    } catch (err: any) {
+      console.error("Razorpay launch error:", err);
+      setLoadingPayment(false);
+      alert("Error initializing Razorpay payment window: " + (err?.message || err));
+    }
+  };
+
+  const handleContactMe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validate("contact")) {
+      setSubmittedType("contact");
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-white text-black font-sans grid grid-cols-1 lg:grid-cols-12 overflow-x-hidden border-b border-neutral-200">
-      {/* LEFT SIDE: THE ASYMMETRIC BRANDING PANEL (Responsive Height Match)*/}
-      <div className="lg:col-span-5 bg-neutral-50 border-b lg:border-b-0 lg:border-r border-neutral-200 p-8 sm:p-12 lg:p-16 flex flex-col justify-center relative min-h-80 lg:h-full overflow-hidden select-none">
-        {/* Premium Background Image with Readability Shader */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <Image
-            src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80" // Replace with your vacation/landscape asset
-            alt="Onboarding Background"
-            fill
-            priority
-            className="object-cover object-center"
-          />
-          {/* Light radial vignetting gradient to pull focus onto typography */}
-          <div className="absolute inset-0 bg-linear-to-tr from-white/95 via-white/50 to-transparent" />
-        </div>
-
-        {/* Content Layer */}
-        <div className="relative z-10 w-full max-w-sm">
-          <div className="flex items-center gap-2 text-cyan-600 font-medium text-xs tracking-[0.3em] uppercase mb-6 sm:mb-8">
-            <Compass className="w-4 h-4 animate-spin-slow" />
-            <span>Portal Onboarding</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-black mb-4 leading-tight">
-            Join Our Membership
-          </h1>
-          <p className="text-sm leading-relaxed">
-            Create your account across four clear onboarding channels to
-            seamlessly unlock exclusive member privileges.
-          </p>
-        </div>
-      </div>
-
-      {/* RIGHT SIDE: UNBOUNDED FLOATING INPUT FIELDS SECTION */}
-      <div className="lg:col-span-7 flex flex-col justify-center p-6 sm:p-12 lg:p-20 xl:p-28 relative bg-white min-h-125">
-        <div className="w-full max-w-xl mx-auto flex flex-col justify-between h-full">
-          {/* Dynamic Input Form Wrapper (Completely outside traditional rigid cards) */}
-          <div className="relative overflow-hidden min-h-85 py-4">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={step}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
-                className="w-full"
-              >
-                <div className="mb-6">
-                  <span className="text-[10px] tracking-[0.25em] font-mono text-cyan-600 uppercase font-bold">
-                    Section // 0{step + 1}
-                  </span>
-                  <h2 className="text-xl font-bold text-black tracking-wide mt-0.5">
-                    Configure your {STEPS[step]} details
-                  </h2>
-                </div>
-                {panels[step]}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Bottom Action Control Bar */}
-          <div className="flex items-center justify-between mt-12 pt-6 border-t border-neutral-200 w-full">
-            <motion.button
-              onClick={prev}
-              disabled={step === 0}
-              whileTap={{ scale: 0.96 }}
-              className="flex items-center gap-2 text-sm font-medium text-black hover:text-black disabled:opacity-0 disabled:pointer-events-none transition-colors cursor-pointer py-2"
-            >
-              <ChevronLeft size={16} />
-              Back
-            </motion.button>
-
-            <span className="text-xs text-neutral-400 font-mono tracking-widest hidden sm:inline">
-              {step + 1} &mdash; {STEPS.length}
+    <section className="relative w-full min-h-[90vh] bg-[#FAF8F5] py-12 md:py-20 px-4 sm:px-8 lg:px-12 flex items-center justify-center font-sans text-[#0E2A3A]">
+      <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        {/* LEFT COLUMN: BRAND STORY / VISUAL */}
+        <div className="lg:col-span-4 flex flex-col justify-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#E39F25]/15 border border-[#E39F25]/30 rounded-full w-fit">
+            <ShieldCheck className="w-4 h-4 text-[#E39F25]" />
+            <span className="text-[11px] font-semibold tracking-widest uppercase text-[#0E2A3A]">
+              Exclusive Privileges
             </span>
-
-            {step < STEPS.length - 1 ? (
-              <motion.button
-                onClick={next}
-                whileTap={{ scale: 0.96 }}
-                className="flex items-center gap-1.5 text-sm font-semibold text-cyan-600 hover:text-cyan-500 transition-colors cursor-pointer py-2"
-              >
-                Continue
-                <ChevronRight size={16} />
-              </motion.button>
-            ) : (
-              <motion.button
-                onClick={submit}
-                whileHover={{
-                  scale: 1.02,
-                }}
-                whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-2 border border-[#E39F25] bg-transparent text-[#E39F25] hover:bg-[#E39F25] hover:text-white font-medium text-xs sm:text-sm uppercase tracking-[0.25em] px-7 py-3 rounded-sm transition-all duration-300 shadow-xs cursor-pointer"
-              >
-                Complete Submission
-                <CheckCircle2 size={15} />
-              </motion.button>
-            )}
+          </div>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#0E2A3A] leading-tight">
+            Begin Your <br />
+            <span className="italic font-light text-[#E39F25]">Luxe Journey</span>
+          </h1>
+          <p className="text-sm text-neutral-600 leading-relaxed">
+            Join the elite circle of travelers. Enjoy bespoke hospitality, guaranteed room availability at premier global destinations, and tailor-made vacation experiences.
+          </p>
+          
+          <div className="pt-4 border-t border-neutral-200 grid grid-cols-2 gap-4">
+            <div>
+              <span className="block text-2xl font-serif text-[#0E2A3A]">500+</span>
+              <span className="text-xs text-neutral-500 uppercase tracking-wider font-medium">Global Resorts</span>
+            </div>
+            <div>
+              <span className="block text-2xl font-serif text-[#0E2A3A]">100%</span>
+              <span className="text-xs text-neutral-500 uppercase tracking-wider font-medium">Personal Concierge</span>
+            </div>
           </div>
         </div>
+
+        {/* RIGHT COLUMN: THE EXACT FORM FROM IMAGE 1 */}
+        <div className="lg:col-span-8 bg-white rounded-2xl shadow-xl shadow-black/5 p-6 sm:p-8 md:p-10 border border-neutral-100 relative">
+          <AnimatePresence mode="wait">
+            {submittedType === null ? (
+              <motion.form
+                key="form"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                className="space-y-6"
+              >
+                {/* SALUTATION + FIRST NAME + LAST NAME ROW */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                  {/* SALUTATION DROPDOWN */}
+                  <div className="md:col-span-3 relative border-b border-neutral-300 focus-within:border-[#0E2A3A] transition-colors pb-1">
+                    <label className="block text-xs font-semibold tracking-[0.15em] text-[#0E2A3A] uppercase mb-1">
+                      SAL.
+                    </label>
+                    <div className="relative flex items-center">
+                      <select
+                        name="salutation"
+                        value={formData.salutation}
+                        onChange={handleChange}
+                        className="w-full bg-transparent text-base font-medium text-[#0E2A3A] focus:outline-none appearance-none pr-6 cursor-pointer"
+                      >
+                        <option value="Mr.">Mr.</option>
+                        <option value="Mrs.">Mrs.</option>
+                        <option value="Ms.">Ms.</option>
+                        <option value="Dr.">Dr.</option>
+                        <option value="Prof.">Prof.</option>
+                      </select>
+                      <ChevronDown className="w-4 h-4 text-[#0E2A3A] absolute right-0 pointer-events-none" />
+                    </div>
+                  </div>
+
+                  {/* FIRST NAME */}
+                  <div className="md:col-span-4 relative border-b border-neutral-300 focus-within:border-[#0E2A3A] transition-colors pb-1">
+                    <label className="block text-xs font-semibold tracking-[0.15em] text-[#0E2A3A] uppercase mb-1">
+                      FIRST NAME<span className="text-[#E39F25] ml-0.5">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      placeholder="John"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      className="w-full bg-transparent text-base font-medium text-[#0E2A3A] placeholder:text-neutral-300 focus:outline-none"
+                    />
+                    {errors.firstName && (
+                      <span className="text-[10px] text-red-500 block mt-1">
+                        {errors.firstName}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* LAST NAME */}
+                  <div className="md:col-span-5 relative border-b border-neutral-300 focus-within:border-[#0E2A3A] transition-colors pb-1">
+                    <label className="block text-xs font-semibold tracking-[0.15em] text-[#0E2A3A] uppercase mb-1">
+                      LAST NAME<span className="text-[#E39F25] ml-0.5">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      placeholder="Doe"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      className="w-full bg-transparent text-base font-medium text-[#0E2A3A] placeholder:text-neutral-300 focus:outline-none"
+                    />
+                    {errors.lastName && (
+                      <span className="text-[10px] text-red-500 block mt-1">
+                        {errors.lastName}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* MOBILE NUMBER ROW (+91 prefix) */}
+                <div className="relative border-b border-neutral-300 focus-within:border-[#0E2A3A] transition-colors pb-1 pt-2">
+                  <div className="flex items-center gap-3">
+                    <span className="text-base font-semibold text-[#006699]">
+                      +91
+                    </span>
+                    <div className="flex-1">
+                      <label className="block text-xs font-semibold tracking-[0.15em] text-[#0E2A3A] uppercase mb-1">
+                        MOBILE NUMBER<span className="text-[#E39F25] ml-0.5">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        name="mobile"
+                        placeholder="9876543210"
+                        maxLength={10}
+                        value={formData.mobile}
+                        onChange={handleChange}
+                        className="w-full bg-transparent text-base font-medium text-[#0E2A3A] placeholder:text-neutral-300 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                  {errors.mobile && (
+                    <span className="text-[10px] text-red-500 block mt-1">
+                      {errors.mobile}
+                    </span>
+                  )}
+                </div>
+
+                {/* EMAIL ROW */}
+                <div className="relative border-b border-neutral-300 focus-within:border-[#0E2A3A] transition-colors pb-1 pt-2">
+                  <label className="block text-xs font-semibold tracking-[0.15em] text-[#0E2A3A] uppercase mb-1">
+                    EMAIL<span className="text-[#E39F25] ml-0.5">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="john.doe@example.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full bg-transparent text-base font-medium text-[#0E2A3A] placeholder:text-neutral-300 focus:outline-none"
+                  />
+                  {errors.email && (
+                    <span className="text-[10px] text-red-500 block mt-1">
+                      {errors.email}
+                    </span>
+                  )}
+                </div>
+
+                {/* SELECT CITY DROPDOWN */}
+                <div className="relative border-b border-neutral-300 focus-within:border-[#0E2A3A] transition-colors pb-1 pt-2">
+                  <label className="block text-xs font-semibold tracking-[0.15em] text-[#0E2A3A] uppercase mb-1">
+                    SELECT CITY<span className="text-[#E39F25] ml-0.5">*</span>
+                  </label>
+                  <div className="relative flex items-center">
+                    <select
+                      name="city"
+                      value={formData.city}
+                      onChange={handleChange}
+                      className="w-full bg-transparent text-base font-medium text-[#0E2A3A] focus:outline-none appearance-none pr-6 cursor-pointer"
+                    >
+                      <option value="" disabled className="text-neutral-400">
+                        Choose your city...
+                      </option>
+                      {CITIES.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-[#0E2A3A] absolute right-0 pointer-events-none" />
+                  </div>
+                  {errors.city && (
+                    <span className="text-[10px] text-red-500 block mt-1">
+                      {errors.city}
+                    </span>
+                  )}
+                </div>
+
+                {/* SELECT PLAN DROPDOWN */}
+                <div className="relative border-b border-neutral-300 focus-within:border-[#0E2A3A] transition-colors pb-1 pt-2">
+                  <label className="block text-xs font-semibold tracking-[0.15em] text-[#0E2A3A] uppercase mb-1">
+                    SELECT PLAN<span className="text-[#E39F25] ml-0.5">*</span>
+                  </label>
+                  <div className="relative flex items-center">
+                    <select
+                      name="plan"
+                      value={formData.plan}
+                      onChange={handleChange}
+                      className="w-full bg-transparent text-base font-medium text-[#0E2A3A] focus:outline-none appearance-none pr-6 cursor-pointer"
+                    >
+                      <option value="" disabled className="text-neutral-400">
+                        Select a membership plan...
+                      </option>
+                      {PLANS.map((p) => (
+                        <option key={p} value={p}>
+                          {p}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="w-4 h-4 text-[#0E2A3A] absolute right-0 pointer-events-none" />
+                  </div>
+                  {errors.plan && (
+                    <span className="text-[10px] text-red-500 block mt-1">
+                      {errors.plan}
+                    </span>
+                  )}
+                </div>
+
+                {/* CHECKBOXES ROW */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                  {/* ACCEPT TERMS */}
+                  <div className="flex flex-col">
+                    <label className="flex items-center gap-2.5 cursor-pointer group">
+                      <input
+                        type="checkbox"
+                        name="acceptTerms"
+                        checked={formData.acceptTerms}
+                        onChange={handleChange}
+                        className="w-4 h-4 rounded-xs border-[#E39F25] text-[#E39F25] focus:ring-[#E39F25] cursor-pointer accent-[#E39F25]"
+                      />
+                      <span className="text-sm font-medium text-[#0E2A3A] select-none">
+                        Accept{" "}
+                        <button
+                          type="button"
+                          onClick={() => setShowTermsModal(true)}
+                          className="text-[#006699] underline hover:text-[#004466] transition-colors font-semibold"
+                        >
+                          Terms & Conditions
+                        </button>
+                      </span>
+                    </label>
+                    {errors.acceptTerms && (
+                      <span className="text-[10px] text-red-500 block mt-1 pl-6">
+                        {errors.acceptTerms}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* NEED GST INVOICE */}
+                  <div className="flex flex-col">
+                    <label className="flex items-center gap-2.5 cursor-pointer group">
+                      <input
+                        type="checkbox"
+                        name="needGst"
+                        checked={formData.needGst}
+                        onChange={handleChange}
+                        className="w-4 h-4 rounded-xs border-[#E39F25] text-[#E39F25] focus:ring-[#E39F25] cursor-pointer accent-[#E39F25]"
+                      />
+                      <span className="text-sm font-medium text-[#0E2A3A] select-none">
+                        Need Company GST Invoice
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* CONDITIONAL GST FIELDS */}
+                {formData.needGst && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2"
+                  >
+                    <div className="border-b border-neutral-300 pb-1">
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#0E2A3A]">
+                        COMPANY NAME*
+                      </label>
+                      <input
+                        type="text"
+                        name="companyName"
+                        placeholder="Company Pvt Ltd"
+                        value={formData.companyName}
+                        onChange={handleChange}
+                        className="w-full bg-transparent text-sm text-[#0E2A3A] focus:outline-none"
+                      />
+                      {errors.companyName && (
+                        <span className="text-[10px] text-red-500 block">
+                          {errors.companyName}
+                        </span>
+                      )}
+                    </div>
+                    <div className="border-b border-neutral-300 pb-1">
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-[#0E2A3A]">
+                        GSTIN NUMBER*
+                      </label>
+                      <input
+                        type="text"
+                        name="gstin"
+                        placeholder="22AAAAA0000A1Z5"
+                        value={formData.gstin}
+                        onChange={handleChange}
+                        className="w-full bg-transparent text-sm text-[#0E2A3A] focus:outline-none uppercase"
+                      />
+                      {errors.gstin && (
+                        <span className="text-[10px] text-red-500 block">
+                          {errors.gstin}
+                        </span>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* BOTTOM ACTION BUTTONS ROW */}
+                <div className="pt-6 flex flex-wrap md:flex-nowrap items-center justify-between gap-4 sm:gap-6">
+                  {/* BUY MEMBERSHIP -> PAY NOW */}
+                  <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <span className="text-xs sm:text-sm font-medium text-[#0E2A3A] whitespace-nowrap">
+                      Buy Membership
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handlePayNow}
+                      disabled={loadingPayment}
+                      className="bg-[#E39F25] hover:bg-[#d4901f] disabled:opacity-70 text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-6 sm:px-7 py-2.5 rounded-lg transition-all shadow-md shadow-[#E39F25]/20 active:scale-95 cursor-pointer whitespace-nowrap shrink-0 flex items-center gap-2"
+                    >
+                      {loadingPayment ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          <span>LAUNCHING GATEWAY...</span>
+                        </>
+                      ) : (
+                        <span>PAY NOW</span>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* NEED MORE DETAILS -> CONTACT ME */}
+                  <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <span className="text-xs sm:text-sm font-medium text-[#0E2A3A] whitespace-nowrap">
+                      Need More Details
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handleContactMe}
+                      className="group border-2 border-[#0E2A3A] hover:bg-[#0E2A3A] hover:text-white text-[#0E2A3A] font-bold text-xs sm:text-sm uppercase tracking-wider pl-4 pr-1.5 py-1.5 rounded-full transition-all flex items-center gap-2.5 cursor-pointer whitespace-nowrap shrink-0"
+                    >
+                      <span>CONTACT ME</span>
+                      <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#E39F25] flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5 shrink-0">
+                        <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </motion.form>
+
+            ) : (
+              /* SUCCESS STATE MODAL / VIEW */
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="py-12 px-4 text-center flex flex-col items-center justify-center space-y-6"
+              >
+                <div className="w-16 h-16 rounded-full bg-[#E39F25]/15 border-2 border-[#E39F25] flex items-center justify-center text-[#E39F25]">
+                  <Check className="w-8 h-8 stroke-[3]" />
+                </div>
+                <h3 className="text-2xl font-serif text-[#0E2A3A]">
+                  {submittedType === "pay"
+                    ? "Payment Completed Successfully!"
+                    : "Request Received!"}
+                </h3>
+                <p className="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
+                  {submittedType === "pay"
+                    ? `Thank you, ${formData.salutation} ${formData.firstName} ${formData.lastName}. Your payment for ${formData.plan} has been processed.`
+                    : `Thank you, ${formData.salutation} ${formData.firstName} ${formData.lastName}. Our Luxe Concierge team will reach out to you shortly at ${formData.mobile} or ${formData.email}.`}
+                </p>
+
+                {submittedType === "pay" && paymentResult?.paymentId && (
+                  <div className="bg-[#FAF8F5] border border-[#E39F25]/30 rounded-xl p-4 text-xs space-y-1 font-mono text-[#0E2A3A] w-full max-w-sm mx-auto">
+                    <span className="text-[10px] text-neutral-500 uppercase tracking-widest block font-sans">
+                      Transaction Receipt ID
+                    </span>
+                    <span className="font-bold text-[#E39F25] text-sm block">
+                      {paymentResult.paymentId}
+                    </span>
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSubmittedType(null);
+                    setFormData({
+                      salutation: "Mr.",
+                      firstName: "",
+                      lastName: "",
+                      mobile: "",
+                      email: "",
+                      city: "",
+                      plan: "",
+                      acceptTerms: false,
+                      needGst: false,
+                      companyName: "",
+                      gstin: "",
+                    });
+                  }}
+                  className="mt-4 text-xs font-semibold uppercase tracking-widest text-[#006699] hover:underline cursor-pointer"
+                >
+                  Fill form again
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
-    </div>
+
+      {/* TERMS & CONDITIONS MODAL */}
+      {showTermsModal && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-neutral-200">
+            <button
+              onClick={() => setShowTermsModal(false)}
+              className="absolute top-4 right-4 p-2 text-neutral-400 hover:text-[#0E2A3A] transition-colors rounded-full"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <h3 className="text-xl font-serif text-[#0E2A3A] mb-3">
+              Luxe Club Terms & Conditions
+            </h3>
+            <div className="text-xs text-neutral-600 space-y-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+              <p>
+                1. Membership in the Luxe Club is subject to approval and validation of member credentials.
+              </p>
+              <p>
+                2. Privileges, stay credits, and room availability are guaranteed in accordance with the selected tier specifications.
+              </p>
+              <p>
+                3. Cancellations and booking modifications must adhere to the standard 7-day notice period.
+              </p>
+              <p>
+                4. GST Invoices will be generated using the provided Company Name and GSTIN upon payment confirmation.
+              </p>
+            </div>
+            <div className="mt-6 flex justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  setFormData((prev) => ({ ...prev, acceptTerms: true }));
+                  setShowTermsModal(false);
+                }}
+                className="bg-[#0E2A3A] text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-lg hover:bg-black transition-colors"
+              >
+                I Agree & Accept
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
   );
 }
+
