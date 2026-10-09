@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   Search,
   UserCheck,
@@ -114,12 +115,10 @@ export default function AdminClientsPage() {
     try {
       const saved = localStorage.getItem("luxe_clients_list");
       if (saved) {
-        const parsed = JSON.parse(saved);
-        setClients((prev) => {
-          const ids = new Set(parsed.map((item: any) => item.id));
-          const rest = prev.filter((item) => !ids.has(item.id));
-          return [...parsed, ...rest];
-        });
+        setClients(JSON.parse(saved));
+      } else {
+        localStorage.setItem("luxe_clients_list", JSON.stringify(MOCK_CLIENTS));
+        setClients(MOCK_CLIENTS);
       }
     } catch (err) {
       console.error("Error reading saved clients:", err);
@@ -227,7 +226,7 @@ export default function AdminClientsPage() {
           <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
-            placeholder="Search by client name, email, phone, city, or membership #..."
+            placeholder="Search by client name, email, phone, or membership #..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full bg-neutral-50 border border-neutral-200 rounded-xl pl-10 pr-4 py-2 text-xs text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-[#E39F25]"
@@ -270,7 +269,6 @@ export default function AdminClientsPage() {
                 <th className="py-3.5 px-5">MEMBERSHIP NO</th>
                 <th className="py-3.5 px-5">CLIENT NAME</th>
                 <th className="py-3.5 px-5">TIER</th>
-                <th className="py-3.5 px-5">CITY</th>
                 <th className="py-3.5 px-5">MOBILE</th>
                 <th className="py-3.5 px-5">JOIN DATE</th>
                 <th className="py-3.5 px-5">STATUS</th>
@@ -295,7 +293,6 @@ export default function AdminClientsPage() {
                         <Crown className="w-3 h-3" /> {cl.tier}
                       </span>
                     </td>
-                    <td className="py-4 px-5 text-neutral-700">{cl.city}</td>
                     <td className="py-4 px-5 font-mono text-neutral-600">{cl.mobile}</td>
                     <td className="py-4 px-5 text-neutral-500">{cl.joinDate}</td>
                     <td className="py-4 px-5">
@@ -312,13 +309,13 @@ export default function AdminClientsPage() {
                     </td>
                     <td className="py-4 px-5 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <button
-                          onClick={() => setSelectedClient(cl)}
+                        <Link
+                          href={`/admin/clients/${cl.id}`}
                           className="inline-flex items-center gap-1.5 text-neutral-700 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200 px-3 py-1.5 rounded-lg transition-colors text-[11px] font-medium cursor-pointer"
                         >
                           <Eye className="w-3.5 h-3.5 text-[#E39F25]" />
                           <span>Profile</span>
-                        </button>
+                        </Link>
                         <button
                           onClick={() => handleDeleteClient(cl.id, `${cl.salutation} ${cl.name}`)}
                           className="inline-flex items-center gap-1 text-red-600 hover:text-white bg-red-50 hover:bg-red-600 border border-red-200 hover:border-red-600 px-2.5 py-1.5 rounded-lg transition-colors text-[11px] font-medium cursor-pointer"
@@ -333,7 +330,7 @@ export default function AdminClientsPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={8} className="py-8 text-center text-neutral-400">
+                  <td colSpan={7} className="py-8 text-center text-neutral-400">
                     No clients found matching your search.
                   </td>
                 </tr>
@@ -342,103 +339,6 @@ export default function AdminClientsPage() {
           </table>
         </div>
       </div>
-
-      {/* CLIENT DETAILS MODAL */}
-      {selectedClient && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-neutral-200 rounded-2xl max-w-lg w-full p-6 text-neutral-900 relative shadow-2xl space-y-6">
-            <button
-              onClick={() => setSelectedClient(null)}
-              className="absolute top-4 right-4 p-1.5 text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100 rounded-lg transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {/* MODAL HEADER */}
-            <div className="flex items-center gap-3 border-b border-neutral-200 pb-4">
-              <div className="w-12 h-12 rounded-full bg-[#E39F25]/15 border border-[#E39F25]/30 flex items-center justify-center text-[#E39F25] font-bold text-lg">
-                {selectedClient.name.charAt(0)}
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-neutral-900">
-                  {selectedClient.salutation} {selectedClient.name}
-                </h3>
-                <span className="text-xs font-mono text-[#E39F25]">
-                  Membership #{selectedClient.membershipNo}
-                </span>
-              </div>
-            </div>
-
-            {/* DETAILS GRID */}
-            <div className="grid grid-cols-2 gap-4 text-xs">
-              <div className="bg-neutral-50 p-3.5 rounded-xl border border-neutral-200">
-                <span className="text-neutral-500 block text-[10px] font-semibold uppercase mb-1">
-                  Email Address
-                </span>
-                <p className="font-semibold text-neutral-900 flex items-center gap-1.5 truncate">
-                  <Mail className="w-3.5 h-3.5 text-[#E39F25]" /> {selectedClient.email}
-                </p>
-              </div>
-
-              <div className="bg-neutral-50 p-3.5 rounded-xl border border-neutral-200">
-                <span className="text-neutral-500 block text-[10px] font-semibold uppercase mb-1">
-                  Mobile Contact
-                </span>
-                <p className="font-semibold text-neutral-900 flex items-center gap-1.5 font-mono">
-                  <Phone className="w-3.5 h-3.5 text-[#E39F25]" /> {selectedClient.mobile}
-                </p>
-              </div>
-
-              <div className="bg-neutral-50 p-3.5 rounded-xl border border-neutral-200">
-                <span className="text-neutral-500 block text-[10px] font-semibold uppercase mb-1">
-                  Location / City
-                </span>
-                <p className="font-semibold text-neutral-900 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#E39F25]" /> {selectedClient.city}
-                </p>
-              </div>
-
-              <div className="bg-neutral-50 p-3.5 rounded-xl border border-neutral-200">
-                <span className="text-neutral-500 block text-[10px] font-semibold uppercase mb-1">
-                  Luxe Club Tier
-                </span>
-                <p className="font-bold text-[#E39F25] flex items-center gap-1.5">
-                  <Crown className="w-3.5 h-3.5 text-[#E39F25]" /> {selectedClient.tier}
-                </p>
-              </div>
-            </div>
-
-            {/* COMPANY / GST DETAILS IF PRESENT */}
-            {selectedClient.companyName && (
-              <div className="bg-blue-50/60 border border-blue-200 p-4 rounded-xl text-xs space-y-1">
-                <span className="text-blue-700 font-semibold uppercase text-[10px] tracking-wider block">
-                  Company GST Billing Profile
-                </span>
-                <p className="font-bold text-neutral-900">{selectedClient.companyName}</p>
-                <p className="font-mono text-neutral-600">GSTIN: {selectedClient.gstin}</p>
-              </div>
-            )}
-
-            {/* MODAL ACTIONS */}
-            <div className="flex items-center justify-between pt-2 border-t border-neutral-200">
-              <button
-                onClick={() => window.open(`mailto:${selectedClient.email}`)}
-                className="flex items-center gap-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-900 text-xs font-semibold px-4 py-2 rounded-xl transition-colors cursor-pointer"
-              >
-                <Mail className="w-4 h-4 text-[#E39F25]" />
-                <span>Send Email</span>
-              </button>
-
-              <button
-                onClick={() => setSelectedClient(null)}
-                className="bg-[#E39F25] hover:bg-[#c88a1e] text-white text-xs font-semibold px-5 py-2 rounded-xl transition-colors cursor-pointer"
-              >
-                Close Profile
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -121,12 +121,10 @@ export default function AdminInvoicesPage() {
     try {
       const saved = localStorage.getItem("luxe_invoices_list");
       if (saved) {
-        const parsed = JSON.parse(saved);
-        setInvoices((prev) => {
-          const ids = new Set(parsed.map((item: any) => item.id));
-          const rest = prev.filter((item) => !ids.has(item.id));
-          return [...parsed, ...rest];
-        });
+        setInvoices(JSON.parse(saved));
+      } else {
+        localStorage.setItem("luxe_invoices_list", JSON.stringify(MOCK_INVOICES));
+        setInvoices(MOCK_INVOICES);
       }
     } catch (err) {
       console.error("Error reading saved invoices:", err);
