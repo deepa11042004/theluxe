@@ -185,6 +185,65 @@ export default function Joinsec() {
         setLoadingPayment(false);
         setPaymentResult({ paymentId: response.razorpay_payment_id });
         setSubmittedType("pay");
+
+        // Persist new client & invoice for Admin Panel
+        try {
+          const existingClientsJSON = localStorage.getItem("luxe_clients_list");
+          const existingClients = existingClientsJSON ? JSON.parse(existingClientsJSON) : [];
+
+          const newClient = {
+            id: "cl-" + Date.now(),
+            salutation: formData.salutation,
+            name: `${formData.firstName} ${formData.lastName}`.trim(),
+            email: formData.email,
+            mobile: formData.mobile.startsWith("+91") ? formData.mobile : `+91 ${formData.mobile}`,
+            city: formData.city,
+            tier: formData.plan,
+            membershipNo: `LY-${Math.floor(100000 + Math.random() * 900000)}`,
+            joinDate: new Date().toISOString().split("T")[0],
+            status: "ACTIVE",
+            companyName: formData.companyName || undefined,
+            gstin: formData.gstin || undefined,
+          };
+
+          const updatedClients = [newClient, ...existingClients];
+          localStorage.setItem("luxe_clients_list", JSON.stringify(updatedClients));
+
+          // Also persist invoice
+          const existingInvoicesJSON = localStorage.getItem("luxe_invoices_list");
+          const existingInvoices = existingInvoicesJSON ? JSON.parse(existingInvoicesJSON) : [];
+
+          const planAmountMap: Record<string, number> = {
+            "Luxe Signature Membership": 150000,
+            "Luxe Prestige Membership": 250000,
+            "Luxe Black Membership (Limited Edition)": 500000,
+          };
+          const baseAmt = planAmountMap[formData.plan] || 150000;
+          const gstAmt = Math.round(baseAmt * 0.18);
+
+          const newInvoice = {
+            id: "inv-" + Date.now(),
+            invoiceNo: `LY-INV-2026-${Math.floor(100 + Math.random() * 900)}`,
+            customerName: `${formData.salutation} ${formData.firstName} ${formData.lastName}`.trim(),
+            email: formData.email,
+            mobile: formData.mobile,
+            plan: formData.plan,
+            amount: baseAmt,
+            gstAmount: gstAmt,
+            totalAmount: baseAmt + gstAmt,
+            needGst: formData.needGst,
+            companyName: formData.companyName || undefined,
+            gstin: formData.gstin || undefined,
+            date: new Date().toISOString().split("T")[0],
+            status: "PAID",
+            paymentId: response.razorpay_payment_id,
+          };
+
+          const updatedInvoices = [newInvoice, ...existingInvoices];
+          localStorage.setItem("luxe_invoices_list", JSON.stringify(updatedInvoices));
+        } catch (err) {
+          console.error("Error saving client/invoice data:", err);
+        }
       },
       modal: {
         ondismiss: function () {

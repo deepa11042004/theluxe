@@ -117,6 +117,22 @@ export default function AdminInvoicesPage() {
   const [statusFilter, setStatusFilter] = useState("");
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
 
+  React.useEffect(() => {
+    try {
+      const saved = localStorage.getItem("luxe_invoices_list");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setInvoices((prev) => {
+          const ids = new Set(parsed.map((item: any) => item.id));
+          const rest = prev.filter((item) => !ids.has(item.id));
+          return [...parsed, ...rest];
+        });
+      }
+    } catch (err) {
+      console.error("Error reading saved invoices:", err);
+    }
+  }, []);
+
   const filteredInvoices = invoices.filter((inv) => {
     const matchesSearch =
       inv.invoiceNo.toLowerCase().includes(search.toLowerCase()) ||

@@ -16,6 +16,7 @@ import {
   X,
   ShieldCheck,
   Building,
+  Trash2,
 } from "lucide-react";
 
 interface Client {
@@ -108,6 +109,36 @@ export default function AdminClientsPage() {
   const [tierFilter, setTierFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+
+  React.useEffect(() => {
+    try {
+      const saved = localStorage.getItem("luxe_clients_list");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setClients((prev) => {
+          const ids = new Set(parsed.map((item: any) => item.id));
+          const rest = prev.filter((item) => !ids.has(item.id));
+          return [...parsed, ...rest];
+        });
+      }
+    } catch (err) {
+      console.error("Error reading saved clients:", err);
+    }
+  }, []);
+
+  const handleDeleteClient = (id: string, name: string) => {
+    if (window.confirm(`Are you sure you want to delete client "${name}"?`)) {
+      setClients((prev) => {
+        const updated = prev.filter((cl) => cl.id !== id);
+        try {
+          localStorage.setItem("luxe_clients_list", JSON.stringify(updated));
+        } catch (err) {
+          console.error("Error updating local storage:", err);
+        }
+        return updated;
+      });
+    }
+  };
 
   const filteredClients = clients.filter((cl) => {
     const matchesSearch =
@@ -280,13 +311,23 @@ export default function AdminClientsPage() {
                       )}
                     </td>
                     <td className="py-4 px-5 text-right">
-                      <button
-                        onClick={() => setSelectedClient(cl)}
-                        className="inline-flex items-center gap-1.5 text-neutral-700 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200 px-3 py-1.5 rounded-lg transition-colors text-[11px] font-medium cursor-pointer"
-                      >
-                        <Eye className="w-3.5 h-3.5 text-[#E39F25]" />
-                        <span>Profile</span>
-                      </button>
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => setSelectedClient(cl)}
+                          className="inline-flex items-center gap-1.5 text-neutral-700 hover:text-neutral-900 bg-neutral-100 hover:bg-neutral-200 px-3 py-1.5 rounded-lg transition-colors text-[11px] font-medium cursor-pointer"
+                        >
+                          <Eye className="w-3.5 h-3.5 text-[#E39F25]" />
+                          <span>Profile</span>
+                        </button>
+                        <button
+                          onClick={() => handleDeleteClient(cl.id, `${cl.salutation} ${cl.name}`)}
+                          className="inline-flex items-center gap-1 text-red-600 hover:text-white bg-red-50 hover:bg-red-600 border border-red-200 hover:border-red-600 px-2.5 py-1.5 rounded-lg transition-colors text-[11px] font-medium cursor-pointer"
+                          title="Delete Client"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          <span>Delete</span>
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))
