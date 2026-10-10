@@ -16,6 +16,6 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: "https://www.theluxeyatra.com/sitemap.xml",
+    sitemap: "https://theluxeyatra.com/sitemap.xml",
   };
 }

@@ -31,7 +31,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.theluxeyatra.com"),
+  metadataBase: new URL("https://theluxeyatra.com"),
   title: {
     default: "The Luxe Yatra | Bespoke Luxury Travel & Curated Journeys",
     template: "%s | The Luxe Yatra",
@@ -52,13 +52,13 @@ export const metadata: Metadata = {
   creator: "The Luxe Yatra",
   publisher: "The Luxe Yatra",
   alternates: {
-    canonical: "https://www.theluxeyatra.com",
+    canonical: "https://theluxeyatra.com",
   },
   openGraph: {
     title: "The Luxe Yatra | Bespoke Luxury Travel & Curated Journeys",
     description:
       "Discover the world's most exclusive destinations, 5-star handpicked resorts, bespoke luxury itineraries, and personalized concierge experiences.",
-    url: "https://www.theluxeyatra.com",
+    url: "https://theluxeyatra.com",
     siteName: "The Luxe Yatra",
     locale: "en_US",
     type: "website",

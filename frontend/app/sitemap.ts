@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { itineraryData } from "@/components/Itinerary/itineraryData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.theluxeyatra.com";
+  const baseUrl = "https://theluxeyatra.com";
   const now = new Date();
 
   // Static core routes with priorities
