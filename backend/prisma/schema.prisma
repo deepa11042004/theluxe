@@ -530,3 +530,145 @@ model Media {
   @@index([mime_type])
   @@map("media")
 }
+
+// CLIENTS, PAYMENTS, INVOICES & EMAILS
+model Client {
+  id                      String           @id @default(uuid())
+  client_code             String           @unique
+  salutation              String           @default("Mr.")
+  first_name              String
+  last_name               String
+  email                   String
+  mobile                  String
+  city                    String
+  membership_plan         String
+  membership_number       String?          @unique
+  membership_status       String           @default("PENDING_PAYMENT") // PENDING_PAYMENT, ACTIVE, EXPIRED, CANCELLED
+  membership_activated_at DateTime?
+  membership_expires_at   DateTime?
+  latest_payment_status   String           @default("PENDING") // SUCCESSFUL, FAILED, PENDING, CANCELLED, ABANDONED
+  amount                  Float            @default(0)
+  currency                String           @default("INR")
+  need_gst                Boolean          @default(false)
+  company_name            String?
+  gstin                   String?
+  terms_accepted          Boolean          @default(true)
+  terms_accepted_at       DateTime         @default(now())
+  welcome_email_sent_at   DateTime?
+  last_payment_attempt_at DateTime?
+  notes                   String?
+  created_at              DateTime         @default(now())
+  updated_at              DateTime         @updatedAt
+
+  payment_attempts PaymentAttempt[]
+  invoices         Invoice[]
+  email_logs       EmailLog[]
+
+  @@index([email])
+  @@index([mobile])
+  @@index([client_code])
+  @@index([membership_status])
+  @@index([latest_payment_status])
+  @@index([created_at])
+  @@map("clients")
+}
+
+model PaymentAttempt {
+  id                 String    @id @default(uuid())
+  client_id          String
+  gateway            String    @default("RAZORPAY")
+  gateway_order_id   String?
+  gateway_payment_id String?
+  gateway_signature  String?
+  amount             Float
+  currency           String    @default("INR")
+  status             String    @default("PENDING") // PENDING, SUCCESSFUL, FAILED, CANCELLED, ABANDONED
+  error_code         String?
+  error_description  String?
+  payment_method     String?
+  raw_response       String?
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+
+  client   Client    @relation(fields: [client_id], references: [id], onDelete: Cascade)
+  invoices Invoice[]
+
+  @@index([client_id])
+  @@index([gateway_order_id])
+  @@index([gateway_payment_id])
+  @@index([status])
+  @@map("payment_attempts")
+}
+
+model Invoice {
+  id                 String          @id @default(uuid())
+  invoice_number     String          @unique
+  client_id          String
+  payment_attempt_id String?
+  invoice_date       DateTime        @default(now())
+  due_date           DateTime?
+  paid_date          DateTime?
+  invoice_type       String          @default("TAX_INVOICE") // TAX_INVOICE, PRO_FORMA
+  status             String          @default("UNPAID") // PAID, UNPAID, CANCELLED
+  membership_plan    String
+  plan_description   String?
+  quantity           Int             @default(1)
+  unit_price         Float
+  discount           Float           @default(0)
+  taxable_amount     Float
+  tax_rate           Float           @default(18.0)
+  tax_amount         Float
+  total_amount       Float
+  amount_paid        Float           @default(0)
+  balance_due        Float           @default(0)
+  currency           String          @default("INR")
+  company_name       String?
+  company_gstin      String?
+  seller_name        String          @default("The Luxe Yatra Worldwide Travels & Resorts Private Limited")
+  seller_address     String?         @default("12th Floor, Express Towers, Nariman Point, Mumbai, Maharashtra 400021, India")
+  seller_gstin       String?         @default("27AABCT8921M1ZQ")
+  seller_email       String?         @default("accounts@theluxeyatra.com")
+  seller_phone       String?         @default("+91 22 6985 4000")
+  pdf_url            String?
+  pdf_path           String?
+  sent_count         Int             @default(0)
+  last_sent_at       DateTime?
+  created_by_user_id String?
+  notes              String?
+  created_at         DateTime        @default(now())
+  updated_at         DateTime        @updatedAt
+
+  client          Client          @relation(fields: [client_id], references: [id], onDelete: Cascade)
+  payment_attempt PaymentAttempt? @relation(fields: [payment_attempt_id], references: [id], onDelete: SetNull)
+  email_logs      EmailLog[]
+
+  @@index([invoice_number])
+  @@index([client_id])
+  @@index([status])
+  @@index([invoice_date])
+  @@map("invoices")
+}
+
+model EmailLog {
+  id                  String    @id @default(uuid())
+  client_id           String?
+  invoice_id          String?
+  recipient           String
+  template_type       String    // WELCOME_PAID, MEMBERSHIP_PENDING, PAYMENT_FAILED, INVOICE_ISSUED, INVOICE_RESEND
+  subject             String
+  status              String    // SENT, FAILED
+  provider_message_id String?
+  error_message       String?
+  created_by_user_id  String?
+  sent_at             DateTime  @default(now())
+
+  client  Client?  @relation(fields: [client_id], references: [id], onDelete: Cascade)
+  invoice Invoice? @relation(fields: [invoice_id], references: [id], onDelete: SetNull)
+
+  @@index([client_id])
+  @@index([invoice_id])
+  @@index([recipient])
+  @@index([status])
+  @@map("email_logs")
+}
+

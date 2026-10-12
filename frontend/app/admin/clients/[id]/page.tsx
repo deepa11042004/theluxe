@@ -15,396 +15,639 @@ import {
   Clock,
   ShieldCheck,
   CreditCard,
-  Printer,
-  Edit,
-  Trash2,
   FileText,
   User,
+  AlertCircle,
+  XCircle,
+  Send,
+  Download,
+  RefreshCw,
+  Edit,
+  X,
 } from "lucide-react";
 import LuxeMembershipCard from "@/components/Club/LuxeMembershipCard";
 
-interface Client {
-  id: string;
-  salutation: string;
-  name: string;
-  email: string;
-  mobile: string;
-  city: string;
-  tier: "Luxe Signature" | "Luxe Prestige" | "Luxe Black (Limited Edition)";
-  membershipNo: string;
-  joinDate: string;
-  status: "ACTIVE" | "PENDING" | "EXPIRED";
-  companyName?: string;
-  gstin?: string;
-}
-
-const DEFAULT_MOCK_CLIENTS: Client[] = [
-  {
-    id: "cl-1",
-    salutation: "Mr.",
-    name: "John Doe",
-    email: "john.doe@example.com",
-    mobile: "+91 9876543210",
-    city: "Delhi NCR",
-    tier: "Luxe Signature",
-    membershipNo: "LY-100001",
-    joinDate: "2026-10-08",
-    status: "ACTIVE",
-    companyName: "Acme Enterprises Pvt Ltd",
-    gstin: "07AAAAA0000A1Z5",
-  },
-  {
-    id: "cl-2",
-    salutation: "Mrs.",
-    name: "Ananya Sharma",
-    email: "ananya.sharma@example.com",
-    mobile: "+91 9123456789",
-    city: "Mumbai",
-    tier: "Luxe Prestige",
-    membershipNo: "LY-100002",
-    joinDate: "2026-10-07",
-    status: "ACTIVE",
-  },
-  {
-    id: "cl-3",
-    salutation: "Mr.",
-    name: "Vikramaditya Roy",
-    email: "v.roy@royholdings.com",
-    mobile: "+91 9988776655",
-    city: "Bengaluru",
-    tier: "Luxe Black (Limited Edition)",
-    membershipNo: "LY-100003",
-    joinDate: "2026-10-05",
-    status: "ACTIVE",
-    companyName: "Roy Holdings & Global Capital",
-    gstin: "27BBBCA1234F1Z8",
-  },
-  {
-    id: "cl-4",
-    salutation: "Ms.",
-    name: "Priya Malhotra",
-    email: "priya.m@techventures.in",
-    mobile: "+91 9711223344",
-    city: "Pune",
-    tier: "Luxe Signature",
-    membershipNo: "LY-100004",
-    joinDate: "2026-10-04",
-    status: "PENDING",
-    companyName: "TechVentures Digital Ltd",
-    gstin: "19AAACT9876K1Z2",
-  },
-  {
-    id: "cl-5",
-    salutation: "Dr.",
-    name: "Rajesh Kumar",
-    email: "rajesh.kumar@gmail.com",
-    mobile: "+91 9810098100",
-    city: "Hyderabad",
-    tier: "Luxe Prestige",
-    membershipNo: "LY-100005",
-    joinDate: "2026-09-28",
-    status: "ACTIVE",
-  },
-];
-
-export default function ClientProfileDetailPage() {
+export default function AdminClientDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const clientId = params?.id as string;
+  const id = params?.id as string;
 
-  const [client, setClient] = useState<Client | null>(null);
+  const [client, setClient] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [editForm, setEditForm] = useState<any>({});
+  const [toastMessage, setToastMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
   useEffect(() => {
-    if (!clientId) return;
+    if (id) {
+      fetchClientDetails();
+    }
+  }, [id]);
 
+  const showToast = (text: string, type: "success" | "error" = "success") => {
+    setToastMessage({ text, type });
+    setTimeout(() => setToastMessage(null), 4000);
+  };
+
+  const fetchClientDetails = async () => {
+    setLoading(true);
     try {
-      const savedJSON = localStorage.getItem("luxe_clients_list");
-      let allClients: Client[] = [];
-      if (savedJSON) {
-        allClients = JSON.parse(savedJSON);
-      } else {
-        allClients = DEFAULT_MOCK_CLIENTS;
-        localStorage.setItem("luxe_clients_list", JSON.stringify(DEFAULT_MOCK_CLIENTS));
-      }
-
-      const found = allClients.find((c) => c.id === clientId || c.membershipNo === clientId);
-
-      if (found) {
-        setClient(found);
-      } else {
-        setClient({
-          id: clientId,
-          salutation: "Mr.",
-          name: "Member Profile",
-          email: "client@example.com",
-          mobile: "+91 9876543210",
-          city: "India",
-          tier: "Luxe Signature",
-          membershipNo: clientId.startsWith("LY") ? clientId : "LY-100001",
-          joinDate: new Date().toISOString().split("T")[0],
-          status: "ACTIVE",
+      const res = await fetch(`/api/v1/admin/clients/${id}`);
+      const json = await res.json();
+      if (json.success && json.data) {
+        setClient(json.data);
+        setEditForm({
+          salutation: json.data.salutation,
+          first_name: json.data.first_name,
+          last_name: json.data.last_name,
+          email: json.data.email,
+          mobile: json.data.mobile,
+          city: json.data.city,
+          company_name: json.data.company_name || "",
+          gstin: json.data.gstin || "",
+          notes: json.data.notes || "",
         });
+      } else {
+        showToast(json.message || "Failed to find client record", "error");
       }
     } catch (err) {
-      console.error("Error loading client profile:", err);
+      console.error(err);
+      showToast("Error connecting to server", "error");
     } finally {
       setLoading(false);
     }
-  }, [clientId]);
+  };
 
-  const handleDelete = () => {
+  const handleSendWelcomeEmail = async () => {
     if (!client) return;
-    if (window.confirm(`Are you sure you want to delete client profile "${client.name}"?`)) {
-      try {
-        const savedJSON = localStorage.getItem("luxe_clients_list");
-        const listToUpdate: Client[] = savedJSON ? JSON.parse(savedJSON) : DEFAULT_MOCK_CLIENTS;
-        const updated = listToUpdate.filter((c) => c.id !== client.id && c.membershipNo !== client.membershipNo);
-        localStorage.setItem("luxe_clients_list", JSON.stringify(updated));
-      } catch (err) {
-        console.error("Error removing client:", err);
+    setActionLoading(true);
+    try {
+      const res = await fetch(`/api/v1/admin/clients/${client.id}/welcome-email`, {
+        method: "POST",
+      });
+      const json = await res.json();
+      if (json.success) {
+        showToast(json.message || "Email dispatched successfully!");
+        fetchClientDetails();
+      } else {
+        showToast(json.message || "Failed to send email", "error");
       }
-      router.push("/admin/clients");
+    } catch (err) {
+      showToast("Error sending email", "error");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleCreateInvoice = async () => {
+    if (!client) return;
+    setActionLoading(true);
+    try {
+      const res = await fetch("/api/v1/admin/invoices", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clientId: client.id }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        showToast(`Invoice ${json.data.invoice_number} generated!`);
+        fetchClientDetails();
+      } else {
+        showToast(json.message || "Invoice creation failed", "error");
+      }
+    } catch (err) {
+      showToast("Network error creating invoice", "error");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleSendInvoiceEmail = async (invoiceId: string) => {
+    setActionLoading(true);
+    try {
+      const res = await fetch(`/api/v1/admin/invoices/${invoiceId}/send`, {
+        method: "POST",
+      });
+      const json = await res.json();
+      if (json.success) {
+        showToast(json.message || "Invoice PDF emailed!");
+        fetchClientDetails();
+      } else {
+        showToast(json.message || "Failed to send invoice", "error");
+      }
+    } catch (err) {
+      showToast("Error sending invoice", "error");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleEditSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setActionLoading(true);
+    try {
+      const res = await fetch(`/api/v1/admin/clients/${client.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editForm),
+      });
+      const json = await res.json();
+      if (json.success) {
+        showToast("Client profile updated!");
+        setEditing(false);
+        fetchClientDetails();
+      } else {
+        showToast(json.message || "Update failed", "error");
+      }
+    } catch (err) {
+      showToast("Error saving changes", "error");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const renderPaymentStatusBadge = (status: string) => {
+    switch (status) {
+      case "SUCCESSFUL":
+        return (
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+            Payment Successful
+          </span>
+        );
+      case "FAILED":
+        return (
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200">
+            <XCircle className="w-3.5 h-3.5 text-red-600" />
+            Payment Failed
+          </span>
+        );
+      case "ABANDONED":
+        return (
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+            <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
+            Payment Abandoned
+          </span>
+        );
+      default:
+        return (
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+            <Clock className="w-3.5 h-3.5 text-amber-600" />
+            Payment Pending
+          </span>
+        );
     }
   };
 
   if (loading) {
     return (
-      <div className="p-10 min-h-screen bg-[#F8F9FA] flex items-center justify-center text-neutral-600">
-        <div className="flex items-center gap-3">
-          <div className="w-5 h-5 border-2 border-[#E39F25] border-t-transparent rounded-full animate-spin" />
-          <span className="text-xs font-semibold uppercase tracking-widest">
-            Loading Client Profile...
-          </span>
-        </div>
+      <div className="p-8 flex flex-col items-center justify-center min-h-[60vh] gap-3">
+        <div className="w-8 h-8 border-3 border-[#E39F25] border-t-transparent rounded-full animate-spin"></div>
+        <span className="text-xs text-neutral-500 font-medium">Loading client details...</span>
       </div>
     );
   }
 
   if (!client) {
     return (
-      <div className="p-10 min-h-screen bg-[#F8F9FA] flex flex-col items-center justify-center space-y-4">
-        <h2 className="text-xl font-bold text-neutral-900">Client Not Found</h2>
+      <div className="p-8 text-center space-y-4">
+        <h2 className="text-lg font-bold text-neutral-800">Client not found</h2>
         <Link
           href="/admin/clients"
-          className="text-xs font-semibold uppercase text-[#E39F25] hover:underline"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#E39F25] hover:underline"
         >
-          Return to Clients List
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>Back to Clients</span>
         </Link>
       </div>
     );
   }
 
-  const getTierCardType = (tierStr: string) => {
-    if (tierStr.includes("Prestige")) return "diamond";
-    if (tierStr.includes("Black")) return "imperial";
-    return "signature";
-  };
+  const fullName = `${client.salutation} ${client.first_name} ${client.last_name}`.trim();
+  const isPaid = client.latest_payment_status === "SUCCESSFUL" || client.membership_status === "ACTIVE";
 
   return (
-    <div className="p-6 md:p-10 space-y-8 bg-[#F8F9FA] text-neutral-900 min-h-screen">
-      {/* TOP BREADCRUMB & BACK BUTTON */}
-      <div className="flex items-center justify-between border-b border-neutral-200 pb-5">
-        <Link
-          href="/admin/clients"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-neutral-600 hover:text-neutral-900 bg-white border border-neutral-200 px-4 py-2 rounded-xl transition-all shadow-xs"
+    <div className="p-4 sm:p-6 md:p-8 space-y-8 bg-[#F8F9FA] text-neutral-900 min-h-screen">
+      {/* TOAST */}
+      {toastMessage && (
+        <div
+          className={`fixed top-6 right-6 z-50 px-4 py-3 rounded-xl shadow-lg border text-xs font-semibold flex items-center gap-2 transition-all ${
+            toastMessage.type === "success"
+              ? "bg-emerald-50 border-emerald-200 text-emerald-800"
+              : "bg-red-50 border-red-200 text-red-800"
+          }`}
         >
-          <ArrowLeft className="w-4 h-4 text-[#E39F25]" />
-          <span>Back to Clients</span>
-        </Link>
-
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => window.print()}
-            className="inline-flex items-center gap-2 bg-white border border-neutral-200 hover:bg-neutral-50 text-neutral-800 text-xs font-semibold px-4 py-2 rounded-xl transition-all shadow-xs cursor-pointer"
-          >
-            <Printer className="w-4 h-4 text-neutral-500" />
-            <span>Print Profile</span>
-          </button>
-          <button
-            onClick={() => window.open(`mailto:${client.email}`)}
-            className="inline-flex items-center gap-2 bg-[#E39F25] hover:bg-[#c88a1e] text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all shadow-md shadow-[#E39F25]/20 cursor-pointer"
-          >
-            <Mail className="w-4 h-4" />
-            <span>Email Client</span>
-          </button>
-          <button
-            onClick={handleDelete}
-            className="inline-flex items-center gap-2 bg-red-50 hover:bg-red-600 border border-red-200 text-red-600 hover:text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all cursor-pointer"
-          >
-            <Trash2 className="w-4 h-4" />
-            <span>Delete</span>
-          </button>
+          {toastMessage.type === "success" ? (
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+          ) : (
+            <AlertCircle className="w-4 h-4 text-red-600" />
+          )}
+          <span>{toastMessage.text}</span>
         </div>
-      </div>
+      )}
 
-      {/* CLIENT HEADER BANNER */}
-      <div className="bg-white rounded-2xl border border-neutral-200 p-6 md:p-8 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="flex items-center gap-5">
-          <div className="w-16 h-16 rounded-2xl bg-[#E39F25]/15 border border-[#E39F25]/30 flex items-center justify-center text-[#E39F25] font-serif text-2xl font-bold shadow-xs">
-            {client.name.charAt(0)}
-          </div>
+      {/* TOP NAVIGATION & ACTIONS */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-200 pb-5">
+        <div className="flex items-center gap-4">
+          <Link
+            href="/admin/clients"
+            className="p-2 border border-neutral-200 hover:bg-neutral-100 rounded-xl text-neutral-600 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </Link>
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl md:text-3xl font-bold text-neutral-900">
-                {client.salutation} {client.name}
-              </h1>
-              {client.status === "ACTIVE" ? (
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> ACTIVE MEMBER
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
-                  <Clock className="w-3.5 h-3.5" /> PENDING
-                </span>
-              )}
-            </div>
-            <div className="flex items-center gap-4 text-xs text-neutral-500 mt-1 font-mono">
-              <span className="text-[#E39F25] font-semibold">
-                Membership #{client.membershipNo}
+              <h1 className="text-xl md:text-2xl font-bold text-neutral-900">{fullName}</h1>
+              <span className="font-mono text-xs px-2.5 py-0.5 rounded-md bg-neutral-200 text-neutral-700 font-semibold">
+                {client.client_code}
               </span>
-              <span>•</span>
-              <span>Joined: {client.joinDate}</span>
             </div>
+            <p className="text-xs text-neutral-500 mt-0.5">
+              Registered on {new Date(client.created_at).toLocaleString("en-IN")}
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 bg-[#FAF8F5] border border-[#E39F25]/20 p-3.5 rounded-xl w-full md:w-auto">
-          <ShieldCheck className="w-8 h-8 text-[#E39F25] shrink-0" />
-          <div>
-            <span className="text-[10px] text-neutral-500 uppercase tracking-widest font-semibold block">
-              CURRENT TIER LEVEL
-            </span>
-            <span className="text-sm font-bold text-neutral-900 block">
-              {client.tier}
-            </span>
-          </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setEditing(true)}
+            className="flex items-center gap-1.5 px-3 py-2 bg-white border border-neutral-200 hover:bg-neutral-50 text-neutral-700 rounded-xl text-xs font-semibold transition-all shadow-xs cursor-pointer"
+          >
+            <Edit className="w-3.5 h-3.5 text-neutral-500" />
+            <span>Edit Profile</span>
+          </button>
+
+          <button
+            onClick={handleCreateInvoice}
+            disabled={actionLoading}
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#E39F25] hover:bg-[#c88a1e] text-white rounded-xl text-xs font-semibold transition-all shadow-sm cursor-pointer"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Generate Invoice</span>
+          </button>
+
+          <button
+            onClick={handleSendWelcomeEmail}
+            disabled={actionLoading}
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold transition-all shadow-sm cursor-pointer"
+          >
+            <Mail className="w-3.5 h-3.5" />
+            <span>Send Email</span>
+          </button>
         </div>
       </div>
 
-      {/* MAIN CONTENT GRID */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* LEFT COLUMN: CONTACT & ACCOUNT DETAILS */}
-        <div className="lg:col-span-7 space-y-8">
-          {/* PERSONAL & CONTACT INFORMATION */}
-          <div className="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm space-y-6">
-            <h2 className="text-base font-bold text-neutral-900 border-b border-neutral-100 pb-3 flex items-center gap-2">
-              <User className="w-4 h-4 text-[#E39F25]" />
-              Personal & Contact Information
-            </h2>
+      {/* CLIENT OVERVIEW GRID */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* LEFT COLUMN: CLIENT PROFILE & MEMBERSHIP */}
+        <div className="lg:col-span-5 space-y-6">
+          {/* MEMBERSHIP CARD PREVIEW */}
+          <div className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm space-y-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+              Luxe Club Digital Membership
+            </h3>
+            <LuxeMembershipCard
+              tier={
+                client.membership_plan?.toLowerCase().includes("black")
+                  ? "imperial"
+                  : client.membership_plan?.toLowerCase().includes("prestige")
+                  ? "diamond"
+                  : "signature"
+              }
+              title={client.membership_plan}
+              membershipNo={client.membership_number || "PENDING ACTIVATION"}
+            />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200/70">
-                <span className="text-neutral-500 block text-[10px] uppercase tracking-wider font-semibold mb-1">
-                  Full Name & Salutation
+            <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
+              <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-100">
+                <span className="text-[11px] text-neutral-500 block">Membership Status</span>
+                <span className="font-semibold text-neutral-900 mt-1 block">
+                  {client.membership_status}
                 </span>
-                <p className="font-semibold text-neutral-900 text-sm">
-                  {client.salutation} {client.name}
-                </p>
               </div>
-
-              <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200/70">
-                <span className="text-neutral-500 block text-[10px] uppercase tracking-wider font-semibold mb-1">
-                  Primary Email
-                </span>
-                <p className="font-semibold text-neutral-900 flex items-center gap-1.5 truncate">
-                  <Mail className="w-3.5 h-3.5 text-[#E39F25] shrink-0" />
-                  {client.email}
-                </p>
-              </div>
-
-              <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200/70">
-                <span className="text-neutral-500 block text-[10px] uppercase tracking-wider font-semibold mb-1">
-                  Mobile Contact
-                </span>
-                <p className="font-semibold text-neutral-900 flex items-center gap-1.5 font-mono">
-                  <Phone className="w-3.5 h-3.5 text-[#E39F25] shrink-0" />
-                  {client.mobile}
-                </p>
-              </div>
-
-              <div className="bg-neutral-50 p-4 rounded-xl border border-neutral-200/70">
-                <span className="text-neutral-500 block text-[10px] uppercase tracking-wider font-semibold mb-1">
-                  City / Location
-                </span>
-                <p className="font-semibold text-neutral-900 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#E39F25] shrink-0" />
-                  {client.city}
-                </p>
+              <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-100">
+                <span className="text-[11px] text-neutral-500 block">Latest Payment</span>
+                <div className="mt-1">{renderPaymentStatusBadge(client.latest_payment_status)}</div>
               </div>
             </div>
           </div>
 
-          {/* COMPANY & GST BILLING PROFILE */}
-          <div className="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm space-y-6">
-            <h2 className="text-base font-bold text-neutral-900 border-b border-neutral-100 pb-3 flex items-center gap-2">
-              <Building className="w-4 h-4 text-[#E39F25]" />
-              Company GST & Invoicing Profile
-            </h2>
+          {/* CONTACT & COMPANY INFO */}
+          <div className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm space-y-4 text-xs">
+            <h3 className="font-bold text-neutral-900 border-b border-neutral-100 pb-2">
+              Profile & Contact Particulars
+            </h3>
 
-            {client.companyName ? (
-              <div className="bg-blue-50/60 border border-blue-200 p-5 rounded-xl space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-blue-900 uppercase tracking-wider">
-                    Business Tax Profile Registered
-                  </span>
-                  <span className="text-[10px] bg-blue-600 text-white font-mono px-2.5 py-0.5 rounded-full font-semibold">
-                    18% GST Eligible
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 text-neutral-600">
+                <Mail className="w-4 h-4 text-[#E39F25] shrink-0" />
+                <span className="font-medium text-neutral-900">{client.email}</span>
+              </div>
+              <div className="flex items-center gap-3 text-neutral-600">
+                <Phone className="w-4 h-4 text-[#E39F25] shrink-0" />
+                <span>{client.mobile}</span>
+              </div>
+              <div className="flex items-center gap-3 text-neutral-600">
+                <MapPin className="w-4 h-4 text-[#E39F25] shrink-0" />
+                <span>{client.city}</span>
+              </div>
+              {client.company_name && (
+                <div className="flex items-center gap-3 text-neutral-600">
+                  <Building className="w-4 h-4 text-[#E39F25] shrink-0" />
+                  <span>
+                    {client.company_name} {client.gstin ? `(GSTIN: ${client.gstin})` : ""}
                   </span>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-1">
-                  <div>
-                    <span className="text-neutral-500 block text-[10px] uppercase">
-                      Company Registered Name
-                    </span>
-                    <p className="font-bold text-neutral-900 text-sm">{client.companyName}</p>
-                  </div>
-                  <div>
-                    <span className="text-neutral-500 block text-[10px] uppercase">
-                      GSTIN Tax ID
-                    </span>
-                    <p className="font-mono font-bold text-blue-900">{client.gstin}</p>
-                  </div>
-                </div>
+              )}
+              <div className="flex items-center gap-3 text-neutral-600">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Terms accepted on {new Date(client.terms_accepted_at).toLocaleString("en-IN")}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN: PAYMENT ATTEMPTS, INVOICES & EMAIL LOGS */}
+        <div className="lg:col-span-7 space-y-6">
+          {/* PAYMENT ATTEMPTS */}
+          <div className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
+              <h3 className="font-bold text-neutral-900 text-sm">
+                Payment History & Gateways ({client.payment_attempts?.length || 0})
+              </h3>
+              <span className="text-xs text-neutral-500 font-mono">Gateway: Razorpay</span>
+            </div>
+
+            {!client.payment_attempts || client.payment_attempts.length === 0 ? (
+              <div className="py-6 text-center text-xs text-neutral-400">
+                No payment attempts recorded.
               </div>
             ) : (
-              <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-xl text-xs text-neutral-500">
-                No company GST profile was requested during registration. (Individual B2C Member)
+              <div className="divide-y divide-neutral-100 border border-neutral-100 rounded-xl overflow-hidden">
+                {client.payment_attempts.map((att: any) => (
+                  <div key={att.id} className="p-3.5 text-xs flex items-start justify-between gap-4">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-neutral-900">
+                          ₹{Number(att.amount || 0).toLocaleString("en-IN")}
+                        </span>
+                        {renderPaymentStatusBadge(att.status)}
+                      </div>
+                      <div className="text-[11px] text-neutral-500 font-mono mt-1">
+                        {att.gateway_payment_id ? `Payment ID: ${att.gateway_payment_id}` : `Order ID: ${att.gateway_order_id || "N/A"}`}
+                      </div>
+                      {att.error_description && (
+                        <div className="text-[11px] text-red-600 mt-1 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3 shrink-0" />
+                          <span>{att.error_description}</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="text-[11px] text-neutral-400 shrink-0 text-right">
+                      {new Date(att.created_at).toLocaleString("en-IN")}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* INVOICES */}
+          <div className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
+              <h3 className="font-bold text-neutral-900 text-sm">
+                Generated Invoices ({client.invoices?.length || 0})
+              </h3>
+            </div>
+
+            {!client.invoices || client.invoices.length === 0 ? (
+              <div className="py-6 text-center text-xs text-neutral-400 space-y-2">
+                <p>No invoices generated yet for this client.</p>
+                <button
+                  onClick={handleCreateInvoice}
+                  className="px-3 py-1.5 bg-[#E39F25] text-white rounded-lg text-xs font-semibold cursor-pointer"
+                >
+                  Create First Invoice
+                </button>
+              </div>
+            ) : (
+              <div className="divide-y divide-neutral-100 border border-neutral-100 rounded-xl overflow-hidden">
+                {client.invoices.map((inv: any) => (
+                  <div key={inv.id} className="p-3.5 text-xs flex items-center justify-between gap-4">
+                    <div>
+                      <div className="font-mono font-semibold text-neutral-900">
+                        {inv.invoice_number}
+                      </div>
+                      <div className="text-[11px] text-neutral-500 mt-0.5">
+                        ₹{Number(inv.total_amount || 0).toLocaleString("en-IN")} • {inv.invoice_type}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
+                          inv.status === "PAID"
+                            ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                            : "bg-amber-50 text-amber-700 border border-amber-200"
+                        }`}
+                      >
+                        {inv.status}
+                      </span>
+
+                      <a
+                        href={`/api/v1/admin/invoices/${inv.id}/pdf`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="p-1.5 hover:bg-neutral-100 rounded-lg text-neutral-600 transition-colors"
+                        title="Download / View PDF"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                      </a>
+
+                      <button
+                        onClick={() => handleSendInvoiceEmail(inv.id)}
+                        disabled={actionLoading}
+                        className="p-1.5 hover:bg-blue-50 rounded-lg text-blue-600 transition-colors cursor-pointer"
+                        title="Send PDF to Client"
+                      >
+                        <Send className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* EMAIL LOGS / COMMUNICATION HISTORY */}
+          <div className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
+              <h3 className="font-bold text-neutral-900 text-sm">
+                Email Automation Logs ({client.email_logs?.length || 0})
+              </h3>
+            </div>
+
+            {!client.email_logs || client.email_logs.length === 0 ? (
+              <div className="py-6 text-center text-xs text-neutral-400">
+                No email communications dispatched yet.
+              </div>
+            ) : (
+              <div className="divide-y divide-neutral-100 border border-neutral-100 rounded-xl overflow-hidden max-h-60 overflow-y-auto">
+                {client.email_logs.map((log: any) => (
+                  <div key={log.id} className="p-3 text-xs flex items-start justify-between gap-3">
+                    <div>
+                      <div className="font-semibold text-neutral-800">{log.template_type}</div>
+                      <div className="text-[11px] text-neutral-500 mt-0.5">{log.subject}</div>
+                      {log.error_message && (
+                        <div className="text-[10px] text-red-600 mt-0.5">{log.error_message}</div>
+                      )}
+                    </div>
+                    <div className="text-right shrink-0">
+                      <span
+                        className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
+                          log.status === "SENT"
+                            ? "bg-emerald-50 text-emerald-700"
+                            : "bg-red-50 text-red-700"
+                        }`}
+                      >
+                        {log.status}
+                      </span>
+                      <div className="text-[10px] text-neutral-400 mt-1">
+                        {new Date(log.sent_at).toLocaleString("en-IN")}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>
         </div>
+      </div>
 
-        {/* RIGHT COLUMN: DIGITAL MEMBERSHIP CARD & RECENT BILLING */}
-        <div className="lg:col-span-5 space-y-8">
-          {/* DIGITAL MEMBERSHIP CARD CARD */}
-          <div className="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm space-y-5">
-            <h2 className="text-base font-bold text-neutral-900 border-b border-neutral-100 pb-3 flex items-center gap-2">
-              <Crown className="w-4 h-4 text-[#E39F25]" />
-              Digital Luxe Membership Card
-            </h2>
-
-            <div className="w-full max-w-sm mx-auto">
-              <LuxeMembershipCard
-                tier={getTierCardType(client.tier)}
-                title={client.tier.toUpperCase()}
-                membershipNo={client.membershipNo}
-              />
+      {/* EDIT MODAL */}
+      {editing && (
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-neutral-200 space-y-5 animate-in fade-in duration-200">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
+              <h3 className="font-semibold text-neutral-900 text-sm">Edit Client Profile</h3>
+              <button onClick={() => setEditing(false)} className="p-1 text-neutral-400">
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
-            <div className="pt-2 text-xs text-neutral-600 space-y-2 border-t border-neutral-100">
-              <div className="flex justify-between py-1">
-                <span>Tier Benefits:</span>
-                <span className="font-semibold text-neutral-900">100% Concierge & Resort Credits</span>
+            <form onSubmit={handleEditSubmit} className="space-y-4 text-xs">
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-neutral-500 mb-1">Title</label>
+                  <select
+                    value={editForm.salutation}
+                    onChange={(e) => setEditForm({ ...editForm, salutation: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl"
+                  >
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Dr.">Dr.</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-neutral-500 mb-1">First Name</label>
+                  <input
+                    type="text"
+                    value={editForm.first_name}
+                    onChange={(e) => setEditForm({ ...editForm, first_name: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-neutral-500 mb-1">Last Name</label>
+                  <input
+                    type="text"
+                    value={editForm.last_name}
+                    onChange={(e) => setEditForm({ ...editForm, last_name: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl"
+                    required
+                  />
+                </div>
               </div>
-              <div className="flex justify-between py-1">
-                <span>Membership Status:</span>
-                <span className="font-semibold text-emerald-600">Active / Valid</span>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-neutral-500 mb-1">Email</label>
+                  <input
+                    type="email"
+                    value={editForm.email}
+                    onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-neutral-500 mb-1">Mobile</label>
+                  <input
+                    type="text"
+                    value={editForm.mobile}
+                    onChange={(e) => setEditForm({ ...editForm, mobile: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl"
+                    required
+                  />
+                </div>
               </div>
-            </div>
+
+              <div>
+                <label className="block text-neutral-500 mb-1">City</label>
+                <input
+                  type="text"
+                  value={editForm.city}
+                  onChange={(e) => setEditForm({ ...editForm, city: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-xl"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-neutral-500 mb-1">Company Name</label>
+                  <input
+                    type="text"
+                    value={editForm.company_name}
+                    onChange={(e) => setEditForm({ ...editForm, company_name: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl"
+                  />
+                </div>
+                <div>
+                  <label className="block text-neutral-500 mb-1">GSTIN</label>
+                  <input
+                    type="text"
+                    value={editForm.gstin}
+                    onChange={(e) => setEditForm({ ...editForm, gstin: e.target.value })}
+                    className="w-full px-3 py-2 border rounded-xl"
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2 border-t border-neutral-100">
+                <button
+                  type="button"
+                  onClick={() => setEditing(false)}
+                  className="px-4 py-2 border rounded-xl text-neutral-600 hover:bg-neutral-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={actionLoading}
+                  className="px-4 py-2 bg-[#E39F25] text-white font-semibold rounded-xl"
+                >
+                  {actionLoading ? "Saving..." : "Save Changes"}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

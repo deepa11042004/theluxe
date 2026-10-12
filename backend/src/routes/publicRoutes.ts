@@ -22,4 +22,13 @@ router.get("/itineraries/:slug/images", pubCtrl.getPublicItineraryImages);
 router.get("/blogs", pubCtrl.getPublicBlogs);
 router.get("/blogs/:slug", pubCtrl.getPublicBlogBySlug);
 
+// Public Membership & Payment Routes
+import * as memberCtrl from "../controllers/membershipController";
+router.post("/membership/register", memberCtrl.registerMembership);
+router.post("/membership/verify", memberCtrl.verifyPayment);
+router.post("/membership/fail", memberCtrl.recordFailedPayment);
+router.post("/membership/abandon", memberCtrl.recordAbandonedPayment);
+router.post("/membership/webhook", memberCtrl.handleWebhook);
+
 export default router;
+

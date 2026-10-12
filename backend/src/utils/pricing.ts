@@ -1,0 +1,88 @@
+export interface PlanPricing {
+  name: string;
+  code: string;
+  description: string;
+  baseAmount: number;
+  taxRate: number; // 18%
+  taxAmount: number;
+  totalAmount: number;
+  totalAmountPaise: number;
+  currency: string;
+}
+
+export const MEMBERSHIP_PLANS: Record<string, PlanPricing> = {
+  "Luxe Signature Membership": {
+    name: "Luxe Signature Membership",
+    code: "SIGNATURE",
+    description:
+      "Annual membership offering access to 500+ curated luxury resort partner estates, bespoke reservation services, and member dining privileges.",
+    baseAmount: 150000,
+    taxRate: 18.0,
+    taxAmount: 27000,
+    totalAmount: 177000,
+    totalAmountPaise: 17700000,
+    currency: "INR",
+  },
+  "Luxe Prestige Membership": {
+    name: "Luxe Prestige Membership",
+    code: "PRESTIGE",
+    description:
+      "Elite tier membership with dedicated 24/7 personal concierge, complimentary room upgrades, private airport transfers, and invitation-only global events.",
+    baseAmount: 250000,
+    taxRate: 18.0,
+    taxAmount: 45000,
+    totalAmount: 295000,
+    totalAmountPaise: 29500000,
+    currency: "INR",
+  },
+  "Luxe Black Membership (Limited Edition)": {
+    name: "Luxe Black Membership (Limited Edition)",
+    code: "BLACK",
+    description:
+      "Ultra-exclusive membership with private aviation coordination, yacht charters, bespoke VIP host assignment, and uncapped luxury travel benefits.",
+    baseAmount: 500000,
+    taxRate: 18.0,
+    taxAmount: 90000,
+    totalAmount: 590000,
+    totalAmountPaise: 59000000,
+    currency: "INR",
+  },
+};
+
+export function getPlanPricing(planName?: string): PlanPricing {
+  if (!planName) {
+    return MEMBERSHIP_PLANS["Luxe Signature Membership"];
+  }
+
+  // Exact match
+  if (MEMBERSHIP_PLANS[planName]) {
+    return MEMBERSHIP_PLANS[planName];
+  }
+
+  // Fuzzy match
+  const lower = planName.toLowerCase();
+  if (lower.includes("black")) {
+    return MEMBERSHIP_PLANS["Luxe Black Membership (Limited Edition)"];
+  }
+  if (lower.includes("prestige")) {
+    return MEMBERSHIP_PLANS["Luxe Prestige Membership"];
+  }
+  return MEMBERSHIP_PLANS["Luxe Signature Membership"];
+}
+
+export const COMPANY_CONFIG = {
+  legalName:
+    process.env.COMPANY_NAME ||
+    "The Luxe Yatra Worldwide Travels & Resorts Private Limited",
+  brandName: "The Luxe Yatra",
+  address:
+    process.env.COMPANY_ADDRESS ||
+    "12th Floor, Express Towers, Nariman Point, Mumbai, Maharashtra 400021, India",
+  gstin: process.env.COMPANY_GSTIN || "27AABCT8921M1ZQ",
+  email: process.env.COMPANY_EMAIL || "concierge@theluxeyatra.com",
+  accountsEmail: process.env.ACCOUNTS_EMAIL || "accounts@theluxeyatra.com",
+  phone: process.env.COMPANY_PHONE || "+91 22 6985 4000",
+  website: process.env.COMPANY_WEBSITE || "https://theluxeyatra.com",
+  cin: process.env.COMPANY_CIN || "U63040MH2024PTC392810",
+  pan: process.env.COMPANY_PAN || "AABCT8921M",
+};

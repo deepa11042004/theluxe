@@ -139,131 +139,150 @@ export default function Joinsec() {
     if (!validate("pay")) return;
 
     setLoadingPayment(true);
-    const scriptLoaded = await loadRazorpayScript();
-    if (!scriptLoaded) {
-      alert("Razorpay Payment Gateway SDK failed to load. Please check your connection.");
-      setLoadingPayment(false);
-      return;
-    }
-
-    const keyId = (process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "").trim();
-
-    // Check if key_id is placeholder or incomplete
-    if (!keyId || keyId.length < 15 || keyId.includes("...")) {
-      setLoadingPayment(false);
-      alert(
-        "Invalid or truncated Razorpay Key ID!\n\nPlease check your Razorpay Dashboard and provide your complete Key ID (starts with rzp_test_...)."
-      );
-      return;
-    }
-
-    const amount = getPlanPriceInPaise(formData.plan);
-
-    const options = {
-      key: keyId,
-      amount: amount,
-      currency: "INR",
-      name: "The Luxe Yatra",
-      description: `Membership Payment - ${formData.plan}`,
-      image: "/Img/logo-emblem-v3.png",
-      prefill: {
-        name: `${formData.salutation} ${formData.firstName} ${formData.lastName}`.trim(),
-        email: formData.email,
-        contact: formData.mobile,
-      },
-      notes: {
-        city: formData.city,
-        plan: formData.plan,
-        needGst: formData.needGst ? "Yes" : "No",
-        companyName: formData.companyName || "",
-        gstin: formData.gstin || "",
-      },
-      theme: {
-        color: "#E39F25",
-      },
-      handler: function (response: any) {
-        setLoadingPayment(false);
-        setPaymentResult({ paymentId: response.razorpay_payment_id });
-        setSubmittedType("pay");
-
-        // Persist new client & invoice for Admin Panel
-        try {
-          const existingClientsJSON = localStorage.getItem("luxe_clients_list");
-          const existingClients = existingClientsJSON ? JSON.parse(existingClientsJSON) : [];
-
-          const newClient = {
-            id: "cl-" + Date.now(),
-            salutation: formData.salutation,
-            name: `${formData.firstName} ${formData.lastName}`.trim(),
-            email: formData.email,
-            mobile: formData.mobile.startsWith("+91") ? formData.mobile : `+91 ${formData.mobile}`,
-            city: formData.city,
-            tier: formData.plan,
-            membershipNo: `LY-${Math.floor(100000 + Math.random() * 900000)}`,
-            joinDate: new Date().toISOString().split("T")[0],
-            status: "ACTIVE",
-            companyName: formData.companyName || undefined,
-            gstin: formData.gstin || undefined,
-          };
-
-          const updatedClients = [newClient, ...existingClients];
-          localStorage.setItem("luxe_clients_list", JSON.stringify(updatedClients));
-
-          // Also persist invoice
-          const existingInvoicesJSON = localStorage.getItem("luxe_invoices_list");
-          const existingInvoices = existingInvoicesJSON ? JSON.parse(existingInvoicesJSON) : [];
-
-          const planAmountMap: Record<string, number> = {
-            "Luxe Signature Membership": 150000,
-            "Luxe Prestige Membership": 250000,
-            "Luxe Black Membership (Limited Edition)": 500000,
-          };
-          const baseAmt = planAmountMap[formData.plan] || 150000;
-          const gstAmt = Math.round(baseAmt * 0.18);
-
-          const newInvoice = {
-            id: "inv-" + Date.now(),
-            invoiceNo: `LY-INV-2026-${Math.floor(100 + Math.random() * 900)}`,
-            customerName: `${formData.salutation} ${formData.firstName} ${formData.lastName}`.trim(),
-            email: formData.email,
-            mobile: formData.mobile,
-            plan: formData.plan,
-            amount: baseAmt,
-            gstAmount: gstAmt,
-            totalAmount: baseAmt + gstAmt,
-            needGst: formData.needGst,
-            companyName: formData.companyName || undefined,
-            gstin: formData.gstin || undefined,
-            date: new Date().toISOString().split("T")[0],
-            status: "PAID",
-            paymentId: response.razorpay_payment_id,
-          };
-
-          const updatedInvoices = [newInvoice, ...existingInvoices];
-          localStorage.setItem("luxe_invoices_list", JSON.stringify(updatedInvoices));
-        } catch (err) {
-          console.error("Error saving client/invoice data:", err);
-        }
-      },
-      modal: {
-        ondismiss: function () {
-          setLoadingPayment(false);
-        },
-      },
-    };
 
     try {
+      // 1. Save client record and create payment attempt on server BEFORE payment
+      const regRes = await fetch("/api/v1/membership/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          salutation: formData.salutation,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          mobile: formData.mobile,
+          email: formData.email,
+          city: formData.city,
+          plan: formData.plan,
+          needGst: formData.needGst,
+          companyName: formData.companyName,
+          gstin: formData.gstin,
+          acceptTerms: formData.acceptTerms,
+        }),
+      });
+
+      const regJson = await regRes.json();
+      if (!regJson.success) {
+        setLoadingPayment(false);
+        alert(regJson.message || "Failed to initiate client registration on server.");
+        return;
+      }
+
+      const { client, paymentAttemptId, orderId, amountPaise, keyId: backendKeyId } = regJson.data;
+
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        alert("Razorpay Payment Gateway SDK failed to load. Please check your connection.");
+        setLoadingPayment(false);
+        return;
+      }
+
+      const keyId = (backendKeyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "").trim();
+
+      // Check if key_id is placeholder or incomplete
+      if (!keyId || keyId.length < 15 || keyId.includes("...")) {
+        setLoadingPayment(false);
+        alert(
+          "Invalid or truncated Razorpay Key ID!\n\nPlease check your Razorpay Dashboard and provide your complete Key ID (starts with rzp_test_...)."
+        );
+        return;
+      }
+
+      const options = {
+        key: keyId,
+        amount: amountPaise,
+        currency: "INR",
+        order_id: orderId && orderId.startsWith("order_") && !orderId.includes("_") ? orderId : undefined,
+        name: "The Luxe Yatra",
+        description: `Membership Payment - ${formData.plan}`,
+        image: "/Img/logo-emblem-v3.png",
+        prefill: {
+          name: `${formData.salutation} ${formData.firstName} ${formData.lastName}`.trim(),
+          email: formData.email,
+          contact: formData.mobile,
+        },
+        notes: {
+          clientId: client.id,
+          city: formData.city,
+          plan: formData.plan,
+          needGst: formData.needGst ? "Yes" : "No",
+          companyName: formData.companyName || "",
+          gstin: formData.gstin || "",
+        },
+        theme: {
+          color: "#E39F25",
+        },
+        handler: async function (response: any) {
+          setLoadingPayment(true);
+          try {
+            const verifyRes = await fetch("/api/v1/membership/verify", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                clientId: client.id,
+                paymentAttemptId,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id || orderId,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+            const verifyJson = await verifyRes.json();
+            setLoadingPayment(false);
+            if (verifyJson.success) {
+              setPaymentResult({ paymentId: response.razorpay_payment_id });
+              setSubmittedType("pay");
+            } else {
+              alert("Payment received, but verification returned: " + verifyJson.message);
+            }
+          } catch (err: any) {
+            setLoadingPayment(false);
+            console.error("Verification error:", err);
+            alert("Network error during verification. Payment ID: " + response.razorpay_payment_id);
+          }
+        },
+        modal: {
+          ondismiss: async function () {
+            setLoadingPayment(false);
+            try {
+              await fetch("/api/v1/membership/abandon", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  clientId: client.id,
+                  paymentAttemptId,
+                }),
+              });
+            } catch (err) {
+              console.error("Error recording payment abandonment:", err);
+            }
+          },
+        },
+      };
+
       const rzp = new (window as any).Razorpay(options);
-      rzp.on("payment.failed", function (response: any) {
+      rzp.on("payment.failed", async function (response: any) {
         console.error("Razorpay Payment Failed:", response.error);
         setLoadingPayment(false);
-        alert(`Payment Failed: ${response.error.description || response.error.reason || "Something went wrong"}`);
+        try {
+          await fetch("/api/v1/membership/fail", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              clientId: client.id,
+              paymentAttemptId,
+              errorCode: response.error?.code,
+              errorDescription: response.error?.description || response.error?.reason,
+            }),
+          });
+        } catch (err) {
+          console.error("Error recording failed payment:", err);
+        }
+        alert(`Payment Failed: ${response.error?.description || response.error?.reason || "Something went wrong"}. Your application has been safely saved.`);
       });
       rzp.open();
     } catch (err: any) {
-      console.error("Razorpay launch error:", err);
+      console.error("Payment initialization error:", err);
       setLoadingPayment(false);
-      alert("Error initializing Razorpay payment window: " + (err?.message || err));
+      alert("Error initializing payment: " + (err?.message || err));
     }
   };
 

@@ -10,6 +10,8 @@ import * as blogCatCtrl from "../controllers/blogCategoryController";
 import * as mediaCtrl from "../controllers/mediaController";
 import * as userCtrl from "../controllers/userController";
 import * as dashCtrl from "../controllers/dashboardController";
+import * as clientAdminCtrl from "../controllers/clientAdminController";
+import * as invoiceAdminCtrl from "../controllers/invoiceAdminController";
 
 const router = Router();
 
@@ -76,5 +78,18 @@ router.get("/users", requirePermission("user.view"), userCtrl.getUsers);
 router.post("/users", requirePermission("user.create"), userCtrl.createUser);
 router.put("/users/:id", requirePermission("user.update"), userCtrl.updateUser);
 router.delete("/users/:id", requirePermission("user.delete"), userCtrl.deleteUser);
+
+// Clients
+router.get("/clients", requirePermission("client.view"), clientAdminCtrl.getClients);
+router.get("/clients/:id", requirePermission("client.view"), clientAdminCtrl.getClientById);
+router.put("/clients/:id", requirePermission("client.update"), clientAdminCtrl.updateClient);
+router.post("/clients/:id/welcome-email", requirePermission("email.send"), clientAdminCtrl.sendClientWelcomeEmail);
+
+// Invoices
+router.get("/invoices", requirePermission("invoice.view"), invoiceAdminCtrl.getInvoices);
+router.get("/invoices/:id", requirePermission("invoice.view"), invoiceAdminCtrl.getInvoiceById);
+router.post("/invoices", requirePermission("invoice.create"), invoiceAdminCtrl.createInvoice);
+router.get("/invoices/:id/pdf", requirePermission("invoice.view"), invoiceAdminCtrl.downloadInvoicePdf);
+router.post("/invoices/:id/send", requirePermission("invoice.send"), invoiceAdminCtrl.sendInvoiceEmail);
 
 export default router;

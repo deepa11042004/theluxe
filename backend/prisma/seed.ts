@@ -36,6 +36,16 @@ const PERMISSIONS = [
   "profile.view",
   "profile.update",
   "audit.view",
+  "client.view",
+  "client.create",
+  "client.update",
+  "client.delete",
+  "invoice.view",
+  "invoice.create",
+  "invoice.update",
+  "invoice.delete",
+  "invoice.send",
+  "email.send",
 ];
 
 const BLOG_CATEGORIES = [
