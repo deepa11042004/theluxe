@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
@@ -13,9 +13,6 @@ import {
   Image as ImageIcon,
   Users,
   UserCheck,
-  ChevronDown,
-  Plus,
-  List,
   X,
   Receipt,
 } from "lucide-react";
@@ -28,17 +25,6 @@ interface AdminSidebarProps {
 
 export default function AdminSidebar({ userRole, isOpen = false, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
-  const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({
-    hotels: true,
-    destinations: true,
-    itineraries: true,
-    blogs: true,
-  });
-
-  const toggleSection = (section: string) => {
-    setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
-  };
-
   const isSuperAdmin = userRole === "SUPER_ADMIN";
 
   return (
@@ -103,223 +89,133 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
             <span>Dashboard</span>
           </Link>
 
-          {/* HOTELS MODULE */}
-          <div className="pt-2">
-            <button
-              onClick={() => toggleSection("hotels")}
-              className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <Building2 className="w-4 h-4 text-[#E39F25]" />
-                <span>Hotels</span>
-              </div>
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  openSections.hotels ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            {openSections.hotels && (
-              <div className="mt-1 pl-7 space-y-1">
-                <Link
-                  href="/admin/hotels"
-                  onClick={onClose}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
-                    pathname === "/admin/hotels"
-                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  <List className="w-3.5 h-3.5" /> All Hotels
-                </Link>
+          {/* HOTELS */}
+          <Link
+            href="/admin/hotels"
+            onClick={onClose}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+              pathname.startsWith("/admin/hotels")
+                ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
+                : "text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            <Building2 className="w-4 h-4 text-[#E39F25]" />
+            <span>Hotels</span>
+          </Link>
 
-              </div>
-            )}
-          </div>
+          {/* DESTINATIONS */}
+          <Link
+            href="/admin/destinations"
+            onClick={onClose}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+              pathname.startsWith("/admin/destinations")
+                ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
+                : "text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            <MapPin className="w-4 h-4 text-[#E39F25]" />
+            <span>Destinations</span>
+          </Link>
 
-          {/* DESTINATIONS MODULE */}
-          <div className="pt-2">
-            <button
-              onClick={() => toggleSection("destinations")}
-              className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <MapPin className="w-4 h-4 text-[#E39F25]" />
-                <span>Destinations</span>
-              </div>
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  openSections.destinations ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            {openSections.destinations && (
-              <div className="mt-1 pl-7 space-y-1">
-                <Link
-                  href="/admin/destinations"
-                  onClick={onClose}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
-                    pathname === "/admin/destinations"
-                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  <List className="w-3.5 h-3.5" /> All Destinations
-                </Link>
+          {/* ITINERARIES */}
+          <Link
+            href="/admin/itineraries"
+            onClick={onClose}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+              pathname.startsWith("/admin/itineraries")
+                ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
+                : "text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            <Compass className="w-4 h-4 text-[#E39F25]" />
+            <span>Itineraries</span>
+          </Link>
 
-              </div>
-            )}
-          </div>
-
-          {/* ITINERARIES MODULE */}
-          <div className="pt-2">
-            <button
-              onClick={() => toggleSection("itineraries")}
-              className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <Compass className="w-4 h-4 text-[#E39F25]" />
-                <span>Itineraries</span>
-              </div>
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  openSections.itineraries ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            {openSections.itineraries && (
-              <div className="mt-1 pl-7 space-y-1">
-                <Link
-                  href="/admin/itineraries"
-                  onClick={onClose}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
-                    pathname === "/admin/itineraries"
-                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  <List className="w-3.5 h-3.5" /> All Itineraries
-                </Link>
-
-              </div>
-            )}
-          </div>
-
-          {/* BLOGS MODULE */}
-          <div className="pt-2">
-            <button
-              onClick={() => toggleSection("blogs")}
-              className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <FileText className="w-4 h-4 text-[#E39F25]" />
-                <span>Blogs</span>
-              </div>
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  openSections.blogs ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            {openSections.blogs && (
-              <div className="mt-1 pl-7 space-y-1">
-                <Link
-                  href="/admin/blogs"
-                  onClick={onClose}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${
-                    pathname === "/admin/blogs"
-                      ? "text-[#E39F25] bg-[#E39F25]/10 font-semibold"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  <List className="w-3.5 h-3.5" /> All Blogs
-                </Link>
-
-              </div>
-            )}
-          </div>
+          {/* BLOGS */}
+          <Link
+            href="/admin/blogs"
+            onClick={onClose}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+              pathname.startsWith("/admin/blogs")
+                ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
+                : "text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            <FileText className="w-4 h-4 text-[#E39F25]" />
+            <span>Blogs</span>
+          </Link>
 
           {/* MEDIA LIBRARY */}
-          <div className="pt-2">
-            <Link
-              href="/admin/media"
-              onClick={onClose}
-              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
-                pathname === "/admin/media"
-                  ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
-                  : "text-gray-400 hover:text-white hover:bg-white/5"
-              }`}
-            >
-              <ImageIcon className="w-4 h-4 text-[#E39F25]" />
-              <span>Media Library</span>
-            </Link>
-          </div>
+          <Link
+            href="/admin/media"
+            onClick={onClose}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+              pathname.startsWith("/admin/media")
+                ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
+                : "text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            <ImageIcon className="w-4 h-4 text-[#E39F25]" />
+            <span>Media Library</span>
+          </Link>
 
           {/* INVOICES */}
-          <div className="pt-2">
-            <Link
-              href="/admin/invoices"
-              onClick={onClose}
-              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
-                pathname.startsWith("/admin/invoices")
-                  ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
-                  : "text-gray-400 hover:text-white hover:bg-white/5"
-              }`}
-            >
-              <Receipt className="w-4 h-4 text-[#E39F25]" />
-              <span>Invoices</span>
-            </Link>
-          </div>
+          <Link
+            href="/admin/invoices"
+            onClick={onClose}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+              pathname.startsWith("/admin/invoices")
+                ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
+                : "text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            <Receipt className="w-4 h-4 text-[#E39F25]" />
+            <span>Invoices</span>
+          </Link>
 
           {/* CLIENTS */}
-          <div className="pt-2">
-            <Link
-              href="/admin/clients"
-              onClick={onClose}
-              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
-                pathname.startsWith("/admin/clients")
-                  ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
-                  : "text-gray-400 hover:text-white hover:bg-white/5"
-              }`}
-            >
-              <UserCheck className="w-4 h-4 text-[#E39F25]" />
-              <span>Clients</span>
-            </Link>
-          </div>
+          <Link
+            href="/admin/clients"
+            onClick={onClose}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+              pathname.startsWith("/admin/clients")
+                ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
+                : "text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            <UserCheck className="w-4 h-4 text-[#E39F25]" />
+            <span>Clients</span>
+          </Link>
 
           {/* ADMIN USERS (SUPER ADMIN ONLY) */}
           {isSuperAdmin && (
-            <div className="pt-2">
-              <Link
-                href="/admin/users"
-                onClick={onClose}
-                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
-                  pathname === "/admin/users"
-                    ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
-                    : "text-gray-400 hover:text-white hover:bg-white/5"
-                }`}
-              >
-                <Users className="w-4 h-4 text-[#E39F25]" />
-                <span>Admin Users</span>
-              </Link>
-            </div>
-          )}
-
-          {/* PROFILE */}
-          <div className="pt-2">
             <Link
-              href="/admin/profile"
+              href="/admin/users"
               onClick={onClose}
               className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
-                pathname === "/admin/profile"
+                pathname === "/admin/users"
                   ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
                   : "text-gray-400 hover:text-white hover:bg-white/5"
               }`}
             >
-              <UserCheck className="w-4 h-4 text-[#E39F25]" />
-              <span>Profile</span>
+              <Users className="w-4 h-4 text-[#E39F25]" />
+              <span>Admin Users</span>
             </Link>
-          </div>
+          )}
+
+          {/* PROFILE */}
+          <Link
+            href="/admin/profile"
+            onClick={onClose}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+              pathname === "/admin/profile"
+                ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
+                : "text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            <UserCheck className="w-4 h-4 text-[#E39F25]" />
+            <span>Profile</span>
+          </Link>
         </div>
       </aside>
     </>
