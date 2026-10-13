@@ -30,7 +30,7 @@ const LUXURY_RESORTS = [
       "A floating white-marble palace in the middle of Lake Pichola offering unparalleled royal hospitality and romantic sunset views over the Aravalli hills.",
     image:
       "https://cdn.sanity.io/images/ocl5w36p/ihcl_prod/1c0c270e8d67352d82a51cc9a9c89c994bc882fe-1280x1760.jpg",
-    href: "https://www.tajhotels.com/en-in/taj/taj-lake-palace-udaipur/",
+    href: "/contact",
     category: "HERITAGE & PALACE",
     luxuryCategory: "HERITAGE & PALACE",
     hotelType: "Palace Resort",
@@ -48,7 +48,7 @@ const LUXURY_RESORTS = [
     description:
       "A world-renowned luxury wellness sanctuary set on a 100-acre palace estate overlooking the spiritual Ganges River valley.",
     image: "/Img/Untitled design (15).webp",
-    href: "https://www.anandaspa.com/",
+    href: "/contact",
     category: "MOUNTAIN & WELLNESS",
     luxuryCategory: "MOUNTAIN & WELLNESS",
     hotelType: "Wellness Sanctuary",
@@ -66,7 +66,7 @@ const LUXURY_RESORTS = [
     description:
       "Located just 600 meters from the Taj Mahal, every room and suite offers uninterrupted, breathtaking views of the monument of love.",
     image: "/Img/e3371e9e.avif",
-    href: "https://www.oberoihotels.com/hotels-in-agra-amarvilas-resort/",
+    href: "/contact",
     category: "HERITAGE & PALACE",
     luxuryCategory: "HERITAGE & PALACE",
     hotelType: "Palace Resort",
@@ -84,7 +84,7 @@ const LUXURY_RESORTS = [
     description:
       "An idyllic island hideaway featuring spacious beachfront and overwater villas with private pools, glassblowing studio, and open-air cinema.",
     image: "/Img/soneva-fushi.jpg",
-    href: "https://soneva.com/resorts/soneva-fushi/",
+    href: "/contact",
     category: "BEACH & ISLAND",
     luxuryCategory: "BEACH & ISLAND",
     hotelType: "Island Resort",
@@ -103,7 +103,7 @@ const LUXURY_RESORTS = [
       "A modern oasis carved out of pink sandstone, surrounded by mature palm groves and ancient ruined temples near Sariska National Park.",
     image:
       "https://www.aman.com/sites/default/files/2023-01/Amanbagh%2C%20India%20-%20Main%20Building%2C%20Pool%20View-3.jpg",
-    href: "https://www.aman.com/resorts/amanbagh",
+    href: "/contact",
     category: "HERITAGE & PALACE",
     luxuryCategory: "HERITAGE & PALACE",
     hotelType: "Mughal Luxury Resort",
@@ -121,7 +121,7 @@ const LUXURY_RESORTS = [
     description:
       "Perched high on a clifftop overlooking the Arabian Sea, blending authentic Malabar coastal luxury with world-class beach access.",
     image: "/Img/Intro_1035x600_5.webp",
-    href: "https://www.theleela.com/the-leela-kovalam-a-raviz-hotel",
+    href: "/contact",
     category: "BEACH & ISLAND",
     luxuryCategory: "BEACH & ISLAND",
     hotelType: "Coastal Beach Resort",
@@ -380,7 +380,7 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
               country: hotel.country || "Global Sanctuary",
               description: hotel.short_description || hotel.description || "Handpicked luxury sanctuary.",
               image: primaryImg,
-              href: hotel.official_website || hotel.booking_url || `/resorts/${hotel.slug}`,
+              href: "/contact",
               category: displayCat,
               luxuryCategory: hotel.luxury_category || "",
               hotelType: hotel.hotel_type || "",
@@ -623,9 +623,7 @@ export default function ResortSec({ initialCategory = "ALL RESORTS" }: { initial
                     </div>
 
                     <Link
-                      href={resort.href || "/contact"}
-                      target={resort.href ? "_blank" : undefined}
-                      rel={resort.href ? "noopener noreferrer" : undefined}
+                      href={resort.href && resort.href.startsWith("/") ? resort.href : "/contact"}
                       className="inline-flex items-center gap-1.5 text-xs font-medium text-white hover:text-[#E39F25] transition-colors duration-200 cursor-pointer uppercase tracking-widest"
                     >
                       <span>EXPLORE</span>

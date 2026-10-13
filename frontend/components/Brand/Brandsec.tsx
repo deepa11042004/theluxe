@@ -371,15 +371,12 @@ const BrandCard = ({ brand, regionId }: { brand: BrandItem; regionId?: string })
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <motion.a
-      href={brand.website}
-      target="_blank"
-      rel="noopener noreferrer"
+    <motion.div
       whileHover={{ y: -4, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative bg-white rounded-none border border-neutral-200/90 shadow-2xs hover:shadow-lg hover:border-[#E39F25] transition-all duration-300 flex flex-col items-center justify-center p-4 min-h-[110px] text-center overflow-hidden"
+      className="group relative bg-white rounded-none border border-neutral-200/90 shadow-2xs hover:shadow-lg hover:border-[#E39F25] transition-all duration-300 flex flex-col items-center justify-center p-4 min-h-[110px] text-center overflow-hidden cursor-default"
     >
       {brand.logoImg ? (
         <div className="relative w-full h-14 flex items-center justify-center">
@@ -424,7 +421,7 @@ const BrandCard = ({ brand, regionId }: { brand: BrandItem; regionId?: string })
           )}
         </div>
       )}
-    </motion.a>
+    </motion.div>
   );
 };
 
