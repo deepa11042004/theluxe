@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, Search, Edit, Trash2, CheckCircle2, XCircle, Star } from "lucide-react";
+import { Plus, Search, Edit, Trash2, CheckCircle2, FileText, Star } from "lucide-react";
 import StatusBadge from "@/components/admin/StatusBadge";
 
 export default function AdminDestinationsListPage() {
@@ -162,19 +162,40 @@ export default function AdminDestinationsListPage() {
                         )}
                       </td>
                       <td className="py-3 px-4"><StatusBadge status={item.status} /></td>
-                      <td className="py-3 px-4 text-right space-x-2">
-                        <button
-                          onClick={() => handleStatusToggle(item.id, item.status)}
-                          className="p-1.5 rounded-lg border text-gray-600 hover:bg-gray-100"
-                        >
-                          {item.status === "PUBLISHED" ? <XCircle className="w-4 h-4 text-amber-600" /> : <CheckCircle2 className="w-4 h-4 text-emerald-600" />}
-                        </button>
-                        <Link href={`/admin/destinations/${item.id}/edit`} className="p-1.5 rounded-lg border text-gray-600 hover:bg-gray-100 inline-block">
-                          <Edit className="w-4 h-4" />
-                        </Link>
-                        <button onClick={() => handleDelete(item.id)} className="p-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50">
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                      <td className="py-3 px-4 text-right">
+                        <div className="inline-flex items-center gap-1">
+                          <button
+                            onClick={() => handleStatusToggle(item.id, item.status)}
+                            className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                              item.status === "PUBLISHED"
+                                ? "text-emerald-600 hover:bg-emerald-50"
+                                : "text-amber-600 hover:bg-amber-50"
+                            }`}
+                            title={item.status === "PUBLISHED" ? "Published (Click to unpublish)" : "Draft (Click to publish)"}
+                          >
+                            {item.status === "PUBLISHED" ? (
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                            ) : (
+                              <FileText className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+
+                          <Link
+                            href={`/admin/destinations/${item.id}/edit`}
+                            className="p-1.5 hover:bg-neutral-100 rounded-lg text-neutral-600 transition-colors cursor-pointer"
+                            title="Edit Destination"
+                          >
+                            <Edit className="w-3.5 h-3.5" />
+                          </Link>
+
+                          <button
+                            onClick={() => handleDelete(item.id)}
+                            className="p-1.5 hover:bg-red-50 rounded-lg text-red-600 transition-colors cursor-pointer"
+                            title="Delete Destination"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );

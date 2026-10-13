@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, Search, Filter, Edit, Trash2, CheckCircle2, XCircle, Star } from "lucide-react";
+import { Plus, Search, Filter, Edit, Trash2, CheckCircle2, FileText, Star } from "lucide-react";
 import StatusBadge from "@/components/admin/StatusBadge";
 
 export default function AdminHotelsListPage() {
@@ -208,38 +208,40 @@ export default function AdminHotelsListPage() {
                         <StatusBadge status={hotel.status} />
                       </td>
 
-                      <td className="py-3 px-4 text-right space-x-2">
-                        <button
-                          onClick={() => handleStatusToggle(hotel.id, hotel.status)}
-                          className={`p-1.5 rounded-lg border transition-colors ${
-                            hotel.status === "PUBLISHED"
-                              ? "text-amber-600 border-amber-300 hover:bg-amber-50"
-                              : "text-emerald-600 border-emerald-300 hover:bg-emerald-50"
-                          }`}
-                          title={hotel.status === "PUBLISHED" ? "Unpublish Hotel" : "Publish Hotel"}
-                        >
-                          {hotel.status === "PUBLISHED" ? (
-                            <XCircle className="w-4 h-4" />
-                          ) : (
-                            <CheckCircle2 className="w-4 h-4" />
-                          )}
-                        </button>
+                      <td className="py-3 px-4 text-right">
+                        <div className="inline-flex items-center gap-1">
+                          <button
+                            onClick={() => handleStatusToggle(hotel.id, hotel.status)}
+                            className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                              hotel.status === "PUBLISHED"
+                                ? "text-emerald-600 hover:bg-emerald-50"
+                                : "text-amber-600 hover:bg-amber-50"
+                            }`}
+                            title={hotel.status === "PUBLISHED" ? "Published (Click to unpublish)" : "Draft (Click to publish)"}
+                          >
+                            {hotel.status === "PUBLISHED" ? (
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                            ) : (
+                              <FileText className="w-3.5 h-3.5" />
+                            )}
+                          </button>
 
-                        <Link
-                          href={`/admin/hotels/${hotel.id}/edit`}
-                          className="p-1.5 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition-colors inline-block"
-                          title="Edit Hotel"
-                        >
-                          <Edit className="w-4 h-4" />
-                        </Link>
+                          <Link
+                            href={`/admin/hotels/${hotel.id}/edit`}
+                            className="p-1.5 hover:bg-neutral-100 rounded-lg text-neutral-600 transition-colors cursor-pointer"
+                            title="Edit Hotel"
+                          >
+                            <Edit className="w-3.5 h-3.5" />
+                          </Link>
 
-                        <button
-                          onClick={() => handleDelete(hotel.id)}
-                          className="p-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 transition-colors"
-                          title="Delete Hotel"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                          <button
+                            onClick={() => handleDelete(hotel.id)}
+                            className="p-1.5 hover:bg-red-50 rounded-lg text-red-600 transition-colors cursor-pointer"
+                            title="Delete Hotel"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );

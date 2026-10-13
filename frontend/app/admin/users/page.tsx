@@ -123,9 +123,15 @@ export default function AdminUsersPage() {
                     <td className="py-3 px-4 font-semibold text-emerald-600 uppercase text-[10px]">{u.status}</td>
                     <td className="py-3 px-4 text-gray-500">{new Date(u.created_at).toLocaleDateString()}</td>
                     <td className="py-3 px-4 text-right">
-                      <button onClick={() => handleDelete(u.id)} className="p-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50">
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                      <div className="inline-flex items-center gap-1">
+                        <button
+                          onClick={() => handleDelete(u.id)}
+                          className="p-1.5 hover:bg-red-50 rounded-lg text-red-600 transition-colors cursor-pointer"
+                          title="Delete User"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
