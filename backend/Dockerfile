@@ -14,6 +14,8 @@ RUN cp prisma/schema.sqlite.prisma prisma/schema.prisma
 # Install dependencies and generate Prisma client
 RUN npm ci --ignore-scripts
 RUN npx prisma generate --schema=prisma/schema.sqlite.prisma
+# Pre-download the schema engine now so `prisma db push` at container start needs no network (best effort)
+RUN DATABASE_URL="file:/tmp/warmup.db" npx prisma db push --skip-generate --schema=prisma/schema.sqlite.prisma || true
 
 COPY tsconfig.json ./
 COPY src ./src
@@ -37,4 +39,6 @@ COPY --from=builder /app/prisma ./prisma
 
 EXPOSE 5001
 
-CMD ["node", "dist/server.js"]
+# On start: if DATABASE_URL points to a persistent path (e.g. /data/dev.db) and the file does not exist yet, seed it ONCE
+# from the database baked into the image; later deploys never overwrite it. Then apply additive schema changes.
+CMD DB_FILE="${DATABASE_URL#file:}"; case "$DB_FILE" in /*) mkdir -p "$(dirname "$DB_FILE")"; [ -f "$DB_FILE" ] || cp prisma/dev.db "$DB_FILE" ;; esac; npx prisma db push --skip-generate --schema=prisma/schema.sqlite.prisma || echo "WARN: prisma db push failed"; exec node dist/server.js

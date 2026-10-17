@@ -8,7 +8,9 @@
     environment:
       - PORT=5001
       - NODE_ENV=production
-      - DATABASE_URL=file:./dev.db
+      # Database + uploads live on the persistent volume below so redeploys never reset production data
+      - DATABASE_URL=file:/data/dev.db
+      - UPLOADS_DIR=/data/uploads
       - JWT_SECRET=the_luxe_yatra_super_secret_jwt_key_2026_phase1
       - JWT_EXPIRES_IN=7d
       # Payment + email settings: set these in the hosting environment (never commit the values)
@@ -24,6 +26,8 @@
       - SMTP_USER=${SMTP_USER:-}
       - SMTP_PASS=${SMTP_PASS:-}
       - SMTP_FROM=${SMTP_FROM:-}
+    volumes:
+      - backend_data:/data
     restart: unless-stopped
 
   frontend:
@@ -39,3 +43,6 @@
     depends_on:
       - backend
     restart: unless-stopped
+
+volumes:
+  backend_data:
