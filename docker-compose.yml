@@ -11,6 +11,18 @@
       - DATABASE_URL=file:./dev.db
       - JWT_SECRET=the_luxe_yatra_super_secret_jwt_key_2026_phase1
       - JWT_EXPIRES_IN=7d
+      # Payment + email settings: set these in the hosting environment (never commit the values)
+      - PAYU_MODE=${PAYU_MODE:-test}
+      - PAYU_TEST_KEY=${PAYU_TEST_KEY:-}
+      - PAYU_TEST_SALT=${PAYU_TEST_SALT:-}
+      - PAYU_LIVE_KEY=${PAYU_LIVE_KEY:-}
+      - PAYU_LIVE_SALT=${PAYU_LIVE_SALT:-}
+      - PAYU_CALLBACK_BASE_URL=${PAYU_CALLBACK_BASE_URL:-}
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-465}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - SMTP_FROM=${SMTP_FROM:-}
     restart: unless-stopped
 
   frontend:

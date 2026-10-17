@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import crypto from "crypto";
 import Razorpay from "razorpay";
 import { prisma } from "../config/prisma";
-import { getPlanPricing } from "../utils/pricing";
+import { getPlanPricing, TEST_PLAN_NAME } from "../utils/pricing";
 import { generateInvoicePdf } from "../utils/pdfService";
 import { sendAutomatedEmail } from "../utils/emailService";
 
@@ -54,6 +54,10 @@ export async function saveRegistrationClient(body: any) {
     throw new RegistrationValidationError(
       "Missing required registration fields (firstName, lastName, mobile, email, city, plan)."
     );
+  }
+
+  if (plan === TEST_PLAN_NAME && process.env.NODE_ENV === "production") {
+    throw new RegistrationValidationError("Invalid membership plan selected.");
   }
 
   const cleanEmail = String(email).trim().toLowerCase();

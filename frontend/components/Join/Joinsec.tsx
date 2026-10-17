@@ -47,6 +47,8 @@ const PLANS = [
   "Luxe Signature Membership",
   "Luxe Prestige Membership",
   "Luxe Black Membership (Limited Edition)",
+  // Rs 1 plan for payment testing; only exists in `next dev`, never in a production build
+  ...(process.env.NODE_ENV !== "production" ? ["Luxe Test Plan (Rs 1)"] : []),
 ];
 
 export default function Joinsec() {

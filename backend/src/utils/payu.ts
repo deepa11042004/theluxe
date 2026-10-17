@@ -1,11 +1,12 @@
 import crypto from "crypto";
 
 export function getPayuConfig() {
-  const key = (process.env.PAYU_KEY || "").trim();
-  const salt = (process.env.PAYU_SALT || "").trim();
-  const paymentUrl = (process.env.PAYU_PAYMENT_URL || "https://test.payu.in/_payment").trim();
+  const live = (process.env.PAYU_MODE || "test").trim().toLowerCase() === "live";
+  const key = ((live ? process.env.PAYU_LIVE_KEY : process.env.PAYU_TEST_KEY) || "").trim();
+  const salt = ((live ? process.env.PAYU_LIVE_SALT : process.env.PAYU_TEST_SALT) || "").trim();
+  const paymentUrl = live ? "https://secure.payu.in/_payment" : "https://test.payu.in/_payment";
   const callbackBase = (process.env.PAYU_CALLBACK_BASE_URL || "http://localhost:3000").trim().replace(/\/+$/, "");
-  return { key, salt, paymentUrl, callbackBase };
+  return { live, key, salt, paymentUrl, callbackBase };
 }
 
 function sha512(input: string): string {

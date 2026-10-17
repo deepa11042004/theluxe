@@ -49,6 +49,21 @@ export const MEMBERSHIP_PLANS: Record<string, PlanPricing> = {
   },
 };
 
+// Development-only plan for end-to-end payment testing; rejected when NODE_ENV=production (see saveRegistrationClient).
+export const TEST_PLAN_NAME = "Luxe Test Plan (Rs 1)";
+
+MEMBERSHIP_PLANS[TEST_PLAN_NAME] = {
+  name: TEST_PLAN_NAME,
+  code: "TEST",
+  description: "Development-only test plan used to verify the payment flow with a Rs 1 transaction.",
+  baseAmount: 0.85,
+  taxRate: 18.0,
+  taxAmount: 0.15,
+  totalAmount: 1,
+  totalAmountPaise: 100,
+  currency: "INR",
+};
+
 export function getPlanPricing(planName?: string): PlanPricing {
   if (!planName) {
     return MEMBERSHIP_PLANS["Luxe Signature Membership"];

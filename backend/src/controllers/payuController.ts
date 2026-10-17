@@ -16,11 +16,21 @@ import {
 
 export async function initiatePayuPayment(req: Request, res: Response) {
   try {
-    const { key, salt, paymentUrl, callbackBase } = getPayuConfig();
+    const { live, key, salt, paymentUrl, callbackBase } = getPayuConfig();
     if (!key || !salt) {
       return res.status(500).json({
         success: false,
-        message: "PayU is not configured on the server (PAYU_KEY / PAYU_SALT missing).",
+        message: `PayU is not configured on the server (PAYU_${live ? "LIVE" : "TEST"}_KEY / PAYU_${live ? "LIVE" : "TEST"}_SALT missing).`,
+      });
+    }
+
+    // Live mode charges real cards: only allow https callbacks (plain http is fine for localhost, where the browser does the redirect).
+    const isLocalhost = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(callbackBase);
+    if (live && !callbackBase.startsWith("https://") && !isLocalhost) {
+      console.error("[PayU] Live mode requires PAYU_CALLBACK_BASE_URL to be https:// (or localhost). Current:", callbackBase);
+      return res.status(500).json({
+        success: false,
+        message: "Payments are temporarily unavailable. Please contact support.",
       });
     }
 
