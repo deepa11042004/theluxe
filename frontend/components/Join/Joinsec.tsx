@@ -47,8 +47,6 @@ const PLANS = [
   "Luxe Signature Membership",
   "Luxe Prestige Membership",
   "Luxe Black Membership (Limited Edition)",
-  // Rs 1 plan for payment testing; only exists in `next dev`, never in a production build
-  ...(process.env.NODE_ENV !== "production" ? ["Luxe Test Plan (Rs 1)"] : []),
 ];
 
 export default function Joinsec() {
@@ -71,6 +69,15 @@ export default function Joinsec() {
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [loadingPayment, setLoadingPayment] = useState(false);
   const [paymentOutcome, setPaymentOutcome] = useState<PaymentOutcome | null>(null);
+  const [testPlan, setTestPlan] = useState<string | null>(null);
+
+  // The backend decides whether the temporary Rs 1 test plan is offered
+  useEffect(() => {
+    fetch("/api/v1/membership/config")
+      .then((r) => r.json())
+      .then((j) => setTestPlan(j?.data?.testPlan || null))
+      .catch(() => setTestPlan(null));
+  }, []);
 
   // PayU redirects the browser back to /join?payment=... after the payment attempt
   useEffect(() => {
@@ -461,7 +468,7 @@ export default function Joinsec() {
                       <option value="" disabled className="text-neutral-400">
                         Select a membership plan...
                       </option>
-                      {PLANS.map((p) => (
+                      {[...PLANS, ...(testPlan ? [testPlan] : [])].map((p) => (
                         <option key={p} value={p}>
                           {p}
                         </option>

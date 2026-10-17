@@ -12,6 +12,7 @@
       - JWT_SECRET=the_luxe_yatra_super_secret_jwt_key_2026_phase1
       - JWT_EXPIRES_IN=7d
       # Payment + email settings: set these in the hosting environment (never commit the values)
+      - ENABLE_TEST_PLAN=${ENABLE_TEST_PLAN:-false}
       - PAYU_MODE=${PAYU_MODE:-test}
       - PAYU_TEST_KEY=${PAYU_TEST_KEY:-}
       - PAYU_TEST_SALT=${PAYU_TEST_SALT:-}

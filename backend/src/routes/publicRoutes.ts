@@ -24,6 +24,7 @@ router.get("/blogs/:slug", pubCtrl.getPublicBlogBySlug);
 
 // Public Membership & Payment Routes
 import * as memberCtrl from "../controllers/membershipController";
+router.get("/membership/config", memberCtrl.getMembershipConfig);
 router.post("/membership/register", memberCtrl.registerMembership);
 router.post("/membership/verify", memberCtrl.verifyPayment);
 router.post("/membership/fail", memberCtrl.recordFailedPayment);

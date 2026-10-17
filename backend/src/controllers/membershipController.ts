@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import crypto from "crypto";
 import Razorpay from "razorpay";
 import { prisma } from "../config/prisma";
-import { getPlanPricing, TEST_PLAN_NAME } from "../utils/pricing";
+import { getPlanPricing, isTestPlanEnabled, TEST_PLAN_NAME } from "../utils/pricing";
 import { generateInvoicePdf } from "../utils/pdfService";
 import { sendAutomatedEmail } from "../utils/emailService";
 
@@ -56,7 +56,7 @@ export async function saveRegistrationClient(body: any) {
     );
   }
 
-  if (plan === TEST_PLAN_NAME && process.env.NODE_ENV === "production") {
+  if (plan === TEST_PLAN_NAME && !isTestPlanEnabled()) {
     throw new RegistrationValidationError("Invalid membership plan selected.");
   }
 
@@ -120,6 +120,13 @@ export async function saveRegistrationClient(body: any) {
   }
 
   return { client, planPricing };
+}
+
+export function getMembershipConfig(_req: Request, res: Response) {
+  return res.status(200).json({
+    success: true,
+    data: { testPlan: isTestPlanEnabled() ? TEST_PLAN_NAME : null },
+  });
 }
 
 export async function registerMembership(req: Request, res: Response) {

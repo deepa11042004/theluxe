@@ -49,8 +49,13 @@ export const MEMBERSHIP_PLANS: Record<string, PlanPricing> = {
   },
 };
 
-// Development-only plan for end-to-end payment testing; rejected when NODE_ENV=production (see saveRegistrationClient).
+// Rs 1 plan for end-to-end payment testing. Always available outside production; in production it is
+// only available while ENABLE_TEST_PLAN=true (turn it off again after testing).
 export const TEST_PLAN_NAME = "Luxe Test Plan (Rs 1)";
+
+export function isTestPlanEnabled(): boolean {
+  return process.env.NODE_ENV !== "production" || process.env.ENABLE_TEST_PLAN === "true";
+}
 
 MEMBERSHIP_PLANS[TEST_PLAN_NAME] = {
   name: TEST_PLAN_NAME,
