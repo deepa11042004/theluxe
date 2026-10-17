@@ -312,7 +312,7 @@ export async function generateInvoicePdf(
     doc.text(
       "1. All Luxe Club membership fees are subject to verification and activation as per company charter.\n" +
       "2. This document is electronically generated and digitally authenticated. No signature required.\n" +
-      "3. Tax treatment verified under Section 9 of the CGST Act 2017. For enquiries, contact accounts@theluxeyatra.com.",
+      "3. Tax treatment verified under Section 9 of the CGST Act 2017. For enquiries, contact " + COMPANY_CONFIG.accountsEmail + ".",
       40,
       termsY + 22,
       { width: 515, lineGap: 3 }
@@ -326,7 +326,7 @@ export async function generateInvoicePdf(
       .font("Helvetica")
       .fillColor("#777777")
       .text(
-        "The Luxe Yatra Worldwide Travels & Resorts | Concierge Desk: +91 22 6985 4000 | https://theluxeyatra.com",
+        `The Luxe Yatra Worldwide Travels & Resorts | Concierge Desk: ${COMPANY_CONFIG.phone} | ${COMPANY_CONFIG.website}`,
         40,
         footerY + 5,
         { width: 515, align: "center" }

@@ -642,7 +642,7 @@ export default function AdminInvoicesPage() {
               <div className="p-4 bg-neutral-50 rounded-xl border border-neutral-200/60">
                 <span className="font-bold text-neutral-900 block mb-1">SERVICE PROVIDER</span>
                 <p className="font-medium text-neutral-800">The Luxe Yatra Worldwide Travels & Resorts Pvt Ltd</p>
-                <p className="text-neutral-500 mt-1">12th Floor, Express Towers, Nariman Point, Mumbai 400021</p>
+                <p className="text-neutral-500 mt-1">293, Lane 2, Westend Marg, Saket, New Delhi - 110030</p>
                 <p className="text-neutral-500 font-mono mt-1">GSTIN: 27AABCT8921M1ZQ</p>
               </div>
 

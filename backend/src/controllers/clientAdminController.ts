@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { regenerateInvoicePdf } from "../utils/invoicePdf";
 import { prisma } from "../config/prisma";
 import { sendAutomatedEmail } from "../utils/emailService";
 import { getPlanPricing } from "../utils/pricing";
@@ -232,6 +233,10 @@ export async function sendClientWelcomeEmail(req: Request, res: Response) {
     const pricing = getPlanPricing(client.membership_plan);
     const latestInvoice = client.invoices[0];
 
+    // Rebuild the PDF so the attachment reflects the current company details
+    const invoicePdfPath =
+      isPaid && latestInvoice ? (await regenerateInvoicePdf(latestInvoice.id)).filePath : undefined;
+
     const result = await sendAutomatedEmail({
       recipient: client.email,
       templateType,
@@ -247,10 +252,10 @@ export async function sendClientWelcomeEmail(req: Request, res: Response) {
         paymentStatus: client.latest_payment_status,
       },
       attachment:
-        isPaid && latestInvoice?.pdf_path
+        latestInvoice && invoicePdfPath
           ? {
               filename: `${latestInvoice.invoice_number}.pdf`,
-              path: latestInvoice.pdf_path,
+              path: invoicePdfPath,
             }
           : undefined,
     });

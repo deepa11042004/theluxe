@@ -28,87 +28,94 @@ export async function generateInvoiceNumber(): Promise<string> {
   return `LY-INV-${year}-${pad}`;
 }
 
-export async function registerMembership(req: Request, res: Response) {
-  try {
-    const {
-      salutation = "Mr.",
-      firstName,
-      lastName,
-      mobile,
-      email,
-      city,
-      plan,
-      needGst = false,
-      companyName,
-      gstin,
-      acceptTerms = true,
-    } = req.body;
+export class RegistrationValidationError extends Error {}
 
-    if (!firstName || !lastName || !mobile || !email || !city || !plan) {
-      return res.status(400).json({
-        success: false,
-        message: "Missing required registration fields (firstName, lastName, mobile, email, city, plan).",
-      });
-    }
+export async function saveRegistrationClient(body: any) {
+  const {
+    salutation = "Mr.",
+    firstName,
+    lastName,
+    mobile,
+    email,
+    city,
+    plan,
+    needGst = false,
+    companyName,
+    gstin,
+    acceptTerms = true,
+  } = body;
 
-    const cleanEmail = String(email).trim().toLowerCase();
-    const cleanMobile = String(mobile).trim();
-    const planPricing = getPlanPricing(plan);
+  if (!firstName || !lastName || !mobile || !email || !city || !plan) {
+    throw new RegistrationValidationError(
+      "Missing required registration fields (firstName, lastName, mobile, email, city, plan)."
+    );
+  }
 
-    // 1. Check if client already exists by email or mobile
-    let client = await prisma.client.findFirst({
-      where: {
-        OR: [{ email: cleanEmail }, { mobile: cleanMobile }],
+  const cleanEmail = String(email).trim().toLowerCase();
+  const cleanMobile = String(mobile).trim();
+  const planPricing = getPlanPricing(plan);
+
+  // Check if client already exists by email or mobile
+  let client = await prisma.client.findFirst({
+    where: {
+      OR: [{ email: cleanEmail }, { mobile: cleanMobile }],
+    },
+  });
+
+  if (client) {
+    // Update client profile with latest submitted details
+    client = await prisma.client.update({
+      where: { id: client.id },
+      data: {
+        salutation,
+        first_name: firstName.trim(),
+        last_name: lastName.trim(),
+        email: cleanEmail,
+        mobile: cleanMobile,
+        city: city.trim(),
+        membership_plan: planPricing.name,
+        amount: planPricing.totalAmount,
+        need_gst: Boolean(needGst),
+        company_name: companyName ? String(companyName).trim() : null,
+        gstin: gstin ? String(gstin).trim() : null,
+        terms_accepted: Boolean(acceptTerms),
+        terms_accepted_at: new Date(),
+        latest_payment_status: "PENDING",
+        last_payment_attempt_at: new Date(),
       },
     });
+  } else {
+    const clientCode = await generateClientCode();
+    client = await prisma.client.create({
+      data: {
+        client_code: clientCode,
+        salutation,
+        first_name: firstName.trim(),
+        last_name: lastName.trim(),
+        email: cleanEmail,
+        mobile: cleanMobile,
+        city: city.trim(),
+        membership_plan: planPricing.name,
+        membership_status: "PENDING_PAYMENT",
+        latest_payment_status: "PENDING",
+        amount: planPricing.totalAmount,
+        currency: "INR",
+        need_gst: Boolean(needGst),
+        company_name: companyName ? String(companyName).trim() : null,
+        gstin: gstin ? String(gstin).trim() : null,
+        terms_accepted: Boolean(acceptTerms),
+        terms_accepted_at: new Date(),
+        last_payment_attempt_at: new Date(),
+      },
+    });
+  }
 
-    if (client) {
-      // Update client profile with latest submitted details
-      client = await prisma.client.update({
-        where: { id: client.id },
-        data: {
-          salutation,
-          first_name: firstName.trim(),
-          last_name: lastName.trim(),
-          email: cleanEmail,
-          mobile: cleanMobile,
-          city: city.trim(),
-          membership_plan: planPricing.name,
-          amount: planPricing.totalAmount,
-          need_gst: Boolean(needGst),
-          company_name: companyName ? String(companyName).trim() : null,
-          gstin: gstin ? String(gstin).trim() : null,
-          terms_accepted: Boolean(acceptTerms),
-          terms_accepted_at: new Date(),
-          latest_payment_status: "PENDING",
-          last_payment_attempt_at: new Date(),
-        },
-      });
-    } else {
-      const clientCode = await generateClientCode();
-      client = await prisma.client.create({
-        data: {
-          client_code: clientCode,
-          salutation,
-          first_name: firstName.trim(),
-          last_name: lastName.trim(),
-          email: cleanEmail,
-          mobile: cleanMobile,
-          city: city.trim(),
-          membership_plan: planPricing.name,
-          membership_status: "PENDING_PAYMENT",
-          latest_payment_status: "PENDING",
-          amount: planPricing.totalAmount,
-          currency: "INR",
-          need_gst: Boolean(needGst),
-          company_name: companyName ? String(companyName).trim() : null,
-          gstin: gstin ? String(gstin).trim() : null,
-          terms_accepted: Boolean(acceptTerms),
-          terms_accepted_at: new Date(),
-          last_payment_attempt_at: new Date(),
-        },
-      });
-    }
+  return { client, planPricing };
+}
+
+export async function registerMembership(req: Request, res: Response) {
+  try {
+    const { client, planPricing } = await saveRegistrationClient(req.body);
 
     // 2. Create Razorpay order if keys available, or generate reference
     const rzp = getRazorpayInstance();
@@ -171,12 +178,171 @@ export async function registerMembership(req: Request, res: Response) {
       },
     });
   } catch (err: any) {
+    if (err instanceof RegistrationValidationError) {
+      return res.status(400).json({ success: false, message: err.message });
+    }
     console.error("[Membership] Register error:", err);
     return res.status(500).json({
       success: false,
       message: err?.message || "Internal server error registering client.",
     });
   }
+}
+
+interface ActivationInput {
+  client: Awaited<ReturnType<typeof prisma.client.findUniqueOrThrow>>;
+  attempt: { id: string };
+  gatewayLabel: string;
+  paymentId: string;
+  orderId?: string | null;
+}
+
+export async function activateMembershipAfterPayment({
+  client,
+  attempt,
+  gatewayLabel,
+  paymentId,
+  orderId,
+}: ActivationInput) {
+  // Activate Membership
+  const now = new Date();
+  const expiryDate = new Date();
+  expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+
+  const membershipNumber =
+    client.membership_number || `LY-${Math.floor(100000 + Math.random() * 900000)}`;
+
+  const updatedClient = await prisma.client.update({
+    where: { id: client.id },
+    data: {
+      membership_status: "ACTIVE",
+      membership_number: membershipNumber,
+      membership_activated_at: now,
+      membership_expires_at: expiryDate,
+      latest_payment_status: "SUCCESSFUL",
+      last_payment_attempt_at: now,
+    },
+  });
+
+  // 3. Create or Update Invoice (Idempotent)
+  const pricing = getPlanPricing(client.membership_plan);
+  let invoice = await prisma.invoice.findFirst({
+    where: {
+      client_id: client.id,
+      payment_attempt_id: attempt.id,
+    },
+  });
+
+  if (!invoice) {
+    const invoiceNumber = await generateInvoiceNumber();
+    invoice = await prisma.invoice.create({
+      data: {
+        invoice_number: invoiceNumber,
+        client_id: client.id,
+        payment_attempt_id: attempt.id,
+        invoice_date: now,
+        paid_date: now,
+        invoice_type: "TAX_INVOICE",
+        status: "PAID",
+        membership_plan: pricing.name,
+        plan_description: pricing.description,
+        quantity: 1,
+        unit_price: pricing.baseAmount,
+        taxable_amount: pricing.baseAmount,
+        tax_rate: pricing.taxRate,
+        tax_amount: pricing.taxAmount,
+        total_amount: pricing.totalAmount,
+        amount_paid: pricing.totalAmount,
+        balance_due: 0,
+        currency: "INR",
+        company_name: client.company_name,
+        company_gstin: client.gstin,
+      },
+    });
+
+    // Generate PDF Invoice
+    try {
+      const { filePath, relativeUrl } = await generateInvoicePdf({
+        invoiceNumber: invoice.invoice_number,
+        invoiceDate: invoice.invoice_date,
+        paidDate: invoice.paid_date,
+        invoiceType: "TAX_INVOICE",
+        status: "PAID",
+        client: {
+          clientCode: client.client_code,
+          salutation: client.salutation,
+          name: `${client.first_name} ${client.last_name}`,
+          email: client.email,
+          mobile: client.mobile,
+          city: client.city,
+          companyName: client.company_name,
+          gstin: client.gstin,
+        },
+        membership: {
+          planName: pricing.name,
+          description: pricing.description,
+          baseAmount: pricing.baseAmount,
+          taxRate: pricing.taxRate,
+          taxAmount: pricing.taxAmount,
+          totalAmount: pricing.totalAmount,
+          amountPaid: pricing.totalAmount,
+          balanceDue: 0,
+          currency: "INR",
+        },
+        payment: {
+          gateway: gatewayLabel,
+          paymentId: paymentId,
+          orderId: orderId,
+          paymentDate: now,
+          status: "SUCCESSFUL",
+        },
+      });
+
+      invoice = await prisma.invoice.update({
+        where: { id: invoice.id },
+        data: {
+          pdf_path: filePath,
+          pdf_url: relativeUrl,
+        },
+      });
+    } catch (pdfErr) {
+      console.error("[Invoice] Failed to generate PDF during payment verification:", pdfErr);
+    }
+  }
+
+  // 4. Send Welcome Email (Automatic)
+  try {
+    await sendAutomatedEmail({
+      recipient: client.email,
+      templateType: "WELCOME_PAID",
+      clientId: client.id,
+      invoiceId: invoice?.id,
+      data: {
+        clientName: `${client.salutation} ${client.first_name} ${client.last_name}`.trim(),
+        membershipPlan: pricing.name,
+        membershipNumber,
+        amount: pricing.totalAmount,
+        invoiceNumber: invoice?.invoice_number,
+        paymentStatus: "PAID",
+      },
+      attachment:
+        invoice?.pdf_path
+          ? {
+              filename: `${invoice.invoice_number}.pdf`,
+              path: invoice.pdf_path,
+            }
+          : undefined,
+    });
+
+    await prisma.client.update({
+      where: { id: client.id },
+      data: { welcome_email_sent_at: new Date() },
+    });
+  } catch (mailErr) {
+    console.error("[Email] Failed to send welcome email:", mailErr);
+  }
+
+  return { updatedClient, membershipNumber, invoice: invoice! };
 }
 
 export async function verifyPayment(req: Request, res: Response) {
@@ -258,143 +424,13 @@ export async function verifyPayment(req: Request, res: Response) {
       });
     }
 
-    // 2. Activate Membership
-    const now = new Date();
-    const expiryDate = new Date();
-    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-
-    const membershipNumber =
-      client.membership_number || `LY-${Math.floor(100000 + Math.random() * 900000)}`;
-
-    const updatedClient = await prisma.client.update({
-      where: { id: client.id },
-      data: {
-        membership_status: "ACTIVE",
-        membership_number: membershipNumber,
-        membership_activated_at: now,
-        membership_expires_at: expiryDate,
-        latest_payment_status: "SUCCESSFUL",
-        last_payment_attempt_at: now,
-      },
+    const { updatedClient, membershipNumber, invoice } = await activateMembershipAfterPayment({
+      client,
+      attempt,
+      gatewayLabel: "Razorpay",
+      paymentId: razorpay_payment_id,
+      orderId: razorpay_order_id,
     });
-
-    // 3. Create or Update Invoice (Idempotent)
-    const pricing = getPlanPricing(client.membership_plan);
-    let invoice = await prisma.invoice.findFirst({
-      where: {
-        client_id: client.id,
-        payment_attempt_id: attempt.id,
-      },
-    });
-
-    if (!invoice) {
-      const invoiceNumber = await generateInvoiceNumber();
-      invoice = await prisma.invoice.create({
-        data: {
-          invoice_number: invoiceNumber,
-          client_id: client.id,
-          payment_attempt_id: attempt.id,
-          invoice_date: now,
-          paid_date: now,
-          invoice_type: "TAX_INVOICE",
-          status: "PAID",
-          membership_plan: pricing.name,
-          plan_description: pricing.description,
-          quantity: 1,
-          unit_price: pricing.baseAmount,
-          taxable_amount: pricing.baseAmount,
-          tax_rate: pricing.taxRate,
-          tax_amount: pricing.taxAmount,
-          total_amount: pricing.totalAmount,
-          amount_paid: pricing.totalAmount,
-          balance_due: 0,
-          currency: "INR",
-          company_name: client.company_name,
-          company_gstin: client.gstin,
-        },
-      });
-
-      // Generate PDF Invoice
-      try {
-        const { filePath, relativeUrl } = await generateInvoicePdf({
-          invoiceNumber: invoice.invoice_number,
-          invoiceDate: invoice.invoice_date,
-          paidDate: invoice.paid_date,
-          invoiceType: "TAX_INVOICE",
-          status: "PAID",
-          client: {
-            clientCode: client.client_code,
-            salutation: client.salutation,
-            name: `${client.first_name} ${client.last_name}`,
-            email: client.email,
-            mobile: client.mobile,
-            city: client.city,
-            companyName: client.company_name,
-            gstin: client.gstin,
-          },
-          membership: {
-            planName: pricing.name,
-            description: pricing.description,
-            baseAmount: pricing.baseAmount,
-            taxRate: pricing.taxRate,
-            taxAmount: pricing.taxAmount,
-            totalAmount: pricing.totalAmount,
-            amountPaid: pricing.totalAmount,
-            balanceDue: 0,
-            currency: "INR",
-          },
-          payment: {
-            gateway: "Razorpay",
-            paymentId: razorpay_payment_id,
-            orderId: razorpay_order_id,
-            paymentDate: now,
-            status: "SUCCESSFUL",
-          },
-        });
-
-        invoice = await prisma.invoice.update({
-          where: { id: invoice.id },
-          data: {
-            pdf_path: filePath,
-            pdf_url: relativeUrl,
-          },
-        });
-      } catch (pdfErr) {
-        console.error("[Invoice] Failed to generate PDF during payment verification:", pdfErr);
-      }
-    }
-
-    // 4. Send Welcome Email (Automatic)
-    try {
-      await sendAutomatedEmail({
-        recipient: client.email,
-        templateType: "WELCOME_PAID",
-        clientId: client.id,
-        invoiceId: invoice?.id,
-        data: {
-          clientName: `${client.salutation} ${client.first_name} ${client.last_name}`.trim(),
-          membershipPlan: pricing.name,
-          membershipNumber,
-          amount: pricing.totalAmount,
-          invoiceNumber: invoice?.invoice_number,
-          paymentStatus: "PAID",
-        },
-        attachment:
-          invoice?.pdf_path
-            ? {
-                filename: `${invoice.invoice_number}.pdf`,
-                path: invoice.pdf_path,
-              }
-            : undefined,
-      });
-
-      await prisma.client.update({
-        where: { id: client.id },
-        data: { welcome_email_sent_at: new Date() },
-      });
-    } catch (mailErr) {
-      console.error("[Email] Failed to send welcome email:", mailErr);
-    }
 
     return res.status(200).json({
       success: true,

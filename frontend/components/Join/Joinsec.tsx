@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowRight, Check, X, ShieldCheck } from "lucide-react";
 import Image from "next/image";
@@ -17,6 +17,13 @@ interface FormData {
   needGst: boolean;
   companyName: string;
   gstin: string;
+}
+
+interface PaymentOutcome {
+  type: "success" | "failed" | "cancelled" | "pending" | "error";
+  paymentId?: string;
+  txnid?: string;
+  message?: string;
 }
 
 const CITIES = [
@@ -42,27 +49,6 @@ const PLANS = [
   "Luxe Black Membership (Limited Edition)",
 ];
 
-const loadRazorpayScript = () => {
-  return new Promise<boolean>((resolve) => {
-    if (typeof window === "undefined") return resolve(false);
-    if ((window as any).Razorpay) return resolve(true);
-
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    script.async = true;
-    script.onload = () => resolve(true);
-    script.onerror = () => resolve(false);
-    document.body.appendChild(script);
-  });
-};
-
-const getPlanPriceInPaise = (planName: string) => {
-  if (planName.includes("Signature")) return 17700000; // ₹1,77,000 (incl 18% GST)
-  if (planName.includes("Prestige")) return 29500000;  // ₹2,95,000 (incl 18% GST)
-  if (planName.includes("Black")) return 59000000;     // ₹5,90,000 (incl 18% GST)
-  return 17700000;
-};
-
 export default function Joinsec() {
   const [formData, setFormData] = useState<FormData>({
     salutation: "Mr.",
@@ -79,10 +65,24 @@ export default function Joinsec() {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [submittedType, setSubmittedType] = useState<"pay" | "contact" | null>(null);
+  const [submittedType, setSubmittedType] = useState<"contact" | null>(null);
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [loadingPayment, setLoadingPayment] = useState(false);
-  const [paymentResult, setPaymentResult] = useState<{ paymentId?: string } | null>(null);
+  const [paymentOutcome, setPaymentOutcome] = useState<PaymentOutcome | null>(null);
+
+  // PayU redirects the browser back to /join?payment=... after the payment attempt
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const payment = params.get("payment");
+    if (!payment) return;
+    setPaymentOutcome({
+      type: payment as PaymentOutcome["type"],
+      paymentId: params.get("paymentId") || undefined,
+      txnid: params.get("txnid") || undefined,
+      message: params.get("message") || undefined,
+    });
+    window.history.replaceState(null, "", window.location.pathname);
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -141,8 +141,8 @@ export default function Joinsec() {
     setLoadingPayment(true);
 
     try {
-      // 1. Save client record and create payment attempt on server BEFORE payment
-      const regRes = await fetch("/api/v1/membership/register", {
+      // Save the client + a PENDING payment attempt on the server, get signed PayU fields back
+      const res = await fetch("/api/v1/membership/payu/initiate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -160,125 +160,31 @@ export default function Joinsec() {
         }),
       });
 
-      const regJson = await regRes.json();
-      if (!regJson.success) {
+      const json = await res.json();
+      if (!json.success) {
         setLoadingPayment(false);
-        alert(regJson.message || "Failed to initiate client registration on server.");
+        alert(json.message || "Could not start the payment. Please try again.");
         return;
       }
 
-      const { client, paymentAttemptId, orderId, amountPaise, keyId: backendKeyId } = regJson.data;
-
-      const scriptLoaded = await loadRazorpayScript();
-      if (!scriptLoaded) {
-        alert("Razorpay Payment Gateway SDK failed to load. Please check your connection.");
-        setLoadingPayment(false);
-        return;
-      }
-
-      const keyId = (backendKeyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "").trim();
-
-      // Check if key_id is placeholder or incomplete
-      if (!keyId || keyId.length < 15 || keyId.includes("...")) {
-        setLoadingPayment(false);
-        alert(
-          "Invalid or truncated Razorpay Key ID!\n\nPlease check your Razorpay Dashboard and provide your complete Key ID (starts with rzp_test_...)."
-        );
-        return;
-      }
-
-      const options = {
-        key: keyId,
-        amount: amountPaise,
-        currency: "INR",
-        order_id: orderId && orderId.startsWith("order_") && !orderId.includes("_") ? orderId : undefined,
-        name: "The Luxe Yatra",
-        description: `Membership Payment - ${formData.plan}`,
-        image: "/Img/logo-emblem-v3.png",
-        prefill: {
-          name: `${formData.salutation} ${formData.firstName} ${formData.lastName}`.trim(),
-          email: formData.email,
-          contact: formData.mobile,
-        },
-        notes: {
-          clientId: client.id,
-          city: formData.city,
-          plan: formData.plan,
-          needGst: formData.needGst ? "Yes" : "No",
-          companyName: formData.companyName || "",
-          gstin: formData.gstin || "",
-        },
-        theme: {
-          color: "#E39F25",
-        },
-        handler: async function (response: any) {
-          setLoadingPayment(true);
-          try {
-            const verifyRes = await fetch("/api/v1/membership/verify", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                clientId: client.id,
-                paymentAttemptId,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_order_id: response.razorpay_order_id || orderId,
-                razorpay_signature: response.razorpay_signature,
-              }),
-            });
-            const verifyJson = await verifyRes.json();
-            setLoadingPayment(false);
-            if (verifyJson.success) {
-              setPaymentResult({ paymentId: response.razorpay_payment_id });
-              setSubmittedType("pay");
-            } else {
-              alert("Payment received, but verification returned: " + verifyJson.message);
-            }
-          } catch (err: any) {
-            setLoadingPayment(false);
-            console.error("Verification error:", err);
-            alert("Network error during verification. Payment ID: " + response.razorpay_payment_id);
-          }
-        },
-        modal: {
-          ondismiss: async function () {
-            setLoadingPayment(false);
-            try {
-              await fetch("/api/v1/membership/abandon", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  clientId: client.id,
-                  paymentAttemptId,
-                }),
-              });
-            } catch (err) {
-              console.error("Error recording payment abandonment:", err);
-            }
-          },
-        },
+      const { actionUrl, fields } = json.data as {
+        actionUrl: string;
+        fields: Record<string, string>;
       };
 
-      const rzp = new (window as any).Razorpay(options);
-      rzp.on("payment.failed", async function (response: any) {
-        console.error("Razorpay Payment Failed:", response.error);
-        setLoadingPayment(false);
-        try {
-          await fetch("/api/v1/membership/fail", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              clientId: client.id,
-              paymentAttemptId,
-              errorCode: response.error?.code,
-              errorDescription: response.error?.description || response.error?.reason,
-            }),
-          });
-        } catch (err) {
-          console.error("Error recording failed payment:", err);
-        }
-        alert(`Payment Failed: ${response.error?.description || response.error?.reason || "Something went wrong"}. Your application has been safely saved.`);
+      // PayU hosted checkout expects a browser form POST
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = actionUrl;
+      Object.entries(fields).forEach(([name, value]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = name;
+        input.value = value;
+        form.appendChild(input);
       });
-      rzp.open();
+      document.body.appendChild(form);
+      form.submit();
     } catch (err: any) {
       console.error("Payment initialization error:", err);
       setLoadingPayment(false);
@@ -327,7 +233,67 @@ export default function Joinsec() {
         {/* RIGHT COLUMN: THE EXACT FORM FROM IMAGE 1 */}
         <div className="lg:col-span-8 bg-white rounded-2xl shadow-xl shadow-black/5 p-6 sm:p-8 md:p-10 border border-neutral-100 relative">
           <AnimatePresence mode="wait">
-            {submittedType === null ? (
+            {paymentOutcome ? (
+              <motion.div
+                key="payment-outcome"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="py-12 px-4 text-center flex flex-col items-center justify-center space-y-6"
+              >
+                <div
+                  className={`w-16 h-16 rounded-full border-2 flex items-center justify-center ${
+                    paymentOutcome.type === "success"
+                      ? "bg-[#E39F25]/15 border-[#E39F25] text-[#E39F25]"
+                      : paymentOutcome.type === "pending"
+                      ? "bg-neutral-100 border-neutral-400 text-neutral-500"
+                      : "bg-red-50 border-red-400 text-red-500"
+                  }`}
+                >
+                  {paymentOutcome.type === "success" ? (
+                    <Check className="w-8 h-8 stroke-[3]" />
+                  ) : (
+                    <X className="w-8 h-8 stroke-[3]" />
+                  )}
+                </div>
+                <h3 className="text-2xl font-serif text-[#0E2A3A]">
+                  {paymentOutcome.type === "success" && "Payment Completed Successfully!"}
+                  {paymentOutcome.type === "pending" && "Payment Pending"}
+                  {paymentOutcome.type === "cancelled" && "Payment Cancelled"}
+                  {paymentOutcome.type === "failed" && "Payment Failed"}
+                  {paymentOutcome.type === "error" && "We Could Not Confirm Your Payment"}
+                </h3>
+                <p className="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
+                  {paymentOutcome.type === "success" &&
+                    "Thank you for joining the Luxe Club. Your membership is now active and a confirmation with your invoice has been sent to your email."}
+                  {paymentOutcome.type === "pending" &&
+                    "Your bank has not confirmed the payment yet. We will update your membership as soon as it is confirmed."}
+                  {paymentOutcome.type === "cancelled" &&
+                    "You cancelled the payment. Your details are safely saved - you can try again any time."}
+                  {paymentOutcome.type === "failed" &&
+                    `${paymentOutcome.message ? paymentOutcome.message + ". " : ""}Your details are safely saved - you can try again any time.`}
+                  {paymentOutcome.type === "error" &&
+                    "If any amount was debited it will be reconciled by our team. Please contact our concierge with your transaction reference."}
+                </p>
+                {(paymentOutcome.paymentId || paymentOutcome.txnid) && (
+                  <div className="bg-[#FAF8F5] border border-[#E39F25]/30 rounded-xl p-4 text-xs space-y-1 font-mono text-[#0E2A3A] w-full max-w-sm mx-auto">
+                    <span className="text-[10px] text-neutral-500 uppercase tracking-widest block font-sans">
+                      Transaction Reference
+                    </span>
+                    <span className="font-bold text-[#E39F25] text-sm block break-all">
+                      {paymentOutcome.paymentId || paymentOutcome.txnid}
+                    </span>
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setPaymentOutcome(null)}
+                  className="mt-4 text-xs font-semibold uppercase tracking-widest text-[#006699] hover:underline cursor-pointer"
+                >
+                  {paymentOutcome.type === "success" ? "Back to form" : "Try again"}
+                </button>
+              </motion.div>
+            ) : submittedType === null ? (
               <motion.form
                 key="form"
                 initial={{ opacity: 0, y: 15 }}
@@ -658,26 +624,12 @@ export default function Joinsec() {
                   <Check className="w-8 h-8 stroke-[3]" />
                 </div>
                 <h3 className="text-2xl font-serif text-[#0E2A3A]">
-                  {submittedType === "pay"
-                    ? "Payment Completed Successfully!"
-                    : "Request Received!"}
+                  Request Received!
                 </h3>
                 <p className="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
-                  {submittedType === "pay"
-                    ? `Thank you, ${formData.salutation} ${formData.firstName} ${formData.lastName}. Your payment for ${formData.plan} has been processed.`
-                    : `Thank you, ${formData.salutation} ${formData.firstName} ${formData.lastName}. Our Luxe Concierge team will reach out to you shortly at ${formData.mobile} or ${formData.email}.`}
+                  Thank you, {formData.salutation} {formData.firstName} {formData.lastName}. Our Luxe Concierge team will reach out to you shortly at {formData.mobile} or {formData.email}.
                 </p>
 
-                {submittedType === "pay" && paymentResult?.paymentId && (
-                  <div className="bg-[#FAF8F5] border border-[#E39F25]/30 rounded-xl p-4 text-xs space-y-1 font-mono text-[#0E2A3A] w-full max-w-sm mx-auto">
-                    <span className="text-[10px] text-neutral-500 uppercase tracking-widest block font-sans">
-                      Transaction Receipt ID
-                    </span>
-                    <span className="font-bold text-[#E39F25] text-sm block">
-                      {paymentResult.paymentId}
-                    </span>
-                  </div>
-                )}
                 <button
                   type="button"
                   onClick={() => {

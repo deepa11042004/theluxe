@@ -30,5 +30,10 @@ router.post("/membership/fail", memberCtrl.recordFailedPayment);
 router.post("/membership/abandon", memberCtrl.recordAbandonedPayment);
 router.post("/membership/webhook", memberCtrl.handleWebhook);
 
+// PayU
+import * as payuCtrl from "../controllers/payuController";
+router.post("/membership/payu/initiate", payuCtrl.initiatePayuPayment);
+router.post("/membership/payu/callback", payuCtrl.handlePayuCallback);
+
 export default router;
 

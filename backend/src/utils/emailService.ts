@@ -237,6 +237,29 @@ export async function sendAutomatedEmail(options: SendEmailOptions): Promise<{ s
   const { recipient, templateType, clientId, invoiceId, createdByUserId, data, attachment } = options;
 
   const { subject, html, text } = generateEmailHtml(templateType, data);
+
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    const errorMsg = "SMTP is not configured (SMTP_HOST / SMTP_USER / SMTP_PASS missing in backend/.env). Email was not sent.";
+    console.error(`[EmailService] ${errorMsg} Recipient: ${recipient}`);
+    try {
+      await prisma.emailLog.create({
+        data: {
+          client_id: clientId || null,
+          invoice_id: invoiceId || null,
+          recipient,
+          template_type: templateType,
+          subject,
+          status: "FAILED",
+          error_message: errorMsg,
+          created_by_user_id: createdByUserId || null,
+        },
+      });
+    } catch (logErr) {
+      console.error("[EmailService] Failed to record email error log:", logErr);
+    }
+    return { success: false, error: errorMsg };
+  }
+
   const transporter = getTransporter();
 
   try {

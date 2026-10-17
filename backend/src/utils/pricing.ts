@@ -77,11 +77,11 @@ export const COMPANY_CONFIG = {
   brandName: "The Luxe Yatra",
   address:
     process.env.COMPANY_ADDRESS ||
-    "12th Floor, Express Towers, Nariman Point, Mumbai, Maharashtra 400021, India",
+    "293, Lane 2, Westend Marg, Saket, New Delhi - 110030, India",
   gstin: process.env.COMPANY_GSTIN || "27AABCT8921M1ZQ",
-  email: process.env.COMPANY_EMAIL || "concierge@theluxeyatra.com",
-  accountsEmail: process.env.ACCOUNTS_EMAIL || "accounts@theluxeyatra.com",
-  phone: process.env.COMPANY_PHONE || "+91 22 6985 4000",
+  email: process.env.COMPANY_EMAIL || "info@theluxeyatra.com",
+  accountsEmail: process.env.ACCOUNTS_EMAIL || "info@theluxeyatra.com",
+  phone: process.env.COMPANY_PHONE || "+91 8796605843",
   website: process.env.COMPANY_WEBSITE || "https://theluxeyatra.com",
   cin: process.env.COMPANY_CIN || "U63040MH2024PTC392810",
   pan: process.env.COMPANY_PAN || "AABCT8921M",

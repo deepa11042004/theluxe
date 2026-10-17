@@ -4,6 +4,7 @@ import path from "path";
 import { prisma } from "../config/prisma";
 import { getPlanPricing, COMPANY_CONFIG } from "../utils/pricing";
 import { generateInvoicePdf } from "../utils/pdfService";
+import { regenerateInvoicePdf } from "../utils/invoicePdf";
 import { sendAutomatedEmail } from "../utils/emailService";
 import { generateInvoiceNumber } from "./membershipController";
 
@@ -332,57 +333,8 @@ export async function downloadInvoicePdf(req: Request, res: Response) {
       });
     }
 
-    let filePath = invoice.pdf_path;
-
-    // Check if file exists or regenerate
-    if (!filePath || !fs.existsSync(filePath)) {
-      const isPaid = invoice.status === "PAID";
-      const pricing = getPlanPricing(invoice.membership_plan);
-
-      const generated = await generateInvoicePdf({
-        invoiceNumber: invoice.invoice_number,
-        invoiceDate: invoice.invoice_date,
-        paidDate: invoice.paid_date,
-        invoiceType: invoice.invoice_type as any,
-        status: invoice.status as any,
-        client: {
-          clientCode: invoice.client.client_code,
-          salutation: invoice.client.salutation,
-          name: `${invoice.client.first_name} ${invoice.client.last_name}`,
-          email: invoice.client.email,
-          mobile: invoice.client.mobile,
-          city: invoice.client.city,
-          companyName: invoice.client.company_name,
-          gstin: invoice.client.gstin,
-        },
-        membership: {
-          planName: invoice.membership_plan,
-          description: invoice.plan_description || pricing.description,
-          baseAmount: invoice.taxable_amount,
-          taxRate: invoice.tax_rate,
-          taxAmount: invoice.tax_amount,
-          totalAmount: invoice.total_amount,
-          amountPaid: invoice.amount_paid,
-          balanceDue: invoice.balance_due,
-          currency: invoice.currency,
-        },
-        payment: invoice.payment_attempt
-          ? {
-              gateway: invoice.payment_attempt.gateway,
-              paymentId: invoice.payment_attempt.gateway_payment_id,
-              orderId: invoice.payment_attempt.gateway_order_id,
-              paymentDate: invoice.payment_attempt.created_at,
-              status: invoice.payment_attempt.status,
-            }
-          : null,
-      });
-
-      filePath = generated.filePath;
-      await prisma.invoice.update({
-        where: { id: invoice.id },
-        data: { pdf_path: generated.filePath, pdf_url: generated.relativeUrl },
-      });
-    }
+    // Always rebuild so the PDF reflects the current company details
+    const { filePath } = await regenerateInvoicePdf(invoice.id);
 
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", `inline; filename="${invoice.invoice_number}.pdf"`);
@@ -417,43 +369,8 @@ export async function sendInvoiceEmail(req: Request, res: Response) {
       });
     }
 
-    // Ensure PDF file exists
-    let filePath = invoice.pdf_path;
-    if (!filePath || !fs.existsSync(filePath)) {
-      const generated = await generateInvoicePdf({
-        invoiceNumber: invoice.invoice_number,
-        invoiceDate: invoice.invoice_date,
-        paidDate: invoice.paid_date,
-        invoiceType: invoice.invoice_type as any,
-        status: invoice.status as any,
-        client: {
-          clientCode: invoice.client.client_code,
-          salutation: invoice.client.salutation,
-          name: `${invoice.client.first_name} ${invoice.client.last_name}`,
-          email: invoice.client.email,
-          mobile: invoice.client.mobile,
-          city: invoice.client.city,
-          companyName: invoice.client.company_name,
-          gstin: invoice.client.gstin,
-        },
-        membership: {
-          planName: invoice.membership_plan,
-          description: invoice.plan_description || undefined,
-          baseAmount: invoice.taxable_amount,
-          taxRate: invoice.tax_rate,
-          taxAmount: invoice.tax_amount,
-          totalAmount: invoice.total_amount,
-          amountPaid: invoice.amount_paid,
-          balanceDue: invoice.balance_due,
-          currency: invoice.currency,
-        },
-      });
-      filePath = generated.filePath;
-      await prisma.invoice.update({
-        where: { id: invoice.id },
-        data: { pdf_path: generated.filePath, pdf_url: generated.relativeUrl },
-      });
-    }
+    // Always rebuild so the emailed PDF reflects the current company details
+    const { filePath } = await regenerateInvoicePdf(invoice.id);
 
     const templateType = invoice.sent_count > 0 ? "INVOICE_RESEND" : "INVOICE_ISSUED";
 

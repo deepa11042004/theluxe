@@ -376,7 +376,9 @@ export default function AdminClientDetailPage() {
               <h3 className="font-bold text-neutral-900 text-sm">
                 Payment History & Gateways ({client.payment_attempts?.length || 0})
               </h3>
-              <span className="text-xs text-neutral-500 font-mono">Gateway: Razorpay</span>
+              <span className="text-xs text-neutral-500 font-mono">
+                Gateway: {client.payment_attempts?.[0]?.gateway === "RAZORPAY" ? "Razorpay" : "PayU"}
+              </span>
             </div>
 
             {!client.payment_attempts || client.payment_attempts.length === 0 ? (
