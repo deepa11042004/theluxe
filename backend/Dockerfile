@@ -12,14 +12,15 @@ COPY prisma ./prisma/
 RUN cp prisma/schema.sqlite.prisma prisma/schema.prisma
 
 # Install dependencies and generate Prisma client
-RUN npm ci --ignore-scripts
+# --include=dev: the TypeScript compiler is a devDependency and must be installed even when the host sets NODE_ENV=production at build time
+RUN npm ci --ignore-scripts --include=dev
 RUN npx prisma generate --schema=prisma/schema.sqlite.prisma
 # Pre-download the schema engine now so `prisma db push` at container start needs no network (best effort)
 RUN DATABASE_URL="file:/tmp/warmup.db" npx prisma db push --skip-generate --schema=prisma/schema.sqlite.prisma || true
 
 COPY tsconfig.json ./
 COPY src ./src
-RUN npx tsc
+RUN ./node_modules/.bin/tsc
 
 FROM node:20-alpine AS runner
 
