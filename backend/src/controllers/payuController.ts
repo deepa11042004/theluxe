@@ -14,17 +14,23 @@ import {
   verifyResponseHash,
 } from "../utils/payu";
 
-// Where PayU sends the customer back to: explicit env override, otherwise the site the customer is actually on.
+// Where PayU sends the customer back to: the site the customer is actually on (browser Origin, then the proxy's
+// host headers). PAYU_CALLBACK_BASE_URL is only a last resort, so a stale/copied value (e.g. localhost) can't
+// send real customers to the wrong place.
 function resolveCallbackBase(req: Request): string {
-  const { callbackBase } = getPayuConfig();
-  if (callbackBase) return callbackBase;
-
   const origin = String(req.headers.origin || "").trim().replace(/\/+$/, "");
   if (/^https?:\/\/[^/\s]+$/i.test(origin)) return origin;
 
   const host = String(req.headers["x-forwarded-host"] || req.headers.host || "").split(",")[0].trim();
   const proto = String(req.headers["x-forwarded-proto"] || req.protocol || "http").split(",")[0].trim();
-  return host ? `${proto}://${host}` : "";
+  // A backend-internal host (e.g. "backend:5001") is not something a customer's browser can reach
+  if (host && !/^(backend|localhost|127\.0\.0\.1)(:\d+)?$/i.test(host) && /\./.test(host)) return `${proto}://${host}`;
+
+  return getPayuConfig().callbackBase;
+}
+
+function isLocalhostUrl(url: string): boolean {
+  return /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/i.test(url);
 }
 
 export async function initiatePayuPayment(req: Request, res: Response) {
@@ -38,8 +44,9 @@ export async function initiatePayuPayment(req: Request, res: Response) {
     }
 
     const callbackBase = resolveCallbackBase(req);
-    const isProduction = process.env.NODE_ENV === "production";
-    if (!callbackBase || (isProduction && !callbackBase.startsWith("https://"))) {
+    // Real site => must be https. Plain http is only accepted for localhost (a developer on their own machine),
+    // and that decision no longer depends on NODE_ENV being set correctly on the server.
+    if (!callbackBase || (!callbackBase.startsWith("https://") && !isLocalhostUrl(callbackBase))) {
       console.error("[PayU] Cannot determine a safe https return URL for PayU. Resolved:", JSON.stringify(callbackBase));
       return res.status(500).json({
         success: false,
