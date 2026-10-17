@@ -5,8 +5,65 @@ export function getPayuConfig() {
   const key = ((live ? process.env.PAYU_LIVE_KEY : process.env.PAYU_TEST_KEY) || "").trim();
   const salt = ((live ? process.env.PAYU_LIVE_SALT : process.env.PAYU_TEST_SALT) || "").trim();
   const paymentUrl = live ? "https://secure.payu.in/_payment" : "https://test.payu.in/_payment";
-  const callbackBase = (process.env.PAYU_CALLBACK_BASE_URL || "http://localhost:3000").trim().replace(/\/+$/, "");
-  return { live, key, salt, paymentUrl, callbackBase };
+  // Optional override; when empty the website's own address is taken from the incoming request (never a hardcoded localhost).
+  const callbackBase = (process.env.PAYU_CALLBACK_BASE_URL || "").trim().replace(/\/+$/, "");
+  const verifyUrl = live
+    ? "https://info.payu.in/merchant/postservice.php?form=2"
+    : "https://test.payu.in/merchant/postservice.php?form=2";
+  return { live, key, salt, paymentUrl, callbackBase, verifyUrl };
+}
+
+export interface PayuTransactionDetails {
+  status: string;
+  mihpayid: string;
+  amount: number;
+  mode: string | null;
+  unmappedstatus: string;
+  errorCode: string | null;
+  errorMessage: string;
+  rawJson: string;
+}
+
+// Server-to-server status lookup, used to complete payments whose browser return trip never reached us.
+export async function verifyPayuTransaction(txnid: string): Promise<PayuTransactionDetails | null> {
+  const { key, salt, verifyUrl } = getPayuConfig();
+  const command = "verify_payment";
+  const hash = sha512([key, command, txnid, salt].join("|"));
+
+  const response = await fetch(verifyUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({ key, command, var1: txnid, hash }).toString(),
+  });
+  if (!response.ok) throw new Error(`PayU verify_payment HTTP ${response.status}`);
+
+  const json: any = await response.json();
+  const d = json?.transaction_details?.[txnid];
+  if (!d) return null;
+
+  const errorMessage = String(d.error_Message || "").trim();
+  return {
+    status: String(d.status || "").toLowerCase(),
+    mihpayid: String(d.mihpayid || ""),
+    amount: Number(d.amt),
+    mode: d.mode ? String(d.mode) : null,
+    unmappedstatus: String(d.unmappedstatus || ""),
+    errorCode: d.error_code ? String(d.error_code) : null,
+    errorMessage: /^no error$/i.test(errorMessage) ? "" : errorMessage,
+    rawJson: JSON.stringify({
+      mihpayid: d.mihpayid,
+      mode: d.mode,
+      status: d.status,
+      unmappedstatus: d.unmappedstatus,
+      txnid,
+      amount: d.amt,
+      bank_ref_num: d.bank_ref_num,
+      error_code: d.error_code,
+      error_Message: d.error_Message,
+      addedon: d.addedon,
+      verifiedVia: "verify_payment",
+    }),
+  };
 }
 
 function sha512(input: string): string {

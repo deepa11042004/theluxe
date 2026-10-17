@@ -14,9 +14,22 @@ import {
   verifyResponseHash,
 } from "../utils/payu";
 
+// Where PayU sends the customer back to: explicit env override, otherwise the site the customer is actually on.
+function resolveCallbackBase(req: Request): string {
+  const { callbackBase } = getPayuConfig();
+  if (callbackBase) return callbackBase;
+
+  const origin = String(req.headers.origin || "").trim().replace(/\/+$/, "");
+  if (/^https?:\/\/[^/\s]+$/i.test(origin)) return origin;
+
+  const host = String(req.headers["x-forwarded-host"] || req.headers.host || "").split(",")[0].trim();
+  const proto = String(req.headers["x-forwarded-proto"] || req.protocol || "http").split(",")[0].trim();
+  return host ? `${proto}://${host}` : "";
+}
+
 export async function initiatePayuPayment(req: Request, res: Response) {
   try {
-    const { live, key, salt, paymentUrl, callbackBase } = getPayuConfig();
+    const { live, key, salt, paymentUrl } = getPayuConfig();
     if (!key || !salt) {
       return res.status(500).json({
         success: false,
@@ -24,10 +37,10 @@ export async function initiatePayuPayment(req: Request, res: Response) {
       });
     }
 
-    // Live mode charges real cards: only allow https callbacks (plain http is fine for localhost, where the browser does the redirect).
-    const isLocalhost = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(callbackBase);
-    if (live && !callbackBase.startsWith("https://") && !isLocalhost) {
-      console.error("[PayU] Live mode requires PAYU_CALLBACK_BASE_URL to be https:// (or localhost). Current:", callbackBase);
+    const callbackBase = resolveCallbackBase(req);
+    const isProduction = process.env.NODE_ENV === "production";
+    if (!callbackBase || (isProduction && !callbackBase.startsWith("https://"))) {
+      console.error("[PayU] Cannot determine a safe https return URL for PayU. Resolved:", JSON.stringify(callbackBase));
       return res.status(500).json({
         success: false,
         message: "Payments are temporarily unavailable. Please contact support.",
@@ -111,10 +124,132 @@ function pickGatewayDetails(body: Record<string, any>) {
   return JSON.stringify(out);
 }
 
+export interface PayuResult {
+  // "success" | "pending" | "abandoned" | anything else is treated as a failure
+  status: string;
+  mihpayid: string;
+  amount: number;
+  mode?: string | null;
+  unmappedstatus?: string;
+  errorCode?: string | null;
+  errorMessage?: string;
+  signature?: string | null;
+  rawJson: string;
+}
+
+export type PayuOutcome = {
+  outcome: "success" | "failed" | "cancelled" | "pending";
+  paymentId?: string;
+  message?: string;
+};
+
+// Single place that turns a PayU result (browser callback OR server-side verification) into DB state. Idempotent.
+export async function applyPayuResult(attemptId: string, result: PayuResult): Promise<PayuOutcome> {
+  const attempt = await prisma.paymentAttempt.findUniqueOrThrow({
+    where: { id: attemptId },
+    include: { client: true },
+  });
+
+  if (attempt.status === "SUCCESSFUL") {
+    return { outcome: "success", paymentId: attempt.gateway_payment_id || result.mihpayid };
+  }
+
+  const status = result.status.toLowerCase();
+
+  if (status === "success") {
+    if (Math.abs(result.amount - attempt.amount) > 0.01) {
+      console.error("[PayU] Amount mismatch", { txn: attempt.gateway_order_id, expected: attempt.amount, got: result.amount });
+      await prisma.paymentAttempt.update({
+        where: { id: attempt.id },
+        data: {
+          status: "FAILED",
+          gateway_payment_id: result.mihpayid || null,
+          error_code: "AMOUNT_MISMATCH",
+          error_description: `Paid amount ${result.amount} does not match expected ${attempt.amount}`,
+          raw_response: result.rawJson,
+        },
+      });
+      await prisma.client.update({
+        where: { id: attempt.client_id },
+        data: { latest_payment_status: "FAILED", last_payment_attempt_at: new Date() },
+      });
+      return { outcome: "failed", message: "Payment amount mismatch" };
+    }
+
+    const updatedAttempt = await prisma.paymentAttempt.update({
+      where: { id: attempt.id },
+      data: {
+        status: "SUCCESSFUL",
+        gateway_payment_id: result.mihpayid,
+        gateway_signature: result.signature || null,
+        payment_method: result.mode || null,
+        error_code: null,
+        error_description: null,
+        raw_response: result.rawJson,
+      },
+    });
+
+    await activateMembershipAfterPayment({
+      client: attempt.client,
+      attempt: updatedAttempt,
+      gatewayLabel: "PayU",
+      paymentId: result.mihpayid,
+      orderId: attempt.gateway_order_id,
+    });
+
+    return { outcome: "success", paymentId: result.mihpayid };
+  }
+
+  if (status === "pending") {
+    await prisma.paymentAttempt.update({
+      where: { id: attempt.id },
+      data: {
+        gateway_payment_id: result.mihpayid || null,
+        payment_method: result.mode || null,
+        raw_response: result.rawJson,
+      },
+    });
+    return { outcome: "pending" };
+  }
+
+  // failure / cancelled / never completed
+  const cancelled =
+    status === "abandoned" ||
+    String(result.unmappedstatus || "").toLowerCase() === "usercancelled" ||
+    /cancel/i.test(String(result.errorMessage || ""));
+  const newStatus = cancelled ? "ABANDONED" : "FAILED";
+  const errorMessage =
+    String(result.errorMessage || "").trim() ||
+    (status === "abandoned"
+      ? "Payment was not completed"
+      : cancelled
+      ? "Payment was cancelled by the user on the PayU page"
+      : "Payment failed at PayU");
+
+  await prisma.paymentAttempt.update({
+    where: { id: attempt.id },
+    data: {
+      status: newStatus,
+      gateway_payment_id: result.mihpayid || null,
+      payment_method: result.mode || null,
+      error_code: result.errorCode || null,
+      error_description: errorMessage,
+      raw_response: result.rawJson,
+    },
+  });
+
+  await prisma.client.update({
+    where: { id: attempt.client_id },
+    data: { latest_payment_status: newStatus, last_payment_attempt_at: new Date() },
+  });
+
+  return { outcome: cancelled ? "cancelled" : "failed", message: errorMessage };
+}
+
 export async function handlePayuCallback(req: Request, res: Response) {
-  const { callbackBase } = getPayuConfig();
+  // Relative redirects: the customer always returns to the same site they paid from (never a configured/hardcoded host).
   const redirectTo = (params: Record<string, string>) =>
-    res.redirect(303, `${callbackBase}/join?${new URLSearchParams(params).toString()}`);
+    res.redirect(303, `/join?${new URLSearchParams(params).toString()}`);
 
   try {
     const body = (req.body || {}) as Record<string, any>;
@@ -131,7 +266,6 @@ export async function handlePayuCallback(req: Request, res: Response) {
 
     const attempt = await prisma.paymentAttempt.findFirst({
       where: { gateway: "PAYU", gateway_order_id: txnid },
-      include: { client: true },
     });
 
     if (!attempt) {
@@ -139,101 +273,22 @@ export async function handlePayuCallback(req: Request, res: Response) {
       return redirectTo({ payment: "error", reason: "unknown_txn", txnid });
     }
 
-    const mihpayid = String(body.mihpayid || "");
-    const status = String(body.status || "").toLowerCase();
-
-    // Already finalized (page refresh / duplicate callback)
-    if (attempt.status === "SUCCESSFUL") {
-      return redirectTo({ payment: "success", txnid, paymentId: attempt.gateway_payment_id || mihpayid });
-    }
-
-    if (status === "success") {
-      if (Math.abs(Number(body.amount) - attempt.amount) > 0.01) {
-        console.error("[PayU] Amount mismatch", { txnid, expected: attempt.amount, got: body.amount });
-        await prisma.paymentAttempt.update({
-          where: { id: attempt.id },
-          data: {
-            status: "FAILED",
-            gateway_payment_id: mihpayid || null,
-            error_code: "AMOUNT_MISMATCH",
-            error_description: `Paid amount ${body.amount} does not match expected ${attempt.amount}`,
-            raw_response: pickGatewayDetails(body),
-          },
-        });
-        await prisma.client.update({
-          where: { id: attempt.client_id },
-          data: { latest_payment_status: "FAILED", last_payment_attempt_at: new Date() },
-        });
-        return redirectTo({ payment: "failed", txnid, message: "Payment amount mismatch" });
-      }
-
-      const updatedAttempt = await prisma.paymentAttempt.update({
-        where: { id: attempt.id },
-        data: {
-          status: "SUCCESSFUL",
-          gateway_payment_id: mihpayid,
-          gateway_signature: String(body.hash),
-          payment_method: body.mode ? String(body.mode) : null,
-          error_code: null,
-          error_description: null,
-          raw_response: pickGatewayDetails(body),
-        },
-      });
-
-      await activateMembershipAfterPayment({
-        client: attempt.client,
-        attempt: updatedAttempt,
-        gatewayLabel: "PayU",
-        paymentId: mihpayid,
-        orderId: txnid,
-      });
-
-      return redirectTo({ payment: "success", txnid, paymentId: mihpayid });
-    }
-
-    if (status === "pending") {
-      await prisma.paymentAttempt.update({
-        where: { id: attempt.id },
-        data: {
-          gateway_payment_id: mihpayid || null,
-          payment_method: body.mode ? String(body.mode) : null,
-          raw_response: pickGatewayDetails(body),
-        },
-      });
-      return redirectTo({ payment: "pending", txnid });
-    }
-
-    // failure / cancelled
-    const cancelled =
-      String(body.unmappedstatus || "").toLowerCase() === "usercancelled" ||
-      /cancel/i.test(String(body.error_Message || ""));
-    const newStatus = cancelled ? "ABANDONED" : "FAILED";
-    const errorMessage =
-      String(body.error_Message || body.field9 || "").trim() ||
-      (cancelled ? "Payment was cancelled by the user on the PayU page" : "Payment failed at PayU");
-
-    await prisma.paymentAttempt.update({
-      where: { id: attempt.id },
-      data: {
-        status: newStatus,
-        gateway_payment_id: mihpayid || null,
-        payment_method: body.mode ? String(body.mode) : null,
-        error_code: body.error ? String(body.error) : null,
-        error_description: errorMessage,
-        raw_response: pickGatewayDetails(body),
-      },
+    const result = await applyPayuResult(attempt.id, {
+      status: String(body.status || ""),
+      mihpayid: String(body.mihpayid || ""),
+      amount: Number(body.amount),
+      mode: body.mode ? String(body.mode) : null,
+      unmappedstatus: String(body.unmappedstatus || ""),
+      errorCode: body.error ? String(body.error) : null,
+      errorMessage: String(body.error_Message || body.field9 || ""),
+      signature: String(body.hash || ""),
+      rawJson: pickGatewayDetails(body),
     });
 
-    await prisma.client.update({
-      where: { id: attempt.client_id },
-      data: { latest_payment_status: newStatus, last_payment_attempt_at: new Date() },
-    });
-
-    return redirectTo({
-      payment: cancelled ? "cancelled" : "failed",
-      txnid,
-      message: errorMessage,
-    });
+    const params: Record<string, string> = { payment: result.outcome, txnid };
+    if (result.paymentId) params.paymentId = result.paymentId;
+    if (result.message) params.message = result.message;
+    return redirectTo(params);
   } catch (err) {
     console.error("[PayU] Callback error:", err);
     return redirectTo({ payment: "error", reason: "server_error" });
