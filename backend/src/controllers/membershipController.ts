@@ -16,9 +16,14 @@ function getRazorpayInstance(): Razorpay | null {
 }
 
 export async function generateClientCode(): Promise<string> {
-  const count = await prisma.client.count();
-  const num = 10001 + count;
-  return `CL-${num}`;
+  // Based on the highest existing code (not the row count) so deleting a client can't cause a duplicate code.
+  const last = await prisma.client.findFirst({
+    where: { client_code: { startsWith: "CL-" } },
+    orderBy: { client_code: "desc" },
+    select: { client_code: true },
+  });
+  const lastNum = last ? parseInt(last.client_code.replace("CL-", ""), 10) : 10000;
+  return `CL-${(Number.isFinite(lastNum) ? lastNum : 10000) + 1}`;
 }
 
 export async function generateInvoiceNumber(): Promise<string> {
@@ -55,11 +60,11 @@ export async function saveRegistrationClient(body: any) {
   const cleanMobile = String(mobile).trim();
   const planPricing = getPlanPricing(plan);
 
-  // Check if client already exists by email or mobile
+  // Reuse a record only when BOTH email and mobile match (same person retrying / renewing).
+  // Matching on either one would overwrite another client's details when an email or phone is shared.
   let client = await prisma.client.findFirst({
-    where: {
-      OR: [{ email: cleanEmail }, { mobile: cleanMobile }],
-    },
+    where: { email: cleanEmail, mobile: cleanMobile },
+    orderBy: { created_at: "desc" },
   });
 
   if (client) {
