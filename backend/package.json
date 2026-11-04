@@ -10,6 +10,9 @@
     "start": "node dist/server.js",
     "prisma:push": "prisma db push",
     "prisma:generate": "prisma generate",
+    "prisma:generate:sqlite": "prisma generate --schema=prisma/schema.sqlite.prisma",
+    "migrate:sqlite-to-mysql": "node dist/scripts/migrateSqliteToMysql.js",
+    "migrate:sqlite-to-mysql:dev": "ts-node --transpile-only src/scripts/migrateSqliteToMysql.ts",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "node prisma/seed.js"
   },

@@ -1,5 +1,10 @@
+// LEGACY SQLite schema. The app itself uses schema.prisma (MySQL). This file exists only so the one-time data
+// migration (src/scripts/migrateSqliteToMysql.ts) can read the old SQLite database through a separate generated
+// client (node_modules/.prisma/sqlite-client) that never clashes with the MySQL client.
+// Generate it with: npm run prisma:generate:sqlite
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/sqlite-client"
 }
 
 datasource db {

@@ -1,9 +1,12 @@
+// MySQL schema (production). schema.sqlite.prisma is the legacy SQLite schema and is kept ONLY as the
+// source for src/scripts/migrateSqliteToMysql.ts. Keep model definitions in both files in sync until that migration is done.
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -11,7 +14,7 @@ datasource db {
 model User {
   id            String    @id @default(uuid())
   name          String
-  email         String    @unique
+  email         String    @unique @db.VarChar(255)
   password_hash String
   role_id       String
   status        String    @default("ACTIVE") // ACTIVE, INACTIVE
@@ -30,7 +33,7 @@ model User {
 model Role {
   id          String   @id @default(uuid())
   name        String   @unique // SUPER_ADMIN, CONTENT_MANAGER, EDITOR
-  description String?
+  description String?  @db.Text
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
@@ -43,7 +46,7 @@ model Role {
 model Permission {
   id          String   @id @default(uuid())
   name        String   @unique
-  description String?
+  description String?  @db.Text
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
@@ -70,10 +73,10 @@ model AuditLog {
   action     String // CREATE, UPDATE, DELETE, PUBLISH, UNPUBLISH, LOGIN, LOGOUT, PASSWORD_CHANGE
   entity     String
   entity_id  String?
-  old_data   String?
-  new_data   String?
+  old_data   String?  @db.LongText
+  new_data   String?  @db.LongText
   ip_address String?
-  user_agent String?
+  user_agent String?  @db.Text
   created_at DateTime @default(now())
 
   user User? @relation(fields: [user_id], references: [id], onDelete: SetNull)
@@ -86,45 +89,45 @@ model AuditLog {
 
 // HOTELS
 model Hotel {
-  id                        String    @id @default(uuid())
-  name                      String
-  slug                      String    @unique
-  short_description         String?
-  description               String?
-  region                    String?
-  country                   String?
-  state_province            String?
-  city                      String?
-  location_area             String?
-  address                   String?
-  latitude                  Float?
-  longitude                 Float?
-  hotel_type                String?
-  luxury_category           String?
-  official_website          String?
-  booking_url               String?
-  google_maps_url           String?
-  best_time_to_visit        String?
-  highlights                String?
-  amenities                 String?
-  dining_information        String?
-  spa_wellness              String?
-  activities                String?
-  why_we_recommend          String?
-  is_featured               Boolean   @default(false)
-  is_popular                Boolean   @default(false)
-  is_top_hotel              Boolean   @default(false)
-  top_hotel_rank            Int?
-  is_india_top_50           Boolean   @default(false)
-  is_international_top_50   Boolean   @default(false)
-  display_order             Int       @default(0)
-  status                    String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
-  published_at              DateTime?
-  created_by                String?
-  updated_by                String?
-  created_at                DateTime  @default(now())
-  updated_at                DateTime  @updatedAt
-  deleted_at                DateTime?
+  id                      String    @id @default(uuid())
+  name                    String    @db.VarChar(500)
+  slug                    String    @unique
+  short_description       String?   @db.Text
+  description             String?   @db.Text
+  region                  String?
+  country                 String?
+  state_province          String?   @db.VarChar(500)
+  city                    String?
+  location_area           String?   @db.VarChar(500)
+  address                 String?   @db.Text
+  latitude                Float?
+  longitude               Float?
+  hotel_type              String?   @db.VarChar(500)
+  luxury_category         String?   @db.VarChar(500)
+  official_website        String?   @db.Text
+  booking_url             String?   @db.Text
+  google_maps_url         String?   @db.Text
+  best_time_to_visit      String?   @db.Text
+  highlights              String?   @db.Text
+  amenities               String?   @db.Text
+  dining_information      String?   @db.Text
+  spa_wellness            String?   @db.Text
+  activities              String?   @db.Text
+  why_we_recommend        String?   @db.Text
+  is_featured             Boolean   @default(false)
+  is_popular              Boolean   @default(false)
+  is_top_hotel            Boolean   @default(false)
+  top_hotel_rank          Int?
+  is_india_top_50         Boolean   @default(false)
+  is_international_top_50 Boolean   @default(false)
+  display_order           Int       @default(0)
+  status                  String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
+  published_at            DateTime?
+  created_by              String?
+  updated_by              String?
+  created_at              DateTime  @default(now())
+  updated_at              DateTime  @updatedAt
+  deleted_at              DateTime?
 
   images HotelImage[]
 
@@ -142,9 +145,9 @@ model HotelImage {
   id            String   @id @default(uuid())
   hotel_id      String
   media_id      String?
-  image_url     String
-  alt_text      String?
-  caption       String?
+  image_url     String   @db.Text
+  alt_text      String?  @db.Text
+  caption       String?  @db.Text
   image_type    String   @default("gallery") // cover, gallery, room, dining, spa, experience, location
   display_order Int      @default(0)
   is_primary    Boolean  @default(false)
@@ -159,34 +162,34 @@ model HotelImage {
 
 // DESTINATIONS
 model Destination {
-  id                             String    @id @default(uuid())
-  name                           String
-  slug                           String    @unique
-  short_description              String?
-  description                    String?
-  country                        String?
-  state_region                   String?
-  city                           String?
-  continent                      String?
-  destination_type               String?
-  best_time_to_visit             String?
-  ideal_duration                 String?
-  currency                       String?
-  language                       String?
-  time_zone                      String?
-  categories                     String?
-  is_featured                    Boolean   @default(false)
-  is_popular                     Boolean   @default(false)
-  is_india_destination           Boolean   @default(false)
-  is_international_destination   Boolean   @default(false)
-  display_order                  Int       @default(0)
-  status                         String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
-  published_at                   DateTime?
-  created_by                     String?
-  updated_by                     String?
-  created_at                     DateTime  @default(now())
-  updated_at                     DateTime  @updatedAt
-  deleted_at                     DateTime?
+  id                           String    @id @default(uuid())
+  name                         String    @db.VarChar(500)
+  slug                         String    @unique
+  short_description            String?   @db.Text
+  description                  String?   @db.Text
+  country                      String?
+  state_region                 String?   @db.VarChar(500)
+  city                         String?   @db.VarChar(500)
+  continent                    String?   @db.VarChar(500)
+  destination_type             String?   @db.VarChar(500)
+  best_time_to_visit           String?   @db.Text
+  ideal_duration               String?   @db.VarChar(500)
+  currency                     String?   @db.VarChar(500)
+  language                     String?   @db.VarChar(500)
+  time_zone                    String?   @db.VarChar(500)
+  categories                   String?   @db.Text
+  is_featured                  Boolean   @default(false)
+  is_popular                   Boolean   @default(false)
+  is_india_destination         Boolean   @default(false)
+  is_international_destination Boolean   @default(false)
+  display_order                Int       @default(0)
+  status                       String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
+  published_at                 DateTime?
+  created_by                   String?
+  updated_by                   String?
+  created_at                   DateTime  @default(now())
+  updated_at                   DateTime  @updatedAt
+  deleted_at                   DateTime?
 
   images                 DestinationImage[]
   itinerary_destinations ItineraryDestination[]
@@ -203,9 +206,9 @@ model DestinationImage {
   id             String   @id @default(uuid())
   destination_id String
   media_id       String?
-  image_url      String
-  alt_text       String?
-  caption        String?
+  image_url      String   @db.Text
+  alt_text       String?  @db.Text
+  caption        String?  @db.Text
   image_type     String   @default("gallery")
   display_order  Int      @default(0)
   is_primary     Boolean  @default(false)
@@ -221,18 +224,18 @@ model DestinationImage {
 // ITINERARIES
 model Itinerary {
   id                  String    @id @default(uuid())
-  title               String
-  name                String?
+  title               String    @db.VarChar(500)
+  name                String?   @db.VarChar(500)
   slug                String    @unique
   itinerary_code      String?
-  short_description   String?
-  overview            String?
+  short_description   String?   @db.Text
+  overview            String?   @db.Text
   region              String?
-  country             String?
+  country             String?   @db.VarChar(500)
   category            String?
-  duration            String?
-  tour_type           String?
-  package_type        String?
+  duration            String?   @db.VarChar(500)
+  tour_type           String?   @db.VarChar(500)
+  package_type        String?   @db.VarChar(500)
   nights              Int       @default(1)
   days                Int       @default(1)
   min_travelers       Int       @default(1)
@@ -240,12 +243,12 @@ model Itinerary {
   price_from          Float?
   price_currency      String?   @default("INR")
   price_unit          String?   @default("per person")
-  best_time           String?
-  recommended_for     String?
-  route               String?
-  hero_image          String?
-  visa_info           String?
-  booking_info        String?
+  best_time           String?   @db.Text
+  recommended_for     String?   @db.Text
+  route               String?   @db.Text
+  hero_image          String?   @db.Text
+  visa_info           String?   @db.Text
+  booking_info        String?   @db.Text
   is_flights_included Boolean   @default(false)
   is_featured         Boolean   @default(false)
   display_order       Int       @default(0)
@@ -293,19 +296,19 @@ model ItineraryDay {
   id                   String   @id @default(uuid())
   itinerary_id         String
   day_number           Int
-  title                String
-  location             String?
-  description          String?
-  morning_activities   String?
-  afternoon_activities String?
-  evening_activities   String?
-  activities_text      String?
-  attractions_text     String?
-  meals                String?
-  hotel                String?
-  transport            String?
-  important_notes      String?
-  image_url            String?
+  title                String   @db.VarChar(500)
+  location             String?  @db.VarChar(500)
+  description          String?  @db.Text
+  morning_activities   String?  @db.Text
+  afternoon_activities String?  @db.Text
+  evening_activities   String?  @db.Text
+  activities_text      String?  @db.Text
+  attractions_text     String?  @db.Text
+  meals                String?  @db.VarChar(500)
+  hotel                String?  @db.VarChar(500)
+  transport            String?  @db.VarChar(500)
+  important_notes      String?  @db.Text
+  image_url            String?  @db.Text
   media_id             String?
   display_order        Int      @default(0)
   created_at           DateTime @default(now())
@@ -323,8 +326,8 @@ model ItineraryDay {
 model ItineraryFeature {
   id            String   @id @default(uuid())
   itinerary_id  String
-  name          String
-  icon          String?
+  name          String   @db.VarChar(500)
+  icon          String?  @db.VarChar(500)
   display_order Int      @default(0)
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
@@ -338,8 +341,8 @@ model ItineraryFeature {
 model ItineraryInclusion {
   id            String   @id @default(uuid())
   itinerary_id  String
-  title         String
-  description   String?
+  title         String   @db.VarChar(500)
+  description   String?  @db.Text
   display_order Int      @default(0)
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
@@ -353,8 +356,8 @@ model ItineraryInclusion {
 model ItineraryExclusion {
   id            String   @id @default(uuid())
   itinerary_id  String
-  title         String
-  description   String?
+  title         String   @db.VarChar(500)
+  description   String?  @db.Text
   display_order Int      @default(0)
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
@@ -366,15 +369,15 @@ model ItineraryExclusion {
 }
 
 model ItineraryAttraction {
-  id            String        @id @default(uuid())
+  id            String   @id @default(uuid())
   itinerary_id  String
   day_id        String?
-  name          String
-  description   String?
-  image_url     String?
-  display_order Int           @default(0)
-  created_at    DateTime      @default(now())
-  updated_at    DateTime      @updatedAt
+  name          String   @db.VarChar(500)
+  description   String?  @db.Text
+  image_url     String?  @db.Text
+  display_order Int      @default(0)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
   itinerary Itinerary     @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
   day       ItineraryDay? @relation(fields: [day_id], references: [id], onDelete: SetNull)
@@ -385,15 +388,15 @@ model ItineraryAttraction {
 }
 
 model ItineraryActivity {
-  id            String        @id @default(uuid())
+  id            String   @id @default(uuid())
   itinerary_id  String
   day_id        String?
-  name          String
-  description   String?
-  image_url     String?
-  display_order Int           @default(0)
-  created_at    DateTime      @default(now())
-  updated_at    DateTime      @updatedAt
+  name          String   @db.VarChar(500)
+  description   String?  @db.Text
+  image_url     String?  @db.Text
+  display_order Int      @default(0)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
   itinerary Itinerary     @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
   day       ItineraryDay? @relation(fields: [day_id], references: [id], onDelete: SetNull)
@@ -406,8 +409,8 @@ model ItineraryActivity {
 model ItineraryFAQ {
   id            String   @id @default(uuid())
   itinerary_id  String
-  question      String
-  answer        String
+  question      String   @db.Text
+  answer        String   @db.Text
   display_order Int      @default(0)
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
@@ -419,18 +422,18 @@ model ItineraryFAQ {
 }
 
 model ItineraryImage {
-  id            String        @id @default(uuid())
+  id            String   @id @default(uuid())
   itinerary_id  String
   day_id        String?
   media_id      String?
-  image_url     String
-  alt_text      String?
-  caption       String?
-  image_type    String        @default("gallery")
-  display_order Int           @default(0)
-  is_primary    Boolean       @default(false)
-  created_at    DateTime      @default(now())
-  updated_at    DateTime      @updatedAt
+  image_url     String   @db.Text
+  alt_text      String?  @db.Text
+  caption       String?  @db.Text
+  image_type    String   @default("gallery")
+  display_order Int      @default(0)
+  is_primary    Boolean  @default(false)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
   itinerary Itinerary     @relation(fields: [itinerary_id], references: [id], onDelete: Cascade)
   day       ItineraryDay? @relation(fields: [day_id], references: [id], onDelete: SetNull)
@@ -445,7 +448,7 @@ model BlogCategory {
   id            String   @id @default(uuid())
   name          String   @unique
   slug          String   @unique
-  description   String?
+  description   String?  @db.Text
   display_order Int      @default(0)
   status        String   @default("ACTIVE")
   created_at    DateTime @default(now())
@@ -457,27 +460,27 @@ model BlogCategory {
 }
 
 model Blog {
-  id              String    @id @default(uuid())
-  title           String
-  slug            String    @unique
-  excerpt         String?
-  content         String?
-  category_id     String?
-  author_id       String?
-  author_name     String?
-  author_bio      String?
-  author_image    String?
-  reading_time    Int?      @default(5)
-  is_featured     Boolean   @default(false)
-  display_order   Int       @default(0)
-  status          String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED, SCHEDULED
-  published_at    DateTime?
-  scheduled_at    DateTime?
-  created_by      String?
-  updated_by      String?
-  created_at      DateTime  @default(now())
-  updated_at      DateTime  @updatedAt
-  deleted_at      DateTime?
+  id            String    @id @default(uuid())
+  title         String    @db.VarChar(500)
+  slug          String    @unique
+  excerpt       String?   @db.Text
+  content       String?   @db.LongText
+  category_id   String?
+  author_id     String?
+  author_name   String?   @db.VarChar(500)
+  author_bio    String?   @db.Text
+  author_image  String?   @db.Text
+  reading_time  Int?      @default(5)
+  is_featured   Boolean   @default(false)
+  display_order Int       @default(0)
+  status        String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED, SCHEDULED
+  published_at  DateTime?
+  scheduled_at  DateTime?
+  created_by    String?
+  updated_by    String?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  deleted_at    DateTime?
 
   category BlogCategory? @relation(fields: [category_id], references: [id], onDelete: SetNull)
   images   BlogImage[]
@@ -494,9 +497,9 @@ model BlogImage {
   id            String   @id @default(uuid())
   blog_id       String
   media_id      String?
-  image_url     String
-  alt_text      String?
-  caption       String?
+  image_url     String   @db.Text
+  alt_text      String?  @db.Text
+  caption       String?  @db.Text
   display_order Int      @default(0)
   is_featured   Boolean  @default(false)
   created_at    DateTime @default(now())
@@ -511,15 +514,15 @@ model BlogImage {
 // MEDIA LIBRARY
 model Media {
   id                String    @id @default(uuid())
-  original_filename String
-  filename          String
-  url               String
+  original_filename String    @db.VarChar(500)
+  filename          String    @db.VarChar(255)
+  url               String    @db.Text
   mime_type         String
   file_size         Int
   width             Int?
   height            Int?
-  alt_text          String?
-  caption           String?
+  alt_text          String?   @db.Text
+  caption           String?   @db.Text
   folder            String?   @default("general")
   created_by        String?
   created_at        DateTime  @default(now())
@@ -533,32 +536,32 @@ model Media {
 
 // CLIENTS, PAYMENTS, INVOICES & EMAILS
 model Client {
-  id                      String           @id @default(uuid())
-  client_code             String           @unique
-  salutation              String           @default("Mr.")
-  first_name              String
-  last_name               String
-  email                   String
+  id                      String    @id @default(uuid())
+  client_code             String    @unique
+  salutation              String    @default("Mr.")
+  first_name              String    @db.VarChar(500)
+  last_name               String    @db.VarChar(500)
+  email                   String    @db.VarChar(255)
   mobile                  String
-  city                    String
-  membership_plan         String
-  membership_number       String?          @unique
-  membership_status       String           @default("PENDING_PAYMENT") // PENDING_PAYMENT, ACTIVE, EXPIRED, CANCELLED
+  city                    String    @db.VarChar(500)
+  membership_plan         String    @db.VarChar(500)
+  membership_number       String?   @unique
+  membership_status       String    @default("PENDING_PAYMENT") // PENDING_PAYMENT, ACTIVE, EXPIRED, CANCELLED
   membership_activated_at DateTime?
   membership_expires_at   DateTime?
-  latest_payment_status   String           @default("PENDING") // SUCCESSFUL, FAILED, PENDING, CANCELLED, ABANDONED
-  amount                  Float            @default(0)
-  currency                String           @default("INR")
-  need_gst                Boolean          @default(false)
-  company_name            String?
+  latest_payment_status   String    @default("PENDING") // SUCCESSFUL, FAILED, PENDING, CANCELLED, ABANDONED
+  amount                  Float     @default(0)
+  currency                String    @default("INR")
+  need_gst                Boolean   @default(false)
+  company_name            String?   @db.VarChar(500)
   gstin                   String?
-  terms_accepted          Boolean          @default(true)
-  terms_accepted_at       DateTime         @default(now())
+  terms_accepted          Boolean   @default(true)
+  terms_accepted_at       DateTime  @default(now())
   welcome_email_sent_at   DateTime?
   last_payment_attempt_at DateTime?
-  notes                   String?
-  created_at              DateTime         @default(now())
-  updated_at              DateTime         @updatedAt
+  notes                   String?   @db.Text
+  created_at              DateTime  @default(now())
+  updated_at              DateTime  @updatedAt
 
   payment_attempts PaymentAttempt[]
   invoices         Invoice[]
@@ -574,21 +577,21 @@ model Client {
 }
 
 model PaymentAttempt {
-  id                 String    @id @default(uuid())
+  id                 String   @id @default(uuid())
   client_id          String
-  gateway            String    @default("RAZORPAY")
+  gateway            String   @default("RAZORPAY")
   gateway_order_id   String?
   gateway_payment_id String?
   gateway_signature  String?
   amount             Float
-  currency           String    @default("INR")
-  status             String    @default("PENDING") // PENDING, SUCCESSFUL, FAILED, CANCELLED, ABANDONED
+  currency           String   @default("INR")
+  status             String   @default("PENDING") // PENDING, SUCCESSFUL, FAILED, CANCELLED, ABANDONED
   error_code         String?
-  error_description  String?
+  error_description  String?  @db.Text
   payment_method     String?
-  raw_response       String?
-  created_at         DateTime  @default(now())
-  updated_at         DateTime  @updatedAt
+  raw_response       String?  @db.Text
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
 
   client   Client    @relation(fields: [client_id], references: [id], onDelete: Cascade)
   invoices Invoice[]
@@ -601,42 +604,42 @@ model PaymentAttempt {
 }
 
 model Invoice {
-  id                 String          @id @default(uuid())
-  invoice_number     String          @unique
+  id                 String    @id @default(uuid())
+  invoice_number     String    @unique
   client_id          String
   payment_attempt_id String?
-  invoice_date       DateTime        @default(now())
+  invoice_date       DateTime  @default(now())
   due_date           DateTime?
   paid_date          DateTime?
-  invoice_type       String          @default("TAX_INVOICE") // TAX_INVOICE, PRO_FORMA
-  status             String          @default("UNPAID") // PAID, UNPAID, CANCELLED
-  membership_plan    String
-  plan_description   String?
-  quantity           Int             @default(1)
+  invoice_type       String    @default("TAX_INVOICE") // TAX_INVOICE, PRO_FORMA
+  status             String    @default("UNPAID") // PAID, UNPAID, CANCELLED
+  membership_plan    String    @db.VarChar(500)
+  plan_description   String?   @db.Text
+  quantity           Int       @default(1)
   unit_price         Float
-  discount           Float           @default(0)
+  discount           Float     @default(0)
   taxable_amount     Float
-  tax_rate           Float           @default(18.0)
+  tax_rate           Float     @default(18.0)
   tax_amount         Float
   total_amount       Float
-  amount_paid        Float           @default(0)
-  balance_due        Float           @default(0)
-  currency           String          @default("INR")
-  company_name       String?
+  amount_paid        Float     @default(0)
+  balance_due        Float     @default(0)
+  currency           String    @default("INR")
+  company_name       String?   @db.VarChar(500)
   company_gstin      String?
-  seller_name        String          @default("The Luxe Yatra Worldwide Travels & Resorts Private Limited")
-  seller_address     String?         @default("12th Floor, Express Towers, Nariman Point, Mumbai, Maharashtra 400021, India")
-  seller_gstin       String?         @default("27AABCT8921M1ZQ")
-  seller_email       String?         @default("accounts@theluxeyatra.com")
-  seller_phone       String?         @default("+91 22 6985 4000")
-  pdf_url            String?
-  pdf_path           String?
-  sent_count         Int             @default(0)
+  seller_name        String    @default("The Luxe Yatra Worldwide Travels & Resorts Private Limited")
+  seller_address     String?   @default("12th Floor, Express Towers, Nariman Point, Mumbai, Maharashtra 400021, India")
+  seller_gstin       String?   @default("27AABCT8921M1ZQ")
+  seller_email       String?   @default("accounts@theluxeyatra.com")
+  seller_phone       String?   @default("+91 22 6985 4000")
+  pdf_url            String?   @db.Text
+  pdf_path           String?   @db.Text
+  sent_count         Int       @default(0)
   last_sent_at       DateTime?
   created_by_user_id String?
-  notes              String?
-  created_at         DateTime        @default(now())
-  updated_at         DateTime        @updatedAt
+  notes              String?   @db.Text
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
 
   client          Client          @relation(fields: [client_id], references: [id], onDelete: Cascade)
   payment_attempt PaymentAttempt? @relation(fields: [payment_attempt_id], references: [id], onDelete: SetNull)
@@ -650,17 +653,17 @@ model Invoice {
 }
 
 model EmailLog {
-  id                  String    @id @default(uuid())
+  id                  String   @id @default(uuid())
   client_id           String?
   invoice_id          String?
-  recipient           String
-  template_type       String    // WELCOME_PAID, MEMBERSHIP_PENDING, PAYMENT_FAILED, INVOICE_ISSUED, INVOICE_RESEND
-  subject             String
-  status              String    // SENT, FAILED
-  provider_message_id String?
-  error_message       String?
+  recipient           String   @db.VarChar(255)
+  template_type       String // WELCOME_PAID, MEMBERSHIP_PENDING, PAYMENT_FAILED, INVOICE_ISSUED, INVOICE_RESEND
+  subject             String   @db.VarChar(500)
+  status              String // SENT, FAILED
+  provider_message_id String?  @db.VarChar(500)
+  error_message       String?  @db.Text
   created_by_user_id  String?
-  sent_at             DateTime  @default(now())
+  sent_at             DateTime @default(now())
 
   client  Client?  @relation(fields: [client_id], references: [id], onDelete: Cascade)
   invoice Invoice? @relation(fields: [invoice_id], references: [id], onDelete: SetNull)
@@ -671,4 +674,3 @@ model EmailLog {
   @@index([status])
   @@map("email_logs")
 }
-

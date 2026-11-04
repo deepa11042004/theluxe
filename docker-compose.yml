@@ -8,8 +8,9 @@
     environment:
       - PORT=5001
       - NODE_ENV=production
-      # Database + uploads live on the persistent volume below so redeploys never reset production data
-      - DATABASE_URL=file:/data/dev.db
+      # Database: MySQL (mysql://USER:PASSWORD@HOST:3306/DB_NAME), set in the hosting environment, never committed
+      - DATABASE_URL=${DATABASE_URL:-}
+      # Uploads live on the persistent volume below so redeploys never reset them
       - UPLOADS_DIR=/data/uploads
       - JWT_SECRET=the_luxe_yatra_super_secret_jwt_key_2026_phase1
       - JWT_EXPIRES_IN=7d
