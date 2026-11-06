@@ -37,6 +37,11 @@ yarn-error.log*
 # local MySQL server + data folder (binaries, database files, password): never commit
 /database/
 
+# SQLite files must never be committed again (the app uses MySQL only)
+*.db
+*.db.bak
+*.db-journal
+
 # vercel
 .vercel
 
