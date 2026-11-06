@@ -43,6 +43,8 @@ export const getUploadsDir = (): string => {
   return path.resolve(process.cwd(), "public/uploads");
 };
 
+const MAX_IMAGE_EDGE = 2560;
+
 export async function processAndOptimizeImage(
   buffer: Buffer,
   originalFilename: string,
@@ -61,11 +63,12 @@ export async function processAndOptimizeImage(
   const uniqueName = `${baseName}-${Date.now()}.webp`;
   const filePath = path.join(uploadDir, uniqueName);
 
-  const image = sharp(buffer);
-  const metadata = await image.metadata();
-
-  // Convert to WebP with 85 quality compression
-  await image.webp({ quality: 85 }).toFile(filePath);
+  // Auto-rotate from EXIF, cap the long edge (phone/camera photos are 4000-8000px but the site never shows more than ~2560px), then WebP at 85
+  const info = await sharp(buffer)
+    .rotate()
+    .resize({ width: MAX_IMAGE_EDGE, height: MAX_IMAGE_EDGE, fit: "inside", withoutEnlargement: true })
+    .webp({ quality: 85 })
+    .toFile(filePath);
 
   const publicUrl = `/uploads/${folder}/${uniqueName}`;
 
@@ -73,8 +76,8 @@ export async function processAndOptimizeImage(
     filename: uniqueName,
     url: publicUrl,
     mimeType: "image/webp",
-    fileSize: fs.statSync(filePath).size,
-    width: metadata.width || 0,
-    height: metadata.height || 0,
+    fileSize: info.size,
+    width: info.width,
+    height: info.height,
   };
 }
