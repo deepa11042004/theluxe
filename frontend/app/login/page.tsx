@@ -1,172 +1,102 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { Eye, EyeOff, ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react";
+import AuthShell, { authInputClass, authButtonClass } from "@/components/member/AuthShell";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Already signed in: go straight to the member area
+  useEffect(() => {
+    fetch("/api/v1/client/me")
+      .then((r) => r.json())
+      .then((j) => {
+        if (j?.success) router.replace("/member");
+      })
+      .catch(() => {});
+  }, [router]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
     setIsLoading(true);
-    // Simulate login
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/v1/client/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && json.success) {
+        router.replace("/member");
+        return;
+      }
+      setError(json.message || "Could not sign in. Please try again.");
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
       setIsLoading(false);
-      alert("Sign in simulated successfully!");
-    }, 1500);
+    }
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col md:flex-row relative overflow-x-hidden select-none font-sans">
-      {/* Background Image */}
-      <Image
-        src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1600&q=85"
-        alt="Travel Destination Background"
-        fill
-        priority
-        className="object-cover -z-10"
-      />
-      {/* Background Dark Overlay */}
-      <div className="absolute inset-0 bg-black/35 -z-10" />
+    <AuthShell title="Member Sign In" subtitle="Sign in to see your membership card, invoices and stay requests.">
+      <form onSubmit={handleSubmit} className="flex flex-col">
+        <label className="text-xs font-semibold tracking-wider text-white uppercase mb-2">Email</label>
+        <input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" className={authInputClass} />
 
-      {/* Back to Home Button */}
-      <Link
-        href="/"
-        className="absolute top-6 left-6 z-20 flex items-center gap-2 text-white/80 hover:text-white bg-black/20 hover:bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium transition-all group"
-      >
-        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-        <span>Back to Home</span>
-      </Link>
+        <label className="text-xs font-semibold tracking-wider text-white uppercase mb-2 mt-6">Password</label>
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            required
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            className={`${authInputClass} pr-11`}
+          />
+          <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1" tabIndex={-1} aria-label={showPassword ? "Hide password" : "Show password"}>
+            {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          </button>
+        </div>
 
-      {/* Left Column: Brand Marketing (TRAVEL Explore Horizons) */}
-      <div className="flex-1 flex flex-col justify-center px-6 pt-28 pb-8 md:py-8 md:px-20 text-white z-10 select-none">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-xl"
-        >
-          <h1 className="text-xl md:text-2xl font-bold tracking-widest text-white uppercase mb-4 md:mb-8">
-            The Luxe Yatra TRAVELS
-          </h1>
+        <Link href="/forgot-password" className="text-xs text-white/90 hover:text-white underline mt-3 self-end font-medium">
+          Forgot password?
+        </Link>
 
-          {/* Heading */}
-          <h1 className="text-3xl md:text-6xl lg:text-7xl tracking-wide uppercase leading-[1.05] mb-4 md:mb-6">
-            Explore <br />
-            <span className="text-white">Horizons</span>
-          </h1>
-
-          {/* Subheading & Description */}
-          <p className="text-base md:text-2xl text-white/90 mb-2 md:mb-4 leading-snug">
-            Where Your Dream Destinations Become Reality.
+        {error && (
+          <p role="alert" className="mt-4 text-sm text-red-100 bg-red-500/30 border border-red-300/40 rounded-lg px-3 py-2">
+            {error}
           </p>
-          <p className="text-xs md:text-base text-white/70 max-w-md leading-relaxed">
-            Embark on a journey where every corner of the world is within your
-            reach.
-          </p>
-        </motion.div>
+        )}
+
+        <button type="submit" disabled={isLoading} className={authButtonClass}>
+          {isLoading ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : "Sign In"}
+        </button>
+      </form>
+
+      <div className="flex items-center my-6 text-white/60 text-xs tracking-wider font-semibold">
+        <div className="flex-1 h-px bg-white/20" />
+        <span className="px-4 uppercase">or</span>
+        <div className="flex-1 h-px bg-white/20" />
       </div>
 
-      {/* Right Column: Glassmorphic Form Card */}
-      <div className="flex-1 flex items-center justify-center px-4 py-8 md:p-20 z-10">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-          className="w-full max-w-md bg-white/10 backdrop-blur-xl rounded-3xl md:rounded-[2.5rem] border border-white/20 p-6 md:p-12 shadow-2xl flex flex-col"
-        >
-          <form onSubmit={handleSubmit} className="flex flex-col">
-            {/* Email Field */}
-            <div className="flex flex-col">
-              <label className="text-xs font-semibold tracking-wider text-white uppercase mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                className="w-full bg-white rounded-xl px-4 py-3.5 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm shadow-sm transition-all border border-transparent focus:border-transparent font-medium"
-              />
-            </div>
-
-            {/* Password Field */}
-            <div className="flex flex-col mt-6 relative">
-              <label className="text-xs font-semibold tracking-wider text-white uppercase mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="***********"
-                  className="w-full bg-white rounded-xl pl-4 pr-11 py-3.5 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm shadow-sm transition-all border border-transparent focus:border-transparent font-medium"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
-                  tabIndex={-1}
-                >
-                  {showPassword ? (
-                    <EyeOff className="w-4 h-4" />
-                  ) : (
-                    <Eye className="w-4 h-4" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Forgot Password Link */}
-            <Link
-              href="#"
-              className="text-xs text-white/90 hover:text-white underline mt-3 self-end transition-colors font-medium"
-            >
-              Forgot password?
-            </Link>
-
-            {/* SIGN IN Action Button */}
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full mt-8 border border-[#E39F25] bg-[#E39F25] hover:bg-[#430021] active:scale-[0.98] text-white py-3.5 rounded-sm font-medium tracking-[0.25em] text-xs sm:text-sm transition-all uppercase shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? (
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              ) : (
-                "Sign In"
-              )}
-            </button>
-          </form>
-
-          {/* Divider */}
-          <div className="flex items-center my-6 text-white/60 text-xs tracking-wider font-semibold">
-            <div className="flex-1 h-px bg-white/20" />
-            <span className="px-4 uppercase">or</span>
-            <div className="flex-1 h-px bg-white/20" />
-          </div>
-
-          {/* Footer Link */}
-          <p className="text-center text-sm text-white/80">
-            Are you new?{" "}
-            <Link
-              href="/signup"
-              className="underline font-bold hover:text-white transition-colors"
-            >
-              Create an Account
-            </Link>
-          </p>
-        </motion.div>
-      </div>
-    </div>
+      <p className="text-center text-sm text-white/80">
+        Not a member yet?{" "}
+        <Link href="/join" className="underline font-bold hover:text-white transition-colors">
+          Join The Luxe Club
+        </Link>
+      </p>
+      <p className="text-center text-xs text-white/60 mt-3">First time here? Use the &ldquo;Create Password&rdquo; button in your welcome email, or the forgot password link above.</p>
+    </AuthShell>
   );
 }

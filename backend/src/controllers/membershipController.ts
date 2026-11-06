@@ -5,6 +5,7 @@ import { prisma } from "../config/prisma";
 import { getPlanPricing, isTestPlanEnabled, TEST_PLAN_NAME } from "../utils/pricing";
 import { generateInvoicePdf } from "../utils/pdfService";
 import { sendAutomatedEmail } from "../utils/emailService";
+import { getWelcomePortalLink } from "../utils/portalLinks";
 
 function getRazorpayInstance(): Razorpay | null {
   const key_id = (process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "").trim();
@@ -328,6 +329,7 @@ export async function activateMembershipAfterPayment({
 
   // 4. Send Welcome Email (Automatic)
   try {
+    const portalLink = await getWelcomePortalLink(client);
     await sendAutomatedEmail({
       recipient: client.email,
       templateType: "WELCOME_PAID",
@@ -340,6 +342,7 @@ export async function activateMembershipAfterPayment({
         amount: pricing.totalAmount,
         invoiceNumber: invoice?.invoice_number,
         paymentStatus: "PAID",
+        ...portalLink,
       },
       attachment:
         invoice?.pdf_path

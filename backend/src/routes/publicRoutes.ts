@@ -36,5 +36,21 @@ import * as payuCtrl from "../controllers/payuController";
 router.post("/membership/payu/initiate", payuCtrl.initiatePayuPayment);
 router.post("/membership/payu/callback", payuCtrl.handlePayuCallback);
 
+// Member portal (client login)
+import * as portalCtrl from "../controllers/clientPortalController";
+import { authenticateClient } from "../utils/clientAuth";
+router.post("/client/auth/login", portalCtrl.login);
+router.post("/client/auth/logout", portalCtrl.logout);
+router.post("/client/auth/forgot-password", portalCtrl.forgotPassword);
+router.get("/client/auth/check-token", portalCtrl.checkToken);
+router.post("/client/auth/set-password", portalCtrl.setPassword);
+router.get("/client/me", authenticateClient, portalCtrl.getMe);
+router.put("/client/me", authenticateClient, portalCtrl.updateProfile);
+router.put("/client/me/password", authenticateClient, portalCtrl.changePassword);
+router.get("/client/invoices", authenticateClient, portalCtrl.getInvoices);
+router.get("/client/invoices/:id/pdf", authenticateClient, portalCtrl.downloadInvoice);
+router.get("/client/bookings", authenticateClient, portalCtrl.getBookings);
+router.post("/client/bookings", authenticateClient, portalCtrl.createBooking);
+
 export default router;
 

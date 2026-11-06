@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
@@ -15,6 +15,7 @@ import {
   UserCheck,
   X,
   Receipt,
+  CalendarCheck,
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -26,6 +27,15 @@ interface AdminSidebarProps {
 export default function AdminSidebar({ userRole, isOpen = false, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
   const isSuperAdmin = userRole === "SUPER_ADMIN";
+
+  // Number of new member stay requests, shown as a badge on the Requests link
+  const [newRequests, setNewRequests] = useState(0);
+  useEffect(() => {
+    fetch("/api/v1/admin/booking-requests?status=NEW&limit=1")
+      .then((r) => r.json())
+      .then((j) => setNewRequests(j?.meta?.total || 0))
+      .catch(() => {});
+  }, [pathname]);
 
   return (
     <>
@@ -185,6 +195,23 @@ export default function AdminSidebar({ userRole, isOpen = false, onClose }: Admi
           >
             <UserCheck className="w-4 h-4 text-[#E39F25]" />
             <span>Clients</span>
+          </Link>
+
+          {/* REQUESTS (member stay requests) */}
+          <Link
+            href="/admin/requests"
+            onClick={onClose}
+            className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all ${
+              pathname.startsWith("/admin/requests")
+                ? "bg-[#E39F25] text-white shadow-md shadow-[#E39F25]/20"
+                : "text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            <CalendarCheck className="w-4 h-4 text-[#E39F25]" />
+            <span>Requests</span>
+            {newRequests > 0 && (
+              <span className="ml-auto bg-[#E39F25] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">{newRequests}</span>
+            )}
           </Link>
 
           {/* ADMIN USERS (SUPER ADMIN ONLY) */}

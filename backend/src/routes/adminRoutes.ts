@@ -12,6 +12,7 @@ import * as userCtrl from "../controllers/userController";
 import * as dashCtrl from "../controllers/dashboardController";
 import * as clientAdminCtrl from "../controllers/clientAdminController";
 import * as invoiceAdminCtrl from "../controllers/invoiceAdminController";
+import * as bookingAdminCtrl from "../controllers/bookingRequestAdminController";
 
 const router = Router();
 
@@ -91,5 +92,10 @@ router.get("/invoices/:id", requirePermission("invoice.view"), invoiceAdminCtrl.
 router.post("/invoices", requirePermission("invoice.create"), invoiceAdminCtrl.createInvoice);
 router.get("/invoices/:id/pdf", requirePermission("invoice.view"), invoiceAdminCtrl.downloadInvoicePdf);
 router.post("/invoices/:id/send", requirePermission("invoice.send"), invoiceAdminCtrl.sendInvoiceEmail);
+
+// Booking / stay requests submitted by members (reuse the client permissions)
+router.get("/booking-requests", requirePermission("client.view"), bookingAdminCtrl.getBookingRequests);
+router.get("/booking-requests/:id", requirePermission("client.view"), bookingAdminCtrl.getBookingRequestById);
+router.patch("/booking-requests/:id", requirePermission("client.update"), bookingAdminCtrl.updateBookingRequest);
 
 export default router;

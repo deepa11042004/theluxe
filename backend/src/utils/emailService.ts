@@ -1,13 +1,18 @@
 import nodemailer, { Transporter, SendMailOptions } from "nodemailer";
 import { prisma } from "../config/prisma";
 import { COMPANY_CONFIG } from "./pricing";
+import { getSiteUrl } from "./siteUrl";
 
 export type EmailTemplateType =
   | "WELCOME_PAID"
   | "MEMBERSHIP_PENDING"
   | "PAYMENT_FAILED"
   | "INVOICE_ISSUED"
-  | "INVOICE_RESEND";
+  | "INVOICE_RESEND"
+  | "CLIENT_SET_PASSWORD"
+  | "CLIENT_RESET_PASSWORD"
+  | "BOOKING_REQUEST_RECEIVED"
+  | "BOOKING_REQUEST_ADMIN_ALERT";
 
 export interface SendEmailOptions {
   recipient: string;
@@ -24,6 +29,10 @@ export interface SendEmailOptions {
     paymentStatus?: string;
     errorMessage?: string;
     loginUrl?: string;
+    loginLabel?: string;
+    actionUrl?: string; // set / reset password link
+    bookingCode?: string;
+    bookingLines?: [string, string][]; // [label, value] rows of a booking request
     paymentUrl?: string;
   };
   attachment?: {
@@ -82,7 +91,69 @@ export function generateEmailHtml(templateType: EmailTemplateType, data: SendEma
     </div>
   `;
 
+  // Anything a client typed (names, hotel, notes) must be escaped before it goes into HTML
+  const esc = (v: unknown) =>
+    String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+
+  const shell = (inner: string) => `
+        <div style="max-width: 600px; margin: 0 auto; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 8px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+          ${headerHtml}
+          <div style="padding: 35px 30px; color: #374151; line-height: 1.6;">${inner}</div>
+          ${footerHtml}
+        </div>`;
+
+  const button = (href: string, label: string) =>
+    `<div style="text-align: center; margin: 30px 0;"><a href="${esc(href)}" style="background-color: ${brandGold}; color: #FFFFFF; padding: 12px 28px; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 6px; display: inline-block;">${esc(label)}</a></div>`;
+
+  const detailsTable = (rows: [string, string][]) =>
+    `<div style="background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 8px; padding: 16px 20px; margin: 20px 0;"><table style="width: 100%; border-collapse: collapse; font-size: 14px;">${rows
+      .map(
+        ([k, v]) =>
+          `<tr><td style="padding: 6px 0; color: #6B7280; vertical-align: top; width: 38%;">${esc(k)}</td><td style="padding: 6px 0; font-weight: 600; color: ${brandDark}; text-align: right;">${esc(v)}</td></tr>`
+      )
+      .join("")}</table></div>`;
+
   switch (templateType) {
+    case "CLIENT_SET_PASSWORD":
+    case "CLIENT_RESET_PASSWORD": {
+      const isReset = templateType === "CLIENT_RESET_PASSWORD";
+      const subject = isReset ? "Reset your Luxe Club password" : "Create your Luxe Club password";
+      const link = data.actionUrl || "";
+      const html = shell(`
+            <p style="font-size: 18px; color: ${brandDark}; font-weight: 600; margin-top: 0;">Dear ${esc(data.clientName)},</p>
+            <p>${
+              isReset
+                ? "We received a request to reset the password for your Luxe Club member account."
+                : "Create a password to sign in to your Luxe Club member portal, where you can view your membership card, invoices and send us your stay requests."
+            }</p>
+            ${button(link, isReset ? "Reset Password" : "Create Password")}
+            <p style="font-size: 13px; color: #6B7280;">This link can be used once and expires in ${isReset ? "1 hour" : "7 days"}. If you did not ask for this, you can safely ignore this email, your account stays unchanged.</p>
+            <p style="font-size: 12px; color: #9CA3AF; word-break: break-all;">If the button does not work, copy this address into your browser:<br>${esc(link)}</p>`);
+      const text = `Dear ${data.clientName},\n\n${isReset ? "Reset your Luxe Club password" : "Create your Luxe Club password"}: ${link}\n\nThe link works once and expires in ${isReset ? "1 hour" : "7 days"}. If you did not request this, ignore this email.\n\n${COMPANY_CONFIG.brandName}`;
+      return { subject, html, text };
+    }
+
+    case "BOOKING_REQUEST_RECEIVED": {
+      const subject = `We received your stay request ${data.bookingCode || ""}`.trim();
+      const html = shell(`
+            <p style="font-size: 18px; color: ${brandDark}; font-weight: 600; margin-top: 0;">Dear ${esc(data.clientName)},</p>
+            <p>Thank you. Your stay request <strong>${esc(data.bookingCode)}</strong> has reached our concierge desk. A travel curator will contact you shortly with availability and options.</p>
+            ${detailsTable(data.bookingLines || [])}
+            <p style="font-size: 13px; color: #6B7280;">You can follow this request any time in the Bookings section of your member portal. This is an enquiry, not a confirmed reservation.</p>`);
+      const text = `Dear ${data.clientName},\n\nYour stay request ${data.bookingCode} has been received.\n${(data.bookingLines || []).map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nOur concierge will contact you shortly.\n${conciergeEmail} | ${conciergePhone}`;
+      return { subject, html, text };
+    }
+
+    case "BOOKING_REQUEST_ADMIN_ALERT": {
+      const subject = `New stay request ${data.bookingCode || ""} from ${data.clientName}`.trim();
+      const html = shell(`
+            <p style="font-size: 16px; color: ${brandDark}; font-weight: 600; margin-top: 0;">New member stay request</p>
+            ${detailsTable(data.bookingLines || [])}
+            ${data.actionUrl ? button(data.actionUrl, "Open in Admin Panel") : ""}`);
+      const text = `New stay request ${data.bookingCode} from ${data.clientName}\n${(data.bookingLines || []).map(([k, v]) => `${k}: ${v}`).join("\n")}\n${data.actionUrl || ""}`;
+      return { subject, html, text };
+    }
+
     case "WELCOME_PAID": {
       const subject = `Welcome to The Luxe Club — ${data.membershipPlan}`;
       const html = `
@@ -117,7 +188,7 @@ export function generateEmailHtml(templateType: EmailTemplateType, data: SendEma
             </ul>
 
             <div style="text-align: center; margin: 30px 0;">
-              <a href="${data.loginUrl || "http://localhost:3001/login"}" style="background-color: ${brandGold}; color: #FFFFFF; padding: 12px 28px; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 6px; display: inline-block;">Access Member Portal</a>
+              <a href="${data.loginUrl || getSiteUrl() + "/login"}" style="background-color: ${brandGold}; color: #FFFFFF; padding: 12px 28px; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 6px; display: inline-block;">${data.loginLabel || "Access Member Portal"}</a>
             </div>
 
             <p style="font-size: 13px; color: #6B7280;">Warm regards,<br><strong>The Luxe Yatra Team</strong></p>
@@ -144,7 +215,7 @@ export function generateEmailHtml(templateType: EmailTemplateType, data: SendEma
             </div>
 
             <div style="text-align: center; margin: 30px 0;">
-              <a href="${data.paymentUrl || "http://localhost:3001/join"}" style="background-color: ${brandGold}; color: #FFFFFF; padding: 12px 28px; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 6px; display: inline-block;">Complete Your Membership Payment</a>
+              <a href="${data.paymentUrl || getSiteUrl() + "/join"}" style="background-color: ${brandGold}; color: #FFFFFF; padding: 12px 28px; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 6px; display: inline-block;">Complete Your Membership Payment</a>
             </div>
 
             <p style="font-size: 13px; color: #6B7280;">If you require assistance from a dedicated relationship manager, please reply directly to this email or call ${conciergePhone}.</p>
@@ -152,7 +223,7 @@ export function generateEmailHtml(templateType: EmailTemplateType, data: SendEma
           ${footerHtml}
         </div>
       `;
-      const text = `Dear ${data.clientName},\n\nYour application for ${data.membershipPlan} is pending completion of payment.\nPlease visit http://localhost:3001/join to complete your enrollment.\n\nSupport: ${conciergeEmail}`;
+      const text = `Dear ${data.clientName},\n\nYour application for ${data.membershipPlan} is pending completion of payment.\nPlease visit ${getSiteUrl()}/join to complete your enrollment.\n\nSupport: ${conciergeEmail}`;
       return { subject, html, text };
     }
 
@@ -173,7 +244,7 @@ export function generateEmailHtml(templateType: EmailTemplateType, data: SendEma
             <p>No worries — your registration profile is safely saved. You can retry anytime via secure Razorpay checkout.</p>
 
             <div style="text-align: center; margin: 30px 0;">
-              <a href="${data.paymentUrl || "http://localhost:3001/join"}" style="background-color: ${brandGold}; color: #FFFFFF; padding: 12px 28px; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 6px; display: inline-block;">Retry Payment Securely</a>
+              <a href="${data.paymentUrl || getSiteUrl() + "/join"}" style="background-color: ${brandGold}; color: #FFFFFF; padding: 12px 28px; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 6px; display: inline-block;">Retry Payment Securely</a>
             </div>
 
             <p style="font-size: 13px; color: #6B7280;">Our concierge desk is also available to assist you with alternative bank transfer details.</p>
@@ -181,7 +252,7 @@ export function generateEmailHtml(templateType: EmailTemplateType, data: SendEma
           ${footerHtml}
         </div>
       `;
-      const text = `Dear ${data.clientName},\n\nYour payment attempt for ${data.membershipPlan} could not be completed.\nPlease retry at http://localhost:3001/join or contact ${conciergeEmail}.`;
+      const text = `Dear ${data.clientName},\n\nYour payment attempt for ${data.membershipPlan} could not be completed.\nPlease retry at ${getSiteUrl()}/join or contact ${conciergeEmail}.`;
       return { subject, html, text };
     }
 

@@ -560,12 +560,16 @@ model Client {
   welcome_email_sent_at   DateTime?
   last_payment_attempt_at DateTime?
   notes                   String?   @db.Text
+  password_hash           String?   @db.VarChar(255) // member-portal login (bcrypt); null until the client sets a password
+  password_set_at         DateTime?
   created_at              DateTime  @default(now())
   updated_at              DateTime  @updatedAt
 
   payment_attempts PaymentAttempt[]
   invoices         Invoice[]
   email_logs       EmailLog[]
+  booking_requests BookingRequest[]
+  auth_tokens      ClientAuthToken[]
 
   @@index([email])
   @@index([mobile])
@@ -673,4 +677,49 @@ model EmailLog {
   @@index([recipient])
   @@index([status])
   @@map("email_logs")
+}
+
+// One-time links emailed to members so they can create (or reset) their portal password. Only the SHA-256 hash of the token is stored.
+model ClientAuthToken {
+  id         String    @id @default(uuid())
+  client_id  String
+  token_hash String    @unique @db.VarChar(64)
+  purpose    String // SET_PASSWORD, RESET_PASSWORD
+  expires_at DateTime
+  used_at    DateTime?
+  created_at DateTime  @default(now())
+
+  client Client @relation(fields: [client_id], references: [id], onDelete: Cascade)
+
+  @@index([client_id])
+  @@index([expires_at])
+  @@map("client_auth_tokens")
+}
+
+// A stay enquiry submitted by a member from the portal; handled by admins in the Requests section.
+model BookingRequest {
+  id               String   @id @default(uuid())
+  request_code     String   @unique
+  client_id        String
+  city             String   @db.VarChar(255)
+  hotel_name       String   @db.VarChar(500)
+  check_in         DateTime
+  check_out        DateTime
+  adults           Int      @default(2)
+  children         Int      @default(0)
+  rooms            Int      @default(1)
+  budget           String?  @db.VarChar(255)
+  contact_phone    String?  @db.VarChar(50)
+  special_requests String?  @db.Text
+  status           String   @default("NEW") // NEW, IN_PROGRESS, CONFIRMED, CANCELLED
+  admin_notes      String?  @db.Text
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+
+  client Client @relation(fields: [client_id], references: [id], onDelete: Cascade)
+
+  @@index([client_id])
+  @@index([status])
+  @@index([created_at])
+  @@map("booking_requests")
 }

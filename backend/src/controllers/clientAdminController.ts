@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { regenerateInvoicePdf } from "../utils/invoicePdf";
 import { prisma } from "../config/prisma";
 import { sendAutomatedEmail } from "../utils/emailService";
+import { getWelcomePortalLink } from "../utils/portalLinks";
 import { getPlanPricing } from "../utils/pricing";
 
 export async function getClients(req: Request, res: Response) {
@@ -237,6 +238,8 @@ export async function sendClientWelcomeEmail(req: Request, res: Response) {
     const invoicePdfPath =
       isPaid && latestInvoice ? (await regenerateInvoicePdf(latestInvoice.id)).filePath : undefined;
 
+    const portalLink = templateType === "WELCOME_PAID" ? await getWelcomePortalLink(client) : {};
+
     const result = await sendAutomatedEmail({
       recipient: client.email,
       templateType,
@@ -250,6 +253,7 @@ export async function sendClientWelcomeEmail(req: Request, res: Response) {
         amount: pricing.totalAmount,
         invoiceNumber: latestInvoice?.invoice_number,
         paymentStatus: client.latest_payment_status,
+        ...portalLink,
       },
       attachment:
         latestInvoice && invoicePdfPath
