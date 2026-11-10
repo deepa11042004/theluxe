@@ -106,3 +106,20 @@ export const COMPANY_CONFIG = {
   cin: process.env.COMPANY_CIN || "U63040MH2024PTC392810",
   pan: process.env.COMPANY_PAN || "AABCT8921M",
 };
+
+// Holiday allowance: complimentary nights included per membership year, by plan.
+// Change the numbers here (or override one plan with env HOLIDAY_NIGHTS_SIGNATURE / _PRESTIGE / _BLACK / _TEST).
+const HOLIDAY_NIGHTS_DEFAULTS = { SIGNATURE: 2, PRESTIGE: 4, BLACK: 6, TEST: 1 };
+
+export function getHolidayAllowance(planName?: string): number {
+  const lower = String(planName || "").toLowerCase();
+  const tier: keyof typeof HOLIDAY_NIGHTS_DEFAULTS = lower.includes("test")
+    ? "TEST"
+    : lower.includes("black")
+    ? "BLACK"
+    : lower.includes("prestige")
+    ? "PRESTIGE"
+    : "SIGNATURE";
+  const fromEnv = Number(process.env[`HOLIDAY_NIGHTS_${tier}`]);
+  return Number.isInteger(fromEnv) && fromEnv >= 0 ? fromEnv : HOLIDAY_NIGHTS_DEFAULTS[tier];
+}

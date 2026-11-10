@@ -1,5 +1,6 @@
 "use client";
 
+import HolidayChart from "@/components/member/HolidayChart";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -341,6 +342,9 @@ export default function AdminClientDetailPage() {
               </div>
             </div>
           </div>
+
+          {/* HOLIDAY CHART */}
+          {client.holiday_chart && <HolidayChart chart={client.holiday_chart} planName={client.membership_plan} />}
 
           {/* CONTACT & COMPANY INFO */}
           <div className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm space-y-4 text-xs">

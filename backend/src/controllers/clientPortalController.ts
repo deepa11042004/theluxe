@@ -8,6 +8,7 @@ import { regenerateInvoicePdf } from "../utils/invoicePdf";
 import { isBlocked, recordAttempt, clearAttempts } from "../utils/attemptLimiter";
 import { COMPANY_CONFIG } from "../utils/pricing";
 import { getSiteUrl } from "../utils/siteUrl";
+import { buildHolidayChart } from "../utils/holidayChart";
 import {
   PORTAL_STATUSES,
   RESET_PASSWORD_TTL_MIN,
@@ -156,9 +157,10 @@ export async function getMe(req: Request, res: Response) {
   try {
     const group = await getGroupClients(req.client!.email);
     const me = group.find((c) => c.id === req.client!.id)!;
-    const memberships = group
+    const memberships = await Promise.all(
+      group
       .filter((c) => PORTAL_STATUSES.includes(c.membership_status))
-      .map((c) => ({
+      .map(async (c) => ({
         id: c.id,
         client_code: c.client_code,
         membership_plan: c.membership_plan,
@@ -167,7 +169,9 @@ export async function getMe(req: Request, res: Response) {
         membership_activated_at: c.membership_activated_at,
         membership_expires_at: c.membership_expires_at,
         latest_payment_status: c.latest_payment_status,
-      }));
+        holiday: await buildHolidayChart(c),
+      }))
+    );
 
     return res.json({
       success: true,

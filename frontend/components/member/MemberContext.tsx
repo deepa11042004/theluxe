@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
+import type { HolidayChartData } from "@/components/member/HolidayChart";
 
 export interface Membership {
   id: string;
@@ -11,6 +12,7 @@ export interface Membership {
   membership_activated_at: string | null;
   membership_expires_at: string | null;
   latest_payment_status: string;
+  holiday: HolidayChartData;
 }
 
 export interface MemberProfile {

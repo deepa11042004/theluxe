@@ -5,6 +5,7 @@ import { sendAutomatedEmail } from "../utils/emailService";
 import { getWelcomePortalLink } from "../utils/portalLinks";
 import { getPlanPricing } from "../utils/pricing";
 import { logAudit } from "../utils/auditLogger";
+import { buildHolidayChart } from "../utils/holidayChart";
 
 export async function getClients(req: Request, res: Response) {
   try {
@@ -130,7 +131,7 @@ export async function getClientById(req: Request, res: Response) {
 
     return res.status(200).json({
       success: true,
-      data: client,
+      data: { ...client, holiday_chart: await buildHolidayChart(client) },
     });
   } catch (err: any) {
     console.error("[ClientAdmin] getClientById error:", err);
