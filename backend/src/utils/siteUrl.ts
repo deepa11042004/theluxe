@@ -3,5 +3,6 @@
 export function getSiteUrl(): string {
   const configured = String(process.env.SITE_URL || "").trim().replace(/\/+$/, "");
   if (/^https?:\/\/[^/\s]+$/i.test(configured)) return configured;
-  return process.env.NODE_ENV === "production" ? "https://theluxeyatra.com" : "http://localhost:3001";
+  // Development: Next.js' default port. If your frontend runs elsewhere, set SITE_URL in backend/.env.
+  return process.env.NODE_ENV === "production" ? "https://theluxeyatra.com" : "http://localhost:3000";
 }

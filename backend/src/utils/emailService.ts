@@ -12,7 +12,9 @@ export type EmailTemplateType =
   | "CLIENT_SET_PASSWORD"
   | "CLIENT_RESET_PASSWORD"
   | "BOOKING_REQUEST_RECEIVED"
-  | "BOOKING_REQUEST_ADMIN_ALERT";
+  | "BOOKING_REQUEST_ADMIN_ALERT"
+  | "BOOKING_PAYMENT_RECEIVED"
+  | "BOOKING_PAYMENT_ADMIN_ALERT";
 
 export interface SendEmailOptions {
   recipient: string;
@@ -151,6 +153,27 @@ export function generateEmailHtml(templateType: EmailTemplateType, data: SendEma
             ${detailsTable(data.bookingLines || [])}
             ${data.actionUrl ? button(data.actionUrl, "Open in Admin Panel") : ""}`);
       const text = `New stay request ${data.bookingCode} from ${data.clientName}\n${(data.bookingLines || []).map(([k, v]) => `${k}: ${v}`).join("\n")}\n${data.actionUrl || ""}`;
+      return { subject, html, text };
+    }
+
+    case "BOOKING_PAYMENT_RECEIVED": {
+      const subject = `Payment received for your stay ${data.bookingCode || ""}`.trim();
+      const html = shell(`
+            <p style="font-size: 18px; color: ${brandDark}; font-weight: 600; margin-top: 0;">Dear ${esc(data.clientName)},</p>
+            <p>Thank you. We have received your payment for stay request <strong>${esc(data.bookingCode)}</strong>, which is now marked <strong>completed</strong>.</p>
+            ${detailsTable(data.bookingLines || [])}
+            <p style="font-size: 13px; color: #6B7280;">You can see it under History in your member portal. Our concierge will share your final travel details.</p>`);
+      const text = `Dear ${data.clientName},\n\nWe received your payment for stay request ${data.bookingCode}.\n${(data.bookingLines || []).map(([k, v]) => `${k}: ${v}`).join("\n")}\n\n${conciergeEmail} | ${conciergePhone}`;
+      return { subject, html, text };
+    }
+
+    case "BOOKING_PAYMENT_ADMIN_ALERT": {
+      const subject = `Payment received for ${data.bookingCode || "stay request"} from ${data.clientName}`;
+      const html = shell(`
+            <p style="font-size: 16px; color: ${brandDark}; font-weight: 600; margin-top: 0;">A member paid for a stay request</p>
+            ${detailsTable(data.bookingLines || [])}
+            ${data.actionUrl ? button(data.actionUrl, "Open in Admin Panel") : ""}`);
+      const text = `${data.clientName} paid for ${data.bookingCode}\n${(data.bookingLines || []).map(([k, v]) => `${k}: ${v}`).join("\n")}`;
       return { subject, html, text };
     }
 

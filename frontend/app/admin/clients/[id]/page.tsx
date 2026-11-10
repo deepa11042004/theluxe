@@ -27,6 +27,15 @@ import {
 } from "lucide-react";
 import LuxeMembershipCard from "@/components/Club/LuxeMembershipCard";
 
+// Membership payments and stay-request payments, newest first
+function allPaymentsOf(client: any): any[] {
+  const membership = (client?.payment_attempts || []).map((p: any) => ({ ...p, label: "Membership" }));
+  const stays = (client?.booking_requests || []).flatMap((b: any) =>
+    (b.payments || []).map((p: any) => ({ ...p, gateway: "PAYU", gateway_order_id: p.txnid, label: `Stay ${b.request_code} · ${b.hotel_name}` }))
+  );
+  return [...membership, ...stays].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+}
+
 export default function AdminClientDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -374,20 +383,20 @@ export default function AdminClientDetailPage() {
           <div className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
               <h3 className="font-bold text-neutral-900 text-sm">
-                Payment History & Gateways ({client.payment_attempts?.length || 0})
+                Payment History & Gateways ({allPaymentsOf(client).length})
               </h3>
               <span className="text-xs text-neutral-500 font-mono">
-                Gateway: {client.payment_attempts?.[0]?.gateway === "RAZORPAY" ? "Razorpay" : "PayU"}
+                Gateway: {allPaymentsOf(client)[0]?.gateway === "RAZORPAY" ? "Razorpay" : "PayU"}
               </span>
             </div>
 
-            {!client.payment_attempts || client.payment_attempts.length === 0 ? (
+            {allPaymentsOf(client).length === 0 ? (
               <div className="py-6 text-center text-xs text-neutral-400">
                 No payment attempts recorded.
               </div>
             ) : (
               <div className="divide-y divide-neutral-100 border border-neutral-100 rounded-xl overflow-hidden">
-                {client.payment_attempts.map((att: any) => (
+                {allPaymentsOf(client).map((att: any) => (
                   <div key={att.id} className="p-3.5 text-xs flex items-start justify-between gap-4">
                     <div>
                       <div className="flex items-center gap-2">
@@ -395,6 +404,7 @@ export default function AdminClientDetailPage() {
                           ₹{Number(att.amount || 0).toLocaleString("en-IN")}
                         </span>
                         {renderPaymentStatusBadge(att.status)}
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400">{att.label}</span>
                       </div>
                       <div className="text-[11px] text-neutral-500 font-mono mt-1">
                         {att.gateway_payment_id ? `Payment ID: ${att.gateway_payment_id}` : `Order ID: ${att.gateway_order_id || "N/A"}`}

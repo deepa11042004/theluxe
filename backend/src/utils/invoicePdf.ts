@@ -14,8 +14,12 @@ export async function regenerateInvoicePdf(invoiceId: string): Promise<{ filePat
     include: { client: true, payment_attempt: true },
   });
 
+  const isStay = !!invoice.booking_request_id;
   const pricing = getPlanPricing(invoice.membership_plan);
   const attempt = invoice.payment_attempt;
+  const stayPayment = isStay
+    ? await prisma.bookingPayment.findFirst({ where: { booking_request_id: invoice.booking_request_id!, status: "SUCCESSFUL" }, orderBy: { created_at: "asc" } })
+    : null;
 
   const generated = await generateInvoicePdf({
     invoiceNumber: invoice.invoice_number,
@@ -35,7 +39,7 @@ export async function regenerateInvoicePdf(invoiceId: string): Promise<{ filePat
     },
     membership: {
       planName: invoice.membership_plan,
-      description: invoice.plan_description || pricing.description,
+      description: invoice.plan_description || (isStay ? "" : pricing.description),
       baseAmount: invoice.taxable_amount,
       taxRate: invoice.tax_rate,
       taxAmount: invoice.tax_amount,
@@ -44,7 +48,16 @@ export async function regenerateInvoicePdf(invoiceId: string): Promise<{ filePat
       balanceDue: invoice.balance_due,
       currency: invoice.currency,
     },
-    payment: attempt
+    payment: stayPayment
+      ? {
+          gateway: "PayU",
+          paymentId: stayPayment.gateway_payment_id,
+          orderId: stayPayment.txnid,
+          paymentMethod: stayPayment.payment_method,
+          paymentDate: invoice.paid_date || stayPayment.updated_at,
+          status: stayPayment.status,
+        }
+      : attempt
       ? {
           gateway: GATEWAY_LABELS[attempt.gateway] || attempt.gateway,
           paymentId: attempt.gateway_payment_id,

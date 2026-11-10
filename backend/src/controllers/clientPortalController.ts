@@ -335,6 +335,9 @@ export async function getBookings(req: Request, res: Response) {
         status: true,
         admin_reply: true,
         replied_at: true,
+        amount_due: true,
+        payment_status: true,
+        paid_at: true,
         created_at: true,
       },
     });

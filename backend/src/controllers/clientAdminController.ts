@@ -109,6 +109,10 @@ export async function getClientById(req: Request, res: Response) {
         invoices: {
           orderBy: { invoice_date: "desc" },
         },
+        // Payments for stay requests are stored separately from membership payments
+        booking_requests: {
+          select: { id: true, request_code: true, hotel_name: true, payments: { orderBy: { created_at: "desc" } } },
+        },
         email_logs: {
           orderBy: { sent_at: "desc" },
         },

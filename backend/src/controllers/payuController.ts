@@ -17,7 +17,7 @@ import {
 // Where PayU sends the customer back to: the site the customer is actually on (browser Origin, then the proxy's
 // host headers). PAYU_CALLBACK_BASE_URL is only a last resort, so a stale/copied value (e.g. localhost) can't
 // send real customers to the wrong place.
-function resolveCallbackBase(req: Request): string {
+export function resolveCallbackBase(req: Request): string {
   const origin = String(req.headers.origin || "").trim().replace(/\/+$/, "");
   if (/^https?:\/\/[^/\s]+$/i.test(origin)) return origin;
 
@@ -29,7 +29,7 @@ function resolveCallbackBase(req: Request): string {
   return getPayuConfig().callbackBase;
 }
 
-function isLocalhostUrl(url: string): boolean {
+export function isLocalhostUrl(url: string): boolean {
   return /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/i.test(url);
 }
 

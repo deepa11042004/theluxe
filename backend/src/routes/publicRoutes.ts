@@ -51,6 +51,10 @@ router.get("/client/invoices", authenticateClient, portalCtrl.getInvoices);
 router.get("/client/invoices/:id/pdf", authenticateClient, portalCtrl.downloadInvoice);
 router.get("/client/bookings", authenticateClient, portalCtrl.getBookings);
 router.post("/client/bookings", authenticateClient, portalCtrl.createBooking);
+import * as bookingPayCtrl from "../controllers/bookingPaymentController";
+router.post("/client/bookings/payu/callback", bookingPayCtrl.bookingPayuCallback); // PayU returns the member's browser here; verified by signature
+router.post("/client/bookings/:id/pay", authenticateClient, bookingPayCtrl.payBooking);
+router.get("/client/bookings/:id/invoice-pdf", authenticateClient, bookingPayCtrl.downloadBookingInvoice);
 
 export default router;
 

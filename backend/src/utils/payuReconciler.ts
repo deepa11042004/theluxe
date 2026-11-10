@@ -1,6 +1,7 @@
 import { prisma } from "../config/prisma";
 import { applyPayuResult, PayuResult } from "../controllers/payuController";
 import { getPayuConfig, verifyPayuTransaction } from "./payu";
+import { reconcilePendingBookingPayments } from "./bookingPayments";
 
 const MIN_AGE_MS = 2 * 60 * 1000; // give the normal browser return trip time to arrive first
 const MAX_AGE_MS = 3 * 24 * 60 * 60 * 1000;
@@ -84,4 +85,7 @@ export async function reconcilePendingPayuPayments(): Promise<void> {
 export function startPayuReconciler(): void {
   setTimeout(reconcilePendingPayuPayments, 20_000).unref();
   setInterval(reconcilePendingPayuPayments, INTERVAL_MS).unref();
+  // Stay-request payments are reconciled the same way, offset by a few seconds
+  setTimeout(reconcilePendingBookingPayments, 35_000).unref();
+  setInterval(reconcilePendingBookingPayments, INTERVAL_MS).unref();
 }

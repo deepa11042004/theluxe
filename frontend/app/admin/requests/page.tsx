@@ -34,18 +34,25 @@ interface BookingRequest {
   status: string;
   admin_notes: string | null;
   admin_reply: string | null;
+  amount_due: number | null;
+  payment_status: string;
+  paid_at: string | null;
+  payments?: { id: string; txnid: string; amount: number; status: string; gateway_payment_id: string | null; error_description: string | null; created_at: string }[];
   created_at: string;
   client: RequestClient;
 }
 
-const STATUSES = ["NEW", "IN_PROGRESS", "CONFIRMED", "CANCELLED"] as const;
-const LABEL: Record<string, string> = { ALL: "All", NEW: "New", IN_PROGRESS: "In progress", CONFIRMED: "Confirmed", CANCELLED: "Cancelled" };
+const STATUSES = ["NEW", "IN_PROGRESS", "CONFIRMED", "COMPLETED", "CANCELLED"] as const;
+const LABEL: Record<string, string> = { ALL: "All", NEW: "New", IN_PROGRESS: "In progress", CONFIRMED: "Confirmed", COMPLETED: "Completed", CANCELLED: "Cancelled" };
 const STYLE: Record<string, string> = {
   NEW: "bg-blue-50 text-blue-700 border-blue-200",
   IN_PROGRESS: "bg-amber-50 text-amber-700 border-amber-200",
   CONFIRMED: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  COMPLETED: "bg-emerald-100 text-emerald-800 border-emerald-300",
   CANCELLED: "bg-neutral-100 text-neutral-600 border-neutral-200",
 };
+
+const inr = (n: number) => `₹${n.toLocaleString("en-IN", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
 
 const fmt = (v: string) => new Date(v).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
 const fmtTime = (v: string) => new Date(v).toLocaleString("en-IN", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
@@ -72,6 +79,7 @@ export default function RequestsPage() {
   const [draftStatus, setDraftStatus] = useState("NEW");
   const [draftNotes, setDraftNotes] = useState("");
   const [draftReply, setDraftReply] = useState("");
+  const [draftAmount, setDraftAmount] = useState("");
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
@@ -104,6 +112,7 @@ export default function RequestsPage() {
     setDraftStatus(r.status);
     setDraftNotes(r.admin_notes || "");
     setDraftReply(r.admin_reply || "");
+    setDraftAmount(r.amount_due ? String(r.amount_due) : "");
     setSaveMsg(null);
   };
 
@@ -115,7 +124,7 @@ export default function RequestsPage() {
       const res = await fetch(`/api/v1/admin/booking-requests/${open.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: draftStatus, admin_notes: draftNotes, admin_reply: draftReply }),
+        body: JSON.stringify({ status: draftStatus, admin_notes: draftNotes, admin_reply: draftReply, amount_due: draftAmount.trim() === "" ? null : Number(draftAmount) }),
       });
       const json = await res.json();
       if (!json.success) throw new Error(json.message || "Could not save.");
@@ -223,6 +232,8 @@ export default function RequestsPage() {
                   <td className="px-5 py-4 text-neutral-600">{guests(r)}</td>
                   <td className="px-5 py-4">
                     <Badge status={r.status} />
+                    {r.payment_status === "UNPAID" && r.amount_due ? <p className="text-[11px] text-amber-700 mt-1">{inr(r.amount_due)} unpaid</p> : null}
+                    {r.payment_status === "PAID" && r.amount_due ? <p className="text-[11px] text-emerald-700 mt-1">{inr(r.amount_due)} paid</p> : null}
                   </td>
                 </tr>
               ))}
@@ -319,6 +330,42 @@ export default function RequestsPage() {
                       </option>
                     ))}
                   </select>
+                </div>
+                <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3 space-y-2">
+                  <label className="block text-xs font-semibold text-neutral-600">Amount to pay (₹), the member sees a Pay Now button</label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={10000000}
+                    step="0.01"
+                    value={draftAmount}
+                    disabled={open.payment_status === "PAID"}
+                    onChange={(e) => setDraftAmount(e.target.value)}
+                    placeholder="e.g. 45000 (leave empty for no payment)"
+                    className="w-full border border-neutral-300 rounded-lg px-3 py-2.5 bg-white disabled:bg-neutral-100"
+                  />
+                  <p className="text-xs">
+                    {open.payment_status === "PAID" ? (
+                      <span className="text-emerald-700 font-semibold">
+                        Paid {open.amount_due ? inr(open.amount_due) : ""} {open.paid_at ? "on " + fmtTime(open.paid_at) : ""}. The request is completed.
+                      </span>
+                    ) : open.payment_status === "UNPAID" ? (
+                      <span className="text-amber-700 font-semibold">Unpaid. Waiting for the member to pay.</span>
+                    ) : (
+                      <span className="text-neutral-500">No payment requested yet.</span>
+                    )}
+                  </p>
+                  {open.payments && open.payments.length > 0 && (
+                    <ul className="text-[11px] text-neutral-500 space-y-0.5">
+                      {open.payments.map((p) => (
+                        <li key={p.id}>
+                          {fmtTime(p.created_at)}: {inr(p.amount)} {p.status.toLowerCase()}
+                          {p.gateway_payment_id ? " (PayU " + p.gateway_payment_id + ")" : ""}
+                          {p.error_description ? " - " + p.error_description : ""}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-neutral-600 mb-1.5">Message to member (shown in their portal, e.g. the hotel you have arranged)</label>
