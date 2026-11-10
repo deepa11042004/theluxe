@@ -47,3 +47,12 @@ export function formatDate(value?: string | null, withTime = false): string {
   if (Number.isNaN(d.getTime())) return "-";
   return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric", ...(withTime ? { hour: "2-digit", minute: "2-digit" } : {}), timeZone: withTime ? undefined : "UTC" });
 }
+
+// A stay is "completed" once the admin confirmed it and its check-out date (UTC date) is in the past.
+export function isCompletedStay(b: { status: string; check_out: string }): boolean {
+  return b.status === "CONFIRMED" && b.check_out.slice(0, 10) < new Date().toISOString().slice(0, 10);
+}
+
+export function nightsBetween(checkIn: string, checkOut: string): number {
+  return Math.max(0, Math.round((new Date(checkOut).getTime() - new Date(checkIn).getTime()) / 86400000));
+}

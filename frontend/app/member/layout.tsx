@@ -4,13 +4,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { CreditCard, Receipt, CalendarCheck, UserRound, LogOut } from "lucide-react";
+import { CreditCard, Receipt, CalendarCheck, ClipboardList, History, UserRound, LogOut } from "lucide-react";
 import { MemberContext, MemberProfile } from "@/components/member/MemberContext";
 
 const NAV = [
   { href: "/member", label: "Membership", icon: CreditCard },
   { href: "/member/invoices", label: "Invoices", icon: Receipt },
   { href: "/member/bookings", label: "Bookings", icon: CalendarCheck },
+  { href: "/member/requests", label: "Requests", icon: ClipboardList },
+  { href: "/member/history", label: "History", icon: History },
   { href: "/member/profile", label: "Profile", icon: UserRound },
 ];
 

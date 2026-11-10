@@ -1,32 +1,9 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
+import Link from "next/link";
 import { CheckCircle2, Send } from "lucide-react";
-import { useMember, formatDate } from "@/components/member/MemberContext";
-
-interface BookingRow {
-  id: string;
-  request_code: string;
-  city: string;
-  hotel_name: string;
-  check_in: string;
-  check_out: string;
-  adults: number;
-  children: number;
-  rooms: number;
-  budget: string | null;
-  special_requests: string | null;
-  status: string;
-  created_at: string;
-}
-
-const STATUS_STYLE: Record<string, string> = {
-  NEW: "bg-blue-50 text-blue-700",
-  IN_PROGRESS: "bg-amber-50 text-amber-700",
-  CONFIRMED: "bg-emerald-50 text-emerald-700",
-  CANCELLED: "bg-neutral-100 text-neutral-600",
-};
-const STATUS_LABEL: Record<string, string> = { NEW: "Received", IN_PROGRESS: "In progress", CONFIRMED: "Confirmed", CANCELLED: "Cancelled" };
+import { useMember } from "@/components/member/MemberContext";
 
 const todayStr = () => new Date().toISOString().slice(0, 10);
 const inputCls = "w-full border border-neutral-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#E39F25]/50 focus:border-[#E39F25] bg-white";
@@ -41,17 +18,6 @@ export default function BookingsPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [sentCode, setSentCode] = useState("");
-  const [bookings, setBookings] = useState<BookingRow[] | null>(null);
-
-  const load = useCallback(() => {
-    fetch("/api/v1/client/bookings")
-      .then((r) => r.json())
-      .then((j) => setBookings(j.success ? j.data : []))
-      .catch(() => setBookings([]));
-  }, []);
-
-  useEffect(load, [load]);
-
   const set = (k: keyof typeof empty) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
   const submit = async (e: React.FormEvent) => {
@@ -73,7 +39,6 @@ export default function BookingsPage() {
       if (res.ok && json.success) {
         setSentCode(json.data.request_code);
         setForm(empty);
-        load();
       } else setError(json.message || "Could not send your request.");
     } catch {
       setError("Network error. Please check your connection and try again.");
@@ -96,7 +61,10 @@ export default function BookingsPage() {
           <div role="status" className="mb-5 flex items-start gap-3 text-sm text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-3">
             <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
             <span>
-              Request <strong>{sentCode}</strong> sent. We have emailed you a copy and our concierge will be in touch shortly.
+              Request <strong>{sentCode}</strong> sent. We have emailed you a copy and our concierge will be in touch shortly.{" "}
+              <Link href="/member/requests" className="underline font-semibold">
+                View your requests
+              </Link>
             </span>
           </div>
         )}
@@ -164,32 +132,6 @@ export default function BookingsPage() {
         )}
       </section>
 
-      <section>
-        <h2 className="font-semibold mb-3">Your requests</h2>
-        {!bookings && <div className="w-6 h-6 border-4 border-[#E39F25] border-t-transparent rounded-full animate-spin" />}
-        {bookings && bookings.length === 0 && <p className="text-sm text-neutral-500 bg-white border border-neutral-200 rounded-2xl p-8 text-center">You have not sent any stay requests yet.</p>}
-        <div className="space-y-3">
-          {bookings?.map((b) => (
-            <article key={b.id} className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <p className="font-semibold">{b.hotel_name}</p>
-                  <p className="text-xs text-neutral-500">
-                    {b.city} · {b.request_code} · sent {formatDate(b.created_at)}
-                  </p>
-                </div>
-                <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full ${STATUS_STYLE[b.status] || STATUS_STYLE.NEW}`}>{STATUS_LABEL[b.status] || b.status}</span>
-              </div>
-              <p className="text-sm text-neutral-600 mt-3">
-                {formatDate(b.check_in)} to {formatDate(b.check_out)} · {b.adults} adult{b.adults === 1 ? "" : "s"}
-                {b.children ? `, ${b.children} child${b.children === 1 ? "" : "ren"}` : ""} · {b.rooms} room{b.rooms === 1 ? "" : "s"}
-                {b.budget ? ` · Budget ${b.budget}` : ""}
-              </p>
-              {b.special_requests && <p className="text-sm text-neutral-500 mt-2 whitespace-pre-line">{b.special_requests}</p>}
-            </article>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }
