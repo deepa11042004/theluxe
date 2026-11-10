@@ -84,6 +84,8 @@ router.delete("/users/:id", requirePermission("user.delete"), userCtrl.deleteUse
 router.get("/clients", requirePermission("client.view"), clientAdminCtrl.getClients);
 router.get("/clients/:id", requirePermission("client.view"), clientAdminCtrl.getClientById);
 router.put("/clients/:id", requirePermission("client.update"), clientAdminCtrl.updateClient);
+router.delete("/clients/:id", requirePermission("client.update"), clientAdminCtrl.deleteClient); // archives, never erases
+router.post("/clients/:id/restore", requirePermission("client.update"), clientAdminCtrl.restoreClient);
 router.post("/clients/:id/welcome-email", requirePermission("email.send"), clientAdminCtrl.sendClientWelcomeEmail);
 
 // Invoices

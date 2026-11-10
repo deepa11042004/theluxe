@@ -4,6 +4,7 @@ import { prisma } from "../config/prisma";
 import { sendAutomatedEmail } from "../utils/emailService";
 import { getWelcomePortalLink } from "../utils/portalLinks";
 import { getPlanPricing } from "../utils/pricing";
+import { logAudit } from "../utils/auditLogger";
 
 export async function getClients(req: Request, res: Response) {
   try {
@@ -19,7 +20,8 @@ export async function getClients(req: Request, res: Response) {
     const sortBy = (req.query.sortBy as string)?.trim() || "created_at";
     const order = (req.query.order as string)?.toLowerCase() === "asc" ? "asc" : "desc";
 
-    const where: any = {};
+    // Deleted (archived) clients are hidden unless explicitly asked for
+    const where: any = { deleted_at: (req.query.archived as string) === "true" ? { not: null } : null };
 
     if (search) {
       where.OR = [
@@ -305,5 +307,40 @@ export async function sendClientWelcomeEmail(req: Request, res: Response) {
       success: false,
       message: err?.message || "Failed to send welcome email.",
     });
+  }
+}
+
+// "Delete" = archive. Nothing is erased: invoices, payments, emails and stay requests stay in the database,
+// the client is just hidden from the list and can no longer sign in to the member portal.
+export async function deleteClient(req: Request, res: Response) {
+  try {
+    const client = await prisma.client.findUnique({ where: { id: req.params.id }, select: { id: true, client_code: true, email: true, deleted_at: true } });
+    if (!client) return res.status(404).json({ success: false, message: "Client not found." });
+    if (client.deleted_at) return res.status(200).json({ success: true, message: "Client is already deleted." });
+
+    await prisma.client.update({ where: { id: client.id }, data: { deleted_at: new Date() } });
+    // Any password-reset links that are still open stop working with the account
+    await prisma.clientAuthToken.updateMany({ where: { client: { email: client.email }, used_at: null }, data: { used_at: new Date() } });
+    await logAudit({ userId: req.user?.id, action: "ARCHIVE", entity: "Client", entityId: client.id, req });
+
+    return res.status(200).json({ success: true, message: `Client ${client.client_code} deleted. All records are kept and it can be restored.` });
+  } catch (err: any) {
+    console.error("[ClientAdmin] deleteClient error:", err);
+    return res.status(500).json({ success: false, message: err?.message || "Failed to delete the client." });
+  }
+}
+
+export async function restoreClient(req: Request, res: Response) {
+  try {
+    const client = await prisma.client.findUnique({ where: { id: req.params.id }, select: { id: true, client_code: true } });
+    if (!client) return res.status(404).json({ success: false, message: "Client not found." });
+
+    await prisma.client.update({ where: { id: client.id }, data: { deleted_at: null } });
+    await logAudit({ userId: req.user?.id, action: "RESTORE", entity: "Client", entityId: client.id, req });
+
+    return res.status(200).json({ success: true, message: `Client ${client.client_code} restored.` });
+  } catch (err: any) {
+    console.error("[ClientAdmin] restoreClient error:", err);
+    return res.status(500).json({ success: false, message: err?.message || "Failed to restore the client." });
   }
 }

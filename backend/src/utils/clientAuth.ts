@@ -76,7 +76,7 @@ export async function authenticateClient(req: Request, res: Response, next: Next
     if (decoded.typ !== "client" || !decoded.clientId) return deny();
 
     const client = await prisma.client.findUnique({ where: { id: decoded.clientId } });
-    if (!client || !client.password_hash || !PORTAL_STATUSES.includes(client.membership_status)) return deny();
+    if (!client || client.deleted_at || !client.password_hash || !PORTAL_STATUSES.includes(client.membership_status)) return deny();
     if ((client.password_set_at?.getTime() ?? 0) !== (decoded.pa ?? 0)) return deny();
 
     req.client = { id: client.id, email: client.email };
@@ -88,7 +88,7 @@ export async function authenticateClient(req: Request, res: Response, next: Next
 
 // Everything that belongs to one person: all client records sharing the email address.
 export async function getGroupClients(email: string) {
-  return prisma.client.findMany({ where: { email }, orderBy: { created_at: "desc" } });
+  return prisma.client.findMany({ where: { email, deleted_at: null }, orderBy: { created_at: "desc" } });
 }
 
 export function pickPrimary<T extends { membership_status: string }>(clients: T[]): T | undefined {
@@ -116,7 +116,7 @@ export async function findValidToken(raw: unknown) {
   if (typeof raw !== "string" || !/^[a-f0-9]{64}$/.test(raw)) return null;
   const record = await prisma.clientAuthToken.findUnique({ where: { token_hash: sha256(raw) }, include: { client: true } });
   if (!record || record.used_at || record.expires_at <= new Date()) return null;
-  if (!PORTAL_STATUSES.includes(record.client.membership_status)) return null;
+  if (record.client.deleted_at || !PORTAL_STATUSES.includes(record.client.membership_status)) return null;
   return record;
 }
 

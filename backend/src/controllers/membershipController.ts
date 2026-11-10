@@ -92,6 +92,7 @@ export async function saveRegistrationClient(body: any) {
         terms_accepted_at: new Date(),
         latest_payment_status: "PENDING",
         last_payment_attempt_at: new Date(),
+        deleted_at: null, // registering again restores a deleted client
       },
     });
   } else {

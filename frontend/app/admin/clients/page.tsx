@@ -26,6 +26,8 @@ import {
   RefreshCw,
   Edit,
   History,
+  Trash2,
+  RotateCcw,
 } from "lucide-react";
 
 interface PaymentAttempt {
@@ -37,6 +39,19 @@ interface PaymentAttempt {
   status: string;
   error_description?: string | null;
   created_at: string;
+}
+
+// Membership payments and stay-request payments, newest first
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function allPaymentsOf(client: any): (PaymentAttempt & { label: string })[] {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const membership = (client?.payment_attempts || []).map((p: any) => ({ ...p, label: "Membership" }));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const stays = (client?.booking_requests || []).flatMap((b: any) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (b.payments || []).map((p: any) => ({ ...p, gateway: "PAYU", gateway_order_id: p.txnid, label: `Stay ${b.request_code} · ${b.hotel_name}` }))
+  );
+  return [...membership, ...stays].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 }
 
 interface Client {
@@ -84,11 +99,13 @@ export default function AdminClientsPage() {
   const [historyLoading, setHistoryLoading] = useState(false);
   const [invoiceModalClient, setInvoiceModalClient] = useState<Client | null>(null);
   const [actionLoading, setActionLoading] = useState(false);
+  const [showArchived, setShowArchived] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<Client | null>(null);
   const [toastMessage, setToastMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
   useEffect(() => {
     fetchClients();
-  }, [page, paymentStatusFilter, planFilter, cityFilter]);
+  }, [page, paymentStatusFilter, planFilter, cityFilter, showArchived]);
 
   const showToast = (text: string, type: "success" | "error" = "success") => {
     setToastMessage({ text, type });
@@ -106,6 +123,7 @@ export default function AdminClientsPage() {
       if (paymentStatusFilter !== "ALL") params.append("paymentStatus", paymentStatusFilter);
       if (planFilter !== "ALL") params.append("plan", planFilter);
       if (cityFilter !== "ALL") params.append("city", cityFilter);
+      if (showArchived) params.append("archived", "true");
 
       const res = await fetch(`/api/v1/admin/clients?${params.toString()}`);
       const json = await res.json();
@@ -120,6 +138,45 @@ export default function AdminClientsPage() {
       showToast("Error connecting to server", "error");
     } finally {
       setLoading(false);
+    }
+  };
+
+  // "Delete" archives the client: hidden and blocked from the portal, every record is kept and it can be restored
+  const handleDeleteClient = async () => {
+    if (!deleteTarget) return;
+    setActionLoading(true);
+    try {
+      const res = await fetch(`/api/v1/admin/clients/${deleteTarget.id}`, { method: "DELETE" });
+      const json = await res.json();
+      if (json.success) {
+        showToast(json.message || "Client deleted", "success");
+        setDeleteTarget(null);
+        fetchClients();
+      } else {
+        showToast(json.message || "Failed to delete client", "error");
+      }
+    } catch {
+      showToast("Network error deleting client", "error");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleRestoreClient = async (clientId: string) => {
+    setActionLoading(true);
+    try {
+      const res = await fetch(`/api/v1/admin/clients/${clientId}/restore`, { method: "POST" });
+      const json = await res.json();
+      if (json.success) {
+        showToast(json.message || "Client restored", "success");
+        fetchClients();
+      } else {
+        showToast(json.message || "Failed to restore client", "error");
+      }
+    } catch {
+      showToast("Network error restoring client", "error");
+    } finally {
+      setActionLoading(false);
     }
   };
 
@@ -430,6 +487,17 @@ export default function AdminClientsPage() {
             >
               Search
             </button>
+            <button
+              type="button"
+              onClick={() => {
+                setPage(1);
+                setShowArchived((v) => !v);
+              }}
+              className={`px-3 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${showArchived ? "bg-neutral-900 text-white border-neutral-900" : "bg-white text-neutral-600 border-neutral-200 hover:border-neutral-400"}`}
+              title="Show clients that were deleted"
+            >
+              {showArchived ? "Deleted" : "Deleted?"}
+            </button>
             {(search || paymentStatusFilter !== "ALL" || planFilter !== "ALL" || cityFilter !== "ALL") && (
               <button
                 type="button"
@@ -570,6 +638,26 @@ export default function AdminClientsPage() {
                           >
                             <FileText className="w-3.5 h-3.5" />
                           </button>
+
+                          {/* Delete (archive) / Restore */}
+                          {showArchived ? (
+                            <button
+                              onClick={() => handleRestoreClient(cl.id)}
+                              disabled={actionLoading}
+                              className="p-1.5 hover:bg-emerald-50 rounded-lg text-emerald-700 transition-colors cursor-pointer"
+                              title="Restore this client"
+                            >
+                              <RotateCcw className="w-3.5 h-3.5" />
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => setDeleteTarget(cl)}
+                              className="p-1.5 hover:bg-red-50 rounded-lg text-red-500 transition-colors cursor-pointer"
+                              title="Delete client"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          )}
 
                           {/* Send Welcome Email */}
                           <button
@@ -781,13 +869,13 @@ export default function AdminClientsPage() {
             </div>
 
             <div className="space-y-3 max-h-96 overflow-y-auto">
-              {!historyClient.payment_attempts || historyClient.payment_attempts.length === 0 ? (
+              {allPaymentsOf(historyClient).length === 0 ? (
                 <div className="py-8 text-center text-xs text-neutral-400">
                   No payment attempts recorded for this client.
                 </div>
               ) : (
                 <div className="divide-y divide-neutral-100 border border-neutral-100 rounded-xl overflow-hidden">
-                  {historyClient.payment_attempts.map((att: PaymentAttempt) => (
+                  {allPaymentsOf(historyClient).map((att) => (
                     <div key={att.id} className="p-3.5 text-xs flex items-start justify-between gap-4">
                       <div>
                         <div className="flex items-center gap-2">
@@ -795,6 +883,7 @@ export default function AdminClientsPage() {
                             ₹{Number(att.amount || 0).toLocaleString("en-IN")}
                           </span>
                           {renderPaymentStatusBadge(att.status)}
+                          <span className="text-[10px] font-semibold uppercase tracking-wider text-neutral-400">{att.label}</span>
                         </div>
                         <div className="text-[11px] text-neutral-500 mt-1 font-mono">
                           {att.gateway_payment_id ? `Payment ID: ${att.gateway_payment_id}` : `Order ID: ${att.gateway_order_id || "N/A"}`}
@@ -821,6 +910,33 @@ export default function AdminClientsPage() {
                 className="px-4 py-2 border rounded-xl text-neutral-600 hover:bg-neutral-50 text-xs"
               >
                 Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE CLIENT CONFIRMATION */}
+      {deleteTarget && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 p-4" onClick={() => !actionLoading && setDeleteTarget(null)}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-4" onClick={(e) => e.stopPropagation()}>
+            <h3 className="font-bold text-neutral-900 flex items-center gap-2">
+              <Trash2 className="w-4 h-4 text-red-500" />
+              Delete {deleteTarget.first_name} {deleteTarget.last_name} ({deleteTarget.client_code})?
+            </h3>
+            <ul className="text-xs text-neutral-600 space-y-1.5 list-disc pl-5">
+              <li>The client disappears from this list and can no longer sign in to the member portal.</li>
+              <li>
+                <strong>Nothing is erased.</strong> Invoices, payments, emails and stay requests are all kept for your records.
+              </li>
+              <li>You can bring the client back any time with the Deleted? filter, then the restore button.</li>
+            </ul>
+            <div className="flex justify-end gap-2 pt-2">
+              <button onClick={() => setDeleteTarget(null)} disabled={actionLoading} className="px-4 py-2 border rounded-xl text-neutral-600 hover:bg-neutral-50 text-xs cursor-pointer">
+                Cancel
+              </button>
+              <button onClick={handleDeleteClient} disabled={actionLoading} className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-semibold disabled:opacity-50 cursor-pointer">
+                {actionLoading ? "Deleting..." : "Delete Client"}
               </button>
             </div>
           </div>

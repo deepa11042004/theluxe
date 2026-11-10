@@ -562,6 +562,7 @@ model Client {
   notes                   String?   @db.Text
   password_hash           String?   @db.VarChar(255) // member-portal login (bcrypt); null until the client sets a password
   password_set_at         DateTime?
+  deleted_at              DateTime? // set when an admin "deletes" the client: hidden and blocked, but every record is kept (restorable)
   created_at              DateTime  @default(now())
   updated_at              DateTime  @updatedAt
 
@@ -577,6 +578,7 @@ model Client {
   @@index([membership_status])
   @@index([latest_payment_status])
   @@index([created_at])
+  @@index([deleted_at])
   @@map("clients")
 }
 
