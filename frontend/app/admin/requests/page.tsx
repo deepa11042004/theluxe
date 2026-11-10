@@ -33,6 +33,7 @@ interface BookingRequest {
   special_requests: string | null;
   status: string;
   admin_notes: string | null;
+  admin_reply: string | null;
   created_at: string;
   client: RequestClient;
 }
@@ -70,6 +71,7 @@ export default function RequestsPage() {
   const [open, setOpen] = useState<BookingRequest | null>(null);
   const [draftStatus, setDraftStatus] = useState("NEW");
   const [draftNotes, setDraftNotes] = useState("");
+  const [draftReply, setDraftReply] = useState("");
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
@@ -101,6 +103,7 @@ export default function RequestsPage() {
     setOpen(r);
     setDraftStatus(r.status);
     setDraftNotes(r.admin_notes || "");
+    setDraftReply(r.admin_reply || "");
     setSaveMsg(null);
   };
 
@@ -112,7 +115,7 @@ export default function RequestsPage() {
       const res = await fetch(`/api/v1/admin/booking-requests/${open.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: draftStatus, admin_notes: draftNotes }),
+        body: JSON.stringify({ status: draftStatus, admin_notes: draftNotes, admin_reply: draftReply }),
       });
       const json = await res.json();
       if (!json.success) throw new Error(json.message || "Could not save.");
@@ -316,6 +319,10 @@ export default function RequestsPage() {
                       </option>
                     ))}
                   </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-neutral-600 mb-1.5">Message to member (shown in their portal, e.g. the hotel you have arranged)</label>
+                  <textarea rows={4} maxLength={2000} value={draftReply} onChange={(e) => setDraftReply(e.target.value)} placeholder="e.g. We have arranged The Oberoi, Shimla for 21 to 28 Nov. Our team will call you with the details." className="w-full border border-[#E39F25]/60 rounded-lg px-3 py-2.5 bg-[#FFFCF5]" />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-neutral-600 mb-1.5">Internal notes (not visible to the member)</label>

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ClipboardList } from "lucide-react";
+import ConciergeReply from "@/components/member/ConciergeReply";
 import { formatDate, isCompletedStay } from "@/components/member/MemberContext";
 
 interface BookingRow {
@@ -18,6 +19,8 @@ interface BookingRow {
   budget: string | null;
   special_requests: string | null;
   status: string;
+  admin_reply: string | null;
+  replied_at: string | null;
   created_at: string;
 }
 
@@ -77,6 +80,7 @@ export default function RequestsPage() {
               {b.budget ? ` · Budget ${b.budget}` : ""}
             </p>
             {b.special_requests && <p className="text-sm text-neutral-500 mt-2 whitespace-pre-line">{b.special_requests}</p>}
+            <ConciergeReply message={b.admin_reply} repliedAt={b.replied_at} />
           </article>
         ))}
       </div>

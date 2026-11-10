@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { History as HistoryIcon, MapPin } from "lucide-react";
+import ConciergeReply from "@/components/member/ConciergeReply";
 import { formatDate, isCompletedStay, nightsBetween } from "@/components/member/MemberContext";
 
 interface BookingRow {
@@ -18,6 +19,8 @@ interface BookingRow {
   budget: string | null;
   special_requests: string | null;
   status: string;
+  admin_reply: string | null;
+  replied_at: string | null;
   created_at: string;
 }
 
@@ -72,6 +75,7 @@ export default function HistoryPage() {
                 {b.children ? `, ${b.children} child${b.children === 1 ? "" : "ren"}` : ""} · {b.rooms} room{b.rooms === 1 ? "" : "s"}
               </p>
               {b.special_requests && <p className="text-sm text-neutral-500 mt-2 whitespace-pre-line">{b.special_requests}</p>}
+            <ConciergeReply message={b.admin_reply} repliedAt={b.replied_at} />
             </article>
           );
         })}

@@ -333,6 +333,8 @@ export async function getBookings(req: Request, res: Response) {
         budget: true,
         special_requests: true,
         status: true,
+        admin_reply: true,
+        replied_at: true,
         created_at: true,
       },
     });

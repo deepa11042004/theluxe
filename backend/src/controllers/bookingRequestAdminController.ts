@@ -82,7 +82,7 @@ export async function getBookingRequestById(req: Request, res: Response) {
 
 export async function updateBookingRequest(req: Request, res: Response) {
   try {
-    const { status, admin_notes } = req.body || {};
+    const { status, admin_notes, admin_reply } = req.body || {};
     const data: any = {};
 
     if (status !== undefined) {
@@ -97,10 +97,17 @@ export async function updateBookingRequest(req: Request, res: Response) {
       }
       data.admin_notes = admin_notes.trim() || null;
     }
+    if (admin_reply !== undefined) {
+      if (typeof admin_reply !== "string" || admin_reply.length > 2000) {
+        return res.status(400).json({ success: false, message: "The message to the member must be text of at most 2000 characters." });
+      }
+      data.admin_reply = admin_reply.trim() || null;
+    }
     if (!Object.keys(data).length) return res.status(400).json({ success: false, message: "Nothing to update." });
 
-    const existing = await prisma.bookingRequest.findUnique({ where: { id: req.params.id }, select: { id: true } });
+    const existing = await prisma.bookingRequest.findUnique({ where: { id: req.params.id }, select: { id: true, admin_reply: true } });
     if (!existing) return res.status(404).json({ success: false, message: "Booking request not found." });
+    if (data.admin_reply !== undefined && data.admin_reply !== existing.admin_reply) data.replied_at = data.admin_reply ? new Date() : null;
 
     const updated = await prisma.bookingRequest.update({
       where: { id: req.params.id },

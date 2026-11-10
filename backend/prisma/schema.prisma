@@ -712,7 +712,9 @@ model BookingRequest {
   contact_phone    String?  @db.VarChar(50)
   special_requests String?  @db.Text
   status           String   @default("NEW") // NEW, IN_PROGRESS, CONFIRMED, CANCELLED
-  admin_notes      String?  @db.Text
+  admin_notes      String?  @db.Text // internal only, never shown to the member
+  admin_reply      String?  @db.Text // message from the concierge, shown to the member in their portal
+  replied_at       DateTime?
   created_at       DateTime @default(now())
   updated_at       DateTime @updatedAt
 
